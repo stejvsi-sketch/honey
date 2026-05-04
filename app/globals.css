@@ -132,20 +132,17 @@ a:hover { color: var(--accent-hover); }
 /* ===== CARD GRID ===== */
 .card-grid {
   display: grid; gap: 40px;
-  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   justify-items: center;
 }
-.card-grid--home { grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); }
+.card-grid--home { grid-template-columns: repeat(3, 1fr); }
 
-@media (min-width: 1024px) {
-  .card-grid { grid-template-columns: repeat(3, 1fr); }
-  .card-grid--home { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 1024px) {
+  .card-grid, .card-grid--home { grid-template-columns: repeat(2, 1fr); gap: 32px; }
 }
-@media (max-width: 768px) {
-  .card-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
-}
-@media (max-width: 480px) {
-  .card-grid { grid-template-columns: 1fr; gap: 20px; }
+
+@media (max-width: 640px) {
+  .card-grid, .card-grid--home { grid-template-columns: 1fr; gap: 24px; }
 }
 
 /* ===== MEMORY CARD ===== */
