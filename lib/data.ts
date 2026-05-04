@@ -86,7 +86,7 @@ export async function getMemoriesByName(nameSlug: string, page: number = 1, limi
   return result;
 }
 
-function getMockMemories(count: number): Memory[] {
+export function getMockMemories(count: number): Memory[] {
   const mocks = [
     { name: 'Olivia', message: 'I remember every single word you said that night under the stars but I was too afraid to tell you that it changed everything inside me forever', color_id: 'dusty-mauve' },
     { name: 'Sarah', message: 'I still think about that rainy Tuesday when you held my hand for the last time', color_id: 'rose-dust' },

@@ -228,6 +228,7 @@ a:hover { color: var(--accent-hover); }
 }
 
 .memory-card__name {
+  position: relative; z-index: 2;
   font-family: var(--font-serif);
   font-size: 1.2rem; font-weight: 600; font-style: italic;
   color: rgba(26, 23, 20, 0.75);
@@ -250,6 +251,12 @@ a:hover { color: var(--accent-hover); }
   display: -webkit-box;
   -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
+}
+.memory-card__message::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
 }
 
 .memory-card__header {
