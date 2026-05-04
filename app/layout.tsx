@@ -1,0 +1,44 @@
+import type { Metadata } from 'next';
+import { Lora, Inter } from 'next/font/google';
+import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from '@/lib/constants';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
+import './globals.css';
+
+const lora = Lora({
+  subsets: ['latin'],
+  variable: '--font-serif',
+  display: 'swap',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: { default: `${SITE_NAME} — Unsent Letters`, template: `%s | ${SITE_NAME}` },
+  description: SITE_DESCRIPTION,
+  keywords: ['unsent letters', 'unsent messages', 'love letters', 'things unsaid', 'anonymous letters'],
+  openGraph: {
+    type: 'website', siteName: SITE_NAME, title: SITE_NAME,
+    description: SITE_DESCRIPTION, url: SITE_URL,
+  },
+  twitter: { card: 'summary_large_image', title: SITE_NAME, description: SITE_DESCRIPTION },
+  robots: { index: true, follow: true },
+  alternates: { canonical: SITE_URL },
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" data-scroll-behavior="smooth" className={`${lora.variable} ${inter.variable}`}>
+      <body>
+        <Navigation />
+        <main>{children}</main>
+        <Footer />
+      </body>
+    </html>
+  );
+}

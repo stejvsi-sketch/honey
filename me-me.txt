@@ -1,0 +1,81 @@
+So, I bought a domain name called HoneyIfOnly.com.
+
+I want you to build a Next.js website called “Honey, If Only.”
+
+It is a website for unsent messages, similar to the Unsent Project.
+
+Tech stack:
+
+1. Vercel for hosting
+2. Supabase for the database
+3. Upstash Redis for rate limiting
+4. Hostinger for the domain
+5. Cloudflare for WAF rules and cache
+
+Note 1: I will be using free tiers initially, so make sure it is built in a way that, no matter how many users it gets, it can scale to millions easily, and when I upgrade in the future, no code changes are needed.
+Note 2: Everything, including the appearance of new memories, literally everything, must be cached for 5 hours.
+Note 3: Keep in mind that for caching, rate limits, and everything else, it should be set up in such a way that if thousands of users are on the site at once, it only hits Supabase once.
+Note 4: Keep in mind the site will reach millions, so make sure it is perfect.
+Note 5: Keep in mind, never trust the client. All API routes should go through a cron secret or whatever is required.
+Note 6: Ban all extreme profanity words like porn, cp, nigga, dick, etc., and allow only 30 percent profanity for words like fuck, etc.
+
+How do I want the site to be?
+
+1. Users can go to the submit page and submit a memory. They will just have to fill in the form from a field and choose a color from a set of 10 colors from a dropdown, then submit it.
+
+2. On the site, there will be a home page and an archive page. On the home page, it will show 6 cards, and on the archive page, it will show all cards. On desktop, it will show 12 cards on the home page.
+
+3. The site will mainly have a Home, Archive, Submit, and How It Works page. On the How It Works page, there will be a dropdown for other pages like Journal, Terms, Privacy, Disclaimer, Contact, and all other pages required for SEO and AdSense.
+
+4. The cards must have a strict word limit of only 25 words max, no more than that. The cards must have a fixed size regardless of what users submit, whether it is one word or many words.
+
+5. The cards must not have any scroll in them. All text must fit even when all words are used. Make sure you handle all edge cases, because what if a user spams a long word? It will overflow, so cover every possible edge case around that.
+
+6. The names must be links themselves that open another page for all names from that card and help with SEO.
+
+7. Cards should also open individually when pressed.
+
+8. On the cards, at the top we will have a name field, and at the bottom our site name. On the individual page for a card, it should also show the time and day.
+
+9. The card size must be big and perfect, and the text should fit accordingly on desktop too.
+
+10. Keep responsiveness in mind across tablet, mobile, and desktop.
+
+Design:
+
+1. I want the site to look raw, vintage, and depressingly beautiful, not shiny, and definitely not dark-themed.
+2. For the cards, I want to use this rough paper: `D:\honey\rough-paper.png`. Scale its size accordingly for cards on desktop, mobile, and tablets. We can reduce its size to around 100 KB or less once, cache it forever after users’ browsers download it, and then use `mix-blend-mode: multiply` so it triggers a compositing layer. On modern devices, this should be handled entirely by the GPU, so it should not lag. Or whatever you want to use, but make sure that even if there are 100 million memories, it does not lag on any device, even low-end ones.
+3. Do not name the archive page “archive”; use something else for that, and do the same for submit and the rest.
+4. For typography, use something that fits the design best.
+5. We are using paper, but how will we give custom colors to each card when users choose? Figure that out.
+
+SEO and AdSense:
+
+1. The site must be SEO-heavy from day one, with internal linking for every page and literally everything you know about SEO and AdSense.
+2. We will have a Journal page for SEO, where we will post blogs for SEO boost and AdSense.
+
+Security:
+
+1. The site must be safe from all kinds of attacks, whether XSS, DDoS, or anything else. It should be fully bulletproof.
+2. Never trust the client.
+
+Admin panel:
+
+1. The site must have a perfect admin panel with actions like pending, approve, ban, delete, reject submission, and all other important actions.
+2. User submissions should go through manual review by an admin.
+3. Capture users’ UUIDs and IPs for banning purposes. The IP must be masked, not raw, and only the country should be shown to the admin, but banning must still work perfectly.
+4. Make sure the admin panel is secured perfectly.
+
+Most important points:
+
+1. Treat this as a highly premium project.
+2. Desktop, mobile, and tablet must have separate code bases, so when I edit one, I do not mess up the others. strictly separate the components. We will build <DesktopCard/>, <MobileCard/>, and <TabletCard/> and conditionally render them based on the viewport. If you break the mobile card, the desktop card remains untouched, but everything deploys together seamlessly
+3. Everything I need to do on my end, tell me how to do it.
+4. Give all SQL with RLS.
+5. Upstash Redis must only allow 6 submits a day per user.
+
+Anything else I missed, take care of it yourself.
+
+These are the main points. I will keep adding more if needed.
+
+Start building. Read carefully first.
