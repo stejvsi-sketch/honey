@@ -150,8 +150,8 @@ a:hover { color: var(--accent-hover); }
 
 /* ===== MEMORY CARD ===== */
 .memory-card {
-  position: relative; width: 100%; max-width: 380px;
-  aspect-ratio: 380 / 480; cursor: pointer;
+  position: relative; width: 100%; max-width: 420px;
+  aspect-ratio: 420 / 520; cursor: pointer;
   transition: transform var(--transition);
 }
 .memory-card:hover {
@@ -202,10 +202,14 @@ a:hover { color: var(--accent-hover); }
   font-size: 1.15rem; line-height: 1.7;
   color: rgba(26, 23, 20, 0.72);
   word-break: break-word;
+  overflow-wrap: break-word;
   overflow: hidden;
   text-align: center;
   padding: 0 4px;
   max-height: 60%;
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
 }
 
 .memory-card__footer {

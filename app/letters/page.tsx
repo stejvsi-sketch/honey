@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
 import { getArchiveMemories } from '@/lib/data';
-import { CACHE_REVALIDATE } from '@/lib/constants';
 import CardRenderer from '@/components/cards/CardRenderer';
 import Link from 'next/link';
 
-export const revalidate = CACHE_REVALIDATE;
+export const revalidate = 18000;
 
 export const metadata: Metadata = {
   title: 'Letters — All Unsent Words',

@@ -15,13 +15,29 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
   }
 
-  const { id, action } = await request.json();
-  if (!id || !action) {
-    return NextResponse.json({ error: 'Missing id or action' }, { status: 400 });
+  const body = await request.json();
+  const { id, action, ip_hash } = body;
+
+  if (!action) {
+    return NextResponse.json({ error: 'Missing action' }, { status: 400 });
   }
 
   const { getSupabaseAdmin } = await import('@/lib/supabase');
   const supabase = getSupabaseAdmin();
+
+  // Unban action uses ip_hash directly, no submission lookup needed
+  if (action === 'unban') {
+    if (!ip_hash) {
+      return NextResponse.json({ error: 'Missing ip_hash for unban' }, { status: 400 });
+    }
+    await supabase.from('banned_users').delete().eq('ip_hash', ip_hash);
+    return NextResponse.json({ success: true });
+  }
+
+  // All other actions require a submission id
+  if (!id) {
+    return NextResponse.json({ error: 'Missing id' }, { status: 400 });
+  }
 
   // Get the submission first
   const { data: submission } = await supabase

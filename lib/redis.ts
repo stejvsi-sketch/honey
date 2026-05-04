@@ -53,10 +53,15 @@ export async function setCache<T>(key: string, data: T, ttl = CACHE_TTL): Promis
 export async function invalidateCache(pattern: string): Promise<void> {
   try {
     const r = getRedis();
-    const keys = await r.keys(`hio:cache:${pattern}`);
-    if (keys.length > 0) {
-      await r.del(...keys);
-    }
+    let cursor = 0 as number | string;
+    do {
+      const result = await r.scan(cursor as number, { match: `hio:cache:${pattern}`, count: 100 });
+      cursor = Number(result[0]);
+      const keys = result[1] as string[];
+      if (keys.length > 0) {
+        await r.del(...keys);
+      }
+    } while (cursor !== 0);
   } catch {
     // Cache invalidation failure is non-fatal
   }

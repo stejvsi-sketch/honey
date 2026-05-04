@@ -6,16 +6,18 @@ import { CARD_COLORS, MAX_WORDS } from '@/lib/constants';
 export default function SubmitForm() {
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
-  const [colorId, setColorId] = useState(CARD_COLORS[0].id);
+  const [colorId, setColorId] = useState<string>(CARD_COLORS[0].id);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
 
-  const wordCount = message.trim().split(/\s+/).filter(w => w.length > 0).length;
+  const words = message.trim().split(/\s+/).filter(w => w.length > 0);
+  const wordCount = words.length;
   const isOverLimit = wordCount > MAX_WORDS;
+  const hasLongWord = words.some(w => w.length > 20);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (isOverLimit || !name.trim() || !message.trim()) return;
+    if (isOverLimit || hasLongWord || !name.trim() || !message.trim()) return;
     setStatus('submitting');
     setErrorMsg('');
 
@@ -74,6 +76,9 @@ export default function SubmitForm() {
         <p className={`form__word-count ${isOverLimit ? 'form__word-count--over' : ''}`}>
           {wordCount} / {MAX_WORDS} words
         </p>
+        {hasLongWord && (
+          <p className="form__error">Each word must be 20 characters or less.</p>
+        )}
       </div>
 
       <div className="form__group">
@@ -94,7 +99,7 @@ export default function SubmitForm() {
 
       {errorMsg && <p className="form__error">{errorMsg}</p>}
 
-      <button className="btn" type="submit" disabled={status === 'submitting' || isOverLimit || !name.trim() || !message.trim()}>
+      <button className="btn" type="submit" disabled={status === 'submitting' || isOverLimit || hasLongWord || !name.trim() || !message.trim()}>
         {status === 'submitting' ? 'Sending...' : 'Send This Letter'}
       </button>
       <p className="form__hint" style={{ textAlign: 'center', marginTop: 12 }}>

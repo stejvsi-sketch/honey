@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { CACHE_REVALIDATE } from '@/lib/constants';
 
-export const revalidate = CACHE_REVALIDATE;
+export const revalidate = 18000;
 
 export const metadata: Metadata = {
   title: 'Journal — Thoughts on Love, Loss & Letters',

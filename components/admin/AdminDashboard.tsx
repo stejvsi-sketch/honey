@@ -7,11 +7,17 @@ interface Submission {
   status: string; ip_hash: string; country: string; user_uuid: string; created_at: string;
 }
 
+interface BannedUser {
+  id: string; ip_hash: string; user_uuid: string;
+  country: string; reason: string; created_at: string;
+}
+
 interface Stats { total_memories: number; total_pending: number; total_rejected: number; total_banned: number; }
 
 export default function AdminDashboard({ secret }: { secret: string }) {
   const [tab, setTab] = useState<'pending' | 'approved' | 'rejected' | 'banned'>('pending');
   const [submissions, setSubmissions] = useState<Submission[]>([]);
+  const [bannedUsers, setBannedUsers] = useState<BannedUser[]>([]);
   const [stats, setStats] = useState<Stats>({ total_memories: 0, total_pending: 0, total_rejected: 0, total_banned: 0 });
   const [loading, setLoading] = useState(true);
 
@@ -20,12 +26,18 @@ export default function AdminDashboard({ secret }: { secret: string }) {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const [subsRes, statsRes] = await Promise.all([
-        fetch(`/api/admin/submissions?status=${tab}`, { headers }),
-        fetch('/api/admin/stats', { headers }),
-      ]);
-      if (subsRes.ok) setSubmissions(await subsRes.json());
+      const statsRes = await fetch('/api/admin/stats', { headers });
       if (statsRes.ok) setStats(await statsRes.json());
+
+      if (tab === 'banned') {
+        const bannedRes = await fetch('/api/admin/banned', { headers });
+        if (bannedRes.ok) setBannedUsers(await bannedRes.json());
+        setSubmissions([]);
+      } else {
+        const subsRes = await fetch(`/api/admin/submissions?status=${tab}`, { headers });
+        if (subsRes.ok) setSubmissions(await subsRes.json());
+        setBannedUsers([]);
+      }
     } catch (e) { console.error(e); }
     setLoading(false);
   }, [tab, secret]);
@@ -36,6 +48,15 @@ export default function AdminDashboard({ secret }: { secret: string }) {
     await fetch('/api/admin/action', {
       method: 'POST', headers,
       body: JSON.stringify({ id, action }),
+    });
+    fetchData();
+  }
+
+  async function handleUnban(ipHash: string) {
+    // Delete from banned_users via a direct action
+    await fetch('/api/admin/action', {
+      method: 'POST', headers,
+      body: JSON.stringify({ ip_hash: ipHash, action: 'unban' }),
     });
     fetchData();
   }
@@ -77,48 +98,83 @@ export default function AdminDashboard({ secret }: { secret: string }) {
         ))}
       </div>
 
-      {/* Submissions list */}
+      {/* Content */}
       {loading ? (
         <p style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>Loading...</p>
-      ) : submissions.length === 0 ? (
-        <p style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>No {tab} submissions.</p>
-      ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          {submissions.map(sub => (
-            <div key={sub.id} style={{
-              padding: 20, border: '1px solid var(--border-light)', borderRadius: 'var(--radius)',
-              background: 'rgba(255,255,255,0.3)',
-            }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12 }}>
-                <div style={{ flex: 1, minWidth: 200 }}>
-                  <div style={{ fontFamily: 'var(--font-serif)', fontWeight: 600, marginBottom: 4 }}>
-                    To {sub.name}
+      ) : tab === 'banned' ? (
+        /* Banned users list */
+        bannedUsers.length === 0 ? (
+          <p style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>No banned users.</p>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {bannedUsers.map(user => (
+              <div key={user.id} style={{
+                padding: 20, border: '1px solid var(--border-light)', borderRadius: 'var(--radius)',
+                background: 'rgba(255,255,255,0.3)',
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12 }}>
+                  <div style={{ flex: 1, minWidth: 200 }}>
+                    <div style={{ fontFamily: 'var(--font-serif)', fontWeight: 600, marginBottom: 4 }}>
+                      Banned User
+                    </div>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: 4 }}>
+                      Reason: {user.reason}
+                    </div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-light)' }}>
+                      Country: {user.country} · IP: {user.ip_hash.slice(0, 12)}... · UUID: {user.user_uuid?.slice(0, 8) || 'N/A'}... · {new Date(user.created_at).toLocaleDateString()}
+                    </div>
                   </div>
-                  <div style={{ color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: 8 }}>
-                    &ldquo;{sub.message}&rdquo;
+                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                    <button className="btn btn--outline" style={{ width: 'auto', padding: '6px 16px', fontSize: '0.8rem' }}
+                      onClick={() => handleUnban(user.ip_hash)}>Unban</button>
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-light)' }}>
-                    Color: {sub.color_id} · Country: {sub.country} · IP: {sub.ip_hash.slice(0, 12)}... · {new Date(sub.created_at).toLocaleDateString()}
-                  </div>
-                </div>
-                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                  {tab === 'pending' && (
-                    <>
-                      <button className="btn" style={{ width: 'auto', padding: '6px 16px', fontSize: '0.8rem' }}
-                        onClick={() => handleAction(sub.id, 'approve')}>Approve</button>
-                      <button className="btn btn--outline" style={{ width: 'auto', padding: '6px 16px', fontSize: '0.8rem' }}
-                        onClick={() => handleAction(sub.id, 'reject')}>Reject</button>
-                    </>
-                  )}
-                  <button className="btn btn--outline" style={{ width: 'auto', padding: '6px 16px', fontSize: '0.8rem', borderColor: '#a8432b', color: '#a8432b' }}
-                    onClick={() => handleAction(sub.id, 'ban')}>Ban User</button>
-                  <button className="btn btn--outline" style={{ width: 'auto', padding: '6px 16px', fontSize: '0.8rem' }}
-                    onClick={() => handleAction(sub.id, 'delete')}>Delete</button>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )
+      ) : (
+        /* Submissions list */
+        submissions.length === 0 ? (
+          <p style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>No {tab} submissions.</p>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {submissions.map(sub => (
+              <div key={sub.id} style={{
+                padding: 20, border: '1px solid var(--border-light)', borderRadius: 'var(--radius)',
+                background: 'rgba(255,255,255,0.3)',
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12 }}>
+                  <div style={{ flex: 1, minWidth: 200 }}>
+                    <div style={{ fontFamily: 'var(--font-serif)', fontWeight: 600, marginBottom: 4 }}>
+                      To {sub.name}
+                    </div>
+                    <div style={{ color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: 8 }}>
+                      &ldquo;{sub.message}&rdquo;
+                    </div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-light)' }}>
+                      Color: {sub.color_id} · Country: {sub.country} · IP: {sub.ip_hash.slice(0, 12)}... · {new Date(sub.created_at).toLocaleDateString()}
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                    {tab === 'pending' && (
+                      <>
+                        <button className="btn" style={{ width: 'auto', padding: '6px 16px', fontSize: '0.8rem' }}
+                          onClick={() => handleAction(sub.id, 'approve')}>Approve</button>
+                        <button className="btn btn--outline" style={{ width: 'auto', padding: '6px 16px', fontSize: '0.8rem' }}
+                          onClick={() => handleAction(sub.id, 'reject')}>Reject</button>
+                      </>
+                    )}
+                    <button className="btn btn--outline" style={{ width: 'auto', padding: '6px 16px', fontSize: '0.8rem', borderColor: '#a8432b', color: '#a8432b' }}
+                      onClick={() => handleAction(sub.id, 'ban')}>Ban User</button>
+                    <button className="btn btn--outline" style={{ width: 'auto', padding: '6px 16px', fontSize: '0.8rem' }}
+                      onClick={() => handleAction(sub.id, 'delete')}>Delete</button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )
       )}
     </div>
   );

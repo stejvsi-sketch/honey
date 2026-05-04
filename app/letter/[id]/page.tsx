@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getMemoryById } from '@/lib/data';
-import { CACHE_REVALIDATE, CARD_COLORS, SITE_NAME } from '@/lib/constants';
+import { CARD_COLORS, SITE_NAME } from '@/lib/constants';
 import Link from 'next/link';
 
-export const revalidate = CACHE_REVALIDATE;
+export const revalidate = 18000;
 
 export async function generateMetadata(props: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await props.params;

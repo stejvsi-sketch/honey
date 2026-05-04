@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { getHomeMemories } from '@/lib/data';
-import { SITE_NAME, CACHE_REVALIDATE } from '@/lib/constants';
-import CardRenderer from '@/components/cards/CardRenderer';
+import { SITE_NAME } from '@/lib/constants';
+import HomeCardGrid from '@/components/cards/HomeCardGrid';
 
-export const revalidate = CACHE_REVALIDATE;
+export const revalidate = 18000;
 
 export default async function HomePage() {
   const memories = await getHomeMemories(12);
@@ -15,11 +15,7 @@ export default async function HomePage() {
           <h1 className="page__title" style={{ fontSize: '1.5rem' }}>Recent Letters</h1>
           <p className="page__subtitle">Fragments of love, regret, and everything left unsaid</p>
         </div>
-        <div className="card-grid card-grid--home">
-          {memories.map(memory => (
-            <CardRenderer key={memory.id} memory={memory} />
-          ))}
-        </div>
+        <HomeCardGrid memories={memories} />
         <div style={{ textAlign: 'center', marginTop: 40 }}>
           <Link href="/letters" className="btn btn--outline" style={{ width: 'auto', display: 'inline-flex' }}>
             See All Letters →

@@ -18,7 +18,11 @@ export const submitMemorySchema = z.object({
     .refine((val) => {
       const wordCount = val.split(/\s+/).filter(w => w.length > 0).length;
       return wordCount <= MAX_WORDS;
-    }, `Message must be ${MAX_WORDS} words or less`),
+    }, `Message must be ${MAX_WORDS} words or less`)
+    .refine((val) => {
+      const words = val.split(/\s+/).filter(w => w.length > 0);
+      return words.every(w => w.length <= 20);
+    }, 'Each word must be 20 characters or less'),
   color_id: z.enum(validColorIds),
 });
 

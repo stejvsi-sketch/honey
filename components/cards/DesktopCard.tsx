@@ -7,7 +7,7 @@ export default function DesktopCard({ memory }: { memory: Memory }) {
   const hex = color?.hex || '#f5e6d0';
 
   return (
-    <div className="memory-card card-animate" style={{ maxWidth: 380 }}>
+    <div className="memory-card card-animate" style={{ maxWidth: 420 }}>
       <div className="memory-card__bg">
         <div className="memory-card__color" style={{ backgroundColor: hex }} />
         <div className="memory-card__texture" />
