@@ -3,17 +3,17 @@
   --font-sans: 'Inter', -apple-system, sans-serif;
 
   /* Depressingly beautiful — muted, cold, somber */
-  --bg: #e8e4df;
-  --bg-cold: #ddd9d3;
+  --bg: #b8b3ad;
+  --bg-cold: #ada8a1;
   --text: #1a1714;
-  --text-muted: #4a433b;
-  --text-light: #7d746a;
-  --text-faint: #a89e93;
-  --accent: #5c4a3a;
+  --text-muted: #3a342d;
+  --text-light: #5c554d;
+  --text-faint: #7d756b;
+  --accent: #4a3c2e;
   --accent-hover: #3d2e20;
-  --border: #c4bdb3;
-  --border-light: #d6d0c8;
-  --card-shadow: 0 4px 20px rgba(26, 23, 20, 0.1);
+  --border: #9e978d;
+  --border-light: #a8a29a;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1);
 
   --nav-height: 64px;
   --max-width: 1400px;
@@ -44,7 +44,7 @@ a:hover { color: var(--accent-hover); }
 /* ===== NAVIGATION ===== */
 .nav {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(232, 228, 223, 0.88);
+  background: rgba(184, 179, 173, 0.88);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-light);
   height: var(--nav-height);
@@ -150,9 +150,11 @@ a:hover { color: var(--accent-hover); }
   position: relative; width: 100%; max-width: 420px;
   aspect-ratio: 420 / 520; cursor: pointer;
   transition: transform var(--transition);
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.18));
 }
 .memory-card:hover {
-  transform: translateY(-3px) rotate(-0.3deg);
+  transform: translateY(-2px) rotate(-0.3deg);
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.22));
 }
 
 /* Clip the entire card background to the paper shape */
@@ -168,10 +170,10 @@ a:hover { color: var(--accent-hover); }
   mask-repeat: no-repeat;
 }
 .memory-card__color {
-  position: absolute; inset: 0;
+  position: absolute; inset: 4px;
 }
 .memory-card__texture {
-  position: absolute; inset: 0;
+  position: absolute; inset: -20px;
   background-image: url('/textures/rough-paper.webp');
   background-size: 100% 100%; background-position: center;
   background-repeat: no-repeat;
