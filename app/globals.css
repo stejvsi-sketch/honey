@@ -2,17 +2,17 @@
   --font-serif: 'Lora', 'Georgia', serif;
   --font-sans: 'Inter', -apple-system, sans-serif;
 
-  /* Depressingly beautiful — muted, cold, somber */
-  --bg: #b8b3ad;
-  --bg-cold: #ada8a1;
+  /* Off-white greyish, melancholic but lighter */
+  --bg: #dad7d1;
+  --bg-cold: #cecbc4;
   --text: #1a1714;
   --text-muted: #3a342d;
   --text-light: #5c554d;
   --text-faint: #7d756b;
   --accent: #4a3c2e;
   --accent-hover: #3d2e20;
-  --border: #9e978d;
-  --border-light: #a8a29a;
+  --border: #bfbcb4;
+  --border-light: #cfccc4;
   --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1);
 
   --nav-height: 64px;
@@ -44,7 +44,7 @@ a:hover { color: var(--accent-hover); }
 /* ===== NAVIGATION ===== */
 .nav {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(184, 179, 173, 0.88);
+  background: rgba(218, 215, 209, 0.88);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-light);
   height: var(--nav-height);
