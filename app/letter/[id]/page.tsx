@@ -31,7 +31,7 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
   return (
     <div className="letter-single">
       <div className="letter-single__card">
-        <div className="memory-card card-animate" style={{ maxWidth: 420, margin: '0 auto' }}>
+        <div className="memory-card card-animate" style={{ margin: '0 auto' }}>
           <div className="memory-card__bg">
             <div className="memory-card__color" style={{ backgroundColor: hex }} />
             <div className="memory-card__texture" />
