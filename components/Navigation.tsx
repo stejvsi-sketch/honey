@@ -66,7 +66,7 @@ export default function Navigation() {
                 aria-expanded={dropdownOpen}
                 aria-haspopup="true"
               >
-                More ▾
+                How It Works ▾
               </button>
               <div className={`dropdown__menu ${dropdownOpen ? '' : ''}`}
                 style={dropdownOpen ? { opacity: 1, visibility: 'visible', transform: 'translateY(0)' } : {}}

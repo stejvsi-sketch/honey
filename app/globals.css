@@ -55,7 +55,7 @@ a:hover { color: var(--accent-hover); }
   display: flex; align-items: center; justify-content: space-between;
 }
 .nav__logo {
-  font-family: var(--font-serif); font-size: 1.25rem;
+  font-family: var(--font-serif); font-size: 1.9rem;
   font-weight: 600; color: var(--text);
   letter-spacing: -0.02em;
 }
@@ -266,7 +266,7 @@ a:hover { color: var(--accent-hover); }
 }
 .memory-card__brand {
   font-family: var(--font-serif);
-  font-size: 0.85rem; color: rgba(26, 23, 20, 0.55);
+  font-size: 1rem; color: rgba(26, 23, 20, 0.55);
   letter-spacing: 0.15em; text-transform: lowercase;
   font-style: italic;
   display: inline-block;
@@ -451,8 +451,17 @@ a:hover { color: var(--accent-hover); }
 /* ===== DROPDOWN (How It Works sub-pages) ===== */
 .dropdown { position: relative; }
 .dropdown__trigger {
-  display: flex; align-items: center; gap: 4px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 4px; cursor: pointer;
+  background: transparent; border: none;
+  font-family: var(--font-sans);
+  font-size: 0.8rem; font-weight: 400;
+  color: var(--text-muted); letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 0;
+  line-height: 1.6;
+  transition: color var(--transition);
 }
+.dropdown__trigger:hover { color: var(--text); }
 .dropdown__menu {
   position: absolute; top: calc(100% + 8px); right: 0;
   background: var(--bg); border: 1px solid var(--border);
