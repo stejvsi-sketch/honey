@@ -9,9 +9,12 @@ export const revalidate = 18000;
 export async function generateMetadata(props: { params: Promise<{ name: string }> }): Promise<Metadata> {
   const { name } = await props.params;
   const displayName = decodeURIComponent(name).replace(/-/g, ' ');
+  const isRealName = displayName.replace(/\s/g, '').length >= 3;
+
   return {
     title: `Letters to ${displayName}`,
     description: `Read all unsent letters written to ${displayName} on ${SITE_NAME}.`,
+    ...(isRealName ? {} : { robots: { index: false, follow: false } }),
   };
 }
 

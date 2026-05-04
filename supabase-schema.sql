@@ -5,6 +5,8 @@
 
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+-- Enable pg_trgm for fast name search (ILIKE)
+CREATE EXTENSION IF NOT EXISTS "pg_trgm";
 
 -- ============================================
 -- 1. MEMORIES TABLE (approved, public letters)
@@ -18,9 +20,11 @@ CREATE TABLE memories (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Index for fast queries
+-- Indexes for fast queries
 CREATE INDEX idx_memories_slug ON memories(slug);
 CREATE INDEX idx_memories_created_at ON memories(created_at DESC);
+-- Trigram index for fast ILIKE name search (used by /api/letters?search=)
+CREATE INDEX idx_memories_name_trgm ON memories USING gin (name gin_trgm_ops);
 
 -- RLS: Anyone can read, nobody can write (service role only)
 ALTER TABLE memories ENABLE ROW LEVEL SECURITY;

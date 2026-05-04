@@ -60,8 +60,11 @@ export async function getMemoryById(id: string): Promise<Memory | null> {
 
 export async function getMemoriesByName(nameSlug: string, page: number = 1, limit: number = 24): Promise<{ memories: Memory[]; total: number; displayName: string }> {
   if (!isConfigured()) {
-    const mocks = getMockMemories(limit).map(m => ({ ...m, slug: nameSlug }));
-    return { memories: mocks, total: 50, displayName: nameSlug.replace(/-/g, ' ') };
+    const allMocks = getMockMemories(13);
+    const matching = allMocks.filter(m => m.slug === nameSlug);
+    const displayName = matching.length > 0 ? matching[0].name : nameSlug.replace(/-/g, ' ');
+    const from = (page - 1) * limit;
+    return { memories: matching.slice(from, from + limit), total: matching.length, displayName };
   }
   const cacheKey = `name:${nameSlug}:${page}`;
   if (isRedisConfigured()) {
@@ -85,6 +88,7 @@ export async function getMemoriesByName(nameSlug: string, page: number = 1, limi
 
 function getMockMemories(count: number): Memory[] {
   const mocks = [
+    { name: 'Olivia', message: 'I remember every single word you said that night under the stars but I was too afraid to tell you that it changed everything inside me forever', color_id: 'dusty-mauve' },
     { name: 'Sarah', message: 'I still think about that rainy Tuesday when you held my hand for the last time', color_id: 'rose-dust' },
     { name: 'James', message: 'You were right about everything and I was too proud to say it', color_id: 'faded-denim' },
     { name: 'Luna', message: 'I wrote you seventeen letters and burned them all', color_id: 'lavender-haze' },

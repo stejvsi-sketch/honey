@@ -29,7 +29,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         .order('created_at', { ascending: false });
 
       if (names) {
-        const uniqueSlugs = [...new Set(names.map(n => n.slug))];
+        const uniqueSlugs = [...new Set(names.map(n => n.slug))]
+          .filter(slug => slug.replace(/-/g, '').length >= 3);
         dynamicEntries.push(
           ...uniqueSlugs.map(slug => ({
             url: `${SITE_URL}/to/${slug}`,
