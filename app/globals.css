@@ -380,21 +380,36 @@ a:hover { color: var(--accent-hover); }
 /* ===== FOOTER ===== */
 .footer {
   border-top: 1px solid var(--border-light);
-  padding: 40px 24px; text-align: center;
+  padding: 64px 24px 48px; text-align: center;
   margin-top: 80px;
 }
 .footer__inner { max-width: var(--max-width); margin: 0 auto; }
 .footer__brand {
-  font-family: var(--font-serif); font-size: 1rem;
-  font-weight: 600; color: var(--text-muted); margin-bottom: 12px;
+  font-family: var(--font-serif); font-size: 1.2rem;
+  font-weight: 400; font-style: italic; color: var(--text-muted);
+  margin-bottom: 24px; letter-spacing: 0.02em;
 }
 .footer__links {
   display: flex; flex-wrap: wrap; justify-content: center;
-  gap: 20px; list-style: none; margin-bottom: 16px;
+  gap: 16px 32px; list-style: none; margin-bottom: 32px;
 }
-.footer__link { font-size: 0.8rem; color: var(--text-faint); }
+.footer__link {
+  font-size: 0.75rem; color: var(--text-faint);
+  text-transform: uppercase; letter-spacing: 0.05em;
+  transition: color var(--transition);
+}
 .footer__link:hover { color: var(--text-muted); }
-.footer__copy { font-size: 0.75rem; color: var(--text-faint); }
+.footer__copy {
+  font-size: 0.75rem; color: rgba(125, 117, 107, 0.6);
+  font-style: italic;
+}
+
+@media (max-width: 640px) {
+  .footer { padding: 48px 24px 40px; margin-top: 64px; }
+  .footer__links { flex-direction: column; gap: 16px; align-items: center; }
+  .footer__brand { margin-bottom: 32px; font-size: 1.3rem; }
+  .footer__link { font-size: 0.8rem; letter-spacing: 0.08em; }
+}
 
 /* ===== INDIVIDUAL LETTER PAGE ===== */
 .letter-single {
