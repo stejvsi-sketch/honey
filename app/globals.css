@@ -162,11 +162,11 @@ a:hover { color: var(--accent-hover); }
 .memory-card__bg {
   position: absolute; inset: 0;
   -webkit-mask-image: url('/textures/rough-paper.webp');
-  -webkit-mask-size: 92% 94%;
+  -webkit-mask-size: 100% 100%;
   -webkit-mask-position: center;
   -webkit-mask-repeat: no-repeat;
   mask-image: url('/textures/rough-paper.webp');
-  mask-size: 92% 94%;
+  mask-size: 100% 100%;
   mask-position: center;
   mask-repeat: no-repeat;
 }
@@ -176,7 +176,7 @@ a:hover { color: var(--accent-hover); }
 .memory-card__texture {
   position: absolute; inset: 0;
   background-image: url('/textures/rough-paper.webp');
-  background-size: 92% 94%; background-position: center;
+  background-size: 100% 100%; background-position: center;
   background-repeat: no-repeat;
   mix-blend-mode: multiply;
   will-change: transform;
