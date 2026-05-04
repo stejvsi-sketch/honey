@@ -24,10 +24,9 @@ export default async function HomePage() {
       </section>
 
       <section className="hero">
-        <h2 className="hero__title">The words you never said.</h2>
+        <h2 className="hero__title">The words you couldn&apos;t say.</h2>
         <p className="hero__subtitle">
-          A quiet place for unsent letters — the things you wished you&apos;d told them,
-          written on paper that will never reach their hands.
+          An archive for all the things left unspoken.
         </p>
         <div className="hero__cta">
           <Link href="/write" className="btn">Write a Letter</Link>
