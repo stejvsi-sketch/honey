@@ -40,6 +40,9 @@ export default function Navigation() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const activeMoreLink = MORE_LINKS.find(link => pathname === link.href || pathname.startsWith(link.href + '/'));
+  const dropdownLabel = activeMoreLink ? activeMoreLink.label : 'More';
+
   return (
     <nav className="nav" role="navigation" aria-label="Main navigation">
       <div className="nav__inner">
@@ -61,12 +64,12 @@ export default function Navigation() {
           <li>
             <div className="dropdown" ref={dropdownRef}>
               <button
-                className="dropdown__trigger nav__link"
+                className={`dropdown__trigger nav__link ${activeMoreLink ? 'nav__link--active' : ''}`}
                 onClick={() => setDropdownOpen(!dropdownOpen)}
                 aria-expanded={dropdownOpen}
                 aria-haspopup="true"
               >
-                How It Works ▾
+                {dropdownLabel} ▾
               </button>
               <div className={`dropdown__menu ${dropdownOpen ? '' : ''}`}
                 style={dropdownOpen ? { opacity: 1, visibility: 'visible', transform: 'translateY(0)' } : {}}
