@@ -13,6 +13,9 @@ export default function DesktopCard({ memory }: { memory: Memory }) {
         <div className="memory-card__texture" />
       </div>
       <div className="memory-card__content">
+        <div className="memory-card__header">
+          <span className="memory-card__brand">{SITE_NAME.toLowerCase()}</span>
+        </div>
         <Link href={`/to/${memory.slug}`} className="memory-card__name"
           onClick={(e) => e.stopPropagation()}>
           To {memory.name}
@@ -21,9 +24,6 @@ export default function DesktopCard({ memory }: { memory: Memory }) {
           style={{ textDecoration: 'none', color: 'inherit' }}>
           <span>{memory.message}</span>
         </Link>
-        <div className="memory-card__footer">
-          <span className="memory-card__brand">{SITE_NAME.toLowerCase()}</span>
-        </div>
       </div>
     </div>
   );

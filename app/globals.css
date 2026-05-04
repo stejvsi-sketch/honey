@@ -182,11 +182,12 @@ a:hover { color: var(--accent-hover); }
 }
 
 .memory-card__content {
-  position: relative; z-index: 1;
+  position: relative;
   display: flex; flex-direction: column;
   justify-content: center; align-items: center;
   height: 100%; padding: 32px 28px;
   text-align: center;
+  mix-blend-mode: multiply;
 }
 
 .memory-card__name {
@@ -214,15 +215,24 @@ a:hover { color: var(--accent-hover); }
   -webkit-box-orient: vertical;
 }
 
-.memory-card__footer {
-  position: absolute; bottom: 28px; left: 0; right: 0;
+.memory-card__header {
+  position: absolute; top: 24px; left: 0; right: 0;
   text-align: center;
 }
 .memory-card__brand {
   font-family: var(--font-serif);
-  font-size: 0.6rem; color: rgba(26, 23, 20, 0.3);
-  letter-spacing: 0.1em; text-transform: lowercase;
+  font-size: 0.85rem; color: rgba(26, 23, 20, 0.55);
+  letter-spacing: 0.15em; text-transform: lowercase;
   font-style: italic;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+.memory-card__brand::after {
+  content: '';
+  display: block;
+  width: 36px; height: 1px;
+  background: rgba(26, 23, 20, 0.25);
+  margin: 10px auto 0;
 }
 
 /* Tablet card adjustments */
