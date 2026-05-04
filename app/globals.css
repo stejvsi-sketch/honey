@@ -77,37 +77,21 @@ a:hover { color: var(--accent-hover); }
 .nav__link--active { color: var(--text); font-weight: 500; }
 .nav__link--active::after { width: 100%; }
 
-/* Mobile nav toggle */
-.nav__toggle {
-  display: none; background: none; border: none; cursor: pointer;
-  width: 32px; height: 32px; position: relative;
-}
-.nav__toggle span {
-  display: block; width: 20px; height: 1.5px;
-  background: var(--text); position: absolute; left: 6px;
-  transition: var(--transition);
-}
-.nav__toggle span:nth-child(1) { top: 10px; }
-.nav__toggle span:nth-child(2) { top: 15px; }
-.nav__toggle span:nth-child(3) { top: 20px; }
+/* Mobile nav toggle — hidden, nav is always inline */
+.nav__toggle { display: none; }
 
-/* Mobile menu */
-.nav__mobile {
-  display: none; position: fixed; top: var(--nav-height);
-  left: 0; right: 0; bottom: 0;
-  background: var(--bg); padding: 32px 24px;
-  flex-direction: column; gap: 24px;
-  animation: fadeIn 0.2s ease;
-}
-.nav__mobile--open { display: flex; }
-.nav__mobile .nav__link {
-  font-size: 1.1rem; padding: 8px 0;
-  border-bottom: 1px solid var(--border-light);
-}
+/* Mobile menu — not used, nav links always visible */
+.nav__mobile { display: none; }
 
 @media (max-width: 768px) {
-  .nav__links { display: none; }
-  .nav__toggle { display: block; }
+  .nav__links { gap: 20px; }
+  .nav__link { font-size: 0.7rem; letter-spacing: 0.05em; }
+  .nav__logo { font-size: 1.3rem; }
+}
+@media (max-width: 480px) {
+  .nav__links { gap: 14px; }
+  .nav__link { font-size: 0.6rem; letter-spacing: 0.03em; }
+  .nav__logo { font-size: 1.1rem; }
 }
 
 /* ===== PAGE LAYOUT ===== */
@@ -481,6 +465,13 @@ a:hover { color: var(--accent-hover); }
   transition: background var(--transition);
 }
 .dropdown__item:hover { background: var(--bg-cold); color: var(--text); }
+
+@media (max-width: 768px) {
+  .dropdown__trigger { font-size: 0.7rem; letter-spacing: 0.05em; }
+}
+@media (max-width: 480px) {
+  .dropdown__trigger { font-size: 0.6rem; letter-spacing: 0.03em; }
+}
 
 /* ===== ANIMATIONS ===== */
 @keyframes fadeIn {
