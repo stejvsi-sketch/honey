@@ -37,13 +37,13 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
             <div className="memory-card__texture" />
           </div>
           <div className="memory-card__content">
+            <div className="memory-card__header">
+              <span className="memory-card__brand">{SITE_NAME.toLowerCase()}</span>
+            </div>
             <Link href={`/to/${memory.slug}`} className="memory-card__name">
               To {memory.name}
             </Link>
             <div className="memory-card__message"><span>{memory.message}</span></div>
-            <div className="memory-card__footer">
-              <span className="memory-card__brand">{SITE_NAME.toLowerCase()}</span>
-            </div>
           </div>
         </div>
       </div>
