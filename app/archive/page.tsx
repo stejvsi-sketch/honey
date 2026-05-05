@@ -58,9 +58,7 @@ export default async function ArchiveDirectoryPage() {
             <ul style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '16px', listStyle: 'none', padding: 0 }}>
               {grouped[letter].map(stat => (
                 <li key={stat.slug}>
-                  <Link href={`/to/${stat.slug}`} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', textDecoration: 'none', color: 'var(--text)', padding: '12px', background: 'rgba(0,0,0,0.02)', borderRadius: 'var(--radius)', transition: 'background 0.2s' }}
-                  onMouseOver={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.05)'}
-                  onMouseOut={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.02)'}>
+                  <Link href={`/to/${stat.slug}`} className="archive-link">
                     <span style={{ fontWeight: 500 }}>{stat.name}</span>
                     <span style={{ fontSize: '0.8rem', color: 'var(--text-light)', background: 'var(--bg)', padding: '2px 6px', borderRadius: '4px' }}>
                       {stat.count}

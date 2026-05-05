@@ -584,5 +584,45 @@ a:hover { color: var(--accent-hover); }
 }
 @keyframes pinDrop {
   from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
-  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+.archive-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text);
+  padding: 12px;
+  background: rgba(0,0,0,0.02);
+  border-radius: var(--radius);
+  transition: background 0.2s;
+}
+.archive-link:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+.trending-tag {
+  padding: 8px 16px;
+  background: rgba(0,0,0,0.03);
+  border-radius: 20px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+.trending-tag:hover {
+  background: rgba(0,0,0,0.06);
+}
+
+.related-tag {
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+.related-tag:hover {
+  border-color: var(--text);
+  color: var(--text);
 }

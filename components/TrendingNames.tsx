@@ -22,17 +22,7 @@ export default async function TrendingNames({ limit = 8 }: { limit?: number }) {
           <Link 
             key={stat.slug} 
             href={`/to/${stat.slug}`}
-            style={{
-              padding: '8px 16px',
-              background: 'rgba(0,0,0,0.03)',
-              borderRadius: '20px',
-              color: 'var(--text)',
-              textDecoration: 'none',
-              fontSize: '0.9rem',
-              transition: 'background 0.2s'
-            }}
-            onMouseOver={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.06)'}
-            onMouseOut={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.03)'}
+            className="trending-tag"
           >
             {stat.name} <span style={{ opacity: 0.5, fontSize: '0.8rem', marginLeft: '4px' }}>{stat.count}</span>
           </Link>

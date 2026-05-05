@@ -27,17 +27,7 @@ export default async function RelatedNames({ currentName, currentSlug, limit = 8
           <Link 
             key={stat.slug} 
             href={`/to/${stat.slug}`}
-            style={{
-              padding: '6px 14px',
-              border: '1px solid var(--border)',
-              borderRadius: '20px',
-              color: 'var(--text-muted)',
-              textDecoration: 'none',
-              fontSize: '0.85rem',
-              transition: 'all 0.2s'
-            }}
-            onMouseOver={(e) => { e.currentTarget.style.borderColor = 'var(--text)'; e.currentTarget.style.color = 'var(--text)'; }}
-            onMouseOut={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--text-muted)'; }}
+            className="related-tag"
           >
             {stat.name}
           </Link>
