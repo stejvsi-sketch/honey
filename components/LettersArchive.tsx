@@ -156,13 +156,15 @@ export default function LettersArchive() {
 
   return (
     <>
-      {/* Dynamic count subtitle (Fix 6) */}
-      <p className="page__subtitle" style={{ marginTop: -36, marginBottom: 36 }}>
-        {total > 0
-          ? <>{total.toLocaleString()} {total === 1 ? 'letter' : 'letters'} and counting</>
-          : initialLoad ? <>&nbsp;</> : <>No letters yet</>
-        }
-      </p>
+      <div className="page__header">
+        <h1 className="page__title">All Letters</h1>
+        <p className="page__subtitle">
+          {total > 0
+            ? <>{total.toLocaleString()} {total === 1 ? 'letter' : 'letters'} and counting</>
+            : initialLoad ? <>&nbsp;</> : <>No letters yet</>
+          }
+        </p>
+      </div>
 
       {/* Search bar */}
       <form onSubmit={handleSearch} className="search-bar">

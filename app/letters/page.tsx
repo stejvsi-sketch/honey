@@ -9,9 +9,6 @@ export const metadata: Metadata = {
 export default function LettersPage() {
   return (
     <div className="page">
-      <div className="page__header">
-        <h1 className="page__title">All Letters</h1>
-      </div>
       <LettersArchive />
     </div>
   );
