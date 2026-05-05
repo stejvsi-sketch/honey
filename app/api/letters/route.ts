@@ -36,8 +36,17 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ memories: [], total: 0 }, { status: 500 });
   }
 
-  return NextResponse.json({
+  const response = NextResponse.json({
     memories: data || [],
     total: count || 0,
   });
+
+  // Cache on Vercel CDN for 5h per unique URL (page+search combo)
+  // Matches the 5h ISR TTL used across all public pages
+  response.headers.set(
+    'Cache-Control',
+    'public, s-maxage=18000, stale-while-revalidate=18000'
+  );
+
+  return response;
 }
