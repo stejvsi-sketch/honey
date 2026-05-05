@@ -82,12 +82,6 @@ a:hover { color: var(--accent-hover); }
 .nav__link--active { color: var(--text); font-weight: 500; }
 .nav__link--active::after { width: 100%; }
 
-/* Mobile nav toggle — hidden, nav is always inline */
-.nav__toggle { display: none; }
-
-/* Mobile menu — not used, nav links always visible */
-.nav__mobile { display: none; }
-
 @media (max-width: 768px) {
   .nav__links { gap: 20px; }
   .nav__link { font-size: 0.7rem; letter-spacing: 0.05em; }
