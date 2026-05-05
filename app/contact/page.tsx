@@ -16,7 +16,7 @@ export default function ContactPage() {
 
       <h2>Get in Touch</h2>
       <p>
-        Email us at: <strong>hello@honeyifonly.com</strong>
+        Email us at: <a href="mailto:ifonlyisentthis@gmail.com"><strong>ifonlyisentthis@gmail.com</strong></a>
       </p>
 
       <h2>Letter Removal</h2>
@@ -35,7 +35,7 @@ export default function ContactPage() {
       <h2>Business Inquiries</h2>
       <p>
         For advertising, partnerships, or media inquiries, please reach out to:
-        <strong> business@honeyifonly.com</strong>
+        <a href="mailto:ifonlyisentthis@gmail.com"><strong> ifonlyisentthis@gmail.com</strong></a>
       </p>
     </div>
   );

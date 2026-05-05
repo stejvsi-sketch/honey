@@ -22,9 +22,18 @@ export const metadata: Metadata = {
   title: { default: `${SITE_NAME} — Unsent Letters`, template: `%s | ${SITE_NAME}` },
   description: SITE_DESCRIPTION,
   keywords: ['unsent letters', 'unsent messages', 'love letters', 'things unsaid', 'anonymous letters'],
+  icons: {
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: '/apple-icon.png',
+  },
+  manifest: '/site.webmanifest',
   openGraph: {
     type: 'website', siteName: SITE_NAME, title: SITE_NAME,
     description: SITE_DESCRIPTION, url: SITE_URL,
+    images: [{ url: '/opengraph-image.png', width: 512, height: 512, alt: SITE_NAME }],
   },
   twitter: { card: 'summary_large_image', title: SITE_NAME, description: SITE_DESCRIPTION },
   robots: { index: true, follow: true },

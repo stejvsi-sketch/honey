@@ -6,6 +6,31 @@ import Link from 'next/link';
 import type { Memory } from '@/lib/types';
 
 const PAGE_SIZE = 10;
+const STORAGE_KEY = 'hio:letters';
+
+interface ArchiveState {
+  memories: Memory[];
+  page: number;
+  total: number;
+  search: string;
+  scrollY: number;
+}
+
+function saveState(state: ArchiveState) {
+  try {
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch { /* quota exceeded is non-fatal */ }
+}
+
+function loadState(): ArchiveState | null {
+  try {
+    const raw = sessionStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    return JSON.parse(raw) as ArchiveState;
+  } catch {
+    return null;
+  }
+}
 
 export default function LettersArchive() {
   const [memories, setMemories] = useState<Memory[]>([]);
@@ -15,11 +40,38 @@ export default function LettersArchive() {
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const [initialLoad, setInitialLoad] = useState(true);
+  const [restored, setRestored] = useState(false);
   const loaderRef = useRef<HTMLDivElement>(null);
+  const fetchingRef = useRef(false);
 
   const hasMore = memories.length < total;
 
+  // Restore state from sessionStorage on mount (Fix 4)
+  useEffect(() => {
+    const saved = loadState();
+    if (saved && saved.memories.length > 0) {
+      setMemories(saved.memories);
+      setPage(saved.page);
+      setTotal(saved.total);
+      setSearch(saved.search);
+      setSearchInput(saved.search);
+      setInitialLoad(false);
+      setRestored(true);
+      // Defer scroll restoration to after render
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          window.scrollTo(0, saved.scrollY);
+        });
+      });
+    } else {
+      setRestored(true);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const fetchLetters = useCallback(async (pageNum: number, searchQuery: string, append: boolean) => {
+    if (fetchingRef.current) return;
+    fetchingRef.current = true;
     setLoading(true);
     try {
       const params = new URLSearchParams({
@@ -39,43 +91,79 @@ export default function LettersArchive() {
     }
     setLoading(false);
     setInitialLoad(false);
+    fetchingRef.current = false;
   }, []);
 
-  // Initial load + search changes
+  // Initial load — only if no restored state
   useEffect(() => {
+    if (!restored) return;
+    const saved = loadState();
+    if (saved && saved.memories.length > 0 && !search) {
+      // Already restored, skip fetch
+      return;
+    }
     setPage(1);
     fetchLetters(1, search, false);
-  }, [search, fetchLetters]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search, restored]);
 
-  // Infinite scroll observer
+  // Save state before navigating away (Fix 4)
   useEffect(() => {
-    if (!loaderRef.current) return;
+    function handleBeforeNav() {
+      saveState({ memories, page, total, search, scrollY: window.scrollY });
+    }
+    window.addEventListener('beforeunload', handleBeforeNav);
+    // Also save on every click (catches SPA navigation)
+    document.addEventListener('click', handleBeforeNav, { capture: true });
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeNav);
+      document.removeEventListener('click', handleBeforeNav, { capture: true });
+    };
+  }, [memories, page, total, search]);
+
+  // Infinite scroll observer (Fix 5: debounced, premium feel)
+  useEffect(() => {
+    if (!loaderRef.current || !restored) return;
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && hasMore && !loading) {
+        if (entries[0].isIntersecting && hasMore && !loading && !fetchingRef.current) {
           const nextPage = page + 1;
           setPage(nextPage);
           fetchLetters(nextPage, search, true);
         }
       },
-      { threshold: 0.1, rootMargin: '200px' }
+      { threshold: 0.1, rootMargin: '400px' }
     );
     observer.observe(loaderRef.current);
     return () => observer.disconnect();
-  }, [hasMore, loading, page, search, fetchLetters]);
+  }, [hasMore, loading, page, search, fetchLetters, restored]);
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();
-    setSearch(searchInput.trim());
+    const newSearch = searchInput.trim();
+    if (newSearch !== search) {
+      // Clear stored state when searching
+      sessionStorage.removeItem(STORAGE_KEY);
+      setSearch(newSearch);
+    }
   }
 
   function clearSearch() {
+    sessionStorage.removeItem(STORAGE_KEY);
     setSearchInput('');
     setSearch('');
   }
 
   return (
     <>
+      {/* Dynamic count subtitle (Fix 6) */}
+      <p className="page__subtitle" style={{ marginTop: -36, marginBottom: 36 }}>
+        {total > 0
+          ? <>{total.toLocaleString()} {total === 1 ? 'letter' : 'letters'} and counting</>
+          : initialLoad ? <>&nbsp;</> : <>No letters yet</>
+        }
+      </p>
+
       {/* Search bar */}
       <form onSubmit={handleSearch} className="search-bar">
         <div className="search-bar__inner">
@@ -124,12 +212,12 @@ export default function LettersArchive() {
       {/* Infinite scroll trigger */}
       <div ref={loaderRef} style={{ height: 1 }} />
 
-      {/* Loading indicator */}
+      {/* Loading indicator (Fix 5: subtle, premium) */}
       {loading && (
         <div style={{ textAlign: 'center', padding: '32px 0' }}>
-          <p style={{ color: 'var(--text-light)', fontStyle: 'italic', fontSize: '0.9rem' }}>
-            Loading more letters...
-          </p>
+          <div className="loading-dots" aria-label="Loading more letters">
+            <span /><span /><span />
+          </div>
         </div>
       )}
 

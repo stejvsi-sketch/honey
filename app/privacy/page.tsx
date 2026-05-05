@@ -15,9 +15,9 @@ export default function PrivacyPage() {
       <h2>What We Collect</h2>
       <ul>
         <li><strong>Letter content:</strong> The name and message you submit</li>
-        <li><strong>Hashed IP address:</strong> We hash your IP using SHA-256. We never store raw IPs</li>
-        <li><strong>Country:</strong> Derived from your IP via Cloudflare headers</li>
-        <li><strong>Anonymous UUID:</strong> A random identifier for moderation purposes</li>
+        <li><strong>Anonymized identifier:</strong> We create a one-way, irreversible fingerprint for moderation purposes. We never store or log your actual network address</li>
+        <li><strong>Country:</strong> General geographic region for moderation context</li>
+        <li><strong>Anonymous session ID:</strong> A random identifier for moderation purposes</li>
       </ul>
 
       <h2>What We Do NOT Collect</h2>
@@ -26,6 +26,7 @@ export default function PrivacyPage() {
         <li>Real names of authors</li>
         <li>Cookies for tracking (we only use essential cookies)</li>
         <li>Any personally identifiable information</li>
+        <li>Raw network addresses or device fingerprints</li>
       </ul>
 
       <h2>How We Use Your Data</h2>
@@ -37,18 +38,13 @@ export default function PrivacyPage() {
       </ul>
 
       <h2>Third-Party Services</h2>
-      <ul>
-        <li><strong>Supabase:</strong> Database hosting (PostgreSQL)</li>
-        <li><strong>Cloudflare:</strong> CDN and security</li>
-        <li><strong>Vercel:</strong> Application hosting</li>
-        <li><strong>Upstash:</strong> Rate limiting and caching</li>
-      </ul>
+      <p>We use reputable, industry-standard third-party providers for infrastructure, security, and content delivery. All providers are bound by their own privacy policies and data protection standards. We do not sell or share your data with any third party for advertising or marketing purposes.</p>
 
       <h2>Data Retention</h2>
-      <p>Approved letters are stored indefinitely. Rejected submissions are deleted after 30 days. Banned user records are retained for abuse prevention.</p>
+      <p>Approved letters are stored indefinitely. Rejected submissions are deleted after 30 days. Moderation records are retained for abuse prevention.</p>
 
       <h2>Your Rights</h2>
-      <p>Since we do not collect personally identifiable information, traditional data subject requests (access, deletion) may not apply. If you need to contact us about a specific letter, please use our contact page.</p>
+      <p>Since we do not collect personally identifiable information, traditional data subject requests (access, deletion) may not apply. If you need to contact us about a specific letter, please use our <a href="/contact">contact page</a>.</p>
 
       <h2>Contact</h2>
       <p>For privacy-related inquiries, please visit our <a href="/contact">contact page</a>.</p>

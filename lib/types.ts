@@ -5,6 +5,7 @@ export interface Memory {
   color_id: string;
   created_at: string;
   slug: string;
+  pinned_until?: string | null;
 }
 
 export interface Submission {

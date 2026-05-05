@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
 
   let query = supabase
     .from('memories')
-    .select('id, name, message, color_id, created_at, slug', { count: 'exact' })
+    .select('id, name, message, color_id, created_at, slug, pinned_until', { count: 'exact' })
     .order('created_at', { ascending: false });
 
   if (search) {

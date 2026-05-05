@@ -29,10 +29,10 @@ export default function TermsPage() {
       </ul>
 
       <h2>4. Moderation</h2>
-      <p>All submissions are reviewed before publication. We reserve the right to reject or remove any content at our sole discretion. Users who repeatedly violate guidelines may be banned.</p>
+      <p>All submissions are reviewed before publication. We reserve the right to reject or remove any content at our sole discretion. Users who repeatedly violate guidelines may be restricted.</p>
 
       <h2>5. Anonymity</h2>
-      <p>We do not publicly display any identifying information about letter authors. However, we collect anonymized data (hashed IPs, country) for moderation and abuse prevention purposes.</p>
+      <p>We do not publicly display any identifying information about letter authors. We collect only anonymized data for moderation and abuse prevention purposes.</p>
 
       <h2>6. No Warranty</h2>
       <p>The service is provided &quot;as is&quot; without warranties of any kind. We do not guarantee uptime, data preservation, or that submitted letters will be published.</p>

@@ -17,6 +17,7 @@ CREATE TABLE memories (
   message TEXT NOT NULL,
   color_id TEXT NOT NULL,
   slug TEXT NOT NULL,
+  pinned_until TIMESTAMPTZ DEFAULT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
@@ -25,6 +26,8 @@ CREATE INDEX idx_memories_slug ON memories(slug);
 CREATE INDEX idx_memories_created_at ON memories(created_at DESC);
 -- Trigram index for fast ILIKE name search (used by /api/letters?search=)
 CREATE INDEX idx_memories_name_trgm ON memories USING gin (name gin_trgm_ops);
+-- Index for pinned memories query
+CREATE INDEX idx_memories_pinned ON memories(pinned_until) WHERE pinned_until IS NOT NULL;
 
 -- RLS: Anyone can read, nobody can write (service role only)
 ALTER TABLE memories ENABLE ROW LEVEL SECURITY;
@@ -90,3 +93,10 @@ CREATE INDEX idx_journal_published ON journal_posts(published);
 -- RLS: Public can read published posts only
 ALTER TABLE journal_posts ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Public read published" ON journal_posts FOR SELECT USING (published = true);
+
+-- ============================================
+-- MIGRATION: Add pinned_until to existing table
+-- (Run this if the table already exists)
+-- ============================================
+-- ALTER TABLE memories ADD COLUMN IF NOT EXISTS pinned_until TIMESTAMPTZ DEFAULT NULL;
+-- CREATE INDEX IF NOT EXISTS idx_memories_pinned ON memories(pinned_until) WHERE pinned_until IS NOT NULL;

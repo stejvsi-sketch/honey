@@ -11,7 +11,6 @@ export default function LettersPage() {
     <div className="page">
       <div className="page__header">
         <h1 className="page__title">All Letters</h1>
-        <p className="page__subtitle">Every unsent word, every unspoken thought — all gathered here.</p>
       </div>
       <LettersArchive />
     </div>

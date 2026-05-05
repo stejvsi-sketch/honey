@@ -7,6 +7,11 @@ interface Submission {
   status: string; ip_hash: string; country: string; user_uuid: string; created_at: string;
 }
 
+interface MemoryItem {
+  id: string; name: string; message: string; color_id: string;
+  created_at: string; pinned_until: string | null;
+}
+
 interface BannedUser {
   id: string; ip_hash: string; user_uuid: string;
   country: string; reason: string; created_at: string;
@@ -15,13 +20,15 @@ interface BannedUser {
 interface Stats { total_memories: number; total_pending: number; total_rejected: number; total_banned: number; }
 
 export default function AdminDashboard({ secret }: { secret: string }) {
-  const [tab, setTab] = useState<'pending' | 'approved' | 'rejected' | 'banned'>('pending');
+  const [tab, setTab] = useState<'pending' | 'approved' | 'rejected' | 'banned' | 'memories'>('pending');
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [bannedUsers, setBannedUsers] = useState<BannedUser[]>([]);
+  const [memories, setMemories] = useState<MemoryItem[]>([]);
   const [stats, setStats] = useState<Stats>({ total_memories: 0, total_pending: 0, total_rejected: 0, total_banned: 0 });
   const [loading, setLoading] = useState(true);
+  const [pinDuration, setPinDuration] = useState<Record<string, string>>({});
 
-  const headers = { 'Content-Type': 'application/json', 'x-admin-secret': secret };
+  const headers: Record<string, string> = { 'Content-Type': 'application/json', 'x-admin-secret': secret };
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -33,13 +40,21 @@ export default function AdminDashboard({ secret }: { secret: string }) {
         const bannedRes = await fetch('/api/admin/banned', { headers });
         if (bannedRes.ok) setBannedUsers(await bannedRes.json());
         setSubmissions([]);
+        setMemories([]);
+      } else if (tab === 'memories') {
+        const memRes = await fetch('/api/admin/memories', { headers });
+        if (memRes.ok) setMemories(await memRes.json());
+        setSubmissions([]);
+        setBannedUsers([]);
       } else {
         const subsRes = await fetch(`/api/admin/submissions?status=${tab}`, { headers });
         if (subsRes.ok) setSubmissions(await subsRes.json());
         setBannedUsers([]);
+        setMemories([]);
       }
     } catch (e) { console.error(e); }
     setLoading(false);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab, secret]);
 
   useEffect(() => { fetchData(); }, [fetchData]);
@@ -53,10 +68,27 @@ export default function AdminDashboard({ secret }: { secret: string }) {
   }
 
   async function handleUnban(ipHash: string) {
-    // Delete from banned_users via a direct action
     await fetch('/api/admin/action', {
       method: 'POST', headers,
       body: JSON.stringify({ ip_hash: ipHash, action: 'unban' }),
+    });
+    fetchData();
+  }
+
+  async function handlePin(memoryId: string) {
+    const hours = parseInt(pinDuration[memoryId] || '24', 10);
+    if (isNaN(hours) || hours <= 0) return;
+    await fetch('/api/admin/action', {
+      method: 'POST', headers,
+      body: JSON.stringify({ id: memoryId, action: 'pin', hours }),
+    });
+    fetchData();
+  }
+
+  async function handleUnpin(memoryId: string) {
+    await fetch('/api/admin/action', {
+      method: 'POST', headers,
+      body: JSON.stringify({ id: memoryId, action: 'unpin' }),
     });
     fetchData();
   }
@@ -67,6 +99,8 @@ export default function AdminDashboard({ secret }: { secret: string }) {
     background: tab === t ? 'var(--text)' : 'transparent',
     color: tab === t ? 'var(--bg)' : 'var(--text-muted)',
   });
+
+  const isPinActive = (m: MemoryItem) => m.pinned_until && new Date(m.pinned_until) > new Date();
 
   return (
     <div className="page">
@@ -91,9 +125,9 @@ export default function AdminDashboard({ secret }: { secret: string }) {
 
       {/* Tabs */}
       <div style={{ display: 'flex', gap: 8, marginBottom: 24, flexWrap: 'wrap' }}>
-        {(['pending', 'approved', 'rejected', 'banned'] as const).map(t => (
+        {(['pending', 'approved', 'rejected', 'banned', 'memories'] as const).map(t => (
           <button key={t} style={tabStyle(t)} onClick={() => setTab(t)}>
-            {t.charAt(0).toUpperCase() + t.slice(1)}
+            {t === 'memories' ? '📌 Memories' : t.charAt(0).toUpperCase() + t.slice(1)}
           </button>
         ))}
       </div>
@@ -121,12 +155,73 @@ export default function AdminDashboard({ secret }: { secret: string }) {
                       Reason: {user.reason}
                     </div>
                     <div style={{ fontSize: '0.75rem', color: 'var(--text-light)' }}>
-                      Country: {user.country} · IP: {user.ip_hash.slice(0, 12)}... · UUID: {user.user_uuid?.slice(0, 8) || 'N/A'}... · {new Date(user.created_at).toLocaleDateString()}
+                      Country: {user.country} · ID: {user.ip_hash.slice(0, 12)}... · UUID: {user.user_uuid?.slice(0, 8) || 'N/A'}... · {new Date(user.created_at).toLocaleDateString()}
                     </div>
                   </div>
                   <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                     <button className="btn btn--outline" style={{ width: 'auto', padding: '6px 16px', fontSize: '0.8rem' }}
                       onClick={() => handleUnban(user.ip_hash)}>Unban</button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )
+      ) : tab === 'memories' ? (
+        /* Memories list with pin controls */
+        memories.length === 0 ? (
+          <p style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>No published memories.</p>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {memories.map(mem => (
+              <div key={mem.id} style={{
+                padding: 20, border: `1px solid ${isPinActive(mem) ? '#c4a67a' : 'var(--border-light)'}`,
+                borderRadius: 'var(--radius)',
+                background: isPinActive(mem) ? 'rgba(196, 166, 122, 0.08)' : 'rgba(255,255,255,0.3)',
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12 }}>
+                  <div style={{ flex: 1, minWidth: 200 }}>
+                    <div style={{ fontFamily: 'var(--font-serif)', fontWeight: 600, marginBottom: 4 }}>
+                      {isPinActive(mem) && <span style={{ color: '#c4a67a', marginRight: 6 }}>📌</span>}
+                      To {mem.name}
+                    </div>
+                    <div style={{ color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: 8 }}>
+                      &ldquo;{mem.message}&rdquo;
+                    </div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-light)' }}>
+                      Color: {mem.color_id} · {new Date(mem.created_at).toLocaleDateString()}
+                      {isPinActive(mem) && (
+                        <span style={{ color: '#c4a67a', marginLeft: 8 }}>
+                          · Pinned until {new Date(mem.pinned_until!).toLocaleString()}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+                    {isPinActive(mem) ? (
+                      <button className="btn btn--outline" style={{ width: 'auto', padding: '6px 16px', fontSize: '0.8rem', borderColor: '#c4a67a', color: '#c4a67a' }}
+                        onClick={() => handleUnpin(mem.id)}>Unpin</button>
+                    ) : (
+                      <>
+                        <select
+                          value={pinDuration[mem.id] || '24'}
+                          onChange={(e) => setPinDuration(prev => ({ ...prev, [mem.id]: e.target.value }))}
+                          style={{ padding: '6px 8px', fontSize: '0.8rem', border: '1px solid var(--border)', borderRadius: 'var(--radius)', background: 'transparent' }}
+                        >
+                          <option value="1">1 hour</option>
+                          <option value="6">6 hours</option>
+                          <option value="12">12 hours</option>
+                          <option value="24">24 hours</option>
+                          <option value="48">2 days</option>
+                          <option value="72">3 days</option>
+                          <option value="168">7 days</option>
+                          <option value="336">14 days</option>
+                          <option value="720">30 days</option>
+                        </select>
+                        <button className="btn" style={{ width: 'auto', padding: '6px 16px', fontSize: '0.8rem', background: '#c4a67a' }}
+                          onClick={() => handlePin(mem.id)}>📌 Pin</button>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -153,7 +248,7 @@ export default function AdminDashboard({ secret }: { secret: string }) {
                       &ldquo;{sub.message}&rdquo;
                     </div>
                     <div style={{ fontSize: '0.75rem', color: 'var(--text-light)' }}>
-                      Color: {sub.color_id} · Country: {sub.country} · IP: {sub.ip_hash.slice(0, 12)}... · {new Date(sub.created_at).toLocaleDateString()}
+                      Color: {sub.color_id} · Country: {sub.country} · ID: {sub.ip_hash.slice(0, 12)}... · {new Date(sub.created_at).toLocaleDateString()}
                     </div>
                   </div>
                   <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>

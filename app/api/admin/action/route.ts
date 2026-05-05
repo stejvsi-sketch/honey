@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
   }
 
   const body = await request.json();
-  const { id, action, ip_hash } = body;
+  const { id, action, ip_hash, hours } = body;
 
   if (!action) {
     return NextResponse.json({ error: 'Missing action' }, { status: 400 });
@@ -31,6 +31,35 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Missing ip_hash for unban' }, { status: 400 });
     }
     await supabase.from('banned_users').delete().eq('ip_hash', ip_hash);
+    return NextResponse.json({ success: true });
+  }
+
+  // Pin action — sets pinned_until on a memory
+  if (action === 'pin') {
+    if (!id || !hours) {
+      return NextResponse.json({ error: 'Missing id or hours for pin' }, { status: 400 });
+    }
+    const pinUntil = new Date(Date.now() + hours * 3600000).toISOString();
+    const { error: pinErr } = await supabase
+      .from('memories')
+      .update({ pinned_until: pinUntil })
+      .eq('id', id);
+    if (pinErr) return NextResponse.json({ error: pinErr.message }, { status: 500 });
+    if (process.env.UPSTASH_REDIS_REST_URL) await invalidateCache('*');
+    return NextResponse.json({ success: true });
+  }
+
+  // Unpin action — clears pinned_until on a memory
+  if (action === 'unpin') {
+    if (!id) {
+      return NextResponse.json({ error: 'Missing id for unpin' }, { status: 400 });
+    }
+    const { error: unpinErr } = await supabase
+      .from('memories')
+      .update({ pinned_until: null })
+      .eq('id', id);
+    if (unpinErr) return NextResponse.json({ error: unpinErr.message }, { status: 500 });
+    if (process.env.UPSTASH_REDIS_REST_URL) await invalidateCache('*');
     return NextResponse.json({ success: true });
   }
 
