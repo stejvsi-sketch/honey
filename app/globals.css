@@ -513,11 +513,9 @@ a:hover { color: var(--accent-hover); }
 
 @media (max-width: 768px) {
   .dropdown__trigger { font-size: 0.7rem; letter-spacing: 0.05em; }
-  .dropdown__menu { right: auto; left: 0; }
 }
 @media (max-width: 480px) {
   .dropdown__trigger { font-size: 0.6rem; letter-spacing: 0.03em; }
-  .dropdown__menu { right: auto; left: -40px; min-width: 160px; }
 }
 
 /* ===== ANIMATIONS ===== */
