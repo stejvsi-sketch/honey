@@ -42,13 +42,18 @@ export async function POST(request: NextRequest) {
 
     // Rate limiting (if Redis configured)
     if (process.env.UPSTASH_REDIS_REST_URL) {
-      const rl = getRatelimit();
-      const { success, remaining } = await rl.limit(ipHash);
-      if (!success) {
-        return NextResponse.json(
-          { error: 'You have reached your daily limit of 6 letters. Come back tomorrow.' },
-          { status: 429 }
-        );
+      try {
+        const rl = getRatelimit();
+        const { success } = await rl.limit(ipHash);
+        if (!success) {
+          return NextResponse.json(
+            { error: 'You have reached your daily limit of 6 letters. Come back tomorrow.' },
+            { status: 429 }
+          );
+        }
+      } catch (err) {
+        // If Redis is down, we silently bypass rate limiting to ensure the app stays up
+        console.error('Redis ratelimit error:', err);
       }
     }
 
