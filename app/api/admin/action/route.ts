@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { invalidateCache } from '@/lib/redis';
+
 
 function verifyAdmin(request: NextRequest): boolean {
   const secret = request.headers.get('x-admin-secret');

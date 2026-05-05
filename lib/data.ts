@@ -1,64 +1,86 @@
 import { getSupabaseClient } from './supabase';
-import { getCached, setCache } from './redis';
 import type { Memory } from './types';
+import { unstable_cache } from 'next/cache';
 
 const TOTAL_MOCKS = 13;
 
 function isConfigured(): boolean {
   return !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 }
-function isRedisConfigured(): boolean {
-  return !!(process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN);
-}
+
+const getCachedHomeMemories = unstable_cache(
+  async (limit: number) => {
+    const supabase = getSupabaseClient();
+    const { data, error } = await supabase
+      .from('memories').select('id, name, message, color_id, created_at, slug, pinned_until')
+      .order('created_at', { ascending: false }).limit(limit);
+    if (error) { console.error('Error fetching home memories:', error); return []; }
+    return data as Memory[];
+  },
+  ['home-memories'],
+  { revalidate: 18000 }
+);
 
 export async function getHomeMemories(limit: number = 12): Promise<Memory[]> {
   if (!isConfigured()) return getMockMemories(limit);
-  const cacheKey = `home:${limit}`;
-  if (isRedisConfigured()) {
-    const cached = await getCached<Memory[]>(cacheKey);
-    if (cached) return cached;
-  }
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from('memories').select('id, name, message, color_id, created_at, slug, pinned_until')
-    .order('created_at', { ascending: false }).limit(limit);
-  if (error) { console.error('Error fetching home memories:', error); return []; }
-  const memories = data as Memory[];
-  if (isRedisConfigured()) await setCache(cacheKey, memories);
-  return memories;
+  return getCachedHomeMemories(limit);
 }
+
+const getCachedArchiveMemories = unstable_cache(
+  async (page: number, limit: number) => {
+    const supabase = getSupabaseClient();
+    const from = (page - 1) * limit;
+    const [{ data, error }, { count, error: countError }] = await Promise.all([
+      supabase.from('memories').select('id, name, message, color_id, created_at, slug, pinned_until')
+        .order('created_at', { ascending: false }).range(from, from + limit - 1),
+      supabase.from('memories').select('*', { count: 'exact', head: true }),
+    ]);
+    if (error || countError) return { memories: [], total: 0 };
+    return { memories: data as Memory[], total: count || 0 };
+  },
+  ['archive-memories'],
+  { revalidate: 18000 }
+);
 
 export async function getArchiveMemories(page: number = 1, limit: number = 24): Promise<{ memories: Memory[]; total: number }> {
   if (!isConfigured()) return { memories: getMockMemories(limit), total: 100 };
-  const cacheKey = `archive:${page}:${limit}`;
-  if (isRedisConfigured()) {
-    const cached = await getCached<{ memories: Memory[]; total: number }>(cacheKey);
-    if (cached) return cached;
-  }
-  const supabase = getSupabaseClient();
-  const from = (page - 1) * limit;
-  const [{ data, error }, { count, error: countError }] = await Promise.all([
-    supabase.from('memories').select('id, name, message, color_id, created_at, slug, pinned_until')
-      .order('created_at', { ascending: false }).range(from, from + limit - 1),
-    supabase.from('memories').select('*', { count: 'exact', head: true }),
-  ]);
-  if (error || countError) return { memories: [], total: 0 };
-  const result = { memories: data as Memory[], total: count || 0 };
-  if (isRedisConfigured()) await setCache(cacheKey, result);
-  return result;
+  return getCachedArchiveMemories(page, limit);
 }
+
+const getCachedMemoryById = unstable_cache(
+  async (id: string) => {
+    const supabase = getSupabaseClient();
+    const { data, error } = await supabase.from('memories')
+      .select('id, name, message, color_id, created_at, slug, pinned_until').eq('id', id).single();
+    if (error) return null;
+    return data as Memory;
+  },
+  ['memory-by-id'],
+  { revalidate: 18000 }
+);
 
 export async function getMemoryById(id: string): Promise<Memory | null> {
   if (!isConfigured()) { const m = getMockMemories(TOTAL_MOCKS); return m.find(x => x.id === id) || null; }
-  const cacheKey = `memory:${id}`;
-  if (isRedisConfigured()) { const c = await getCached<Memory>(cacheKey); if (c) return c; }
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase.from('memories')
-    .select('id, name, message, color_id, created_at, slug, pinned_until').eq('id', id).single();
-  if (error) return null;
-  if (isRedisConfigured()) await setCache(cacheKey, data as Memory);
-  return data as Memory;
+  return getCachedMemoryById(id);
 }
+
+const getCachedMemoriesByName = unstable_cache(
+  async (nameSlug: string, page: number, limit: number) => {
+    const supabase = getSupabaseClient();
+    const from = (page - 1) * limit;
+    const [{ data, error }, { count }] = await Promise.all([
+      supabase.from('memories').select('id, name, message, color_id, created_at, slug, pinned_until')
+        .eq('slug', nameSlug).order('created_at', { ascending: false }).range(from, from + limit - 1),
+      supabase.from('memories').select('*', { count: 'exact', head: true }).eq('slug', nameSlug),
+    ]);
+    if (error) return { memories: [], total: 0, displayName: nameSlug.replace(/-/g, ' ') };
+    const memories = data as Memory[];
+    const displayName = memories.length > 0 ? memories[0].name : nameSlug.replace(/-/g, ' ');
+    return { memories, total: count || 0, displayName };
+  },
+  ['memories-by-name'],
+  { revalidate: 18000 }
+);
 
 export async function getMemoriesByName(nameSlug: string, page: number = 1, limit: number = 24): Promise<{ memories: Memory[]; total: number; displayName: string }> {
   if (!isConfigured()) {
@@ -68,24 +90,43 @@ export async function getMemoriesByName(nameSlug: string, page: number = 1, limi
     const from = (page - 1) * limit;
     return { memories: matching.slice(from, from + limit), total: matching.length, displayName };
   }
-  const cacheKey = `name:${nameSlug}:${page}`;
-  if (isRedisConfigured()) {
-    const c = await getCached<{ memories: Memory[]; total: number; displayName: string }>(cacheKey);
-    if (c) return c;
+  return getCachedMemoriesByName(nameSlug, page, limit);
+}
+
+const getCachedNameStats = unstable_cache(
+  async () => {
+    const supabase = getSupabaseClient();
+    const { data: rpcData, error: rpcError } = await supabase.rpc('get_name_stats');
+    if (!rpcError && rpcData) {
+      return rpcData as { name: string; slug: string; count: number }[];
+    }
+    const { data, error } = await supabase.from('memories')
+      .select('name, slug')
+      .order('created_at', { ascending: false })
+      .limit(5000);
+    if (error || !data) return [];
+    const stats: Record<string, { name: string; slug: string; count: number }> = {};
+    data.forEach((m: { name: string; slug: string }) => {
+      if (!stats[m.slug]) stats[m.slug] = { name: m.name, slug: m.slug, count: 0 };
+      stats[m.slug].count++;
+    });
+    return Object.values(stats).sort((a, b) => b.count - a.count);
+  },
+  ['name-stats'],
+  { revalidate: 18000 }
+);
+
+export async function getNameStats(): Promise<{ name: string; slug: string; count: number }[]> {
+  if (!isConfigured()) {
+    const mocks = getMockMemories(13);
+    const stats: Record<string, { name: string; slug: string; count: number }> = {};
+    mocks.forEach(m => {
+      if (!stats[m.slug]) stats[m.slug] = { name: m.name, slug: m.slug, count: 0 };
+      stats[m.slug].count++;
+    });
+    return Object.values(stats).sort((a, b) => b.count - a.count);
   }
-  const supabase = getSupabaseClient();
-  const from = (page - 1) * limit;
-  const [{ data, error }, { count }] = await Promise.all([
-    supabase.from('memories').select('id, name, message, color_id, created_at, slug, pinned_until')
-      .eq('slug', nameSlug).order('created_at', { ascending: false }).range(from, from + limit - 1),
-    supabase.from('memories').select('*', { count: 'exact', head: true }).eq('slug', nameSlug),
-  ]);
-  if (error) return { memories: [], total: 0, displayName: nameSlug.replace(/-/g, ' ') };
-  const memories = data as Memory[];
-  const displayName = memories.length > 0 ? memories[0].name : nameSlug.replace(/-/g, ' ');
-  const result = { memories, total: count || 0, displayName };
-  if (isRedisConfigured()) await setCache(cacheKey, result);
-  return result;
+  return getCachedNameStats();
 }
 
 export function getMockMemories(count: number): Memory[] {
@@ -110,51 +151,4 @@ export function getMockMemories(count: number): Memory[] {
     slug: m.name.toLowerCase().replace(/\s+/g, '-'),
     pinned_until: m.pinned ? new Date(Date.now() + 86400000).toISOString() : null,
   }));
-}
-
-export async function getNameStats(): Promise<{ name: string; slug: string; count: number }[]> {
-  if (!isConfigured()) {
-    const mocks = getMockMemories(13);
-    const stats: Record<string, { name: string; slug: string; count: number }> = {};
-    mocks.forEach(m => {
-      if (!stats[m.slug]) stats[m.slug] = { name: m.name, slug: m.slug, count: 0 };
-      stats[m.slug].count++;
-    });
-    return Object.values(stats).sort((a, b) => b.count - a.count);
-  }
-  
-  const cacheKey = `name_stats`;
-  if (isRedisConfigured()) {
-    const c = await getCached<{ name: string; slug: string; count: number }[]>(cacheKey);
-    if (c) return c;
-  }
-  
-  const supabase = getSupabaseClient();
-  
-  // First, try to use the optimized RPC function
-  const { data: rpcData, error: rpcError } = await supabase.rpc('get_name_stats');
-  
-  if (!rpcError && rpcData) {
-    const result = rpcData as { name: string; slug: string; count: number }[];
-    if (isRedisConfigured()) await setCache(cacheKey, result);
-    return result;
-  }
-
-  // Fallback: If RPC doesn't exist yet, fetch up to 5000 recent memories
-  const { data, error } = await supabase.from('memories')
-    .select('name, slug')
-    .order('created_at', { ascending: false })
-    .limit(5000);
-    
-  if (error || !data) return [];
-  
-  const stats: Record<string, { name: string; slug: string; count: number }> = {};
-  data.forEach((m: { name: string; slug: string }) => {
-    if (!stats[m.slug]) stats[m.slug] = { name: m.name, slug: m.slug, count: 0 };
-    stats[m.slug].count++;
-  });
-  
-  const result = Object.values(stats).sort((a, b) => b.count - a.count);
-  if (isRedisConfigured()) await setCache(cacheKey, result);
-  return result;
 }
