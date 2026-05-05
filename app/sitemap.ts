@@ -1,17 +1,18 @@
 import { MetadataRoute } from 'next';
 import { SITE_URL } from '@/lib/constants';
+import { JOURNAL_POSTS } from '@/lib/journal-data';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = [
-    '', '/letters', '/write', '/about', '/journal',
+    '', '/letters', '/write', '/about', '/archive', '/journal',
     '/terms', '/privacy', '/disclaimer', '/contact',
   ];
 
   const staticEntries: MetadataRoute.Sitemap = staticPages.map(path => ({
     url: `${SITE_URL}${path}`,
     lastModified: new Date(),
-    changeFrequency: path === '' || path === '/letters' ? 'daily' : 'monthly',
-    priority: path === '' ? 1 : path === '/letters' ? 0.9 : 0.6,
+    changeFrequency: path === '' || path === '/letters' ? 'daily' : path === '/archive' ? 'weekly' : 'monthly',
+    priority: path === '' ? 1 : path === '/letters' ? 0.9 : path === '/archive' ? 0.8 : 0.6,
   }));
 
   // Dynamic entries from Supabase (name pages + individual letters)
@@ -63,5 +64,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  return [...staticEntries, ...dynamicEntries];
+  // Journal article pages
+  const journalEntries: MetadataRoute.Sitemap = JOURNAL_POSTS.map(post => ({
+    url: `${SITE_URL}/journal/${post.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
+
+  return [...staticEntries, ...dynamicEntries, ...journalEntries];
 }
