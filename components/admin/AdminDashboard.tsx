@@ -20,7 +20,7 @@ interface BannedUser {
 interface Stats { total_memories: number; total_pending: number; total_rejected: number; total_banned: number; }
 
 export default function AdminDashboard({ secret }: { secret: string }) {
-  const [tab, setTab] = useState<'pending' | 'approved' | 'rejected' | 'banned' | 'memories'>('pending');
+  const [tab, setTab] = useState<'pending' | 'approved' | 'banned' | 'memories'>('pending');
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [bannedUsers, setBannedUsers] = useState<BannedUser[]>([]);
   const [memories, setMemories] = useState<MemoryItem[]>([]);
@@ -111,7 +111,6 @@ export default function AdminDashboard({ secret }: { secret: string }) {
         {[
           { label: 'Published', value: stats.total_memories },
           { label: 'Pending', value: stats.total_pending },
-          { label: 'Rejected', value: stats.total_rejected },
           { label: 'Banned', value: stats.total_banned },
         ].map(s => (
           <div key={s.label} style={{
@@ -125,7 +124,7 @@ export default function AdminDashboard({ secret }: { secret: string }) {
 
       {/* Tabs */}
       <div style={{ display: 'flex', gap: 8, marginBottom: 24, flexWrap: 'wrap' }}>
-        {(['pending', 'approved', 'rejected', 'banned', 'memories'] as const).map(t => (
+        {(['pending', 'approved', 'banned', 'memories'] as const).map(t => (
           <button key={t} style={tabStyle(t)} onClick={() => setTab(t)}>
             {t === 'memories' ? '📌 Memories' : t.charAt(0).toUpperCase() + t.slice(1)}
           </button>

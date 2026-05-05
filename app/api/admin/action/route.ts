@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
       break;
     }
     case 'reject': {
-      await supabase.from('submissions').update({ status: 'rejected' }).eq('id', id);
+      await supabase.from('submissions').delete().eq('id', id);
       break;
     }
     case 'delete': {
@@ -112,8 +112,8 @@ export async function POST(request: NextRequest) {
         country: submission.country,
         reason: 'Banned by admin',
       }, { onConflict: 'ip_hash' });
-      // Reject the submission
-      await supabase.from('submissions').update({ status: 'rejected' }).eq('id', id);
+      // Delete the submission instead of rejecting
+      await supabase.from('submissions').delete().eq('id', id);
       break;
     }
     default:
