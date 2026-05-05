@@ -2,12 +2,6 @@ import { getSupabaseClient } from './supabase';
 import type { Memory } from './types';
 import { unstable_cache } from 'next/cache';
 
-const TOTAL_MOCKS = 13;
-
-function isConfigured(): boolean {
-  return !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
-}
-
 const getCachedHomeMemories = unstable_cache(
   async (limit: number) => {
     const supabase = getSupabaseClient();
@@ -22,7 +16,6 @@ const getCachedHomeMemories = unstable_cache(
 );
 
 export async function getHomeMemories(limit: number = 12): Promise<Memory[]> {
-  if (!isConfigured()) return getMockMemories(limit);
   return getCachedHomeMemories(limit);
 }
 
@@ -43,7 +36,6 @@ const getCachedArchiveMemories = unstable_cache(
 );
 
 export async function getArchiveMemories(page: number = 1, limit: number = 24): Promise<{ memories: Memory[]; total: number }> {
-  if (!isConfigured()) return { memories: getMockMemories(limit), total: 100 };
   return getCachedArchiveMemories(page, limit);
 }
 
@@ -60,7 +52,6 @@ const getCachedMemoryById = unstable_cache(
 );
 
 export async function getMemoryById(id: string): Promise<Memory | null> {
-  if (!isConfigured()) { const m = getMockMemories(TOTAL_MOCKS); return m.find(x => x.id === id) || null; }
   return getCachedMemoryById(id);
 }
 
@@ -83,13 +74,6 @@ const getCachedMemoriesByName = unstable_cache(
 );
 
 export async function getMemoriesByName(nameSlug: string, page: number = 1, limit: number = 24): Promise<{ memories: Memory[]; total: number; displayName: string }> {
-  if (!isConfigured()) {
-    const allMocks = getMockMemories(13);
-    const matching = allMocks.filter(m => m.slug === nameSlug);
-    const displayName = matching.length > 0 ? matching[0].name : nameSlug.replace(/-/g, ' ');
-    const from = (page - 1) * limit;
-    return { memories: matching.slice(from, from + limit), total: matching.length, displayName };
-  }
   return getCachedMemoriesByName(nameSlug, page, limit);
 }
 
@@ -117,38 +101,5 @@ const getCachedNameStats = unstable_cache(
 );
 
 export async function getNameStats(): Promise<{ name: string; slug: string; count: number }[]> {
-  if (!isConfigured()) {
-    const mocks = getMockMemories(13);
-    const stats: Record<string, { name: string; slug: string; count: number }> = {};
-    mocks.forEach(m => {
-      if (!stats[m.slug]) stats[m.slug] = { name: m.name, slug: m.slug, count: 0 };
-      stats[m.slug].count++;
-    });
-    return Object.values(stats).sort((a, b) => b.count - a.count);
-  }
   return getCachedNameStats();
-}
-
-export function getMockMemories(count: number): Memory[] {
-  const mocks = [
-    { name: 'Olivia', message: 'I remember every single word you said that night under the stars but I was too afraid to tell you that it changed everything inside me forever', color_id: 'dusty-mauve', pinned: true },
-    { name: 'Sarah', message: 'I still think about that rainy Tuesday when you held my hand for the last time', color_id: 'rose-dust', pinned: true },
-    { name: 'James', message: 'You were right about everything and I was too proud to say it', color_id: 'faded-denim', pinned: false },
-    { name: 'Luna', message: 'I wrote you seventeen letters and burned them all', color_id: 'lavender-haze', pinned: false },
-    { name: 'Marcus', message: 'The coffee shop closed down now I have nowhere to pretend to accidentally run into you', color_id: 'honey-gold', pinned: false },
-    { name: 'Emily', message: 'I still set two alarms because you always needed the extra five minutes', color_id: 'blush-coral', pinned: false },
-    { name: 'Alex', message: 'Every song on that playlist still feels like a conversation we never finished', color_id: 'ocean-mist', pinned: false },
-    { name: 'Mia', message: 'I kept the voicemail you left me three years ago just to hear your laugh', color_id: 'dusty-mauve', pinned: false },
-    { name: 'Daniel', message: 'You made ordinary things feel extraordinary and I never thanked you for that', color_id: 'sage-whisper', pinned: false },
-    { name: 'Sofia', message: 'I practice what I would say if I saw you again but the words dissolve', color_id: 'parchment', pinned: false },
-    { name: 'Ethan', message: 'You deserved an apology that I was never brave enough to give', color_id: 'ivory-ash', pinned: false },
-    { name: 'Chloe', message: 'I drive past your old house sometimes just to feel something real', color_id: 'rose-dust', pinned: false },
-    { name: 'Noah', message: 'The worst part is I cannot even be mad because you were right', color_id: 'faded-denim', pinned: false },
-  ];
-  return mocks.slice(0, count).map((m, i) => ({
-    id: `mock-${i + 1}`, name: m.name, message: m.message, color_id: m.color_id,
-    created_at: new Date(Date.now() - i * 3600000).toISOString(),
-    slug: m.name.toLowerCase().replace(/\s+/g, '-'),
-    pinned_until: m.pinned ? new Date(Date.now() + 86400000).toISOString() : null,
-  }));
 }

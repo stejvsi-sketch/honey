@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseClient } from '@/lib/supabase';
-import { getMockMemories } from '@/lib/data';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
@@ -9,15 +8,6 @@ export async function GET(request: NextRequest) {
   const search = searchParams.get('search')?.trim() || '';
   const offset = (page - 1) * limit;
 
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-    const allMocks = getMockMemories(100);
-    let filtered = allMocks;
-    if (search) {
-      filtered = allMocks.filter(m => m.name.toLowerCase().includes(search.toLowerCase()));
-    }
-    const result = { memories: filtered.slice(offset, offset + limit), total: filtered.length };
-    return NextResponse.json(result);
-  }
 
   const supabase = getSupabaseClient();
 
