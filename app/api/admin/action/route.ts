@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
       .update({ pinned_until: pinUntil })
       .eq('id', id);
     if (pinErr) return NextResponse.json({ error: pinErr.message }, { status: 500 });
-    if (process.env.UPSTASH_REDIS_REST_URL) await invalidateCache('*');
+    // if (process.env.UPSTASH_REDIS_REST_URL) await invalidateCache('*');
     return NextResponse.json({ success: true });
   }
 
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
       .update({ pinned_until: null })
       .eq('id', id);
     if (unpinErr) return NextResponse.json({ error: unpinErr.message }, { status: 500 });
-    if (process.env.UPSTASH_REDIS_REST_URL) await invalidateCache('*');
+    // if (process.env.UPSTASH_REDIS_REST_URL) await invalidateCache('*');
     return NextResponse.json({ success: true });
   }
 
@@ -90,7 +90,7 @@ export async function POST(request: NextRequest) {
       // Update submission status
       await supabase.from('submissions').update({ status: 'approved' }).eq('id', id);
       // Invalidate caches
-      if (process.env.UPSTASH_REDIS_REST_URL) await invalidateCache('*');
+      // if (process.env.UPSTASH_REDIS_REST_URL) await invalidateCache('*');
       break;
     }
     case 'reject': {
@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
       await supabase.from('submissions').delete().eq('id', id);
       // Also delete from memories if it was approved
       await supabase.from('memories').delete().eq('id', id);
-      if (process.env.UPSTASH_REDIS_REST_URL) await invalidateCache('*');
+      // if (process.env.UPSTASH_REDIS_REST_URL) await invalidateCache('*');
       break;
     }
     case 'ban': {
