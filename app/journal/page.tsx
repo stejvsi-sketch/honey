@@ -1,28 +1,11 @@
-import type { Metadata } from 'next';
+import { Metadata } from 'next';
 import Link from 'next/link';
-
-export const revalidate = 18000;
+import { JOURNAL_POSTS } from '@/lib/journal-data';
 
 export const metadata: Metadata = {
-  title: 'Journal — Thoughts on Love, Loss & Letters',
-  description: 'Essays and reflections on unsent letters, unspoken words, love, loss, and the art of letting go.',
+  title: 'Journal | Honey, If Only',
+  description: 'Explore the psychology of heartbreak and discover why the words we never send carry the heaviest weight. Read the journal.',
 };
-
-// Placeholder journal entries (will come from Supabase later)
-const PLACEHOLDER_POSTS = [
-  {
-    slug: 'why-we-dont-say-it',
-    title: 'Why We Don\'t Say It',
-    excerpt: 'The psychology behind the words we swallow — and why the hardest things to say are often the most important.',
-    date: 'May 2026',
-  },
-  {
-    slug: 'the-weight-of-unsent-letters',
-    title: 'The Weight of Unsent Letters',
-    excerpt: 'Every unspoken word carries weight. Some people carry entire libraries of things they never said.',
-    date: 'May 2026',
-  },
-];
 
 export default function JournalPage() {
   return (
@@ -31,29 +14,30 @@ export default function JournalPage() {
         <h1 className="page__title">Journal</h1>
         <p className="page__subtitle">Reflections on the words we hold back and the ones we let go.</p>
       </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
-        {PLACEHOLDER_POSTS.map(post => (
-          <article key={post.slug} style={{
-            padding: '28px 0',
-            borderBottom: '1px solid var(--border-light)',
-          }}>
-            <p style={{ fontSize: '0.8rem', color: 'var(--text-light)', marginBottom: 8, fontStyle: 'italic' }}>
+      
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '48px', marginTop: '48px' }}>
+        {JOURNAL_POSTS.map(post => (
+          <article key={post.slug} style={{ borderBottom: '1px solid var(--border-light)', paddingBottom: '48px' }}>
+            <div style={{ fontSize: '0.85rem', color: 'var(--text-light)', fontStyle: 'italic', marginBottom: '8px' }}>
               {post.date}
-            </p>
-            <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.3rem', marginBottom: 8 }}>
-              <Link href={`/journal/${post.slug}`} style={{ color: 'var(--text)' }}>
+            </div>
+            <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.6rem', marginBottom: '16px' }}>
+              <Link href={`/journal/${post.slug}`} style={{ color: 'var(--text)', textDecoration: 'none' }}>
                 {post.title}
               </Link>
             </h2>
-            <p style={{ color: 'var(--text-muted)', lineHeight: 1.7 }}>{post.excerpt}</p>
+            <p style={{ color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: '24px' }}>
+              {post.excerpt}
+            </p>
+            <Link href={`/journal/${post.slug}`} style={{ 
+              fontSize: '0.85rem', letterSpacing: '0.05em', textTransform: 'uppercase', 
+              color: 'var(--text)', borderBottom: '1px solid var(--text)' 
+            }}>
+              Read More
+            </Link>
           </article>
         ))}
       </div>
-
-      <p style={{ textAlign: 'center', marginTop: 48, color: 'var(--text-light)', fontStyle: 'italic', fontSize: '0.9rem' }}>
-        More reflections coming soon.
-      </p>
     </div>
   );
 }
