@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { getMemoriesByName } from '@/lib/data';
 import NameArchive from '@/components/NameArchive';
+import RelatedNames from '@/components/RelatedNames';
 
 export const revalidate = 18000;
 
@@ -49,6 +50,7 @@ export default async function NamePage(props: {
         </p>
       </div>
       <NameArchive nameSlug={name} displayName={displayName} initialTotal={total} />
+      <RelatedNames currentName={displayName} currentSlug={name} />
     </div>
   );
 }

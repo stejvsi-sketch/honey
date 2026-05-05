@@ -111,3 +111,41 @@ export function getMockMemories(count: number): Memory[] {
     pinned_until: m.pinned ? new Date(Date.now() + 86400000).toISOString() : null,
   }));
 }
+
+export async function getNameStats(): Promise<{ name: string; slug: string; count: number }[]> {
+  if (!isConfigured()) {
+    const mocks = getMockMemories(13);
+    const stats: Record<string, { name: string; slug: string; count: number }> = {};
+    mocks.forEach(m => {
+      if (!stats[m.slug]) stats[m.slug] = { name: m.name, slug: m.slug, count: 0 };
+      stats[m.slug].count++;
+    });
+    return Object.values(stats).sort((a, b) => b.count - a.count);
+  }
+  
+  const cacheKey = `name_stats`;
+  if (isRedisConfigured()) {
+    const c = await getCached<{ name: string; slug: string; count: number }[]>(cacheKey);
+    if (c) return c;
+  }
+  
+  const supabase = getSupabaseClient();
+  // Fetch up to 5000 recent memories to build the stat list cheaply without an RPC.
+  // In a production environment with millions of rows, use a materialized view or RPC.
+  const { data, error } = await supabase.from('memories')
+    .select('name, slug')
+    .order('created_at', { ascending: false })
+    .limit(5000);
+    
+  if (error || !data) return [];
+  
+  const stats: Record<string, { name: string; slug: string; count: number }> = {};
+  data.forEach((m: { name: string; slug: string }) => {
+    if (!stats[m.slug]) stats[m.slug] = { name: m.name, slug: m.slug, count: 0 };
+    stats[m.slug].count++;
+  });
+  
+  const result = Object.values(stats).sort((a, b) => b.count - a.count);
+  if (isRedisConfigured()) await setCache(cacheKey, result);
+  return result;
+}

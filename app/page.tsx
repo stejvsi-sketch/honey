@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getHomeMemories } from '@/lib/data';
 import { SITE_NAME } from '@/lib/constants';
 import HomeCardGrid from '@/components/cards/HomeCardGrid';
+import TrendingNames from '@/components/TrendingNames';
 
 export const revalidate = 18000;
 
@@ -21,6 +22,7 @@ export default async function HomePage() {
             See All Letters →
           </Link>
         </div>
+        <TrendingNames />
       </section>
 
       <section className="hero">
