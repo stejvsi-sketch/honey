@@ -13,7 +13,9 @@ export default function MobileCard({ memory }: { memory: Memory }) {
   const pinned = isPinned(memory);
 
   return (
-    <div className="memory-card memory-card--mobile card-animate" style={{ maxWidth: 340 }}>
+    <div className="memory-card memory-card--mobile card-animate" style={{ maxWidth: 340 }} itemScope itemType="https://schema.org/SocialMediaPosting">
+      <meta itemProp="author" content="Anonymous" />
+      <meta itemProp="datePublished" content={memory.created_at} />
       {pinned && (
         <div className="memory-card__pin" aria-label="Pinned letter">
           <svg width="18" height="26" viewBox="0 0 22 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -38,7 +40,7 @@ export default function MobileCard({ memory }: { memory: Memory }) {
         </Link>
         <Link href={`/letter/${memory.id}`} className="memory-card__message"
           style={{ textDecoration: 'none', color: 'inherit' }}>
-          <span>{memory.message}</span>
+          <span itemProp="text">{memory.message}</span>
         </Link>
       </div>
     </div>

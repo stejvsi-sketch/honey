@@ -13,7 +13,9 @@ export default function DesktopCard({ memory }: { memory: Memory }) {
   const pinned = isPinned(memory);
 
   return (
-    <div className="memory-card card-animate" style={{ maxWidth: 480 }}>
+    <div className="memory-card card-animate" style={{ maxWidth: 480 }} itemScope itemType="https://schema.org/SocialMediaPosting">
+      <meta itemProp="author" content="Anonymous" />
+      <meta itemProp="datePublished" content={memory.created_at} />
       {pinned && (
         <div className="memory-card__pin" aria-label="Pinned letter">
           <svg width="22" height="32" viewBox="0 0 22 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -38,7 +40,7 @@ export default function DesktopCard({ memory }: { memory: Memory }) {
         </Link>
         <Link href={`/letter/${memory.id}`} className="memory-card__message"
           style={{ textDecoration: 'none', color: 'inherit' }}>
-          <span>{memory.message}</span>
+          <span itemProp="text">{memory.message}</span>
         </Link>
       </div>
     </div>
