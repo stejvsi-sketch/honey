@@ -21,12 +21,10 @@ const MORE_LINKS = [
 
 export default function Navigation() {
   const pathname = usePathname();
-  const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setMobileOpen(false);
     setDropdownOpen(false);
   }, [pathname]);
 
@@ -84,22 +82,6 @@ export default function Navigation() {
           </li>
         </ul>
 
-        <button
-          className="nav__toggle"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-          aria-expanded={mobileOpen}
-        >
-          <span /><span /><span />
-        </button>
-      </div>
-
-      <div className={`nav__mobile ${mobileOpen ? 'nav__mobile--open' : ''}`}>
-        {[...NAV_LINKS, ...MORE_LINKS].map(link => (
-          <Link key={link.href} href={link.href} className="nav__link">
-            {link.label}
-          </Link>
-        ))}
       </div>
     </nav>
   );
