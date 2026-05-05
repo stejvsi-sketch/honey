@@ -13,7 +13,7 @@ export interface Submission {
   name: string;
   message: string;
   color_id: string;
-  status: 'pending' | 'approved' | 'rejected';
+  status: 'pending' | 'approved';
   ip_hash: string;
   country: string;
   user_uuid: string;

@@ -42,7 +42,7 @@ CREATE TABLE submissions (
   message TEXT NOT NULL,
   color_id TEXT NOT NULL,
   slug TEXT NOT NULL,
-  status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
+  status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved')),
   ip_hash TEXT NOT NULL,
   country TEXT DEFAULT 'Unknown',
   user_uuid TEXT NOT NULL,
@@ -114,3 +114,11 @@ AS
   GROUP BY name, slug
   ORDER BY count DESC;
 ;
+
+-- ============================================
+-- MIGRATION: Remove rejected status
+-- (Run this if you have existing rows with rejected status)
+-- ============================================
+-- DELETE FROM submissions WHERE status = 'rejected';
+-- ALTER TABLE submissions DROP CONSTRAINT IF EXISTS submissions_status_check;
+-- ALTER TABLE submissions ADD CONSTRAINT submissions_status_check CHECK (status IN ('pending', 'approved'));
