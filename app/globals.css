@@ -94,7 +94,7 @@ a:hover { color: var(--accent-hover); }
   .nav__logo { font-size: 1.3rem; }
 }
 @media (max-width: 480px) {
-  .nav__links { gap: 14px; }
+  .nav__links { gap: 10px; }
   .nav__link { font-size: 0.6rem; letter-spacing: 0.03em; }
   .nav__logo { font-size: 1.1rem; }
 }
