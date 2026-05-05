@@ -130,8 +130,17 @@ export async function getNameStats(): Promise<{ name: string; slug: string; coun
   }
   
   const supabase = getSupabaseClient();
-  // Fetch up to 5000 recent memories to build the stat list cheaply without an RPC.
-  // In a production environment with millions of rows, use a materialized view or RPC.
+  
+  // First, try to use the optimized RPC function
+  const { data: rpcData, error: rpcError } = await supabase.rpc('get_name_stats');
+  
+  if (!rpcError && rpcData) {
+    const result = rpcData as { name: string; slug: string; count: number }[];
+    if (isRedisConfigured()) await setCache(cacheKey, result);
+    return result;
+  }
+
+  // Fallback: If RPC doesn't exist yet, fetch up to 5000 recent memories
   const { data, error } = await supabase.from('memories')
     .select('name, slug')
     .order('created_at', { ascending: false })

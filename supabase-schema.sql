@@ -100,3 +100,17 @@ CREATE POLICY "Public read published" ON journal_posts FOR SELECT USING (publish
 -- ============================================
 -- ALTER TABLE memories ADD COLUMN IF NOT EXISTS pinned_until TIMESTAMPTZ DEFAULT NULL;
 -- CREATE INDEX IF NOT EXISTS idx_memories_pinned ON memories(pinned_until) WHERE pinned_until IS NOT NULL;
+
+-- ============================================
+-- 5. RPC FUNCTIONS (For SEO Internal Linking)
+-- ============================================
+-- Returns the total count of letters per name for the A-Z directory and trending widgets
+CREATE OR REPLACE FUNCTION get_name_stats()
+RETURNS TABLE (name TEXT, slug TEXT, count BIGINT)
+LANGUAGE sql
+AS 
+  SELECT name, slug, COUNT(*) as count
+  FROM memories
+  GROUP BY name, slug
+  ORDER BY count DESC;
+;
