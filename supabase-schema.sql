@@ -108,12 +108,12 @@ CREATE POLICY "Public read published" ON journal_posts FOR SELECT USING (publish
 CREATE OR REPLACE FUNCTION get_name_stats()
 RETURNS TABLE (name TEXT, slug TEXT, count BIGINT)
 LANGUAGE sql
-AS 
+AS $$
   SELECT name, slug, COUNT(*) as count
   FROM memories
   GROUP BY name, slug
   ORDER BY count DESC;
-;
+$$;
 
 -- ============================================
 -- MIGRATION: Remove rejected status
