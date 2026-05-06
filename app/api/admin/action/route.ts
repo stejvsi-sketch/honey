@@ -39,17 +39,16 @@ export async function POST(request: NextRequest) {
     if (!id || !hours) {
       return NextResponse.json({ error: 'Missing id or hours for pin' }, { status: 400 });
     }
-    const pinUntil = new Date(Date.now() + hours * 3600000).toISOString();
+    const pinnedUntil = new Date(Date.now() + hours * 60 * 60 * 1000).toISOString();
     const { error: pinErr } = await supabase
       .from('memories')
-      .update({ pinned_until: pinUntil })
+      .update({ pinned_until: pinnedUntil })
       .eq('id', id);
     if (pinErr) return NextResponse.json({ error: pinErr.message }, { status: 500 });
-    // Cache expires naturally via 5h ISR TTL — no revalidation needed
     return NextResponse.json({ success: true });
   }
 
-  // Unpin action — clears pinned_until on a memory
+  // Unpin action
   if (action === 'unpin') {
     if (!id) {
       return NextResponse.json({ error: 'Missing id for unpin' }, { status: 400 });
@@ -59,16 +58,26 @@ export async function POST(request: NextRequest) {
       .update({ pinned_until: null })
       .eq('id', id);
     if (unpinErr) return NextResponse.json({ error: unpinErr.message }, { status: 500 });
-    // Cache expires naturally via 5h ISR TTL — no revalidation needed
     return NextResponse.json({ success: true });
   }
 
-  // All other actions require a submission id
+  // Delete action — works on BOTH memories and submissions tables
+  // This allows deleting from the Approved tab (memories) as well as Pending tab (submissions)
+  if (action === 'delete') {
+    if (!id) {
+      return NextResponse.json({ error: 'Missing id' }, { status: 400 });
+    }
+    // Try deleting from both tables — one will match, the other is a no-op
+    await supabase.from('memories').delete().eq('id', id);
+    await supabase.from('submissions').delete().eq('id', id);
+    return NextResponse.json({ success: true });
+  }
+
+  // All remaining actions (approve, reject, ban) require a submission lookup
   if (!id) {
     return NextResponse.json({ error: 'Missing id' }, { status: 400 });
   }
 
-  // Get the submission first
   const { data: submission } = await supabase
     .from('submissions').select('*').eq('id', id).single();
 
@@ -89,19 +98,10 @@ export async function POST(request: NextRequest) {
       if (insertErr) return NextResponse.json({ error: insertErr.message }, { status: 500 });
       // Update submission status
       await supabase.from('submissions').update({ status: 'approved' }).eq('id', id);
-      // Invalidate caches
-      // Cache expires naturally via 5h ISR TTL — no revalidation needed
       break;
     }
     case 'reject': {
       await supabase.from('submissions').delete().eq('id', id);
-      break;
-    }
-    case 'delete': {
-      await supabase.from('submissions').delete().eq('id', id);
-      // Also delete from memories if it was approved
-      await supabase.from('memories').delete().eq('id', id);
-      // Cache expires naturally via 5h ISR TTL — no revalidation needed
       break;
     }
     case 'ban': {
@@ -112,7 +112,7 @@ export async function POST(request: NextRequest) {
         country: submission.country,
         reason: 'Banned by admin',
       }, { onConflict: 'ip_hash' });
-      // Delete the submission instead of rejecting
+      // Delete the submission
       await supabase.from('submissions').delete().eq('id', id);
       break;
     }
