@@ -31,11 +31,11 @@ export async function GET(request: NextRequest) {
     total: count || 0,
   });
 
-  // Cache on Vercel CDN for 5h per unique URL (page+search combo)
-  // Matches the 5h ISR TTL used across all public pages
+  // s-maxage = CDN cache (5h), max-age=0 = browser always revalidates with CDN
+  // Without max-age=0, mobile browsers aggressively cache the API response locally
   response.headers.set(
     'Cache-Control',
-    'public, s-maxage=18000, stale-while-revalidate=18000'
+    'public, max-age=0, s-maxage=18000, stale-while-revalidate=18000'
   );
 
   return response;
