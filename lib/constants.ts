@@ -1,5 +1,5 @@
 export const SITE_NAME = 'Honey, If Only';
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://honeyifonly.com';
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.honeyifonly.com';
 export const SITE_DESCRIPTION = "We all have words we couldn't say. Honey, If Only is a digital memory archive for your grief, heartbreak, and regret. Distill your truth into 25 words. Let it go.";
 
 export const CACHE_TTL = 18000; // 5 hours in seconds
