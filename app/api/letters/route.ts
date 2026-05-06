@@ -1,5 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseClient } from '@/lib/supabase';
+import type { Memory } from '@/lib/types';
+
+function sortPinnedFirst(memories: Memory[]): Memory[] {
+  const now = new Date();
+  const pinned = memories.filter(m => m.pinned_until && new Date(m.pinned_until) > now);
+  const rest = memories.filter(m => !m.pinned_until || new Date(m.pinned_until) <= now);
+  return [...pinned, ...rest];
+}
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
@@ -27,7 +35,7 @@ export async function GET(request: NextRequest) {
   }
 
   const response = NextResponse.json({
-    memories: data || [],
+    memories: sortPinnedFirst((data || []) as Memory[]),
     total: count || 0,
   });
 

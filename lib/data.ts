@@ -2,6 +2,14 @@ import { getSupabaseClient } from './supabase';
 import type { Memory } from './types';
 import { unstable_cache } from 'next/cache';
 
+/** Moves actively-pinned memories to the front, preserving order within each group */
+function sortPinnedFirst(memories: Memory[]): Memory[] {
+  const now = new Date();
+  const pinned = memories.filter(m => m.pinned_until && new Date(m.pinned_until) > now);
+  const rest = memories.filter(m => !m.pinned_until || new Date(m.pinned_until) <= now);
+  return [...pinned, ...rest];
+}
+
 const getCachedHomeMemories = unstable_cache(
   async (limit: number) => {
     const supabase = getSupabaseClient();
@@ -9,7 +17,7 @@ const getCachedHomeMemories = unstable_cache(
       .from('memories').select('id, name, message, color_id, created_at, slug, pinned_until')
       .order('created_at', { ascending: false }).limit(limit);
     if (error) { console.error('Error fetching home memories:', error); return []; }
-    return data as Memory[];
+    return sortPinnedFirst(data as Memory[]);
   },
   ['home-memories'],
   { revalidate: 18000 }
@@ -29,7 +37,7 @@ const getCachedArchiveMemories = unstable_cache(
       supabase.from('memories').select('*', { count: 'exact', head: true }),
     ]);
     if (error || countError) return { memories: [], total: 0 };
-    return { memories: data as Memory[], total: count || 0 };
+    return { memories: sortPinnedFirst(data as Memory[]), total: count || 0 };
   },
   ['archive-memories'],
   { revalidate: 18000 }
