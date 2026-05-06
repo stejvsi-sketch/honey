@@ -10,7 +10,22 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url, 303);
   }
 
-  return NextResponse.next();
+  const response = NextResponse.next();
+
+  // For HTML page requests (not API, not static assets):
+  // Set max-age=0 so browsers always revalidate with the CDN.
+  // This ensures that after a Vercel/Cloudflare cache purge,
+  // visitors immediately see fresh content instead of stale browser cache.
+  // s-maxage=18000 keeps the CDN caching for 5h (no extra compute cost).
+  const pathname = request.nextUrl.pathname;
+  if (!pathname.startsWith('/api') && !pathname.startsWith('/_next')) {
+    response.headers.set(
+      'Cache-Control',
+      'public, max-age=0, s-maxage=18000, stale-while-revalidate=18000'
+    );
+  }
+
+  return response;
 }
 
 export const config = {
