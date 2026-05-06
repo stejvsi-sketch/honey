@@ -31,11 +31,12 @@ export async function GET(request: NextRequest) {
     total: count || 0,
   });
 
-  // Cache on Vercel CDN for 5h per unique URL (page+search combo)
-  // Matches the 5h ISR TTL used across all public pages
+  // max-age=18000: browser caches for exactly 5h, then MUST revalidate
+  // s-maxage=18000: CDN (Vercel) caches for 5h independently
+  // must-revalidate: after 5h, browser cannot serve stale — must check with CDN
   response.headers.set(
     'Cache-Control',
-    'public, s-maxage=18000, stale-while-revalidate=18000'
+    'public, max-age=18000, s-maxage=18000, stale-while-revalidate=18000, must-revalidate'
   );
 
   return response;
