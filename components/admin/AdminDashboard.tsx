@@ -19,6 +19,27 @@ interface BannedUser {
 
 interface Stats { total_memories: number; total_pending: number; total_banned: number; }
 
+/* ── colour palette for admin ── */
+const C = {
+  bg:         '#1c1917',
+  cardBg:     '#292524',
+  cardBorder: '#3f3a36',
+  accent:     '#c4a67a',
+  accentDim:  'rgba(196,166,122,0.35)',
+  text:       '#e7e0d8',
+  textMuted:  '#a89f94',
+  textFaint:  '#706861',
+  green:      '#5cb87a',
+  greenDim:   'rgba(92,184,122,0.15)',
+  greenBorder:'rgba(92,184,122,0.35)',
+  red:        '#e06060',
+  redDim:     'rgba(224,96,96,0.12)',
+  redBorder:  'rgba(224,96,96,0.30)',
+  yellow:     '#e8c44a',
+  yellowDim:  'rgba(232,196,74,0.12)',
+  yellowBorder:'rgba(232,196,74,0.30)',
+};
+
 export default function AdminDashboard({ secret }: { secret: string }) {
   const [tab, setTab] = useState<'pending' | 'approved' | 'banned'>('pending');
   const [submissions, setSubmissions] = useState<Submission[]>([]);
@@ -28,11 +49,14 @@ export default function AdminDashboard({ secret }: { secret: string }) {
   const [loading, setLoading] = useState(true);
   const [pinDuration, setPinDuration] = useState<Record<string, string>>({});
   const [search, setSearch] = useState('');
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [bulkLoading, setBulkLoading] = useState(false);
 
   const headers: Record<string, string> = { 'Content-Type': 'application/json', 'x-admin-secret': secret };
 
   const fetchData = useCallback(async () => {
     setLoading(true);
+    setSelected(new Set()); // Clear selection on refresh
     try {
       const statsRes = await fetch('/api/admin/stats', { headers });
       if (statsRes.ok) setStats(await statsRes.json());
@@ -95,6 +119,7 @@ export default function AdminDashboard({ secret }: { secret: string }) {
   }
 
   function handleLogout() {
+    try { localStorage.removeItem('honey_admin_session'); } catch {}
     window.location.reload();
   }
 
@@ -116,107 +141,225 @@ export default function AdminDashboard({ secret }: { secret: string }) {
     (b.reason && b.reason.toLowerCase().includes(search.toLowerCase()))
   ), [bannedUsers, search]);
 
+  // ── Bulk selection helpers ──
+  const currentIds = useMemo(() => {
+    if (tab === 'pending') return filteredPending.map(s => s.id);
+    if (tab === 'approved') return filteredApproved.map(m => m.id);
+    return [];
+  }, [tab, filteredPending, filteredApproved]);
+
+  const allSelected = currentIds.length > 0 && currentIds.every(id => selected.has(id));
+
+  function toggleSelect(id: string) {
+    setSelected(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  function toggleSelectAll() {
+    if (allSelected) {
+      setSelected(new Set());
+    } else {
+      setSelected(new Set(currentIds));
+    }
+  }
+
+  async function handleBulkAction(action: 'approve' | 'reject' | 'delete') {
+    if (selected.size === 0) return;
+    const confirmMsg = action === 'approve'
+      ? `Approve ${selected.size} item(s)?`
+      : `Delete ${selected.size} item(s)? This cannot be undone.`;
+    if (!confirm(confirmMsg)) return;
+
+    setBulkLoading(true);
+    const promises = Array.from(selected).map(id =>
+      fetch('/api/admin/action', {
+        method: 'POST', headers,
+        body: JSON.stringify({ id, action }),
+      })
+    );
+    await Promise.all(promises);
+    setBulkLoading(false);
+    fetchData();
+  }
+
+  /* ── Shared styles ── */
+  const btnStyle = (bg: string, color: string, border: string): React.CSSProperties => ({
+    background: bg, color, border: `1px solid ${border}`,
+    padding: '7px 18px', borderRadius: '6px', cursor: 'pointer',
+    fontSize: '0.85rem', fontWeight: 500, transition: 'all 0.15s',
+  });
+
+  const checkboxStyle: React.CSSProperties = {
+    width: 18, height: 18, accentColor: C.accent, cursor: 'pointer',
+  };
+
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '16px', background: 'var(--bg)', minHeight: '100vh' }}>
+    <div style={{ maxWidth: '860px', margin: '0 auto', padding: '20px 16px', background: C.bg, minHeight: '100vh', color: C.text }}>
       
       {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px', flexWrap: 'wrap', gap: '16px' }}>
-        <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', fontWeight: 500, color: 'var(--text)', margin: 0 }}>
-          Admin<br/>Panel
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '28px', flexWrap: 'wrap', gap: '12px' }}>
+        <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '2rem', fontWeight: 500, color: C.text, margin: 0 }}>
+          Admin Panel
         </h1>
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-          <button onClick={handleLogout} style={{ 
-            background: 'transparent', color: 'rgba(255, 100, 100, 0.8)', border: '1px solid rgba(255, 100, 100, 0.3)', padding: '8px 24px', 
-            borderRadius: 'var(--radius)', fontSize: '0.9rem', cursor: 'pointer', transition: 'all 0.2s'
-          }}>
-            Logout
-          </button>
-        </div>
+        <button onClick={handleLogout} style={{
+          ...btnStyle('transparent', C.red, C.redBorder),
+          fontSize: '0.8rem', padding: '6px 16px',
+        }}>
+          Logout
+        </button>
       </div>
 
       {/* Tabs */}
-      <div style={{ display: 'flex', borderBottom: '1px solid var(--border-light)', marginBottom: '24px', overflowX: 'auto', WebkitOverflowScrolling: 'touch', gap: '16px' }}>
-        {(['pending', 'approved', 'banned'] as const).map((t) => (
-          <button 
-            key={t}
-            onClick={() => setTab(t)}
-            style={{ 
-              padding: '12px 0', border: 'none', background: 'transparent', cursor: 'pointer',
-              borderBottom: tab === t ? '2px solid var(--text)' : '2px solid transparent',
-              color: tab === t ? 'var(--text)' : 'var(--text-muted)', fontWeight: tab === t ? 500 : 400,
-              display: 'flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap', fontSize: '1.1rem', fontFamily: 'var(--font-serif)'
-            }}
-          >
-            {t.charAt(0).toUpperCase() + t.slice(1)}
-            <span style={{ 
-              background: tab === t ? 'rgba(255,255,255,0.1)' : 'transparent', 
-              color: tab === t ? 'var(--text)' : 'var(--text-muted)', 
-              padding: '2px 8px', borderRadius: '12px', fontSize: '0.8rem' 
-            }}>
-              {t === 'pending' ? stats.total_pending : t === 'approved' ? stats.total_memories : stats.total_banned}
-            </span>
-          </button>
-        ))}
+      <div style={{ display: 'flex', gap: '4px', marginBottom: '20px', background: C.cardBg, padding: '4px', borderRadius: '8px' }}>
+        {(['pending', 'approved', 'banned'] as const).map((t) => {
+          const isActive = tab === t;
+          const count = t === 'pending' ? stats.total_pending : t === 'approved' ? stats.total_memories : stats.total_banned;
+          return (
+            <button 
+              key={t}
+              onClick={() => { setTab(t); setSelected(new Set()); }}
+              style={{ 
+                flex: 1, padding: '10px 0', border: 'none', cursor: 'pointer',
+                borderRadius: '6px', transition: 'all 0.15s',
+                background: isActive ? C.accent : 'transparent',
+                color: isActive ? C.bg : C.textMuted,
+                fontWeight: isActive ? 600 : 400,
+                fontSize: '0.95rem', fontFamily: 'var(--font-serif)',
+              }}
+            >
+              {t.charAt(0).toUpperCase() + t.slice(1)}
+              <span style={{ 
+                marginLeft: '6px', fontSize: '0.8rem',
+                opacity: isActive ? 0.8 : 0.6,
+              }}>
+                {count}
+              </span>
+            </button>
+          );
+        })}
       </div>
 
-      {/* Search & Refresh */}
-      <div style={{ display: 'flex', gap: '12px', marginBottom: '32px' }}>
+      {/* Search & Refresh & Bulk Actions */}
+      <div style={{ display: 'flex', gap: '8px', marginBottom: '16px', flexWrap: 'wrap' }}>
         <input 
           type="text" 
-          placeholder="Search by recipient, message..." 
+          placeholder="Search by name, message..." 
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           style={{ 
-            flex: 1, padding: '12px 16px', border: '1px solid var(--border-light)', borderRadius: 'var(--radius)', 
-            fontSize: '1rem', outline: 'none', background: 'transparent', color: 'var(--text)'
+            flex: 1, minWidth: '180px', padding: '10px 14px',
+            border: `1px solid ${C.cardBorder}`, borderRadius: '6px', 
+            fontSize: '0.9rem', outline: 'none', background: C.cardBg, color: C.text,
           }}
         />
         <button 
           onClick={fetchData}
-          style={{ 
-            background: 'rgba(255,255,255,0.05)', color: 'var(--text)', border: '1px solid var(--border-light)', padding: '0 24px', 
-            borderRadius: 'var(--radius)', fontSize: '1rem', cursor: 'pointer', transition: 'all 0.2s'
-          }}
+          style={btnStyle(C.cardBg, C.text, C.cardBorder)}
         >
           Refresh
         </button>
       </div>
 
+      {/* Bulk action bar */}
+      {(tab === 'pending' || tab === 'approved') && !loading && currentIds.length > 0 && (
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: '12px',
+          padding: '10px 14px', marginBottom: '16px',
+          background: C.cardBg, borderRadius: '8px',
+          border: `1px solid ${C.cardBorder}`,
+          flexWrap: 'wrap',
+        }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '0.85rem', color: C.textMuted }}>
+            <input
+              type="checkbox"
+              checked={allSelected}
+              onChange={toggleSelectAll}
+              style={checkboxStyle}
+            />
+            Select all ({currentIds.length})
+          </label>
+
+          {selected.size > 0 && (
+            <>
+              <span style={{ fontSize: '0.85rem', color: C.accent, fontWeight: 500 }}>
+                {selected.size} selected
+              </span>
+              <div style={{ display: 'flex', gap: '8px', marginLeft: 'auto' }}>
+                {tab === 'pending' && (
+                  <button
+                    onClick={() => handleBulkAction('approve')}
+                    disabled={bulkLoading}
+                    style={btnStyle(C.greenDim, C.green, C.greenBorder)}
+                  >
+                    {bulkLoading ? 'Working...' : `Approve (${selected.size})`}
+                  </button>
+                )}
+                <button
+                  onClick={() => handleBulkAction(tab === 'pending' ? 'reject' : 'delete')}
+                  disabled={bulkLoading}
+                  style={btnStyle(C.redDim, C.red, C.redBorder)}
+                >
+                  {bulkLoading ? 'Working...' : `Delete (${selected.size})`}
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      )}
+
       {/* Content */}
       <div style={{ paddingBottom: '60px' }}>
         {loading ? (
-          <p style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>Loading shadows...</p>
+          <p style={{ color: C.textMuted, fontStyle: 'italic', textAlign: 'center', padding: '40px 0' }}>Loading...</p>
         ) : tab === 'pending' ? (
           <>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '16px', fontSize: '0.9rem' }}>Showing {filteredPending.length} of {submissions.length} pending</p>
-            {filteredPending.length === 0 && <p style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>The queue is empty.</p>}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <p style={{ color: C.textMuted, marginBottom: '12px', fontSize: '0.85rem' }}>
+              Showing {filteredPending.length} of {submissions.length} pending
+            </p>
+            {filteredPending.length === 0 && <p style={{ color: C.textFaint, fontStyle: 'italic' }}>The queue is empty.</p>}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {filteredPending.map(sub => (
                 <div key={sub.id} style={{ 
-                  background: 'rgba(0,0,0,0.2)', borderRadius: 'var(--radius)', padding: '24px', 
-                  border: '1px solid var(--border)', borderLeft: '4px solid rgba(251, 191, 36, 0.4)'
+                  background: C.cardBg, borderRadius: '8px', padding: '20px', 
+                  border: `1px solid ${selected.has(sub.id) ? C.accent : C.cardBorder}`,
+                  borderLeft: `3px solid ${selected.has(sub.id) ? C.accent : C.yellow}`,
+                  transition: 'border-color 0.15s',
                 }}>
-                  <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.4rem', marginBottom: '16px', color: 'var(--text)' }}>
-                    To {sub.name}
-                  </div>
-                  <div style={{ color: 'var(--text-light)', fontSize: '1.05rem', lineHeight: 1.6, marginBottom: '20px' }}>
-                    &ldquo;{sub.message}&rdquo;
-                  </div>
-                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '20px' }}>
-                    <span style={{ background: 'rgba(255,255,255,0.05)', color: 'var(--text-muted)', border: '1px solid var(--border-light)', padding: '4px 12px', borderRadius: '16px', fontSize: '0.8rem' }}>
-                      {sub.color_id}
-                    </span>
-                  </div>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '24px', lineHeight: 1.6 }}>
-                    IP: {sub.ip_hash.slice(0,12)}...<br/>
-                    UUID: {sub.user_uuid.slice(0,8)}...<br/>
-                    Country: {sub.country}<br/>
-                    {new Date(sub.created_at).toLocaleString()}
-                  </div>
-                  <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                    <button onClick={() => handleAction(sub.id, 'approve')} style={{ background: 'rgba(16, 185, 129, 0.1)', color: 'rgba(16, 185, 129, 0.9)', border: '1px solid rgba(16, 185, 129, 0.3)', padding: '8px 24px', borderRadius: 'var(--radius)', cursor: 'pointer' }}>Approve</button>
-                    <button onClick={() => handleAction(sub.id, 'reject')} style={{ background: 'rgba(239, 68, 68, 0.1)', color: 'rgba(239, 68, 68, 0.9)', border: '1px solid rgba(239, 68, 68, 0.3)', padding: '8px 24px', borderRadius: 'var(--radius)', cursor: 'pointer' }}>Delete</button>
-                    <button onClick={() => handleAction(sub.id, 'ban')} style={{ background: 'transparent', color: 'var(--text-muted)', border: '1px solid var(--border)', padding: '8px 24px', borderRadius: 'var(--radius)', cursor: 'pointer' }}>Ban IP</button>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                    <input
+                      type="checkbox"
+                      checked={selected.has(sub.id)}
+                      onChange={() => toggleSelect(sub.id)}
+                      style={{ ...checkboxStyle, marginTop: '4px', flexShrink: 0 }}
+                    />
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.2rem', marginBottom: '8px', color: C.text, fontWeight: 500 }}>
+                        To {sub.name}
+                      </div>
+                      <div style={{ color: C.textMuted, fontSize: '1rem', lineHeight: 1.6, marginBottom: '12px', wordBreak: 'break-word' }}>
+                        &ldquo;{sub.message}&rdquo;
+                      </div>
+                      <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '12px' }}>
+                        <span style={{ background: 'rgba(255,255,255,0.06)', color: C.textFaint, padding: '3px 10px', borderRadius: '12px', fontSize: '0.75rem' }}>
+                          {sub.color_id}
+                        </span>
+                        <span style={{ background: 'rgba(255,255,255,0.06)', color: C.textFaint, padding: '3px 10px', borderRadius: '12px', fontSize: '0.75rem' }}>
+                          {sub.country}
+                        </span>
+                      </div>
+                      <div style={{ fontSize: '0.75rem', color: C.textFaint, marginBottom: '14px', lineHeight: 1.5 }}>
+                        IP: {sub.ip_hash.slice(0,12)}... &middot; UUID: {sub.user_uuid.slice(0,8)}... &middot; {new Date(sub.created_at).toLocaleString()}
+                      </div>
+                      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                        <button onClick={() => handleAction(sub.id, 'approve')} style={btnStyle(C.greenDim, C.green, C.greenBorder)}>Approve</button>
+                        <button onClick={() => handleAction(sub.id, 'reject')} style={btnStyle(C.redDim, C.red, C.redBorder)}>Delete</button>
+                        <button onClick={() => handleAction(sub.id, 'ban')} style={btnStyle('transparent', C.textMuted, C.cardBorder)}>Ban IP</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -224,51 +367,64 @@ export default function AdminDashboard({ secret }: { secret: string }) {
           </>
         ) : tab === 'approved' ? (
           <>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '16px', fontSize: '0.9rem' }}>Showing {filteredApproved.length} of {memories.length} memories</p>
-            {filteredApproved.length === 0 && <p style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>No memories found.</p>}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <p style={{ color: C.textMuted, marginBottom: '12px', fontSize: '0.85rem' }}>
+              Showing {filteredApproved.length} of {memories.length} memories
+            </p>
+            {filteredApproved.length === 0 && <p style={{ color: C.textFaint, fontStyle: 'italic' }}>No memories found.</p>}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {filteredApproved.map(mem => (
                 <div key={mem.id} style={{ 
-                  background: isPinActive(mem) ? 'rgba(196, 166, 122, 0.05)' : 'rgba(0,0,0,0.2)', 
-                  borderRadius: 'var(--radius)', padding: '24px', 
-                  border: isPinActive(mem) ? '1px solid rgba(196, 166, 122, 0.3)' : '1px solid var(--border)', 
-                  borderLeft: isPinActive(mem) ? '4px solid #c4a67a' : '4px solid rgba(16, 185, 129, 0.3)'
+                  background: isPinActive(mem) ? 'rgba(196, 166, 122, 0.08)' : C.cardBg, 
+                  borderRadius: '8px', padding: '20px', 
+                  border: `1px solid ${selected.has(mem.id) ? C.accent : isPinActive(mem) ? C.accentDim : C.cardBorder}`,
+                  borderLeft: `3px solid ${selected.has(mem.id) ? C.accent : isPinActive(mem) ? C.accent : C.green}`,
+                  transition: 'border-color 0.15s',
                 }}>
-                  <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.4rem', marginBottom: '16px', color: 'var(--text)' }}>
-                    {isPinActive(mem) && '📌 '}To {mem.name}
-                  </div>
-                  <div style={{ color: 'var(--text-light)', fontSize: '1.05rem', lineHeight: 1.6, marginBottom: '20px' }}>
-                    &ldquo;{mem.message}&rdquo;
-                  </div>
-                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '20px' }}>
-                    <span style={{ background: 'rgba(255,255,255,0.05)', color: 'var(--text-muted)', border: '1px solid var(--border-light)', padding: '4px 12px', borderRadius: '16px', fontSize: '0.8rem' }}>
-                      {mem.color_id}
-                    </span>
-                  </div>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '24px', lineHeight: 1.6 }}>
-                    {new Date(mem.created_at).toLocaleString()}
-                    {isPinActive(mem) && <><br/><span style={{ color: '#c4a67a' }}>Pinned until {new Date(mem.pinned_until!).toLocaleString()}</span></>}
-                  </div>
-                  
-                  <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
-                    <button onClick={() => handleAction(mem.id, 'delete')} style={{ background: 'rgba(239, 68, 68, 0.1)', color: 'rgba(239, 68, 68, 0.9)', border: '1px solid rgba(239, 68, 68, 0.3)', padding: '8px 24px', borderRadius: 'var(--radius)', cursor: 'pointer' }}>Delete</button>
-                    
-                    {isPinActive(mem) ? (
-                      <button onClick={() => handleUnpin(mem.id)} style={{ background: 'transparent', color: '#c4a67a', border: '1px solid #c4a67a', padding: '7px 24px', borderRadius: 'var(--radius)', cursor: 'pointer' }}>Unpin</button>
-                    ) : (
-                      <div style={{ display: 'flex', gap: '8px' }}>
-                        <select
-                          value={pinDuration[mem.id] || '24'}
-                          onChange={(e) => setPinDuration(prev => ({ ...prev, [mem.id]: e.target.value }))}
-                          style={{ padding: '8px', borderRadius: 'var(--radius)', border: '1px solid var(--border)', background: 'transparent', color: 'var(--text-muted)' }}
-                        >
-                          <option value="24" style={{ background: 'var(--bg)' }}>24 H</option>
-                          <option value="48" style={{ background: 'var(--bg)' }}>48 H</option>
-                          <option value="168" style={{ background: 'var(--bg)' }}>7 D</option>
-                        </select>
-                        <button onClick={() => handlePin(mem.id)} style={{ background: 'rgba(255,255,255,0.05)', color: 'var(--text)', border: '1px solid var(--border)', padding: '8px 24px', borderRadius: 'var(--radius)', cursor: 'pointer' }}>Pin</button>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                    <input
+                      type="checkbox"
+                      checked={selected.has(mem.id)}
+                      onChange={() => toggleSelect(mem.id)}
+                      style={{ ...checkboxStyle, marginTop: '4px', flexShrink: 0 }}
+                    />
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.2rem', marginBottom: '8px', color: C.text, fontWeight: 500 }}>
+                        {isPinActive(mem) && '📌 '}To {mem.name}
                       </div>
-                    )}
+                      <div style={{ color: C.textMuted, fontSize: '1rem', lineHeight: 1.6, marginBottom: '12px', wordBreak: 'break-word' }}>
+                        &ldquo;{mem.message}&rdquo;
+                      </div>
+                      <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '12px' }}>
+                        <span style={{ background: 'rgba(255,255,255,0.06)', color: C.textFaint, padding: '3px 10px', borderRadius: '12px', fontSize: '0.75rem' }}>
+                          {mem.color_id}
+                        </span>
+                      </div>
+                      <div style={{ fontSize: '0.75rem', color: C.textFaint, marginBottom: '14px', lineHeight: 1.5 }}>
+                        {new Date(mem.created_at).toLocaleString()}
+                        {isPinActive(mem) && <> &middot; <span style={{ color: C.accent }}>Pinned until {new Date(mem.pinned_until!).toLocaleString()}</span></>}
+                      </div>
+                      
+                      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+                        <button onClick={() => handleAction(mem.id, 'delete')} style={btnStyle(C.redDim, C.red, C.redBorder)}>Delete</button>
+                        
+                        {isPinActive(mem) ? (
+                          <button onClick={() => handleUnpin(mem.id)} style={btnStyle('transparent', C.accent, C.accentDim)}>Unpin</button>
+                        ) : (
+                          <div style={{ display: 'flex', gap: '6px' }}>
+                            <select
+                              value={pinDuration[mem.id] || '24'}
+                              onChange={(e) => setPinDuration(prev => ({ ...prev, [mem.id]: e.target.value }))}
+                              style={{ padding: '7px 8px', borderRadius: '6px', border: `1px solid ${C.cardBorder}`, background: C.cardBg, color: C.textMuted, fontSize: '0.85rem' }}
+                            >
+                              <option value="24">24 H</option>
+                              <option value="48">48 H</option>
+                              <option value="168">7 D</option>
+                            </select>
+                            <button onClick={() => handlePin(mem.id)} style={btnStyle(C.cardBg, C.text, C.cardBorder)}>Pin</button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -276,27 +432,29 @@ export default function AdminDashboard({ secret }: { secret: string }) {
           </>
         ) : (
           <>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '16px', fontSize: '0.9rem' }}>Showing {filteredBanned.length} of {bannedUsers.length} banned users</p>
-            {filteredBanned.length === 0 && <p style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>No banned users found.</p>}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <p style={{ color: C.textMuted, marginBottom: '12px', fontSize: '0.85rem' }}>
+              Showing {filteredBanned.length} of {bannedUsers.length} banned users
+            </p>
+            {filteredBanned.length === 0 && <p style={{ color: C.textFaint, fontStyle: 'italic' }}>No banned users found.</p>}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {filteredBanned.map(user => (
                 <div key={user.id} style={{ 
-                  background: 'rgba(0,0,0,0.2)', borderRadius: 'var(--radius)', padding: '24px', 
-                  border: '1px solid var(--border)', borderLeft: '4px solid rgba(239, 68, 68, 0.4)'
+                  background: C.cardBg, borderRadius: '8px', padding: '20px', 
+                  border: `1px solid ${C.cardBorder}`, borderLeft: `3px solid ${C.red}`,
                 }}>
-                  <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.25rem', marginBottom: '12px', color: 'var(--text)' }}>
+                  <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.1rem', marginBottom: '8px', color: C.text, fontWeight: 500 }}>
                     Banned IP / User
                   </div>
-                  <div style={{ color: 'var(--text-light)', fontSize: '1rem', marginBottom: '16px' }}>
+                  <div style={{ color: C.textMuted, fontSize: '0.95rem', marginBottom: '10px' }}>
                     Reason: {user.reason}
                   </div>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '24px', lineHeight: 1.6 }}>
+                  <div style={{ fontSize: '0.75rem', color: C.textFaint, marginBottom: '14px', lineHeight: 1.5 }}>
                     IP Hash: {user.ip_hash}<br/>
                     UUID: {user.user_uuid || 'N/A'}<br/>
                     Country: {user.country}<br/>
                     {new Date(user.created_at).toLocaleString()}
                   </div>
-                  <button onClick={() => handleUnban(user.ip_hash)} style={{ background: 'transparent', color: 'rgba(239, 68, 68, 0.9)', border: '1px solid rgba(239, 68, 68, 0.3)', padding: '8px 24px', borderRadius: 'var(--radius)', cursor: 'pointer' }}>Unban</button>
+                  <button onClick={() => handleUnban(user.ip_hash)} style={btnStyle(C.redDim, C.red, C.redBorder)}>Unban</button>
                 </div>
               ))}
             </div>

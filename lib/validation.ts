@@ -28,20 +28,14 @@ export const submitMemorySchema = z.object({
 
 export type SubmitMemoryInput = z.infer<typeof submitMemorySchema>;
 
-// Sanitize text to prevent XSS — strips HTML tags and trims
+// Sanitize text to prevent XSS — strips HTML tags and trims.
+// React auto-escapes text content when rendering, so we only need to
+// remove actual HTML tags. Do NOT html-encode individual characters
+// like quotes or angle brackets, as that causes double-encoding
+// (e.g. apostrophes showing as &#x27; on the frontend).
 export function sanitizeText(input: string): string {
   return input
     .replace(/<[^>]*>/g, '')
-    .replace(/[<>"'&]/g, (char) => {
-      const entities: Record<string, string> = {
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#x27;',
-        '&': '&amp;',
-      };
-      return entities[char] || char;
-    })
     .trim();
 }
 
