@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getHomeMemories } from '@/lib/data';
-import { SITE_NAME } from '@/lib/constants';
+import { SITE_NAME, SITE_URL } from '@/lib/constants';
 import HomeCardGrid from '@/components/cards/HomeCardGrid';
 import TrendingNames from '@/components/TrendingNames';
 
@@ -44,11 +44,11 @@ export default async function HomePage() {
             '@context': 'https://schema.org',
             '@type': 'WebSite',
             name: SITE_NAME,
-            url: 'https://honeyifonly.com',
+            url: SITE_URL,
             description: 'A place for unsent letters and unspoken words.',
             potentialAction: {
               '@type': 'SearchAction',
-              target: 'https://honeyifonly.com/to/{search_term_string}',
+              target: `${SITE_URL}/to/{search_term_string}`,
               'query-input': 'required name=search_term_string',
             },
           }),

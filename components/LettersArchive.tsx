@@ -32,14 +32,14 @@ function loadState(): ArchiveState | null {
   }
 }
 
-export default function LettersArchive() {
-  const [memories, setMemories] = useState<Memory[]>([]);
+export default function LettersArchive({ initialMemories, initialTotal }: { initialMemories?: Memory[]; initialTotal?: number }) {
+  const [memories, setMemories] = useState<Memory[]>(initialMemories || []);
   const [search, setSearch] = useState('');
   const [searchInput, setSearchInput] = useState('');
   const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState(initialTotal || 0);
   const [loading, setLoading] = useState(false);
-  const [initialLoad, setInitialLoad] = useState(true);
+  const [initialLoad, setInitialLoad] = useState(!initialMemories || initialMemories.length === 0);
   const [restored, setRestored] = useState(false);
   const loaderRef = useRef<HTMLDivElement>(null);
   const fetchingRef = useRef(false);
