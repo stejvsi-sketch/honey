@@ -273,16 +273,18 @@ a:hover { color: var(--accent-hover); }
   margin: 10px auto 0;
 }
 
-/* Tablet card adjustments */
-.memory-card--tablet { max-width: 320px; }
-.memory-card--tablet .memory-card__name { font-size: 1.1rem; }
-.memory-card--tablet .memory-card__message { font-size: 1.05rem; }
-
-/* Mobile card adjustments */
-.memory-card--mobile { max-width: 340px; }
-.memory-card--mobile .memory-card__content { padding: 28px 24px; }
-.memory-card--mobile .memory-card__name { font-size: 1.1rem; }
-.memory-card--mobile .memory-card__message { font-size: 1.05rem; }
+/* Responsive card sizing via CSS media queries (no JS = no CLS) */
+@media (max-width: 1023px) {
+  .memory-card { max-width: 320px; }
+  .memory-card .memory-card__name { font-size: 1.1rem; }
+  .memory-card .memory-card__message { font-size: 1.05rem; }
+}
+@media (max-width: 767px) {
+  .memory-card { max-width: 340px; }
+  .memory-card .memory-card__content { padding: 28px 24px; }
+  .memory-card .memory-card__name { font-size: 1.1rem; }
+  .memory-card .memory-card__message { font-size: 1.05rem; }
+}
 
 /* ===== FORM ===== */
 .form { max-width: 520px; margin: 0 auto; }
@@ -394,7 +396,7 @@ a:hover { color: var(--accent-hover); }
 }
 .footer__link:hover { color: var(--text-muted); }
 .footer__copy {
-  font-size: 0.75rem; color: #6b6259;
+  font-size: 0.75rem; color: #5c554d;
   font-style: italic;
 }
 
