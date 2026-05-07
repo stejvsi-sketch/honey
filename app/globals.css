@@ -182,6 +182,7 @@ a:hover { color: var(--accent-hover); }
   user-select: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
+  isolation: isolate;
 }
 .memory-card:hover {
   transform: translateY(-2px) rotate(-0.3deg);
@@ -199,6 +200,7 @@ a:hover { color: var(--accent-hover); }
   mask-size: 100% 100%;
   mask-position: center;
   mask-repeat: no-repeat;
+  isolation: isolate;
 }
 .memory-card__color {
   position: absolute; inset: 4px;
@@ -209,7 +211,6 @@ a:hover { color: var(--accent-hover); }
   background-size: 100% 100%; background-position: center;
   background-repeat: no-repeat;
   mix-blend-mode: multiply;
-  will-change: transform;
 }
 
 .memory-card__content {
@@ -330,7 +331,7 @@ a:hover { color: var(--accent-hover); }
   transform: scale(1.1);
 }
 .color-swatch--selected::after {
-  content: '✓'; position: absolute; inset: 0;
+  content: 'Ã¢Å“â€œ'; position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
   font-size: 0.75rem; color: var(--text);
 }
@@ -526,10 +527,11 @@ a:hover { color: var(--accent-hover); }
   from { opacity: 1; } to { opacity: 0; visibility: hidden; }
 }
 @keyframes cardIn {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
+  0% { opacity: 0; visibility: hidden; transform: translateY(16px); }
+  1% { opacity: 0; visibility: visible; transform: translateY(16px); }
+  100% { opacity: 1; visibility: visible; transform: translateY(0); }
 }
-.card-animate { animation: cardIn 0.5s ease both; }
+.card-animate { visibility: hidden; animation: cardIn 0.5s ease both; }
 
 /* Stagger children */
 .card-grid > *:nth-child(1) { animation-delay: 0.05s; }
