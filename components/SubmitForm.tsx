@@ -92,6 +92,7 @@ export default function SubmitForm() {
               onClick={() => setColorId(color.id)}
               title={color.name}
               aria-label={`Select ${color.name} color`}
+              aria-pressed={colorId === color.id}
             />
           ))}
         </div>

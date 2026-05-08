@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getMemoryById } from '@/lib/data';
-import { CARD_COLORS, SITE_NAME } from '@/lib/constants';
+import { CARD_COLORS, SITE_NAME, SITE_URL } from '@/lib/constants';
+import CardDownloadSurface from '@/components/cards/CardDownloadSurface';
 import Link from 'next/link';
 
 export const revalidate = 18000;
@@ -10,10 +11,27 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
   const { id } = await props.params;
   const memory = await getMemoryById(id);
   if (!memory) return { title: 'Letter Not Found' };
+  const cardImageUrl = `${SITE_URL}/api/card-image/${memory.id}`;
+
   return {
     title: `A letter to ${memory.name}`,
-    description: `"${memory.message.slice(0, 120)}..." — An unsent letter on ${SITE_NAME}`,
-    openGraph: { title: `A letter to ${memory.name}`, description: memory.message.slice(0, 160) },
+    description: `"${memory.message.slice(0, 120)}..." - An unsent letter on ${SITE_NAME}`,
+    openGraph: {
+      title: `A letter to ${memory.name}`,
+      description: memory.message.slice(0, 160),
+      images: [{
+        url: cardImageUrl,
+        width: 1260,
+        height: 1560,
+        alt: `An unsent letter to ${memory.name}`,
+      }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `A letter to ${memory.name}`,
+      description: memory.message.slice(0, 160),
+      images: [cardImageUrl],
+    },
   };
 }
 
@@ -31,7 +49,7 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
   return (
     <div className="letter-single">
       <div className="letter-single__card">
-        <div className="memory-card card-animate" style={{ margin: '0 auto' }}>
+        <CardDownloadSurface memory={memory} className="memory-card card-animate" style={{ margin: '0 auto' }}>
           <div className="memory-card__bg">
             <div className="memory-card__color" style={{ backgroundColor: hex }} />
             <div className="memory-card__texture" />
@@ -45,7 +63,7 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
             </Link>
             <div className="memory-card__message"><span>{memory.message}</span></div>
           </div>
-        </div>
+        </CardDownloadSurface>
       </div>
       <div className="letter-single__meta">
         <p>{formattedDate} at {formattedTime}</p>

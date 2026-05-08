@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import CardRenderer from '@/components/cards/CardRenderer';
+import VirtualizedCardGrid from '@/components/cards/VirtualizedCardGrid';
 import Link from 'next/link';
 import type { Memory } from '@/lib/types';
 
@@ -194,11 +194,7 @@ export default function LettersArchive({ initialMemories, initialTotal }: { init
       </form>
 
       {/* Cards grid */}
-      <div className="card-grid">
-        {memories.map(memory => (
-          <CardRenderer key={memory.id} memory={memory} />
-        ))}
-      </div>
+      <VirtualizedCardGrid memories={memories} />
 
       {/* Empty state */}
       {!initialLoad && memories.length === 0 && (

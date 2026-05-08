@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import CardRenderer from '@/components/cards/CardRenderer';
+import VirtualizedCardGrid from '@/components/cards/VirtualizedCardGrid';
 import Link from 'next/link';
 import type { Memory } from '@/lib/types';
 
@@ -123,11 +123,7 @@ export default function NameArchive({ nameSlug, displayName, initialTotal }: {
 
   return (
     <>
-      <div className="card-grid">
-        {memories.map(memory => (
-          <CardRenderer key={memory.id} memory={memory} />
-        ))}
-      </div>
+      <VirtualizedCardGrid memories={memories} />
 
       {!initialLoad && memories.length === 0 && (
         <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginTop: 48, fontStyle: 'italic' }}>

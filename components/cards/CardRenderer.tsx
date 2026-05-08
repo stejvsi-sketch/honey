@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CardDownloadSurface from '@/components/cards/CardDownloadSurface';
 import { CARD_COLORS, SITE_NAME } from '@/lib/constants';
 import type { Memory } from '@/lib/types';
 
@@ -7,13 +8,24 @@ function isPinned(memory: Memory): boolean {
   return new Date(memory.pinned_until) > new Date();
 }
 
-export default function CardRenderer({ memory }: { memory: Memory }) {
+export default function CardRenderer({
+  memory,
+  animate = true,
+}: {
+  memory: Memory;
+  animate?: boolean;
+}) {
   const color = CARD_COLORS.find(c => c.id === memory.color_id);
   const hex = color?.hex || '#f5e6d0';
   const pinned = isPinned(memory);
 
   return (
-    <div className="memory-card card-animate" itemScope itemType="https://schema.org/SocialMediaPosting">
+    <CardDownloadSurface
+      memory={memory}
+      className={`memory-card${animate ? ' card-animate' : ''}`}
+      itemScope
+      itemType="https://schema.org/SocialMediaPosting"
+    >
       <meta itemProp="author" content="Anonymous" />
       <meta itemProp="datePublished" content={memory.created_at} />
       {pinned && (
@@ -43,6 +55,6 @@ export default function CardRenderer({ memory }: { memory: Memory }) {
           <span itemProp="text">{memory.message}</span>
         </Link>
       </div>
-    </div>
+    </CardDownloadSurface>
   );
 }
