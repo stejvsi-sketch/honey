@@ -65,12 +65,18 @@ a:hover { color: var(--accent-hover); }
   letter-spacing: 0;
 }
 .nav__logo span { color: var(--text-light); }
-.nav__links { display: flex; gap: 32px; list-style: none; }
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2.4vw, 28px);
+  list-style: none;
+}
 .nav__link {
   font-size: 0.8rem; font-weight: 400;
   color: var(--text-muted); letter-spacing: 0.08em;
   text-transform: uppercase; position: relative;
-  padding: 4px 0; transition: color var(--transition);
+  line-height: 1;
+  padding: 6px 0; transition: color var(--transition);
 }
 .nav__link:hover { color: var(--text); }
 .nav__link::after {
@@ -83,7 +89,7 @@ a:hover { color: var(--accent-hover); }
 .nav__link--active::after { width: 100%; }
 
 @media (max-width: 768px) {
-  .nav__links { gap: 20px; }
+  .nav__links { gap: clamp(14px, 2.8vw, 20px); }
   .nav__link { font-size: 0.7rem; letter-spacing: 0.05em; }
   .nav__logo { font-size: 1.3rem; }
 }
@@ -91,23 +97,27 @@ a:hover { color: var(--accent-hover); }
   .nav { height: auto; }
   .nav__inner {
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 12px;
-    padding: 12px 16px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 16px 10px;
   }
   .nav__links {
-    width: 100%;
+    width: min(100%, 360px);
     justify-content: space-between;
-    gap: 8px;
+    gap: clamp(10px, 3vw, 16px);
+    flex-wrap: nowrap;
+    margin: 0 auto;
   }
   .dropdown__menu {
-    left: 0;
-    right: auto;
+    left: auto;
+    right: 0;
+    min-width: min(176px, calc(100vw - 32px));
+    max-width: calc(100vw - 32px);
   }
 }
 @media (max-width: 480px) {
-  .nav__links { gap: 10px; }
+  .nav__links { gap: clamp(10px, 3.4vw, 14px); }
   .nav__link { font-size: 0.6rem; letter-spacing: 0.03em; }
   .nav__logo { font-size: 1.1rem; }
 }
@@ -842,7 +852,7 @@ a:hover { color: var(--accent-hover); }
   position: absolute; top: calc(100% + 8px); right: 0;
   background: var(--bg); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 8px 0;
-  min-width: 180px; box-shadow: var(--card-shadow);
+  min-width: 176px; box-shadow: 0 12px 30px rgba(26, 23, 20, 0.14), 0 2px 8px rgba(26, 23, 20, 0.08);
   opacity: 0; visibility: hidden;
   transform: translateY(-4px);
   transition: all 0.2s ease;
@@ -852,10 +862,12 @@ a:hover { color: var(--accent-hover); }
   opacity: 1; visibility: visible; transform: translateY(0);
 }
 .dropdown__item {
-  display: block; padding: 8px 16px;
+  display: block; padding: 9px 16px;
   font-size: 0.85rem; color: var(--text-muted);
   transition: background var(--transition);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .dropdown__item:hover { background: var(--bg-cold); color: var(--text); }
 

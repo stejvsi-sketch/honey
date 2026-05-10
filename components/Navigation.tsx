@@ -7,12 +7,12 @@ import { usePathname } from 'next/navigation';
 const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/letters', label: 'Letters' },
-  { href: '/journal', label: 'Journal' },
   { href: '/write', label: 'Write' },
 ];
 
 const MORE_LINKS = [
   { href: '/about', label: 'How It Works' },
+  { href: '/journal', label: 'Journal' },
   { href: '/archive', label: 'Name Archive' },
   { href: '/terms', label: 'Terms' },
   { href: '/privacy', label: 'Privacy' },
