@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
-import VirtualizedCardGrid from '@/components/cards/VirtualizedCardGrid';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import VirtualizedCardGrid from '@/components/cards/VirtualizedCardGrid';
 import type { Memory } from '@/lib/types';
 
 const PAGE_SIZE = 10;
@@ -19,7 +19,9 @@ interface ArchiveState {
 function saveState(state: ArchiveState) {
   try {
     sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  } catch { /* quota exceeded is non-fatal */ }
+  } catch {
+    // Storage quota errors are non-fatal.
+  }
 }
 
 function loadState(): ArchiveState | null {
@@ -32,7 +34,13 @@ function loadState(): ArchiveState | null {
   }
 }
 
-export default function LettersArchive({ initialMemories, initialTotal }: { initialMemories?: Memory[]; initialTotal?: number }) {
+export default function LettersArchive({
+  initialMemories,
+  initialTotal,
+}: {
+  initialMemories?: Memory[];
+  initialTotal?: number;
+}) {
   const [memories, setMemories] = useState<Memory[]>(initialMemories || []);
   const [search, setSearch] = useState('');
   const [searchInput, setSearchInput] = useState('');
@@ -46,33 +54,41 @@ export default function LettersArchive({ initialMemories, initialTotal }: { init
 
   const hasMore = memories.length < total;
 
-  // Restore state from sessionStorage on mount (Fix 4)
   useEffect(() => {
-    const saved = loadState();
-    if (saved && saved.memories.length > 0) {
-      setMemories(saved.memories);
-      setPage(saved.page);
-      setTotal(saved.total);
-      setSearch(saved.search);
-      setSearchInput(saved.search);
-      setInitialLoad(false);
-      setRestored(true);
-      // Defer scroll restoration to after render
-      requestAnimationFrame(() => {
+    let cancelled = false;
+
+    queueMicrotask(() => {
+      if (cancelled) return;
+
+      const saved = loadState();
+      if (saved && saved.memories.length > 0) {
+        setMemories(saved.memories);
+        setPage(saved.page);
+        setTotal(saved.total);
+        setSearch(saved.search);
+        setSearchInput(saved.search);
+        setInitialLoad(false);
+        setRestored(true);
         requestAnimationFrame(() => {
-          window.scrollTo(0, saved.scrollY);
+          requestAnimationFrame(() => {
+            window.scrollTo(0, saved.scrollY);
+          });
         });
-      });
-    } else {
-      setRestored(true);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+      } else {
+        setRestored(true);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const fetchLetters = useCallback(async (pageNum: number, searchQuery: string, append: boolean) => {
     if (fetchingRef.current) return;
     fetchingRef.current = true;
     setLoading(true);
+
     try {
       const params = new URLSearchParams({
         page: pageNum.toString(),
@@ -89,51 +105,61 @@ export default function LettersArchive({ initialMemories, initialTotal }: { init
     } catch (e) {
       console.error('Failed to fetch letters:', e);
     }
+
     setLoading(false);
     setInitialLoad(false);
     fetchingRef.current = false;
   }, []);
 
-  // Initial load — only if no restored state
   useEffect(() => {
     if (!restored) return;
-    const saved = loadState();
-    if (saved && saved.memories.length > 0 && !search) {
-      // Already restored, skip fetch
-      return;
-    }
-    setPage(1);
-    fetchLetters(1, search, false);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search, restored]);
+    let cancelled = false;
 
-  // Save state before navigating away (Fix 4)
+    queueMicrotask(() => {
+      if (cancelled) return;
+
+      const saved = loadState();
+      if (saved && saved.memories.length > 0 && !search) {
+        return;
+      }
+
+      setPage(1);
+      void fetchLetters(1, search, false);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [search, restored, fetchLetters]);
+
   useEffect(() => {
     function handleBeforeNav() {
       saveState({ memories, page, total, search, scrollY: window.scrollY });
     }
+
     window.addEventListener('beforeunload', handleBeforeNav);
-    // Also save on every click (catches SPA navigation)
     document.addEventListener('click', handleBeforeNav, { capture: true });
+
     return () => {
       window.removeEventListener('beforeunload', handleBeforeNav);
       document.removeEventListener('click', handleBeforeNav, { capture: true });
     };
   }, [memories, page, total, search]);
 
-  // Infinite scroll observer (Fix 5: debounced, premium feel)
   useEffect(() => {
     if (!loaderRef.current || !restored) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && hasMore && !loading && !fetchingRef.current) {
           const nextPage = page + 1;
           setPage(nextPage);
-          fetchLetters(nextPage, search, true);
+          void fetchLetters(nextPage, search, true);
         }
       },
       { threshold: 0.1, rootMargin: '400px' }
     );
+
     observer.observe(loaderRef.current);
     return () => observer.disconnect();
   }, [hasMore, loading, page, search, fetchLetters, restored]);
@@ -142,7 +168,6 @@ export default function LettersArchive({ initialMemories, initialTotal }: { init
     e.preventDefault();
     const newSearch = searchInput.trim();
     if (newSearch !== search) {
-      // Clear stored state when searching
       sessionStorage.removeItem(STORAGE_KEY);
       setSearch(newSearch);
     }
@@ -166,7 +191,6 @@ export default function LettersArchive({ initialMemories, initialTotal }: { init
         </p>
       </div>
 
-      {/* Search bar */}
       <form onSubmit={handleSearch} className="search-bar">
         <div className="search-bar__inner">
           <input
@@ -179,7 +203,7 @@ export default function LettersArchive({ initialMemories, initialTotal }: { init
           />
           {search && (
             <button type="button" onClick={clearSearch} className="search-bar__clear" aria-label="Clear search">
-              ✕
+              &times;
             </button>
           )}
           <button type="submit" className="search-bar__btn" aria-label="Search">
@@ -193,24 +217,29 @@ export default function LettersArchive({ initialMemories, initialTotal }: { init
         )}
       </form>
 
-      {/* Cards grid */}
       <VirtualizedCardGrid memories={memories} />
 
-      {/* Empty state */}
       {!initialLoad && memories.length === 0 && (
         <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginTop: 48, fontStyle: 'italic' }}>
           {search ? (
-            <>No letters found for &ldquo;{search}&rdquo;. <button onClick={clearSearch} style={{ color: 'var(--accent)', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline', font: 'inherit' }}>Clear search</button></>
+            <>
+              No letters found for &ldquo;{search}&rdquo;.
+              {' '}
+              <button
+                onClick={clearSearch}
+                style={{ color: 'var(--accent)', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline', font: 'inherit' }}
+              >
+                Clear search
+              </button>
+            </>
           ) : (
             <>No letters yet. Be the first to <Link href="/write">write one</Link>.</>
           )}
         </p>
       )}
 
-      {/* Infinite scroll trigger */}
       <div ref={loaderRef} style={{ height: 1 }} />
 
-      {/* Loading indicator (Fix 5: subtle, premium) */}
       {loading && (
         <div style={{ textAlign: 'center', padding: '32px 0' }}>
           <div className="loading-dots" aria-label="Loading more letters">
@@ -219,7 +248,6 @@ export default function LettersArchive({ initialMemories, initialTotal }: { init
         </div>
       )}
 
-      {/* End state */}
       {!hasMore && memories.length > 0 && !loading && (
         <div style={{ textAlign: 'center', padding: '40px 0 20px' }}>
           <p style={{ color: 'var(--text-faint)', fontStyle: 'italic', fontSize: '0.85rem' }}>

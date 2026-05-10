@@ -1,10 +1,22 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getHomeMemories } from '@/lib/data';
-import { SITE_NAME, SITE_URL } from '@/lib/constants';
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/constants';
 import HomeCardGrid from '@/components/cards/HomeCardGrid';
 import TrendingNames from '@/components/TrendingNames';
 
 export const revalidate = 18000;
+
+export const metadata: Metadata = {
+  title: `${SITE_NAME} - Unsent Letters`,
+  description: SITE_DESCRIPTION,
+  alternates: { canonical: SITE_URL },
+  openGraph: {
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+  },
+};
 
 export default async function HomePage() {
   const memories = await getHomeMemories(12);
@@ -19,7 +31,7 @@ export default async function HomePage() {
         <HomeCardGrid memories={memories} />
         <div style={{ textAlign: 'center', marginTop: 40 }}>
           <Link href="/letters" className="btn btn--outline" style={{ width: 'auto', display: 'inline-flex' }}>
-            See All Letters →
+            See All Letters
           </Link>
         </div>
         <TrendingNames />

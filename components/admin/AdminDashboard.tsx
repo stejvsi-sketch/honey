@@ -82,7 +82,17 @@ export default function AdminDashboard({ secret }: { secret: string }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab, secret]);
 
-  useEffect(() => { fetchData(); }, [fetchData]);
+  useEffect(() => {
+    let cancelled = false;
+
+    queueMicrotask(() => {
+      if (!cancelled) void fetchData();
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [fetchData]);
 
   async function handleAction(id: string, action: 'approve' | 'reject' | 'delete' | 'ban') {
     await fetch('/api/admin/action', {

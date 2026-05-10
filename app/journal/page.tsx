@@ -1,10 +1,12 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { JOURNAL_POSTS } from '@/lib/journal-data';
+import { SITE_URL } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'Journal | Honey, If Only',
+  title: 'Journal',
   description: 'Explore the psychology of heartbreak and discover why the words we never send carry the heaviest weight. Read the journal.',
+  alternates: { canonical: `${SITE_URL}/journal` },
 };
 
 export default function JournalPage() {

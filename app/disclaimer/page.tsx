@@ -1,31 +1,94 @@
 import type { Metadata } from 'next';
-import { SITE_NAME } from '@/lib/constants';
+import Link from 'next/link';
+import TrustPage from '@/components/TrustPage';
+import { SITE_NAME, SITE_URL } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title: 'Disclaimer',
-  description: `Disclaimer for ${SITE_NAME}. Important information about user-generated content.`,
+  description: `Disclaimer for ${SITE_NAME}, including user-generated content, emotional content, professional advice, external links, and advertising.`,
+  alternates: { canonical: `${SITE_URL}/disclaimer` },
 };
 
 export default function DisclaimerPage() {
   return (
-    <div className="content">
-      <h1>Disclaimer</h1>
-      <p><em>Last updated: May 2026</em></p>
-
-      <h2>User-Generated Content</h2>
-      <p>All letters displayed on {SITE_NAME} are submitted by anonymous users. The views, opinions, and sentiments expressed in these letters do not represent the views of {SITE_NAME} or its operators.</p>
-
-      <h2>No Professional Advice</h2>
-      <p>This platform is not a substitute for professional mental health support. If you are experiencing emotional distress, please reach out to a qualified professional or a crisis helpline in your area.</p>
-
-      <h2>Content Accuracy</h2>
-      <p>We make no guarantees about the accuracy, completeness, or authenticity of any user-submitted content. Letters may be fictional, exaggerated, or otherwise not representative of real events.</p>
-
-      <h2>Emotional Content Warning</h2>
-      <p>Some letters on this site may contain emotionally heavy content including themes of loss, regret, heartbreak, and grief. Please browse at your own discretion.</p>
-
-      <h2>External Links</h2>
-      <p>Any external links found on this site are provided for convenience. We are not responsible for the content or practices of linked websites.</p>
-    </div>
+    <TrustPage
+      eyebrow="Disclaimer"
+      title="Important context before you read the archive."
+      subtitle="Honey, If Only is built around anonymous, user-submitted writing. The words can be moving, imperfect, fictional, painful, or incomplete."
+      updated="May 2026"
+      highlights={[
+        { label: 'Source', value: 'Anonymous users', detail: 'Letters do not represent the views of the site.' },
+        { label: 'Review', value: 'Moderated', detail: 'Moderation reduces risk but cannot verify every claim.' },
+        { label: 'Support', value: 'Not advice', detail: 'The site is not a substitute for professional help.' },
+      ]}
+      sections={[
+        {
+          title: 'User-generated content',
+          children: (
+            <p>
+              Letters on {SITE_NAME} are submitted by anonymous users. Their views, memories, opinions, and emotions do
+              not represent the views of the site, its operators, advertisers, or partners.
+            </p>
+          ),
+        },
+        {
+          title: 'Accuracy and authenticity',
+          children: (
+            <p>
+              We do not guarantee that a letter describes real events or that every detail is accurate. Letters may be
+              symbolic, fictionalized, exaggerated, incomplete, or written from one person&apos;s perspective.
+            </p>
+          ),
+        },
+        {
+          title: 'Emotional content',
+          children: (
+            <p>
+              The archive may include themes of grief, regret, heartbreak, loss, longing, apology, and loneliness. Please
+              read at your own pace and step away if the content feels heavy.
+            </p>
+          ),
+        },
+        {
+          title: 'No professional advice',
+          children: (
+            <>
+              <p>
+                The site is not medical, mental health, legal, financial, or relationship advice. If you need help with a
+                serious situation, contact a qualified professional, trusted person, or local emergency resource.
+              </p>
+              <div className="trust-callout">
+                <strong>Immediate danger:</strong> if you or someone else may be in danger, contact emergency services
+                or a crisis resource in your area now.
+              </div>
+            </>
+          ),
+        },
+        {
+          title: 'External links and ads',
+          children: (
+            <p>
+              External links and advertisements may lead to third-party websites. We are not responsible for their
+              content, policies, products, or practices. An ad appearing near a letter does not mean we endorse the ad,
+              and an ad does not endorse the letter.
+            </p>
+          ),
+        },
+        {
+          title: 'Reporting concerns',
+          children: (
+            <p>
+              If a letter contains private information, harmful content, or appears to violate our rules, please use the
+              <Link href="/contact"> contact page</Link> and include the page URL.
+            </p>
+          ),
+        },
+      ]}
+      relatedLinks={[
+        { href: '/terms', label: 'Terms', description: 'Rules for publishing, moderation, and site use.' },
+        { href: '/privacy', label: 'Privacy Policy', description: 'How data, cookies, analytics, and ads are handled.' },
+        { href: '/contact', label: 'Contact', description: 'Report a concern or request removal.' },
+      ]}
+    />
   );
 }

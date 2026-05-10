@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { CARD_COLORS, SITE_NAME } from '@/lib/constants';
+import { CARD_COLORS, SITE_NAME, SITE_URL } from '@/lib/constants';
+import { formatSubmittedName } from '@/lib/names';
 import type { Memory } from '@/lib/types';
 
 function isPinned(memory: Memory): boolean {
@@ -11,11 +12,24 @@ export default function MobileCard({ memory }: { memory: Memory }) {
   const color = CARD_COLORS.find(c => c.id === memory.color_id);
   const hex = color?.hex || '#f5e6d0';
   const pinned = isPinned(memory);
+  const displayName = formatSubmittedName(memory.name);
+  const letterUrl = `${SITE_URL}/letter/${memory.id}`;
+  const recipientUrl = `${SITE_URL}/to/${memory.slug}`;
+  const itemName = `Unsent letter to ${displayName}`;
 
   return (
     <div className="memory-card memory-card--mobile card-animate" style={{ maxWidth: 340 }} itemScope itemType="https://schema.org/SocialMediaPosting">
-      <meta itemProp="author" content="Anonymous" />
+      <meta itemProp="url" content={letterUrl} />
+      <meta itemProp="name" content={itemName} />
+      <meta itemProp="headline" content={itemName} />
       <meta itemProp="datePublished" content={memory.created_at} />
+      <span itemProp="author" itemScope itemType="https://schema.org/Person" hidden>
+        <meta itemProp="name" content="Anonymous contributor" />
+      </span>
+      <span itemProp="about" itemScope itemType="https://schema.org/Person" hidden>
+        <meta itemProp="name" content={displayName} />
+        <meta itemProp="url" content={recipientUrl} />
+      </span>
       {pinned && (
         <div className="memory-card__pin" aria-label="Pinned letter">
           <svg width="18" height="26" viewBox="0 0 22 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -36,7 +50,7 @@ export default function MobileCard({ memory }: { memory: Memory }) {
         </div>
         <Link href={`/to/${memory.slug}`} className="memory-card__name"
           onClick={(e) => e.stopPropagation()}>
-          To {memory.name}
+          To {displayName}
         </Link>
         <Link href={`/letter/${memory.id}`} className="memory-card__message"
           style={{ textDecoration: 'none', color: 'inherit' }}>

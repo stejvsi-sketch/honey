@@ -1,18 +1,25 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getNameStats } from '@/lib/data';
-import { SITE_NAME } from '@/lib/constants';
+import { SITE_URL } from '@/lib/constants';
+import { formatSubmittedName } from '@/lib/names';
 
 export const revalidate = 18000;
 
 export const metadata: Metadata = {
-  title: `Name Archive | ${SITE_NAME}`,
+  title: 'Name Archive',
   description: 'Browse the complete A-Z directory of all anonymous unsent letters by name. Find the letters addressed to someone you know.',
+  alternates: { canonical: `${SITE_URL}/archive` },
+  openGraph: {
+    title: 'Name Archive',
+    description: 'Browse the complete A-Z directory of anonymous unsent letters by name.',
+    url: `${SITE_URL}/archive`,
+  },
 };
 
 export default async function ArchiveDirectoryPage() {
   const stats = await getNameStats();
-  
+
   // Group names by first letter
   const grouped: Record<string, typeof stats> = {};
   stats.forEach(stat => {
@@ -21,14 +28,14 @@ export default async function ArchiveDirectoryPage() {
     if (!grouped[groupKey]) grouped[groupKey] = [];
     grouped[groupKey].push(stat);
   });
-  
+
   // Sort alphabetically
   const letters = Object.keys(grouped).sort((a, b) => {
     if (a === '#') return 1;
     if (b === '#') return -1;
     return a.localeCompare(b);
   });
-  
+
   // Sort names within each letter alphabetically
   letters.forEach(letter => {
     grouped[letter].sort((a, b) => a.name.localeCompare(b.name));
@@ -59,7 +66,7 @@ export default async function ArchiveDirectoryPage() {
               {grouped[letter].map(stat => (
                 <li key={stat.slug}>
                   <Link href={`/to/${stat.slug}`} className="archive-link">
-                    <span style={{ fontWeight: 500 }}>{stat.name}</span>
+                    <span style={{ fontWeight: 500 }}>{formatSubmittedName(stat.name)}</span>
                     <span style={{ fontSize: '0.8rem', color: 'var(--text-light)', background: 'var(--bg)', padding: '2px 6px', borderRadius: '4px' }}>
                       {stat.count}
                     </span>

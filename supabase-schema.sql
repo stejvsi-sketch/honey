@@ -109,10 +109,20 @@ CREATE OR REPLACE FUNCTION get_name_stats()
 RETURNS TABLE (name TEXT, slug TEXT, count BIGINT)
 LANGUAGE sql
 AS $$
-  SELECT name, slug, COUNT(*) as count
-  FROM memories
-  GROUP BY name, slug
-  ORDER BY count DESC;
+  WITH slug_counts AS (
+    SELECT m.slug, COUNT(*) AS count
+    FROM memories m
+    GROUP BY m.slug
+  ),
+  display_names AS (
+    SELECT DISTINCT ON (m.slug) m.slug, m.name
+    FROM memories m
+    ORDER BY m.slug, m.created_at DESC
+  )
+  SELECT display_names.name, slug_counts.slug, slug_counts.count
+  FROM slug_counts
+  JOIN display_names USING (slug)
+  ORDER BY slug_counts.count DESC, display_names.name ASC;
 $$;
 
 -- ============================================

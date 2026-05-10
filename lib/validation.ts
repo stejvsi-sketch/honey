@@ -60,7 +60,7 @@ export async function hashIP(ip: string): Promise<string> {
 }
 
 // Get country from IP using free API (fallback to 'Unknown')
-export async function getCountryFromIP(ip: string): Promise<string> {
+export async function getCountryFromIP(): Promise<string> {
   try {
     // Use Cloudflare headers first (free, no API call needed)
     return 'Unknown'; // Will be set from CF-IPCountry header in API route

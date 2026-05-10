@@ -1,20 +1,22 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/letters', label: 'Letters' },
+  { href: '/journal', label: 'Journal' },
   { href: '/write', label: 'Write' },
 ];
 
 const MORE_LINKS = [
   { href: '/about', label: 'How It Works' },
-  { href: '/journal', label: 'Journal' },
+  { href: '/archive', label: 'Name Archive' },
   { href: '/terms', label: 'Terms' },
   { href: '/privacy', label: 'Privacy' },
+  { href: '/cookies', label: 'Cookies' },
   { href: '/disclaimer', label: 'Disclaimer' },
   { href: '/contact', label: 'Contact' },
 ];
@@ -25,15 +27,12 @@ export default function Navigation() {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setDropdownOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setDropdownOpen(false);
       }
     }
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
@@ -53,6 +52,7 @@ export default function Navigation() {
             <li key={link.href}>
               <Link
                 href={link.href}
+                onClick={() => setDropdownOpen(false)}
                 className={`nav__link ${pathname === link.href ? 'nav__link--active' : ''}`}
               >
                 {link.label}
@@ -60,20 +60,24 @@ export default function Navigation() {
             </li>
           ))}
           <li>
-            <div className="dropdown" ref={dropdownRef}>
+            <div className={`dropdown ${dropdownOpen ? 'dropdown--open' : ''}`} ref={dropdownRef}>
               <button
                 className={`dropdown__trigger nav__link ${activeMoreLink ? 'nav__link--active' : ''}`}
                 onClick={() => setDropdownOpen(!dropdownOpen)}
                 aria-expanded={dropdownOpen}
                 aria-haspopup="true"
               >
-                {dropdownLabel} ▾
+                {dropdownLabel}
+                <span className="dropdown__chevron" aria-hidden="true" />
               </button>
-              <div className={`dropdown__menu ${dropdownOpen ? '' : ''}`}
-                style={dropdownOpen ? { opacity: 1, visibility: 'visible', transform: 'translateY(0)' } : {}}
-              >
+              <div className="dropdown__menu">
                 {MORE_LINKS.map(link => (
-                  <Link key={link.href} href={link.href} className="dropdown__item">
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="dropdown__item"
+                    onClick={() => setDropdownOpen(false)}
+                  >
                     {link.label}
                   </Link>
                 ))}
@@ -81,7 +85,6 @@ export default function Navigation() {
             </div>
           </li>
         </ul>
-
       </div>
     </nav>
   );

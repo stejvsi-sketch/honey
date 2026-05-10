@@ -2,12 +2,38 @@ import { getSupabaseClient } from './supabase';
 import type { Memory } from './types';
 import { unstable_cache } from 'next/cache';
 
+type NameStat = { name: string; slug: string; count: number };
+type RawNameStat = { name: string; slug: string; count: number | string | bigint };
+
 /** Moves actively-pinned memories to the front, preserving order within each group */
 function sortPinnedFirst(memories: Memory[]): Memory[] {
   const now = new Date();
   const pinned = memories.filter(m => m.pinned_until && new Date(m.pinned_until) > now);
   const rest = memories.filter(m => !m.pinned_until || new Date(m.pinned_until) <= now);
   return [...pinned, ...rest];
+}
+
+function normalizeNameStats(rows: RawNameStat[]): NameStat[] {
+  const stats = new Map<string, NameStat>();
+
+  for (const row of rows) {
+    if (!row.slug) continue;
+
+    const count = Number(row.count) || 0;
+    const existing = stats.get(row.slug);
+
+    if (existing) {
+      const previousCount = existing.count;
+      existing.count += count;
+      if (count > previousCount || row.name.length < existing.name.length) {
+        existing.name = row.name;
+      }
+    } else {
+      stats.set(row.slug, { name: row.name, slug: row.slug, count });
+    }
+  }
+
+  return [...stats.values()].sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
 }
 
 const getCachedHomeMemories = unstable_cache(
@@ -90,14 +116,14 @@ const getCachedNameStats = unstable_cache(
     const supabase = getSupabaseClient();
     const { data: rpcData, error: rpcError } = await supabase.rpc('get_name_stats');
     if (!rpcError && rpcData) {
-      return rpcData as { name: string; slug: string; count: number }[];
+      return normalizeNameStats(rpcData as RawNameStat[]);
     }
     const { data, error } = await supabase.from('memories')
       .select('name, slug')
       .order('created_at', { ascending: false })
       .limit(5000);
     if (error || !data) return [];
-    const stats: Record<string, { name: string; slug: string; count: number }> = {};
+    const stats: Record<string, NameStat> = {};
     data.forEach((m: { name: string; slug: string }) => {
       if (!stats[m.slug]) stats[m.slug] = { name: m.name, slug: m.slug, count: 0 };
       stats[m.slug].count++;
@@ -108,6 +134,6 @@ const getCachedNameStats = unstable_cache(
   { revalidate: 18000 }
 );
 
-export async function getNameStats(): Promise<{ name: string; slug: string; count: number }[]> {
+export async function getNameStats(): Promise<NameStat[]> {
   return getCachedNameStats();
 }

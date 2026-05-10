@@ -13,12 +13,14 @@ export default function Footer() {
           <li><Link href="/letters" className="footer__link">Letters</Link></li>
           <li><Link href="/write" className="footer__link">Write a Letter</Link></li>
           <li><Link href="/journal" className="footer__link">Journal</Link></li>
+          <li><Link href="/archive" className="footer__link">Name Archive</Link></li>
           <li><Link href="/terms" className="footer__link">Terms</Link></li>
           <li><Link href="/privacy" className="footer__link">Privacy</Link></li>
+          <li><Link href="/cookies" className="footer__link">Cookies</Link></li>
           <li><Link href="/disclaimer" className="footer__link">Disclaimer</Link></li>
           <li><Link href="/contact" className="footer__link">Contact</Link></li>
         </ul>
-        <p className="footer__copy">© {year} {SITE_NAME}. All letters belong to their authors.</p>
+        <p className="footer__copy">&copy; {year} {SITE_NAME}. All letters belong to their authors.</p>
       </div>
     </footer>
   );

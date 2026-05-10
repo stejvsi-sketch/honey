@@ -1,13 +1,17 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
-import VirtualizedCardGrid from '@/components/cards/VirtualizedCardGrid';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import VirtualizedCardGrid from '@/components/cards/VirtualizedCardGrid';
 import type { Memory } from '@/lib/types';
 
 const PAGE_SIZE = 10;
 
-export default function NameArchive({ nameSlug, displayName, initialTotal }: {
+export default function NameArchive({
+  nameSlug,
+  displayName,
+  initialTotal,
+}: {
   nameSlug: string;
   displayName: string;
   initialTotal: number;
@@ -24,35 +28,47 @@ export default function NameArchive({ nameSlug, displayName, initialTotal }: {
 
   const hasMore = memories.length < total;
 
-  // Restore state from sessionStorage on mount
   useEffect(() => {
-    try {
-      const raw = sessionStorage.getItem(storageKey);
-      if (raw) {
-        const saved = JSON.parse(raw);
-        if (saved && saved.memories?.length > 0) {
-          setMemories(saved.memories);
-          setPage(saved.page);
-          setTotal(saved.total);
-          setInitialLoad(false);
-          setRestored(true);
-          requestAnimationFrame(() => {
+    let cancelled = false;
+
+    queueMicrotask(() => {
+      if (cancelled) return;
+
+      try {
+        const raw = sessionStorage.getItem(storageKey);
+        if (raw) {
+          const saved = JSON.parse(raw);
+          if (saved && saved.memories?.length > 0) {
+            setMemories(saved.memories);
+            setPage(saved.page);
+            setTotal(saved.total);
+            setInitialLoad(false);
+            setRestored(true);
             requestAnimationFrame(() => {
-              window.scrollTo(0, saved.scrollY || 0);
+              requestAnimationFrame(() => {
+                window.scrollTo(0, saved.scrollY || 0);
+              });
             });
-          });
-          return;
+            return;
+          }
         }
+      } catch {
+        // Session restore is a convenience, not a requirement.
       }
-    } catch { /* non-fatal */ }
-    setRestored(true);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
+      setRestored(true);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [storageKey]);
 
   const fetchLetters = useCallback(async (pageNum: number, append: boolean) => {
     if (fetchingRef.current) return;
     fetchingRef.current = true;
     setLoading(true);
+
     try {
       const params = new URLSearchParams({
         page: pageNum.toString(),
@@ -68,55 +84,74 @@ export default function NameArchive({ nameSlug, displayName, initialTotal }: {
     } catch (e) {
       console.error('Failed to fetch:', e);
     }
+
     setLoading(false);
     setInitialLoad(false);
     fetchingRef.current = false;
   }, [displayName]);
 
-  // Initial fetch — skip if restored
   useEffect(() => {
     if (!restored) return;
-    try {
-      const raw = sessionStorage.getItem(storageKey);
-      if (raw) {
-        const saved = JSON.parse(raw);
-        if (saved?.memories?.length > 0) return;
-      }
-    } catch { /* non-fatal */ }
-    fetchLetters(1, false);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [restored]);
+    let cancelled = false;
 
-  // Save state before navigating away
+    queueMicrotask(() => {
+      if (cancelled) return;
+
+      try {
+        const raw = sessionStorage.getItem(storageKey);
+        if (raw) {
+          const saved = JSON.parse(raw);
+          if (saved?.memories?.length > 0) return;
+        }
+      } catch {
+        // Non-fatal.
+      }
+
+      void fetchLetters(1, false);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [restored, storageKey, fetchLetters]);
+
   useEffect(() => {
     function handleBeforeNav() {
       try {
         sessionStorage.setItem(storageKey, JSON.stringify({
-          memories, page, total, scrollY: window.scrollY,
+          memories,
+          page,
+          total,
+          scrollY: window.scrollY,
         }));
-      } catch { /* non-fatal */ }
+      } catch {
+        // Non-fatal.
+      }
     }
+
     window.addEventListener('beforeunload', handleBeforeNav);
     document.addEventListener('click', handleBeforeNav, { capture: true });
+
     return () => {
       window.removeEventListener('beforeunload', handleBeforeNav);
       document.removeEventListener('click', handleBeforeNav, { capture: true });
     };
   }, [memories, page, total, storageKey]);
 
-  // Infinite scroll observer
   useEffect(() => {
     if (!loaderRef.current || !restored) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && hasMore && !loading && !fetchingRef.current) {
           const nextPage = page + 1;
           setPage(nextPage);
-          fetchLetters(nextPage, true);
+          void fetchLetters(nextPage, true);
         }
       },
       { threshold: 0.1, rootMargin: '400px' }
     );
+
     observer.observe(loaderRef.current);
     return () => observer.disconnect();
   }, [hasMore, loading, page, fetchLetters, restored]);

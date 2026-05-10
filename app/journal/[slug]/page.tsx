@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { JOURNAL_POSTS } from '@/lib/journal-data';
+import { SITE_URL } from '@/lib/constants';
 
 export const revalidate = 18000;
 
@@ -9,11 +10,13 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   const { slug } = await props.params;
   const post = JOURNAL_POSTS.find(p => p.slug === slug);
   if (!post) return { title: 'Post Not Found' };
-  
+  const canonicalUrl = `${SITE_URL}/journal/${post.slug}`;
+
   return {
-    title: `${post.title} | Honey, If Only`,
+    title: post.title,
     description: post.excerpt,
-    openGraph: { title: post.title, description: post.excerpt },
+    alternates: { canonical: canonicalUrl },
+    openGraph: { title: post.title, description: post.excerpt, url: canonicalUrl },
   };
 }
 
@@ -30,7 +33,7 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
     <div className="page page--narrow">
       <div style={{ marginBottom: '48px' }}>
         <Link href="/journal" style={{ fontSize: '0.85rem', color: 'var(--text-light)', textDecoration: 'none' }}>
-          ← Back to Journal
+          Back to Journal
         </Link>
       </div>
 
@@ -44,11 +47,11 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
           </h1>
         </header>
 
-        <div style={{ 
-          fontSize: '1.05rem', 
-          lineHeight: 1.8, 
+        <div style={{
+          fontSize: '1.05rem',
+          lineHeight: 1.8,
           color: 'var(--text-muted)',
-          whiteSpace: 'pre-wrap'
+          whiteSpace: 'pre-wrap',
         }}>
           {post.content}
         </div>

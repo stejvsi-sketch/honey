@@ -44,7 +44,7 @@ export default function AdminLogin() {
     } catch {
       // localStorage not available or corrupted
     }
-    setChecking(false);
+    queueMicrotask(() => setChecking(false));
   }, []);
 
   async function handleLogin(e: React.FormEvent) {

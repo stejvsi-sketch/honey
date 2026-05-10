@@ -6,8 +6,8 @@ import { getArchiveMemories } from '@/lib/data';
 export const revalidate = 18000;
 
 export const metadata: Metadata = {
-  title: 'Letters — All Unsent Words',
-  description: 'Browse through all the unsent letters — anonymous messages from people who never got to say what they felt. Read heartfelt, anonymous unsent messages.',
+  title: 'Letters - All Unsent Words',
+  description: 'Browse through all the unsent letters - anonymous messages from people who never got to say what they felt. Read heartfelt, anonymous unsent messages.',
   alternates: { canonical: `${SITE_URL}/letters` },
 };
 

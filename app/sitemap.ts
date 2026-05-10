@@ -5,7 +5,7 @@ import { JOURNAL_POSTS } from '@/lib/journal-data';
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = [
     '', '/letters', '/write', '/about', '/archive', '/journal',
-    '/terms', '/privacy', '/disclaimer', '/contact',
+    '/terms', '/privacy', '/cookies', '/disclaimer', '/contact',
   ];
 
   const staticEntries: MetadataRoute.Sitemap = staticPages.map(path => ({
@@ -16,33 +16,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // Dynamic entries from Supabase (name pages + individual letters)
-  let dynamicEntries: MetadataRoute.Sitemap = [];
+  const dynamicEntries: MetadataRoute.Sitemap = [];
 
   if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
     try {
       const { getSupabaseClient } = await import('@/lib/supabase');
+      const { getNameStats } = await import('@/lib/data');
       const supabase = getSupabaseClient();
 
-      // All unique name slugs → /to/[name] pages
-      const { data: names } = await supabase
-        .from('memories')
-        .select('slug')
-        .order('created_at', { ascending: false });
+      // Indexable name pages -> /to/[name] pages. Keep this aligned with app/to/[name]/page.tsx.
+      const nameStats = await getNameStats();
+      const indexableNameSlugs = nameStats
+        .filter(stat => stat.slug.replace(/-/g, '').length >= 3 && stat.count >= 5)
+        .map(stat => stat.slug);
 
-      if (names) {
-        const uniqueSlugs = [...new Set(names.map(n => n.slug))]
-          .filter(slug => slug.replace(/-/g, '').length >= 3);
-        dynamicEntries.push(
-          ...uniqueSlugs.map(slug => ({
-            url: `${SITE_URL}/to/${slug}`,
-            lastModified: new Date(),
-            changeFrequency: 'weekly' as const,
-            priority: 0.7,
-          }))
-        );
-      }
+      dynamicEntries.push(
+        ...indexableNameSlugs.map(slug => ({
+          url: `${SITE_URL}/to/${slug}`,
+          lastModified: new Date(),
+          changeFrequency: 'weekly' as const,
+          priority: 0.7,
+        }))
+      );
 
-      // Recent individual letters → /letter/[id] pages (cap at 1000 for sitemap size)
+      // Recent individual letters -> /letter/[id] pages (cap at 1000 for sitemap size)
       const { data: letters } = await supabase
         .from('memories')
         .select('id, created_at')

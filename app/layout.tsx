@@ -22,7 +22,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: `${SITE_NAME} — Unsent Letters`, template: `%s | ${SITE_NAME}` },
+  title: { default: `${SITE_NAME} - Unsent Letters`, template: `%s | ${SITE_NAME}` },
   description: SITE_DESCRIPTION,
   keywords: ['unsent letters', 'unsent messages', 'love letters', 'things unsaid', 'anonymous letters'],
   icons: {
