@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { CARD_COLORS, SITE_NAME, SITE_URL } from '@/lib/constants';
+import { CARD_COLORS, SITE_NAME } from '@/lib/constants';
 import { formatSubmittedName } from '@/lib/names';
 import type { Memory } from '@/lib/types';
 
@@ -13,23 +13,9 @@ export default function TabletCard({ memory }: { memory: Memory }) {
   const hex = color?.hex || '#f5e6d0';
   const pinned = isPinned(memory);
   const displayName = formatSubmittedName(memory.name);
-  const letterUrl = `${SITE_URL}/letter/${memory.id}`;
-  const recipientUrl = `${SITE_URL}/to/${memory.slug}`;
-  const itemName = `Unsent letter to ${displayName}`;
 
   return (
-    <div className="memory-card memory-card--tablet card-animate" style={{ maxWidth: 320 }} itemScope itemType="https://schema.org/SocialMediaPosting">
-      <meta itemProp="url" content={letterUrl} />
-      <meta itemProp="name" content={itemName} />
-      <meta itemProp="headline" content={itemName} />
-      <meta itemProp="datePublished" content={memory.created_at} />
-      <span itemProp="author" itemScope itemType="https://schema.org/Person" hidden>
-        <meta itemProp="name" content="Anonymous contributor" />
-      </span>
-      <span itemProp="about" itemScope itemType="https://schema.org/Person" hidden>
-        <meta itemProp="name" content={displayName} />
-        <meta itemProp="url" content={recipientUrl} />
-      </span>
+    <div className="memory-card memory-card--tablet card-animate" style={{ maxWidth: 320 }}>
       {pinned && (
         <div className="memory-card__pin" aria-label="Pinned letter">
           <svg width="18" height="26" viewBox="0 0 22 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -54,7 +40,7 @@ export default function TabletCard({ memory }: { memory: Memory }) {
         </Link>
         <Link href={`/letter/${memory.id}`} className="memory-card__message"
           style={{ textDecoration: 'none', color: 'inherit' }}>
-          <span itemProp="text">{memory.message}</span>
+          <span>{memory.message}</span>
         </Link>
       </div>
     </div>
