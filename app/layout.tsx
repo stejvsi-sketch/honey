@@ -44,7 +44,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${lora.variable} ${inter.variable}`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${lora.variable} ${inter.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         {/* Preload LCP-critical texture image */}
         <link rel="preload" href="/textures/rough-paper.webp" as="image" type="image/webp" fetchPriority="high" />
