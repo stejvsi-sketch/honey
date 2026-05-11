@@ -99,7 +99,12 @@ export default function LettersArchive({
       const res = await fetch(`/api/letters?${params}`);
       if (res.ok) {
         const data = await res.json();
-        setMemories(prev => append ? [...prev, ...data.memories] : data.memories);
+        setMemories(prev => {
+          if (!append) return data.memories;
+          const existingIds = new Set(prev.map(m => m.id));
+          const newMemories = data.memories.filter((m: Memory) => !existingIds.has(m.id));
+          return [...prev, ...newMemories];
+        });
         setTotal(data.total);
       }
     } catch (e) {
