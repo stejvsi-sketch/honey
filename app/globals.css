@@ -236,17 +236,19 @@ a:hover { color: var(--accent-hover); }
   position: relative; z-index: 2;
   font-family: var(--font-serif);
   font-size: 1.2rem; font-weight: 600; font-style: italic;
-  color: rgba(26, 23, 20, 0.75);
+  color: rgba(20, 16, 12, 0.88);
   text-decoration: none;
   margin-bottom: 16px;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
 }
 .memory-card__name:hover { text-decoration: underline; }
 
 .memory-card__message {
   font-family: var(--font-serif);
-  font-size: 1.15rem; line-height: 1.7;
-  color: rgba(26, 23, 20, 0.72);
+  font-size: 1.15rem; line-height: 1.8;
+  font-weight: 450;
+  color: rgba(20, 16, 12, 0.82);
+  letter-spacing: 0.015em;
   word-break: break-word;
   overflow-wrap: break-word;
   overflow: hidden;
@@ -270,8 +272,9 @@ a:hover { color: var(--accent-hover); }
 }
 .memory-card__brand {
   font-family: var(--font-serif);
-  font-size: 1rem; color: rgba(26, 23, 20, 0.55);
+  font-size: 1rem; color: rgba(20, 16, 12, 0.6);
   letter-spacing: 0.15em; text-transform: lowercase;
+  font-weight: 450;
   font-style: italic;
   display: inline-block;
   padding-bottom: 10px;
@@ -280,7 +283,7 @@ a:hover { color: var(--accent-hover); }
   content: '';
   display: block;
   width: 36px; height: 1px;
-  background: rgba(26, 23, 20, 0.25);
+  background: rgba(20, 16, 12, 0.28);
   margin: 10px auto 0;
 }
 
@@ -428,12 +431,12 @@ a:hover { color: var(--accent-hover); }
   display: flex; flex-direction: column; align-items: center;
   padding: 48px 24px; min-height: 60vh;
 }
-.letter-single__card { max-width: 600px; width: 100%; }
-.letter-single__card .memory-card { max-width: 600px; }
-.letter-single__card .memory-card__name { font-size: 1.6rem; }
-.letter-single__card .memory-card__message { font-size: 1.4rem; line-height: 1.8; }
-.letter-single__card .memory-card__brand { font-size: 1.1rem; }
-.letter-single__card .memory-card__content { padding: 48px 40px; }
+.letter-single__card { max-width: 480px; width: 100%; }
+.letter-single__card .memory-card { max-width: 480px; }
+.letter-single__card .memory-card__name { font-size: 1.35rem; }
+.letter-single__card .memory-card__message { font-size: 1.2rem; line-height: 1.75; }
+.letter-single__card .memory-card__brand { font-size: 1rem; }
+.letter-single__card .memory-card__content { padding: 12px 32px 80px; }
 
 @media (max-width: 768px) {
   .letter-single__card { max-width: 420px; }
@@ -441,7 +444,7 @@ a:hover { color: var(--accent-hover); }
   .letter-single__card .memory-card__name { font-size: 1.2rem; }
   .letter-single__card .memory-card__message { font-size: 1.15rem; }
   .letter-single__card .memory-card__brand { font-size: 1rem; }
-  .letter-single__card .memory-card__content { padding: 32px 28px; }
+  .letter-single__card .memory-card__content { padding: 8px 28px 68px; }
 }
 .letter-single__meta {
   text-align: center; margin-top: 24px;

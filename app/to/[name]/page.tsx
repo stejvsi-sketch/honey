@@ -17,11 +17,23 @@ export async function generateMetadata(props: { params: Promise<{ name: string }
 
   return {
     title: `Unsent Letters and Messages to ${displayName}`,
-    description: `Read ${total} anonymous unsent letters and messages to ${displayName}. A digital archive of unspoken love, lingering grief, apologies, and 25-word secrets.`,
+    description: `Read ${total} anonymous unsent letters, messages, and texts to ${displayName}. Unspoken words, love letters never sent, things I never said to ${displayName}, and 25-word secrets.`,
+    keywords: [
+      `unsent letters to ${displayName}`,
+      `unsent message to ${displayName}`,
+      `unsent messages to ${displayName}`,
+      `unsent text to ${displayName}`,
+      `letter to ${displayName} I never sent`,
+      `letter to ${displayName} never sent`,
+      `love letter to ${displayName}`,
+      `things I never said to ${displayName}`,
+      `message to ${displayName}`,
+      `unspoken words to ${displayName}`,
+    ],
     alternates: { canonical: canonicalUrl },
     openGraph: {
       title: `Unsent Letters and Messages to ${displayName}`,
-      description: `Read anonymous unsent letters and messages addressed to ${displayName}.`,
+      description: `Read anonymous unsent letters, messages, and texts addressed to ${displayName}. Words that were never said.`,
       url: canonicalUrl,
     },
     ...(shouldIndex ? { robots: { index: true, follow: true } } : { robots: { index: false, follow: true } }),
@@ -39,9 +51,10 @@ export default async function NamePage(props: {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": `Unsent Letters and Messages to ${displayName}`,
+    "name": `Unsent Letters, Messages, and Texts to ${displayName}`,
     "url": canonicalUrl,
-    "description": `An archive of ${total} anonymous, unsent letters and messages addressed to ${displayName}.`,
+    "description": `An archive of ${total} anonymous unsent letters, messages, and texts addressed to ${displayName}. Love letters never sent, things never said, and unspoken words.`,
+    "keywords": `unsent letters to ${displayName}, unsent message to ${displayName}, unsent text to ${displayName}, letter to ${displayName} never sent, love letter to ${displayName}`,
     "about": {
       "@type": "Person",
       "name": displayName,
@@ -56,11 +69,11 @@ export default async function NamePage(props: {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="page__header" style={{ marginBottom: '48px' }}>
-        <h1 className="page__title">Unsent Letters and Messages to {displayName}</h1>
+        <h1 className="page__title">Unsent Letters, Messages, and Texts to {displayName}</h1>
         <p className="page__subtitle" style={{ maxWidth: '700px', margin: '0 auto', lineHeight: 1.6, fontSize: '0.95rem' }}>
-          Explore the archive of {total} anonymous, unsent {total === 1 ? 'letter' : 'letters'} and messages addressed to {displayName}.
-          Within these pages, contributors have left 25-word fragments detailing unresolved heartbreak, 
-          unspoken gratitude, and late-night longing. What was left unsaid?
+          Explore the archive of {total} anonymous, unsent {total === 1 ? 'letter' : 'letters'}, messages, and texts addressed to {displayName}.
+          Love letters never sent, things never said, unspoken words, and 25-word secrets about
+          unresolved heartbreak, unspoken gratitude, and late-night longing. What was left unsaid?
         </p>
       </div>
       <NameArchive nameSlug={name} displayName={displayName} initialTotal={total} />

@@ -5,7 +5,7 @@ import { getArchiveMemories } from '@/lib/data';
 import { formatSubmittedName } from '@/lib/names';
 
 const LETTERS_TITLE = 'Letters - All Unsent Words';
-const LETTERS_DESCRIPTION = 'Browse through all the unsent letters - anonymous messages from people who never got to say what they felt. Read heartfelt, anonymous unsent messages.';
+const LETTERS_DESCRIPTION = "Browse all unsent letters, messages, and texts. Anonymous love letters never sent, things never said, unspoken words, and heartfelt messages from people who couldn't say what they felt.";
 
 export const revalidate = 18000;
 

@@ -14,11 +14,21 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
 
   const displayName = formatSubmittedName(memory.name);
   const letterUrl = `${SITE_URL}/letter/${memory.id}`;
-  const description = `"${memory.message.slice(0, 140)}" - an anonymous unsent letter and message to ${displayName} on ${SITE_NAME}.`;
+  const snippet = memory.message.slice(0, 140);
+  const description = `"${snippet}" - an anonymous unsent letter, message, and unspoken words to ${displayName} on ${SITE_NAME}. Things never said, love letters never sent.`;
 
   return {
     title: `Unsent Letter to ${displayName}`,
     description,
+    keywords: [
+      `unsent letter to ${displayName}`,
+      `unsent message to ${displayName}`,
+      `unsent text to ${displayName}`,
+      `message to ${displayName}`,
+      `love letter to ${displayName}`,
+      `letter to ${displayName} never sent`,
+      `things I never said to ${displayName}`,
+    ],
     alternates: { canonical: letterUrl },
     openGraph: {
       title: `Unsent Letter to ${displayName}`,
