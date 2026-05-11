@@ -5,6 +5,15 @@ import Link from 'next/link';
 import VirtualizedCardGrid from '@/components/cards/VirtualizedCardGrid';
 import type { Memory } from '@/lib/types';
 
+function deduplicateMemories(memories: Memory[]): Memory[] {
+  const seen = new Set<string>();
+  return memories.filter(m => {
+    if (seen.has(m.id)) return false;
+    seen.add(m.id);
+    return true;
+  });
+}
+
 const PAGE_SIZE = 10;
 
 export default function NameArchive({
@@ -39,7 +48,7 @@ export default function NameArchive({
         if (raw) {
           const saved = JSON.parse(raw);
           if (saved && saved.memories?.length > 0) {
-            setMemories(saved.memories);
+            setMemories(deduplicateMemories(saved.memories));
             setPage(saved.page);
             setTotal(saved.total);
             setInitialLoad(false);
@@ -79,7 +88,7 @@ export default function NameArchive({
       if (res.ok) {
         const data = await res.json();
         setMemories(prev => {
-          if (!append) return data.memories;
+          if (!append) return deduplicateMemories(data.memories);
           const existingIds = new Set(prev.map(m => m.id));
           const newMemories = data.memories.filter((m: Memory) => !existingIds.has(m.id));
           return [...prev, ...newMemories];

@@ -5,6 +5,15 @@ import Link from 'next/link';
 import VirtualizedCardGrid from '@/components/cards/VirtualizedCardGrid';
 import type { Memory } from '@/lib/types';
 
+function deduplicateMemories(memories: Memory[]): Memory[] {
+  const seen = new Set<string>();
+  return memories.filter(m => {
+    if (seen.has(m.id)) return false;
+    seen.add(m.id);
+    return true;
+  });
+}
+
 const PAGE_SIZE = 10;
 const STORAGE_KEY = 'hio:letters';
 
@@ -41,7 +50,7 @@ export default function LettersArchive({
   initialMemories?: Memory[];
   initialTotal?: number;
 }) {
-  const [memories, setMemories] = useState<Memory[]>(initialMemories || []);
+  const [memories, setMemories] = useState<Memory[]>(() => deduplicateMemories(initialMemories || []));
   const [search, setSearch] = useState('');
   const [searchInput, setSearchInput] = useState('');
   const [page, setPage] = useState(1);
@@ -62,7 +71,7 @@ export default function LettersArchive({
 
       const saved = loadState();
       if (saved && saved.memories.length > 0) {
-        setMemories(saved.memories);
+        setMemories(deduplicateMemories(saved.memories));
         setPage(saved.page);
         setTotal(saved.total);
         setSearch(saved.search);
@@ -100,7 +109,7 @@ export default function LettersArchive({
       if (res.ok) {
         const data = await res.json();
         setMemories(prev => {
-          if (!append) return data.memories;
+          if (!append) return deduplicateMemories(data.memories);
           const existingIds = new Set(prev.map(m => m.id));
           const newMemories = data.memories.filter((m: Memory) => !existingIds.has(m.id));
           return [...prev, ...newMemories];
