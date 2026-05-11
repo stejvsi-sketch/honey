@@ -4,6 +4,7 @@ import { Lora, Inter } from 'next/font/google';
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from '@/lib/constants';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 import './globals.css';
 
 const GA_MEASUREMENT_ID = 'G-QNJ151X277';
@@ -54,18 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Preload LCP-critical texture image */}
         <link rel="preload" href="/textures/rough-paper.webp" as="image" type="image/webp" fetchPriority="high" />
         {/* Google Analytics */}
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_MEASUREMENT_ID}');
-          `}
-        </Script>
+        <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
       </head>
       <body>
         <Navigation />
