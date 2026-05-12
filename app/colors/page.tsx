@@ -15,7 +15,7 @@ export default function ColorsIndexPage() {
   const colors = Object.values(COLOR_MEANINGS);
 
   return (
-    <div className="page__container">
+    <div className="page">
       <div className="page__header">
         <h1 className="page__title">What Do the Colors Mean?</h1>
         <p className="page__subtitle">

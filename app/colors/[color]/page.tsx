@@ -44,7 +44,7 @@ export default async function ColorPage({ params }: Props) {
   const { total } = await getMemoriesByColor(color, 1, 10);
 
   return (
-    <div className="page__container">
+    <div className="page">
       <div className="page__header" style={{ marginBottom: '24px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '16px' }}>
           <div style={{ width: '24px', height: '24px', borderRadius: '50%', backgroundColor: meaning.hex, boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }} />

@@ -43,7 +43,7 @@ export default async function CollectionPage({ params }: Props) {
   const { total } = await getMemoriesByCollection(slug, 1, 10);
 
   return (
-    <div className="page__container">
+    <div className="page">
       <div className="page__header" style={{ marginBottom: '24px' }}>
         <h1 className="page__title" style={{ margin: 0 }}>{collection.title}</h1>
       </div>
