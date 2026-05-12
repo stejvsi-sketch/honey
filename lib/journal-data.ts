@@ -14,6 +14,8 @@ import { POSTS_PART5 } from './journal-data-part5';
 import { POSTS_PART6 } from './journal-data-part6';
 import { POSTS_PART7 } from './journal-data-part7';
 import { POSTS_PART8 } from './journal-data-part8';
+import { POSTS_PART9 } from './journal-data-part9';
+import { POSTS_PART10 } from './journal-data-part10';
 
 export const JOURNAL_POSTS: JournalPost[] = [
   ...POSTS_PART1,
@@ -24,4 +26,6 @@ export const JOURNAL_POSTS: JournalPost[] = [
   ...POSTS_PART6,
   ...POSTS_PART7,
   ...POSTS_PART8,
+  ...POSTS_PART9,
+  ...POSTS_PART10,
 ];
