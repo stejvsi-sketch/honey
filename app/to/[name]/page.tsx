@@ -17,7 +17,7 @@ export async function generateMetadata(props: { params: Promise<{ name: string }
 
   return {
     title: `Unsent Letters and Messages to ${displayName}`,
-    description: `Read ${total} anonymous unsent letters, messages, and texts to ${displayName}. Unspoken words, love letters never sent, things I never said to ${displayName}, and 25-word secrets.`,
+    description: `Read ${total} anonymous unsent letters, messages, and texts to ${displayName}. Unspoken words, love letters and messages never sent, things I never said to ${displayName}, and 25-word secrets.`,
     keywords: [
       `unsent letters to ${displayName}`,
       `unsent message to ${displayName}`,
@@ -53,8 +53,8 @@ export default async function NamePage(props: {
     "@type": "CollectionPage",
     "name": `Unsent Letters, Messages, and Texts to ${displayName}`,
     "url": canonicalUrl,
-    "description": `An archive of ${total} anonymous unsent letters, messages, and texts addressed to ${displayName}. Love letters never sent, things never said, and unspoken words.`,
-    "keywords": `unsent letters to ${displayName}, unsent message to ${displayName}, unsent messages to ${displayName}, unsent text to ${displayName}, letter to ${displayName} never sent, love letter to ${displayName}`,
+    "description": `An archive of ${total} anonymous unsent letters, messages, and texts addressed to ${displayName}. Love letters and messages never sent, things never said, and unspoken words.`,
+    "keywords": `unsent letters to ${displayName}, unsent messages to ${displayName}, unsent message to ${displayName}, unsent text to ${displayName}, letter to ${displayName} never sent, love letter to ${displayName}`,
     "about": {
       "@type": "Person",
       "name": displayName,

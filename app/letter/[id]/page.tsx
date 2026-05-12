@@ -15,18 +15,18 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
   const displayName = formatSubmittedName(memory.name);
   const letterUrl = `${SITE_URL}/letter/${memory.id}`;
   const snippet = memory.message.slice(0, 140);
-  const description = `"${snippet}" - an anonymous unsent letter, message, messages, and unspoken words to ${displayName} on ${SITE_NAME}. Things never said, love letters never sent.`;
+  const description = `"${snippet}" - an anonymous unsent letter, message, and unspoken words to ${displayName} on ${SITE_NAME}. Things never said, love letters and messages never sent.`;
 
   return {
     title: `Unsent Letter to ${displayName}`,
     description,
     keywords: [
       `unsent letter to ${displayName}`,
-      `unsent letters to ${displayName}`,
       `unsent message to ${displayName}`,
       `unsent messages to ${displayName}`,
       `unsent text to ${displayName}`,
       `message to ${displayName}`,
+      `messages to ${displayName}`,
       `love letter to ${displayName}`,
       `letter to ${displayName} never sent`,
       `things I never said to ${displayName}`,
@@ -61,16 +61,12 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
     hour: '2-digit',
     minute: '2-digit',
   });
-  const snippet = memory.message.slice(0, 140);
-  const description = `"${snippet}" - an anonymous unsent letter, message, messages, and unspoken words to ${displayName} on ${SITE_NAME}. Things never said, love letters never sent.`;
-
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'SocialMediaPosting',
     url: letterUrl,
     name: `Unsent letter to ${displayName}`,
     headline: `Unsent letter to ${displayName}`,
-    description,
     datePublished: memory.created_at,
     text: memory.message,
     author: {
