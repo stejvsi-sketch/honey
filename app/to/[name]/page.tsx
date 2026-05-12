@@ -20,6 +20,7 @@ export async function generateMetadata(props: { params: Promise<{ name: string }
     description: `Read ${total} anonymous unsent letters, messages, and texts to ${displayName}. Unspoken words, love letters never sent, things I never said to ${displayName}, and 25-word secrets.`,
     keywords: [
       `unsent letters to ${displayName}`,
+      `unsent letter to ${displayName}`,
       `unsent message to ${displayName}`,
       `unsent messages to ${displayName}`,
       `unsent text to ${displayName}`,
@@ -54,7 +55,7 @@ export default async function NamePage(props: {
     "name": `Unsent Letters, Messages, and Texts to ${displayName}`,
     "url": canonicalUrl,
     "description": `An archive of ${total} anonymous unsent letters, messages, and texts addressed to ${displayName}. Love letters never sent, things never said, and unspoken words.`,
-    "keywords": `unsent letters to ${displayName}, unsent messages to ${displayName}, unsent message to ${displayName}, unsent text to ${displayName}, letter to ${displayName} never sent, love letter to ${displayName}`,
+    "keywords": `unsent letters to ${displayName}, unsent letter to ${displayName}, unsent messages to ${displayName}, unsent message to ${displayName}, unsent text to ${displayName}, letter to ${displayName} never sent, love letter to ${displayName}`,
     "about": {
       "@type": "Person",
       "name": displayName,
@@ -72,7 +73,7 @@ export default async function NamePage(props: {
         <h1 className="page__title">Unsent Letters, Messages, and Texts to {displayName}</h1>
         <p className="page__subtitle" style={{ maxWidth: '700px', margin: '0 auto', lineHeight: 1.6, fontSize: '0.95rem' }}>
           Explore the archive of {total} anonymous unsent {total === 1 ? 'letter' : 'letters'} to {displayName}.
-          Read the unspoken words, 25-word secrets, and unsent messages to {displayName}.
+          Whether you are looking for an unsent letter to {displayName}, unspoken words, 25-word secrets, or unsent messages to {displayName}, you will find them here.
           Discover love letters never sent, unspoken gratitude, and late-night longing. What was left unsaid?
         </p>
       </div>
