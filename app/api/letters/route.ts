@@ -15,6 +15,7 @@ export async function GET(request: NextRequest) {
   const limit = Math.min(20, Math.max(1, parseInt(searchParams.get('limit') || '10', 10)));
   const search = searchParams.get('search')?.trim() || '';
   const color = searchParams.get('color')?.trim() || '';
+  const themeSlug = searchParams.get('theme')?.trim() || '';
   const offset = (page - 1) * limit;
 
   const supabase = getSupabaseClient();
@@ -29,6 +30,14 @@ export async function GET(request: NextRequest) {
   }
   if (color) {
     query = query.eq('color_id', color);
+  }
+  if (themeSlug) {
+    const { COLLECTIONS } = await import('@/lib/collections-data');
+    const collection = COLLECTIONS.find(c => c.slug === themeSlug);
+    if (collection && collection.searchTerms.length > 0) {
+      const orQuery = collection.searchTerms.map(term => `message.ilike.%${term}%`).join(',');
+      query = query.or(orQuery);
+    }
   }
 
   const { data, count, error } = await query.range(offset, offset + limit - 1);

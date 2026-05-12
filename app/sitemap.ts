@@ -6,7 +6,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = [
     '', '/letters', '/write', '/about', '/archive', '/journal',
     '/terms', '/privacy', '/cookies', '/disclaimer', '/contact',
-    '/faq', '/colors',
+    '/faq', '/colors', '/collections',
   ];
 
   const staticEntries: MetadataRoute.Sitemap = staticPages.map(path => ({
@@ -23,6 +23,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date(),
     changeFrequency: 'weekly',
     priority: 0.6,
+  }));
+
+  // Dynamic Collections
+  const { COLLECTIONS } = await import('@/lib/collections-data');
+  const collectionEntries: MetadataRoute.Sitemap = COLLECTIONS.map(c => ({
+    url: `${SITE_URL}/collections/${c.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.8,
   }));
 
   // Dynamic entries from Supabase (name pages + individual letters)
@@ -79,5 +88,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticEntries, ...colorEntries, ...dynamicEntries, ...journalEntries];
+  return [...staticEntries, ...colorEntries, ...collectionEntries, ...dynamicEntries, ...journalEntries];
 }

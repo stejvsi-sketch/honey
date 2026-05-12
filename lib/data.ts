@@ -157,3 +157,37 @@ const getCachedMemoriesByColor = unstable_cache(
 export async function getMemoriesByColor(colorId: string, page: number = 1, limit: number = 24): Promise<{ memories: Memory[]; total: number }> {
   return getCachedMemoriesByColor(colorId, page, limit);
 }
+
+const getCachedMemoriesByCollection = unstable_cache(
+  async (themeSlug: string, page: number, limit: number) => {
+    const { COLLECTIONS } = await import('@/lib/collections-data');
+    const collection = COLLECTIONS.find(c => c.slug === themeSlug);
+    if (!collection) return { memories: [], total: 0 };
+
+    const supabase = getSupabaseClient();
+    const from = (page - 1) * limit;
+    
+    let baseQuery = supabase.from('memories').select('id, name, message, color_id, created_at, slug, pinned_until');
+    let countQuery = supabase.from('memories').select('*', { count: 'exact', head: true });
+
+    if (collection.searchTerms.length > 0) {
+      const orQuery = collection.searchTerms.map(term => `message.ilike.%${term}%`).join(',');
+      baseQuery = baseQuery.or(orQuery);
+      countQuery = countQuery.or(orQuery);
+    }
+
+    const [{ data, error }, { count }] = await Promise.all([
+      baseQuery.order('created_at', { ascending: false }).range(from, from + limit - 1),
+      countQuery,
+    ]);
+
+    if (error) return { memories: [], total: 0 };
+    return { memories: data as Memory[], total: count || 0 };
+  },
+  ['memories-by-collection'],
+  { revalidate: 18000 }
+);
+
+export async function getMemoriesByCollection(themeSlug: string, page: number = 1, limit: number = 24): Promise<{ memories: Memory[]; total: number }> {
+  return getCachedMemoriesByCollection(themeSlug, page, limit);
+}
