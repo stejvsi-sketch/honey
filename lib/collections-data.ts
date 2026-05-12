@@ -56,4 +56,20 @@ export const COLLECTIONS: CollectionData[] = [
     keywords: ['anonymous confession messages', 'secret confessions', 'hidden truths', 'guilt and regret letters'],
     searchTerms: ['confess', 'secret', 'guilty', 'sorry', 'lied', 'truth', 'mistake', 'forgive'],
   },
+  {
+    slug: 'apologies-never-sent',
+    title: 'Apologies Never Sent',
+    shortTitle: 'Apologies',
+    description: 'Read the apologies people were too afraid or too proud to say out loud. Raw admissions of guilt and regret.',
+    keywords: ['apologies never sent', 'anonymous apologies', 'guilt letters', 'sorry messages'],
+    searchTerms: ['sorry', 'apologize', 'my fault', 'forgive me', 'ruined', 'should have', 'wish I'],
+  },
+  {
+    slug: 'final-goodbyes',
+    title: 'Final Goodbyes',
+    shortTitle: 'Goodbyes',
+    description: 'The heartbreaking final messages people wrote when it was finally time to let go and move on.',
+    keywords: ['final goodbyes', 'letting go messages', 'moving on letters', 'last words to someone'],
+    searchTerms: ['goodbye', 'last time', 'moving on', 'letting go', 'take care', 'farewell', 'over'],
+  },
 ];
