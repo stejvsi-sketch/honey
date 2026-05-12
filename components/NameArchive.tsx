@@ -20,12 +20,10 @@ export default function NameArchive({
   nameSlug,
   displayName,
   initialTotal,
-  term = 'letters',
 }: {
   nameSlug: string;
   displayName: string;
   initialTotal: number;
-  term?: 'letters' | 'messages' | 'texts';
 }) {
   const storageKey = `hio:name:${nameSlug}`;
   const [memories, setMemories] = useState<Memory[]>([]);
@@ -178,7 +176,7 @@ export default function NameArchive({
 
       {!initialLoad && memories.length === 0 && (
         <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginTop: 48, fontStyle: 'italic' }}>
-          No {term} to {displayName} yet. <Link href="/write">Write the first one</Link>.
+          No letters to {displayName} yet. <Link href="/write">Write the first one</Link>.
         </p>
       )}
 
@@ -186,7 +184,7 @@ export default function NameArchive({
 
       {loading && (
         <div style={{ textAlign: 'center', padding: '32px 0' }}>
-          <div className="loading-dots" aria-label={`Loading more ${term}`}>
+          <div className="loading-dots" aria-label="Loading more letters">
             <span /><span /><span />
           </div>
         </div>
