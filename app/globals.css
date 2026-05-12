@@ -1020,15 +1020,28 @@ a:hover { color: var(--accent-hover); }
     font-size: 0.85rem;
   }
 }
+@media (max-width: 640px) {
+  .hub-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .hub-card {
+    padding: 24px 20px;
+  }
+  .hub-card h2 {
+    font-size: 1.35rem;
+    margin-bottom: 6px;
+  }
+}
 @media (max-width: 480px) {
   .hub-grid {
     gap: 12px;
   }
   .hub-card {
-    padding: 20px 12px;
+    padding: 20px 16px;
   }
   .hub-card h2 {
-    font-size: 1.15rem;
+    font-size: 1.25rem;
     margin-bottom: 4px;
   }
 }
