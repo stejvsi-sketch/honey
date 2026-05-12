@@ -13,6 +13,7 @@ import { POSTS_PART4 } from './journal-data-part4';
 import { POSTS_PART5 } from './journal-data-part5';
 import { POSTS_PART6 } from './journal-data-part6';
 import { POSTS_PART7 } from './journal-data-part7';
+import { POSTS_PART8 } from './journal-data-part8';
 
 export const JOURNAL_POSTS: JournalPost[] = [
   ...POSTS_PART1,
@@ -22,4 +23,5 @@ export const JOURNAL_POSTS: JournalPost[] = [
   ...POSTS_PART5,
   ...POSTS_PART6,
   ...POSTS_PART7,
+  ...POSTS_PART8,
 ];
