@@ -14,8 +14,8 @@ export async function GET(request: NextRequest) {
   const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
   const limit = Math.min(20, Math.max(1, parseInt(searchParams.get('limit') || '10', 10)));
   const search = searchParams.get('search')?.trim() || '';
+  const color = searchParams.get('color')?.trim() || '';
   const offset = (page - 1) * limit;
-
 
   const supabase = getSupabaseClient();
 
@@ -26,6 +26,9 @@ export async function GET(request: NextRequest) {
 
   if (search) {
     query = query.ilike('name', `%${search}%`);
+  }
+  if (color) {
+    query = query.eq('color_id', color);
   }
 
   const { data, count, error } = await query.range(offset, offset + limit - 1);

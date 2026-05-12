@@ -6,6 +6,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = [
     '', '/letters', '/write', '/about', '/archive', '/journal',
     '/terms', '/privacy', '/cookies', '/disclaimer', '/contact',
+    '/faq', '/colors',
   ];
 
   const staticEntries: MetadataRoute.Sitemap = staticPages.map(path => ({
@@ -13,6 +14,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date(),
     changeFrequency: path === '' || path === '/letters' ? 'daily' : path === '/archive' ? 'weekly' : 'monthly',
     priority: path === '' ? 1 : path === '/letters' ? 0.9 : path === '/archive' ? 0.8 : 0.6,
+  }));
+
+  // Dynamic colors
+  const { COLOR_MEANINGS } = await import('@/lib/color-meanings');
+  const colorEntries: MetadataRoute.Sitemap = Object.keys(COLOR_MEANINGS).map(colorId => ({
+    url: `${SITE_URL}/colors/${colorId}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.6,
   }));
 
   // Dynamic entries from Supabase (name pages + individual letters)
@@ -69,5 +79,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticEntries, ...dynamicEntries, ...journalEntries];
+  return [...staticEntries, ...colorEntries, ...dynamicEntries, ...journalEntries];
 }

@@ -137,3 +137,23 @@ const getCachedNameStats = unstable_cache(
 export async function getNameStats(): Promise<NameStat[]> {
   return getCachedNameStats();
 }
+
+const getCachedMemoriesByColor = unstable_cache(
+  async (colorId: string, page: number, limit: number) => {
+    const supabase = getSupabaseClient();
+    const from = (page - 1) * limit;
+    const [{ data, error }, { count }] = await Promise.all([
+      supabase.from('memories').select('id, name, message, color_id, created_at, slug, pinned_until')
+        .eq('color_id', colorId).order('created_at', { ascending: false }).range(from, from + limit - 1),
+      supabase.from('memories').select('*', { count: 'exact', head: true }).eq('color_id', colorId),
+    ]);
+    if (error) return { memories: [], total: 0 };
+    return { memories: data as Memory[], total: count || 0 };
+  },
+  ['memories-by-color'],
+  { revalidate: 18000 }
+);
+
+export async function getMemoriesByColor(colorId: string, page: number = 1, limit: number = 24): Promise<{ memories: Memory[]; total: number }> {
+  return getCachedMemoriesByColor(colorId, page, limit);
+}
