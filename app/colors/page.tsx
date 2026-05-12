@@ -33,7 +33,7 @@ export default function ColorsIndexPage() {
         </p>
       </div>
 
-      <div className="color-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))', gap: '24px' }}>
+      <div className="color-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))', gap: '24px', padding: '0 16px' }}>
         {colors.map((color) => (
           <Link href={`/colors/${color.id}`} key={color.id} style={{ textDecoration: 'none', color: 'inherit' }}>
             <div className="color-card" style={{ 

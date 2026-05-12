@@ -29,7 +29,7 @@ export default function CollectionsIndexPage() {
         </p>
       </div>
 
-      <div className="color-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))', gap: '24px' }}>
+      <div className="color-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))', gap: '24px', padding: '0 16px' }}>
         {COLLECTIONS.map((collection) => (
           <Link href={`/collections/${collection.slug}`} key={collection.slug} style={{ textDecoration: 'none', color: 'inherit' }}>
             <div className="color-card" style={{ 
