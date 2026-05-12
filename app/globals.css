@@ -966,3 +966,69 @@ a:hover { color: var(--accent-hover); }
   border-color: var(--text);
   color: var(--text);
 }
+
+/* ===== HUB GRID (Colors, Collections) ===== */
+.hub-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  padding: 0 16px;
+}
+.hub-card {
+  padding: 32px 24px;
+  border-radius: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.hub-card h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.hub-card span {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  margin-bottom: 16px;
+  display: block;
+}
+.hub-card p {
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .hub-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .hub-card {
+    padding: 24px 16px;
+  }
+  .hub-card h2 {
+    font-size: 1.25rem;
+  }
+  .hub-card span {
+    font-size: 0.75rem;
+    margin-bottom: 12px;
+  }
+  .hub-card p {
+    font-size: 0.85rem;
+  }
+}
+@media (max-width: 480px) {
+  .hub-grid {
+    gap: 12px;
+  }
+  .hub-card {
+    padding: 20px 12px;
+  }
+  .hub-card h2 {
+    font-size: 1.15rem;
+    margin-bottom: 4px;
+  }
+}

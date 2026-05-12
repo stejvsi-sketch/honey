@@ -29,25 +29,18 @@ export default function CollectionsIndexPage() {
         </p>
       </div>
 
-      <div className="color-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))', gap: '24px', padding: '0 16px' }}>
+      <div className="hub-grid">
         {COLLECTIONS.map((collection) => (
           <Link href={`/collections/${collection.slug}`} key={collection.slug} style={{ textDecoration: 'none', color: 'inherit' }}>
-            <div className="color-card" style={{ 
+            <div className="hub-card" style={{ 
               backgroundColor: 'var(--card-bg)', 
               border: '1px solid var(--border-color)',
-              padding: '32px 24px', 
-              borderRadius: '16px',
-              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-              cursor: 'pointer',
-              height: '100%',
-              display: 'flex',
-              flexDirection: 'column',
               boxShadow: '0 4px 12px rgba(0,0,0,0.02)'
             }}>
-              <h2 style={{ fontSize: '1.4rem', fontWeight: 600, marginBottom: '12px', color: 'var(--text-primary)' }}>
+              <h2 style={{ color: 'var(--text-primary)' }}>
                 {collection.title}
               </h2>
-              <p style={{ color: 'var(--text-secondary)', lineHeight: 1.5, fontSize: '0.95rem' }}>
+              <p style={{ color: 'var(--text-secondary)' }}>
                 {collection.description}
               </p>
             </div>

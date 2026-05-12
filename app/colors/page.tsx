@@ -33,27 +33,20 @@ export default function ColorsIndexPage() {
         </p>
       </div>
 
-      <div className="color-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))', gap: '24px', padding: '0 16px' }}>
+      <div className="hub-grid">
         {colors.map((color) => (
           <Link href={`/colors/${color.id}`} key={color.id} style={{ textDecoration: 'none', color: 'inherit' }}>
-            <div className="color-card" style={{ 
+            <div className="hub-card" style={{ 
               backgroundColor: color.hex, 
-              padding: '32px 24px', 
-              borderRadius: '16px',
-              transition: 'transform 0.2s ease',
-              cursor: 'pointer',
-              height: '100%',
-              display: 'flex',
-              flexDirection: 'column',
               boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
             }}>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: '8px', color: 'rgba(20, 16, 12, 0.9)' }}>
+              <h2 style={{ color: 'rgba(20, 16, 12, 0.9)' }}>
                 {color.name}
               </h2>
-              <span style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600, color: 'rgba(20, 16, 12, 0.6)', marginBottom: '16px', display: 'block' }}>
+              <span style={{ color: 'rgba(20, 16, 12, 0.6)' }}>
                 {color.emotion}
               </span>
-              <p style={{ color: 'rgba(20, 16, 12, 0.8)', lineHeight: 1.5, fontSize: '0.95rem' }}>
+              <p style={{ color: 'rgba(20, 16, 12, 0.8)' }}>
                 {color.shortDescription}
               </p>
             </div>
