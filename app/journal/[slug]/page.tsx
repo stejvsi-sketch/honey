@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { JOURNAL_POSTS } from '@/lib/journal-data';
 import { SITE_URL } from '@/lib/constants';
 
-export const revalidate = 18000;
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await props.params;
