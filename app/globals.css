@@ -1020,7 +1020,7 @@ a:hover { color: var(--accent-hover); }
 /* ===== TABLE CARD ===== */
 .table-card {
   position: absolute;
-  width: 280px;
+  width: 330px;
   aspect-ratio: 420 / 520;
   cursor: pointer;
   transform: rotate(var(--card-rotation, 0deg)) scale(var(--card-scale, 0.9));
@@ -1035,12 +1035,12 @@ a:hover { color: var(--accent-hover); }
 
 .table-card:hover {
   z-index: 100 !important;
-  transform: rotate(var(--card-rotation, 0deg)) scale(calc(var(--card-scale, 0.9) * 1.06));
+  transform: rotate(var(--card-rotation, 0deg)) scale(calc(var(--card-scale, 0.9) * 1.05));
   filter: drop-shadow(3px 5px 12px rgba(0, 0, 0, 0.5));
 }
 
 .table-card--lifted {
-  transform: rotate(0deg) scale(1.2) !important;
+  transform: rotate(0deg) scale(1.15) !important;
   filter: drop-shadow(6px 10px 24px rgba(0, 0, 0, 0.6)) !important;
   z-index: 999 !important;
 }
@@ -1081,14 +1081,14 @@ a:hover { color: var(--accent-hover); }
   justify-content: center;
   align-items: center;
   height: 100%;
-  padding: 48px 20px 56px;
+  padding: 56px 24px 64px;
   text-align: center;
   mix-blend-mode: multiply;
 }
 
 .table-card__header {
   position: absolute;
-  top: 18px;
+  top: 20px;
   left: 0;
   right: 0;
   text-align: center;
@@ -1096,7 +1096,7 @@ a:hover { color: var(--accent-hover); }
 
 .table-card__brand {
   font-family: var(--font-serif);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: rgba(20, 16, 12, 0.5);
   letter-spacing: 0.15em;
   text-transform: lowercase;
@@ -1106,7 +1106,7 @@ a:hover { color: var(--accent-hover); }
 
 .table-card__name {
   font-family: var(--font-serif);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: 600;
   font-style: italic;
   color: rgba(20, 16, 12, 0.85);
@@ -1116,7 +1116,7 @@ a:hover { color: var(--accent-hover); }
 
 .table-card__message {
   font-family: var(--font-serif);
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   line-height: 1.65;
   font-weight: 450;
   color: rgba(20, 16, 12, 0.75);
@@ -1130,15 +1130,15 @@ a:hover { color: var(--accent-hover); }
 
 .table-card__read {
   position: absolute;
-  bottom: 16px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   background: rgba(20, 16, 12, 0.85);
   color: rgba(245, 230, 208, 0.95);
   font-family: var(--font-serif);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-style: italic;
-  padding: 6px 18px;
+  padding: 8px 22px;
   border-radius: 2px;
   text-decoration: none;
   white-space: nowrap;

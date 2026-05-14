@@ -45,8 +45,8 @@ function generatePlacements(memories: Memory[]): LetterPlacement[] {
     const r5 = seededRandom(seed + 4);
 
     // Distribute cards in a perfectly continuous fluid sequence vertically to eliminate any visual rows or shelves entirely
-    // Average vertical advance per card is 48px
-    const baseY = i * 48 + 20;
+    // Average vertical advance per card is 55px to beautifully support larger desktop card dimensions
+    const baseY = i * 55 + 20;
 
     // Cycle through 5 horizontal sectors using a prime-step jump so consecutive cards drop in completely distinct areas
     const sector = (i * 2 + Math.floor(i / 5)) % 5;
@@ -55,7 +55,7 @@ function generatePlacements(memories: Memory[]): LetterPlacement[] {
 
     // Apply generous organic scatter within and across sector boundaries for hyper-realistic tabletop scatter
     const x = r2(baseX + (r1 - 0.5) * 16);   // fluid organic placement spanning full screen breadth perfectly
-    const y = r2(baseY + (r2a - 0.5) * 40);  // controlled continuous overlapping jitter
+    const y = r2(baseY + (r2a - 0.5) * 42);  // controlled continuous overlapping jitter
     const rotation = r2((r3 - 0.5) * 56);    // -28 to +28 degrees for an authentic casual tossed look
     const scale = r2(0.88 + r4 * 0.12);      // consistent realistic physical depth sizing
 
@@ -257,8 +257,8 @@ export default function TableView({ memories }: { memories: Memory[] }) {
   const [liftedId, setLiftedId] = useState<string | null>(null);
   const placements = useMemo(() => generatePlacements(memories), [memories]);
 
-  // Total table height based on continuous vertical progression
-  const tableHeight = memories.length * 48 + 500;
+  // Total table height calibrated for expanded vertical advance and generous layout padding
+  const tableHeight = memories.length * 55 + 600;
 
   const scribbles = useMemo(() => generateScribbles(tableHeight), [tableHeight]);
 
