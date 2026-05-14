@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { SITE_NAME, SITE_URL } from '@/lib/constants';
-import { getHomeMemories } from '@/lib/data';
+import { getTableMemories } from '@/lib/data';
 import TableView from '@/components/TableView';
 
 export const revalidate = 18000;
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 export default async function TablePage() {
-  const memories = await getHomeMemories(50);
+  const memories = await getTableMemories(50);
 
   return <TableView memories={memories} />;
 }

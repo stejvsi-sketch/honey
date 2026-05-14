@@ -53,6 +53,23 @@ export async function getHomeMemories(limit: number = 12): Promise<Memory[]> {
   return getCachedHomeMemories(limit);
 }
 
+const getCachedTableMemories = unstable_cache(
+  async (limit: number) => {
+    const supabase = getSupabaseClient();
+    const { data, error } = await supabase
+      .from('memories').select('id, name, message, color_id, created_at, slug, pinned_until')
+      .order('created_at', { ascending: false }).limit(limit);
+    if (error) { console.error('Error fetching table memories:', error); return []; }
+    return sortPinnedFirst(data as Memory[]);
+  },
+  ['table-memories'],
+  { revalidate: 18000 }
+);
+
+export async function getTableMemories(limit: number = 50): Promise<Memory[]> {
+  return getCachedTableMemories(limit);
+}
+
 const getCachedArchiveMemories = unstable_cache(
   async (page: number, limit: number) => {
     const supabase = getSupabaseClient();
