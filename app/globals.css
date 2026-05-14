@@ -982,6 +982,23 @@ a:hover { color: var(--accent-hover); }
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.hub-card::before {
+  content: '';
+  position: absolute;
+  inset: -30px -60px -30px -60px;
+  background-image: url('/textures/rough-paper.webp');
+  background-size: cover;
+  background-position: center;
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+  pointer-events: none;
+}
+.hub-card > * {
+  position: relative;
+  z-index: 1;
 }
 .hub-card h2 {
   font-size: 1.5rem;
