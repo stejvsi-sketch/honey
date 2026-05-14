@@ -5,6 +5,15 @@ import { getRatelimit } from '@/lib/redis';
 
 export const runtime = 'edge';
 
+// Generate a content fingerprint for dedup: hash of (ip_hash + name + message)
+async function generateContentHash(ipHash: string, name: string, message: string): Promise<string> {
+  const raw = `${ipHash}:${name.toLowerCase().trim()}:${message.toLowerCase().trim()}`;
+  const data = new TextEncoder().encode(raw);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 export async function POST(request: NextRequest) {
   try {
     // Parse body
@@ -64,6 +73,9 @@ export async function POST(request: NextRequest) {
     const userUUID = generateUUID();
     const slug = generateNameSlug(cleanName);
 
+    // Generate content hash for dedup
+    const contentHash = await generateContentHash(ipHash, cleanName, cleanMessage);
+
     // Insert into Supabase submissions table (pending review)
     if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
       const { getSupabaseAdmin } = await import('@/lib/supabase');
@@ -80,6 +92,20 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'You are not allowed to submit.' }, { status: 403 });
       }
 
+      // Deduplication: check for identical content from same IP within last 5 minutes
+      const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString();
+      const { data: duplicate } = await supabase
+        .from('submissions')
+        .select('id')
+        .eq('content_hash', contentHash)
+        .gte('created_at', fiveMinutesAgo)
+        .maybeSingle();
+
+      if (duplicate) {
+        // Silently accept — user already sees success, no need to insert again
+        return NextResponse.json({ success: true, message: 'Your letter has been received and will be reviewed shortly.' });
+      }
+
       const { error } = await supabase.from('submissions').insert({
         name: cleanName,
         message: cleanMessage,
@@ -89,6 +115,7 @@ export async function POST(request: NextRequest) {
         country,
         user_uuid: userUUID,
         status: 'pending',
+        content_hash: contentHash,
       });
 
       if (error) {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { CARD_COLORS, MAX_WORDS } from '@/lib/constants';
 
 export default function SubmitForm() {
@@ -10,30 +10,74 @@ export default function SubmitForm() {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
 
+  // Ref-based lock to absolutely prevent double submissions across all edge cases
+  // (rapid clicks, slow network, re-renders, etc.)
+  const submitLockRef = useRef(false);
+
   const words = message.trim().split(/\s+/).filter(w => w.length > 0);
   const wordCount = words.length;
   const isOverLimit = wordCount > MAX_WORDS;
   const hasLongWord = words.some(w => w.length > 20);
 
+  // Generate a unique idempotency key per submission attempt
+  const generateIdempotencyKey = useCallback(() => {
+    return crypto.randomUUID();
+  }, []);
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (isOverLimit || hasLongWord || !name.trim() || !message.trim()) return;
-    setStatus('submitting');
-    setErrorMsg('');
 
+    // Hard lock: if already submitting, bail immediately
+    if (submitLockRef.current) return;
+    if (isOverLimit || hasLongWord || !name.trim() || !message.trim()) return;
+
+    // Acquire the lock
+    submitLockRef.current = true;
+
+    // Capture form data before clearing
+    const submissionData = {
+      name: name.trim(),
+      message: message.trim(),
+      color_id: colorId,
+      idempotency_key: generateIdempotencyKey(),
+    };
+
+    // OPTIMISTIC: Show success instantly so user never feels compelled to re-click
+    setStatus('success');
+    setErrorMsg('');
+    setName('');
+    setMessage('');
+    setColorId(CARD_COLORS[0].id);
+
+    // Fire the actual API call in the background
     try {
       const res = await fetch('/api/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name.trim(), message: message.trim(), color_id: colorId }),
+        body: JSON.stringify(submissionData),
       });
-      const data = await res.json();
-      if (!res.ok) { setStatus('error'); setErrorMsg(data.error || 'Something went wrong.'); return; }
-      setStatus('success');
-      setName(''); setMessage(''); setColorId(CARD_COLORS[0].id);
+
+      if (!res.ok) {
+        const data = await res.json();
+        // Revert optimistic UI on server rejection
+        setStatus('error');
+        setErrorMsg(data.error || 'Something went wrong. Please try again.');
+        // Restore form data so user doesn't lose their message
+        setName(submissionData.name);
+        setMessage(submissionData.message);
+        setColorId(submissionData.color_id);
+      }
+      // If res.ok, user already sees success — nothing to do
     } catch {
+      // Network error — revert optimistic UI
       setStatus('error');
-      setErrorMsg('Failed to submit. Please try again.');
+      setErrorMsg('Network error. Please check your connection and try again.');
+      setName(submissionData.name);
+      setMessage(submissionData.message);
+      setColorId(submissionData.color_id);
+    } finally {
+      // Release the lock
+      submitLockRef.current = false;
     }
   }
 
@@ -104,7 +148,7 @@ export default function SubmitForm() {
         {status === 'submitting' ? 'Sending...' : 'Send This Letter'}
       </button>
       <p className="form__hint" style={{ textAlign: 'center', marginTop: 12 }}>
-        All letters are reviewed before appearing. You can submit up to 6 per day.
+        All letters are reviewed before appearing. Only first names allowed.
       </p>
     </form>
   );

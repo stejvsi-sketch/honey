@@ -441,8 +441,8 @@ a:hover { color: var(--accent-hover); }
 @media (max-width: 768px) {
   .letter-single__card { max-width: 420px; }
   .letter-single__card .memory-card { max-width: 420px; }
-  .letter-single__card .memory-card__name { font-size: 1.2rem; }
-  .letter-single__card .memory-card__message { font-size: 1.15rem; }
+  .letter-single__card .memory-card__name { font-size: 1.1rem; }
+  .letter-single__card .memory-card__message { font-size: 1.05rem; }
   .letter-single__card .memory-card__brand { font-size: 1rem; }
   .letter-single__card .memory-card__content { padding: 8px 28px 68px; }
 }
