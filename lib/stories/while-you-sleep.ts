@@ -4,7 +4,7 @@ export const WHILE_YOU_SLEEP: Story = {
   slug: 'while-you-sleep',
   title: 'While You Sleep',
   author: 'Honey, If Only',
-  date: 'May 2025',
+  date: 'May 2026',
   synopsis: 'A mother has six months left. Her daughter is four. Every night, after Mila falls asleep, Sera builds a life she will not be alive to give her.',
   coverColor: '#2f2f3b',
   chapters: [

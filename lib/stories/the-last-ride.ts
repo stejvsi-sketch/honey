@@ -4,7 +4,7 @@ export const THE_LAST_RIDE: Story = {
   slug: 'the-last-ride',
   title: 'The Last Ride',
   author: 'Honey, If Only',
-  date: 'May 2025',
+  date: 'May 2026',
   synopsis: 'Ethan drives cross-country with his wife Noor and their six-year-old daughter Juno. The windows are down. The radio is on. Everything is exactly as it should be. Almost.',
   coverColor: '#3b2f24',
   chapters: [
