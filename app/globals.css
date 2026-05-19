@@ -414,7 +414,6 @@ a:hover { color: var(--accent-hover); }
   font-size: 0.75rem; color: #5c554d;
   text-transform: uppercase; letter-spacing: 0.05em;
   transition: color var(--transition);
-  padding: 12px 8px; min-height: 48px; display: inline-flex; align-items: center;
 }
 .footer__link:hover { color: var(--text-muted); }
 .footer__copy {
@@ -424,9 +423,9 @@ a:hover { color: var(--accent-hover); }
 
 @media (max-width: 640px) {
   .footer { padding: 48px 24px 40px; margin-top: 64px; }
-  .footer__links { flex-direction: column; gap: 4px; align-items: center; }
+  .footer__links { flex-direction: column; gap: 16px; align-items: center; }
   .footer__brand { margin-bottom: 32px; font-size: 1.3rem; }
-  .footer__link { font-size: 0.8rem; letter-spacing: 0.08em; padding: 12px 8px; }
+  .footer__link { font-size: 0.8rem; letter-spacing: 0.08em; }
 }
 
 /* ===== INDIVIDUAL LETTER PAGE ===== */
