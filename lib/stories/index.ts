@@ -16,7 +16,9 @@ export interface Story {
 }
 
 import { THE_LAST_RIDE } from './the-last-ride';
+import { WHILE_YOU_SLEEP } from './while-you-sleep';
 
 export const STORIES: Story[] = [
   THE_LAST_RIDE,
+  WHILE_YOU_SLEEP,
 ];
