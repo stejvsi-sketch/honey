@@ -14,6 +14,7 @@ const MORE_LINKS = [
   { href: '/table', label: 'The Table' },
   { href: '/about', label: 'How It Works' },
   { href: '/journal', label: 'Journal' },
+  { href: '/stories', label: 'Stories' },
   { href: '/archive', label: 'Name Archive' },
   { href: '/colors', label: 'Colors' },
   { href: '/collections', label: 'Collections' },

@@ -13,6 +13,7 @@ export default function Footer() {
           <li><Link href="/letters" className="footer__link">Letters</Link></li>
           <li><Link href="/write" className="footer__link">Write a Letter</Link></li>
           <li><Link href="/journal" className="footer__link">Journal</Link></li>
+          <li><Link href="/stories" className="footer__link">Stories</Link></li>
           <li><Link href="/archive" className="footer__link">Name Archive</Link></li>
           <li><Link href="/colors" className="footer__link">Colors</Link></li>
           <li><Link href="/collections" className="footer__link">Collections</Link></li>

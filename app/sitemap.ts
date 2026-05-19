@@ -1,11 +1,12 @@
 import { MetadataRoute } from 'next';
 import { SITE_URL } from '@/lib/constants';
 import { JOURNAL_POSTS } from '@/lib/journal-data';
+import { STORIES } from '@/lib/stories';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = [
     '', '/letters', '/write', '/about', '/archive', '/journal',
-    '/terms', '/privacy', '/cookies', '/disclaimer', '/contact',
+    '/stories', '/terms', '/privacy', '/cookies', '/disclaimer', '/contact',
     '/faq', '/colors', '/collections',
   ];
 
@@ -88,5 +89,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticEntries, ...colorEntries, ...collectionEntries, ...dynamicEntries, ...journalEntries];
+  // Story pages
+  const storyEntries: MetadataRoute.Sitemap = [];
+  for (const story of STORIES) {
+    storyEntries.push({
+      url: `${SITE_URL}/stories/${story.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    });
+    for (const chapter of story.chapters) {
+      storyEntries.push({
+        url: `${SITE_URL}/stories/${story.slug}/${chapter.number}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly',
+        priority: 0.7,
+      });
+    }
+  }
+
+  return [...staticEntries, ...colorEntries, ...collectionEntries, ...dynamicEntries, ...journalEntries, ...storyEntries];
 }
