@@ -212,20 +212,22 @@ export default async function ChapterPage(
         )}
       </nav>
 
-      <div style={{ marginTop: '80px', padding: '40px', background: 'rgba(255,255,255,0.4)', borderRadius: 'var(--radius)', textAlign: 'center' }}>
-        <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.4rem', marginBottom: '16px' }}>Did this move you?</h3>
-        <p style={{ color: 'var(--text-muted)', marginBottom: '24px', fontSize: '0.95rem' }}>
-          Write your own truth. Distill it into 25 words. Let it go.
-        </p>
-        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Link href="/write" className="btn" style={{ display: 'inline-block', width: 'auto', padding: '12px 32px' }}>
-            Write a Letter
-          </Link>
-          <Link href="/stories" className="btn btn--outline" style={{ display: 'inline-block', width: 'auto', padding: '12px 32px' }}>
-            More Stories
-          </Link>
+      {isLast && (
+        <div style={{ marginTop: '80px', padding: '40px', background: 'rgba(255,255,255,0.4)', borderRadius: 'var(--radius)', textAlign: 'center' }}>
+          <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.4rem', marginBottom: '16px' }}>Did this move you?</h3>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '24px', fontSize: '0.95rem' }}>
+            Write your own truth. Distill it into 25 words. Let it go.
+          </p>
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link href="/write" className="btn" style={{ display: 'inline-block', width: 'auto', padding: '12px 32px' }}>
+              Write a Letter
+            </Link>
+            <Link href="/stories" className="btn btn--outline" style={{ display: 'inline-block', width: 'auto', padding: '12px 32px' }}>
+              More Stories
+            </Link>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
