@@ -1021,7 +1021,10 @@ a:hover { color: var(--accent-hover); }
 .table-card {
   position: absolute;
   width: 330px;
+  height: calc(330px * 520 / 420);
   aspect-ratio: 420 / 520;
+  overflow: hidden;
+  contain: layout style;
   cursor: pointer;
   transform: rotate(var(--card-rotation, 0deg)) scale(var(--card-scale, 0.9));
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
@@ -1031,6 +1034,7 @@ a:hover { color: var(--accent-hover); }
   user-select: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
+  will-change: transform;
 }
 
 .table-card:hover {
@@ -1143,7 +1147,7 @@ a:hover { color: var(--accent-hover); }
   text-decoration: none;
   white-space: nowrap;
   letter-spacing: 0.03em;
-  transition: background 0.2s;
+  transition: background 0.2s, opacity 0.25s ease, visibility 0.25s ease;
   z-index: 10;
 }
 
@@ -1153,18 +1157,18 @@ a:hover { color: var(--accent-hover); }
 }
 
 @media (max-width: 1024px) {
-  .table-card { width: 220px; }
+  .table-card { width: 220px; height: calc(220px * 520 / 420); }
 }
 
 @media (max-width: 768px) {
-  .table-card { width: 180px; }
+  .table-card { width: 180px; height: calc(180px * 520 / 420); }
   .table-card__name { font-size: 0.8rem; }
   .table-card__message { font-size: 0.7rem; }
   .table-surface__title { font-size: 1.8rem; }
 }
 
 @media (max-width: 480px) {
-  .table-card { width: 140px; }
+  .table-card { width: 140px; height: calc(140px * 520 / 420); }
   .table-card__name { font-size: 0.7rem; }
   .table-card__message { font-size: 0.58rem; -webkit-line-clamp: 4; }
   .table-card__brand { font-size: 0.5rem; }

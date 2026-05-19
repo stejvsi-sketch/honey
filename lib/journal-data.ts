@@ -27,6 +27,15 @@ import { POSTS_PART18 } from './journal-data-part18';
 import { POSTS_PART19 } from './journal-data-part19';
 import { POSTS_PART20 } from './journal-data-part20';
 import { POSTS_PART21 } from './journal-data-part21';
+import { POSTS_PART22 } from './journal-data-part22';
+import { POSTS_PART23 } from './journal-data-part23';
+import { POSTS_PART24 } from './journal-data-part24';
+import { POSTS_PART25 } from './journal-data-part25';
+import { POSTS_PART26 } from './journal-data-part26';
+import { POSTS_PART27 } from './journal-data-part27';
+import { POSTS_PART28 } from './journal-data-part28';
+import { POSTS_PART29 } from './journal-data-part29';
+import { POSTS_PART30 } from './journal-data-part30';
 
 export const JOURNAL_POSTS: JournalPost[] = [
   ...POSTS_PART1,
@@ -50,4 +59,13 @@ export const JOURNAL_POSTS: JournalPost[] = [
   ...POSTS_PART19,
   ...POSTS_PART20,
   ...POSTS_PART21,
+  ...POSTS_PART22,
+  ...POSTS_PART23,
+  ...POSTS_PART24,
+  ...POSTS_PART25,
+  ...POSTS_PART26,
+  ...POSTS_PART27,
+  ...POSTS_PART28,
+  ...POSTS_PART29,
+  ...POSTS_PART30,
 ];

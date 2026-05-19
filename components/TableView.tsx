@@ -107,15 +107,19 @@ function TableCard({
         <span className="table-card__name">To {displayName}</span>
         <p className="table-card__message">{memory.message}</p>
       </div>
-      {isLifted && (
-        <Link
-          href={`/letter/${memory.id}`}
-          className="table-card__read"
-          onClick={(e) => e.stopPropagation()}
-        >
-          Read This Letter
-        </Link>
-      )}
+      <Link
+        href={`/letter/${memory.id}`}
+        className="table-card__read"
+        style={{
+          opacity: isLifted ? 1 : 0,
+          visibility: isLifted ? 'visible' : 'hidden',
+          pointerEvents: isLifted ? 'auto' : 'none',
+        }}
+        onClick={(e) => e.stopPropagation()}
+        tabIndex={isLifted ? 0 : -1}
+      >
+        Read This Letter
+      </Link>
     </div>
   );
 }
