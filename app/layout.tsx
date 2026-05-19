@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
-import { Lora, Inter } from 'next/font/google';
+import { Lora, Inter, Caveat } from 'next/font/google';
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from '@/lib/constants';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import GoogleAnalytics from '@/components/GoogleAnalytics';
 import './globals.css';
 
 const GA_MEASUREMENT_ID = 'G-QNJ151X277';
@@ -19,6 +18,13 @@ const inter = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',
+});
+
+const caveat = Caveat({
+  subsets: ['latin'],
+  variable: '--font-handwriting',
+  display: 'swap',
+  weight: ['400', '500', '600'],
 });
 
 export const metadata: Metadata = {
@@ -48,19 +54,33 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${lora.variable} ${inter.variable}`}
+      className={`${lora.variable} ${inter.variable} ${caveat.variable}`}
       suppressHydrationWarning
     >
       <head>
         {/* Preload LCP-critical texture image */}
         <link rel="preload" href="/textures/rough-paper.webp" as="image" type="image/webp" fetchPriority="high" />
-        {/* Google Analytics */}
-        <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
+        {/* Preconnect to analytics origins */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
       </head>
       <body>
         <Navigation />
         <main>{children}</main>
         <Footer />
+        {/* Google Analytics — deferred to reduce TBT */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="lazyOnload"
+        />
+        <Script id="google-analytics" strategy="lazyOnload">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
       </body>
     </html>
   );

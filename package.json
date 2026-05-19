@@ -27,12 +27,12 @@
     "typescript": "^5"
   },
   "browserslist": [
-    "chrome >= 92",
-    "edge >= 92",
-    "firefox >= 91",
+    "chrome >= 97",
+    "edge >= 97",
+    "firefox >= 104",
     "safari >= 15.4",
     "ios_saf >= 15.4",
-    "samsung >= 17",
+    "samsung >= 18",
     "op_mob >= 73"
   ]
 }

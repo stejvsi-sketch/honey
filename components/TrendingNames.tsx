@@ -25,7 +25,7 @@ export default async function TrendingNames({ limit = 8 }: { limit?: number }) {
               href={`/to/${stat.slug}`}
               className="trending-tag"
             >
-              {formatSubmittedName(stat.name)} <span style={{ opacity: 0.5, fontSize: '0.8rem', marginLeft: '4px' }}>{stat.count}</span>
+              {formatSubmittedName(stat.name)} <span style={{ color: 'var(--text-light)', fontSize: '0.8rem', marginLeft: '4px' }}>{stat.count}</span>
             </Link>
           ))}
         </div>
