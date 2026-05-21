@@ -5,7 +5,7 @@ export const UNTIL_YOU_REMEMBER: Story = {
   title: 'Until You Remember',
   author: 'Honey, If Only',
   date: 'May 2026',
-  synopsis: 'Every morning, Arthur irons his white shirt, drives to a building he knows by heart, and introduces himself to the woman he has loved for fifty-one years. She smiles at him the way you smile at a stranger. He tells her stories about a couple he once knew. She does not know the couple is them.',
+  synopsis: 'Every morning, Arthur irons his white shirt, picks up flowers, and drives fourteen minutes to a building he knows by heart. He sits in the same green chair. He tells stories about a couple he once knew. He has done this one thousand eight hundred and forty-seven times.',
   coverColor: '#2b3a4a',
   chapters: [
     {
