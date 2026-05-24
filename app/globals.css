@@ -1458,104 +1458,116 @@ a:hover { color: var(--accent-hover); }
 .unsent-archive__list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
 }
 
-/* Improved card with container */
+/* ---- Letter-style card ---- */
 .unsent-card {
-  transition: transform var(--transition), box-shadow var(--transition);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.unsent-card:hover {
+  transform: translateY(-2px);
 }
 
 .unsent-card__inner {
-  padding: 24px 28px;
-  background: rgba(255, 255, 255, 0.22);
+  display: flex;
+  background: rgba(255, 255, 255, 0.24);
   border: 1px solid var(--border-light);
   border-radius: var(--radius);
-  transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
+  overflow: hidden;
+  transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
 }
 
 .unsent-card:hover .unsent-card__inner {
   border-color: var(--border);
-  background: rgba(255, 255, 255, 0.35);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.42);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.07), 0 1px 4px rgba(0, 0, 0, 0.04);
 }
 
-.unsent-card__meta-row {
+/* Left accent bar */
+.unsent-card__accent {
+  width: 4px;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, #c8a88a 0%, #a8907a 50%, #8a7868 100%);
+  opacity: 0.5;
+  transition: opacity 0.25s ease;
+}
+
+.unsent-card:hover .unsent-card__accent {
+  opacity: 0.85;
+}
+
+/* Content area */
+.unsent-card__content {
+  flex: 1;
+  padding: 24px 28px;
+  min-width: 0;
+}
+
+/* Head: recipient + date */
+.unsent-card__head {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 16px;
-  gap: 16px;
-}
-
-.unsent-card__names {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
   align-items: center;
+  margin-bottom: 16px;
+  gap: 12px;
 }
 
-.unsent-card__label {
-  display: inline-block;
-  font-size: 0.62rem;
+.unsent-card__recipient {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.unsent-card__prefix {
+  font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--text-faint);
-  margin-right: 5px;
-  vertical-align: middle;
 }
 
-.unsent-card__to {
+.unsent-card__name {
   font-family: var(--font-serif);
-  font-size: 0.95rem;
-  color: var(--text-muted);
-}
-
-.unsent-card__to strong {
-  color: var(--text);
+  font-size: 1.18rem;
   font-weight: 600;
-  font-size: 1.08rem;
-}
-
-.unsent-card__from {
-  font-size: 0.85rem;
-  color: var(--text-faint);
-  font-style: italic;
-  position: relative;
-  padding-left: 14px;
-}
-
-.unsent-card__from::before {
-  content: '·';
-  position: absolute;
-  left: 0;
-  color: var(--border);
-  font-style: normal;
-  font-weight: 700;
-}
-
-.unsent-card__from em {
-  color: var(--text-light);
+  color: var(--text);
+  letter-spacing: 0.01em;
 }
 
 .unsent-card__date {
-  font-size: 0.73rem;
+  font-size: 0.72rem;
   color: var(--text-faint);
   white-space: nowrap;
-  padding-top: 4px;
   letter-spacing: 0.02em;
   font-style: italic;
+  flex-shrink: 0;
 }
 
+/* Body: quote + message */
 .unsent-card__body {
-  padding: 0;
+  position: relative;
+  padding-left: 20px;
+}
+
+.unsent-card__quote {
+  position: absolute;
+  top: -6px;
+  left: -2px;
+  font-family: var(--font-serif);
+  font-size: 2.8rem;
+  font-weight: 600;
+  color: rgba(168, 144, 122, 0.2);
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
 }
 
 .unsent-card__message {
   font-family: var(--font-serif);
   font-size: 1rem;
-  line-height: 1.82;
+  line-height: 1.85;
   color: var(--text-muted);
   word-break: break-word;
   overflow-wrap: break-word;
@@ -1563,23 +1575,44 @@ a:hover { color: var(--accent-hover); }
 
 .unsent-card__toggle {
   display: inline-block;
-  margin-top: 10px;
-  padding: 4px 12px;
-  background: rgba(106, 54, 51, 0.06);
+  margin-top: 12px;
+  padding: 5px 14px;
+  background: rgba(106, 54, 51, 0.05);
   border: 1px solid rgba(106, 54, 51, 0.12);
-  border-radius: var(--radius);
+  border-radius: 20px;
   font-family: var(--font-serif);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-style: italic;
   color: #6a3633;
   cursor: pointer;
-  transition: background var(--transition), color var(--transition);
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   letter-spacing: 0.01em;
 }
 
 .unsent-card__toggle:hover {
   background: rgba(106, 54, 51, 0.12);
+  border-color: rgba(106, 54, 51, 0.25);
   color: #4a2220;
+}
+
+/* Footer: from line */
+.unsent-card__footer {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border-light);
+}
+
+.unsent-card__from-line {
+  font-family: var(--font-serif);
+  font-size: 0.88rem;
+  font-style: italic;
+  color: var(--text-light);
+  letter-spacing: 0.01em;
+}
+
+.unsent-card__from-line em {
+  color: var(--text-muted);
+  font-weight: 500;
 }
 
 /* Empty state */
@@ -1689,17 +1722,23 @@ a:hover { color: var(--accent-hover); }
     gap: 4px;
   }
 
-  .unsent-card__inner {
-    padding: 20px 20px;
+  .unsent-card__content {
+    padding: 20px 22px;
   }
 
-  .unsent-card__meta-row {
+  .unsent-card__head {
     flex-direction: column;
-    gap: 6px;
+    align-items: flex-start;
+    gap: 4px;
   }
 
-  .unsent-card__date {
-    padding-top: 0;
+  .unsent-card__body {
+    padding-left: 16px;
+  }
+
+  .unsent-card__quote {
+    font-size: 2.2rem;
+    top: -4px;
   }
 
   .unsent-archive__links-grid {
@@ -1720,24 +1759,28 @@ a:hover { color: var(--accent-hover); }
     font-size: 1.75rem;
   }
 
-  .unsent-card__inner {
+  .unsent-card__content {
     padding: 16px 14px;
+  }
+
+  .unsent-card__name {
+    font-size: 1.05rem;
+  }
+
+  .unsent-card__body {
+    padding-left: 14px;
+  }
+
+  .unsent-card__quote {
+    font-size: 1.8rem;
+    top: -2px;
   }
 
   .unsent-card__message {
     font-size: 0.95rem;
   }
 
-  .unsent-card__names {
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .unsent-card__from {
-    padding-left: 0;
-  }
-
-  .unsent-card__from::before {
-    display: none;
+  .unsent-archive__list {
+    gap: 14px;
   }
 }

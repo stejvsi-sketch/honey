@@ -29,40 +29,45 @@ function MemoryCard({ memory }: { memory: UnsentMemory }) {
   return (
     <article className="unsent-card" id={`memory-${memory.id}`}>
       <div className="unsent-card__inner">
-        <div className="unsent-card__meta-row">
-          <div className="unsent-card__names">
-            <span className="unsent-card__to">
-              <span className="unsent-card__label">To</span>
-              <strong>{memory.to || 'Someone'}</strong>
-            </span>
-            {memory.from && (
-              <span className="unsent-card__from">
-                <span className="unsent-card__label">From</span>
-                <em>{memory.from}</em>
-              </span>
+        <div className="unsent-card__accent" aria-hidden="true" />
+        <div className="unsent-card__content">
+          <div className="unsent-card__head">
+            <div className="unsent-card__recipient">
+              <span className="unsent-card__prefix">To</span>
+              <span className="unsent-card__name">{memory.to || 'Someone'}</span>
+            </div>
+            <time className="unsent-card__date" dateTime={memory.created_at}>
+              {formatDate(memory.created_at)}
+            </time>
+          </div>
+
+          <div className="unsent-card__body">
+            <span className="unsent-card__quote" aria-hidden="true">&ldquo;</span>
+            <p className="unsent-card__message">
+              {preview.split('\n').map((line, i) => (
+                <span key={i}>
+                  {i > 0 && <br />}
+                  {line}
+                </span>
+              ))}
+            </p>
+            {isLong && (
+              <button
+                className="unsent-card__toggle"
+                onClick={() => setExpanded(!expanded)}
+                aria-expanded={expanded}
+              >
+                {expanded ? '← Show less' : 'Read more →'}
+              </button>
             )}
           </div>
-          <time className="unsent-card__date" dateTime={memory.created_at}>
-            {formatDate(memory.created_at)}
-          </time>
-        </div>
-        <div className="unsent-card__body">
-          <p className="unsent-card__message">
-            {preview.split('\n').map((line, i) => (
-              <span key={i}>
-                {i > 0 && <br />}
-                {line}
+
+          {memory.from && (
+            <div className="unsent-card__footer">
+              <span className="unsent-card__from-line">
+                — <em>{memory.from}</em>
               </span>
-            ))}
-          </p>
-          {isLong && (
-            <button
-              className="unsent-card__toggle"
-              onClick={() => setExpanded(!expanded)}
-              aria-expanded={expanded}
-            >
-              {expanded ? '← Show less' : 'Read more →'}
-            </button>
+            </div>
           )}
         </div>
       </div>
