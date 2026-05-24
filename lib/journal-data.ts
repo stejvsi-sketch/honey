@@ -36,6 +36,20 @@ import { POSTS_PART27 } from './journal-data-part27';
 import { POSTS_PART28 } from './journal-data-part28';
 import { POSTS_PART29 } from './journal-data-part29';
 import { POSTS_PART30 } from './journal-data-part30';
+import { POSTS_PART31 } from './journal-data-part31';
+import { POSTS_PART32 } from './journal-data-part32';
+import { POSTS_PART33 } from './journal-data-part33';
+import { POSTS_PART34 } from './journal-data-part34';
+import { POSTS_PART35 } from './journal-data-part35';
+import { POSTS_PART36 } from './journal-data-part36';
+import { POSTS_PART37 } from './journal-data-part37';
+import { POSTS_PART38 } from './journal-data-part38';
+import { POSTS_PART39 } from './journal-data-part39';
+import { POSTS_PART40 } from './journal-data-part40';
+import { POSTS_PART41 } from './journal-data-part41';
+import { POSTS_PART42 } from './journal-data-part42';
+import { POSTS_PART43 } from './journal-data-part43';
+import { POSTS_PART44 } from './journal-data-part44';
 
 export const JOURNAL_POSTS: JournalPost[] = [
   ...POSTS_PART1,
@@ -68,4 +82,18 @@ export const JOURNAL_POSTS: JournalPost[] = [
   ...POSTS_PART28,
   ...POSTS_PART29,
   ...POSTS_PART30,
+  ...POSTS_PART31,
+  ...POSTS_PART32,
+  ...POSTS_PART33,
+  ...POSTS_PART34,
+  ...POSTS_PART35,
+  ...POSTS_PART36,
+  ...POSTS_PART37,
+  ...POSTS_PART38,
+  ...POSTS_PART39,
+  ...POSTS_PART40,
+  ...POSTS_PART41,
+  ...POSTS_PART42,
+  ...POSTS_PART43,
+  ...POSTS_PART44,
 ];
