@@ -2,12 +2,13 @@ import { MetadataRoute } from 'next';
 import { SITE_URL } from '@/lib/constants';
 import { JOURNAL_POSTS } from '@/lib/journal-data';
 import { STORIES } from '@/lib/stories';
+import { UNSENT_TOTAL_PAGES } from '@/lib/unsent-data';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = [
     '', '/letters', '/write', '/about', '/archive', '/journal',
     '/stories', '/terms', '/privacy', '/cookies', '/disclaimer', '/contact',
-    '/faq', '/colors', '/collections',
+    '/faq', '/colors', '/collections', '/unsent',
   ];
 
   const staticEntries: MetadataRoute.Sitemap = staticPages.map(path => ({
@@ -108,5 +109,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  return [...staticEntries, ...colorEntries, ...collectionEntries, ...dynamicEntries, ...journalEntries, ...storyEntries];
+  // Unsent archive paginated pages
+  const unsentEntries: MetadataRoute.Sitemap = [];
+  for (let i = 2; i <= UNSENT_TOTAL_PAGES; i++) {
+    unsentEntries.push({
+      url: `${SITE_URL}/unsent/${i}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    });
+  }
+
+  return [...staticEntries, ...colorEntries, ...collectionEntries, ...dynamicEntries, ...journalEntries, ...storyEntries, ...unsentEntries];
 }

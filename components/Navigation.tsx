@@ -11,6 +11,7 @@ const NAV_LINKS = [
 ];
 
 const MORE_LINKS = [
+  { href: '/unsent', label: 'Unsent Archive' },
   { href: '/table', label: 'The Table' },
   { href: '/about', label: 'How It Works' },
   { href: '/journal', label: 'Journal' },
