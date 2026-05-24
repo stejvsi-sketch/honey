@@ -60,9 +60,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         {/* Preload LCP-critical texture image */}
         <link rel="preload" href="/textures/rough-paper.webp" as="image" type="image/webp" fetchPriority="high" />
-        {/* Preconnect to analytics origins */}
+        {/* Preconnect to analytics & ads origins */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
       </head>
       <body>
         <Navigation />
@@ -81,6 +82,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             gtag('config', '${GA_MEASUREMENT_ID}');
           `}
         </Script>
+        {/* Google AdSense */}
+        <Script
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4151123662328725"
+          crossOrigin="anonymous"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   );
