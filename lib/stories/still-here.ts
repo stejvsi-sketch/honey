@@ -832,7 +832,7 @@ There is writing on it.
 
 Her handwriting.
 
-The loopy lowercase, slightly slanted to the right. The way she crossed her t's with a long line, overshooting the letter, the cross extending past the edge like it was trying to escape. The way she dotted her i's with small circles instead of dots. She said dots were "boring" and circles were "festive." I said that was not a real distinction. She said all distinctions are real if you believe in them hard enough.
+The loopy lowercase, slightly slanted to the right. The way her m's had three humps instead of two, the extra curve sneaking in like she couldn't stop her hand from adding more. The way she dotted her i's with small circles instead of dots. She said dots were "boring" and circles were "festive." I said that was not a real distinction. She said all distinctions are real if you believe in them hard enough.
 
 Two words. In her handwriting. On the grocery pad. In blue ink from the pen that is clipped to the top of the pad.
 
@@ -864,7 +864,7 @@ I read it again.
 
 I hold the pad against my chest. I stand in the kitchen and I hold two words written by a dead woman and I cry. Not the crying of loss. Not the crying of grief. The crying of gratitude. The crying of a man who has been given one last thing from the person he loves and the thing is not a poem or a letter or a song. The thing is a grocery list. The thing is "more milk." The thing is so ordinary and so small and so her that it is the most devastating message I have ever received.
 
-I put the pad back on the refrigerator. I look at it. Her handwriting. The circles over the i's. The long cross on the t.
+I put the pad back on the refrigerator. I look at it. Her handwriting. The circles over the i's. The loopy m's slanting to the right.
 
 I take my keys.
 

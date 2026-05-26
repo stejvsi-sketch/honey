@@ -20,6 +20,10 @@ const MORE_LINKS = [
   { href: '/colors', label: 'Colors' },
   { href: '/collections', label: 'Collections' },
   { href: '/faq', label: 'FAQ' },
+  { href: '/terms', label: 'Terms' },
+  { href: '/privacy', label: 'Privacy' },
+  { href: '/cookies', label: 'Cookies' },
+  { href: '/disclaimer', label: 'Disclaimer' },
   { href: '/contact', label: 'Contact' },
 ];
 
