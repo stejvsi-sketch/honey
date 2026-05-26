@@ -91,6 +91,10 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <div className="page__header" style={{ marginBottom: '32px' }}>
+        <h1 className="page__title">Unsent Letter to {displayName}</h1>
+        <p className="page__subtitle">An anonymous unsent letter, message, and unspoken words to {displayName}.</p>
+      </div>
       <div className="letter-single__card">
         <div className="memory-card card-animate" style={{ margin: '0 auto' }}>
           <div className="memory-card__bg">
