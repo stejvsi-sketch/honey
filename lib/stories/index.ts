@@ -20,6 +20,8 @@ import { WHILE_YOU_SLEEP } from './while-you-sleep';
 import { UNTIL_YOU_REMEMBER } from './until-you-remember';
 import { STILL_HERE } from './still-here';
 import { SEVENTEEN_YEARS } from './seventeen-years';
+import { ALMOST_HOME } from './almost-home';
+import { MICHAEL } from './michael';
 
 export const STORIES: Story[] = [
   THE_LAST_RIDE,
@@ -27,4 +29,6 @@ export const STORIES: Story[] = [
   UNTIL_YOU_REMEMBER,
   STILL_HERE,
   SEVENTEEN_YEARS,
+  ALMOST_HOME,
+  MICHAEL,
 ];
