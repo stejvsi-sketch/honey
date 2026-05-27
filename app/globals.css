@@ -236,7 +236,7 @@ a:hover { color: var(--accent-hover); }
 .memory-card__name {
   position: relative; z-index: 2;
   font-family: var(--font-serif);
-  font-size: 1.25rem; font-weight: 600; font-style: italic;
+  font-size: 1.35rem; font-weight: 600; font-style: italic;
   color: rgba(20, 16, 12, 0.95);
   text-decoration: none;
   margin-bottom: 16px;
@@ -246,7 +246,7 @@ a:hover { color: var(--accent-hover); }
 
 .memory-card__message {
   font-family: var(--font-serif);
-  font-size: 1.25rem; line-height: 1.75;
+  font-size: 1.3rem; line-height: 1.75;
   font-weight: 500;
   color: rgba(20, 16, 12, 0.92);
   letter-spacing: 0.01em;
@@ -291,14 +291,14 @@ a:hover { color: var(--accent-hover); }
 /* Responsive card sizing via CSS media queries (no JS = no CLS) */
 @media (max-width: 1023px) {
   .memory-card { max-width: 320px; }
-  .memory-card .memory-card__name { font-size: 1.2rem; }
-  .memory-card .memory-card__message { font-size: 1.18rem; }
+  .memory-card .memory-card__name { font-size: 1.28rem; }
+  .memory-card .memory-card__message { font-size: 1.25rem; }
 }
 @media (max-width: 767px) {
   .memory-card { max-width: 340px; }
   .memory-card .memory-card__content { padding: 12px 26px 68px; }
-  .memory-card .memory-card__name { font-size: 1.15rem; }
-  .memory-card .memory-card__message { font-size: 1.12rem; line-height: 1.7; }
+  .memory-card .memory-card__name { font-size: 1.22rem; }
+  .memory-card .memory-card__message { font-size: 1.18rem; line-height: 1.7; }
 }
 
 /* ===== FORM ===== */
@@ -434,16 +434,16 @@ a:hover { color: var(--accent-hover); }
 }
 .letter-single__card { max-width: 480px; width: 100%; }
 .letter-single__card .memory-card { max-width: 480px; }
-.letter-single__card .memory-card__name { font-size: 1.35rem; }
-.letter-single__card .memory-card__message { font-size: 1.3rem; line-height: 1.75; }
+.letter-single__card .memory-card__name { font-size: 1.45rem; }
+.letter-single__card .memory-card__message { font-size: 1.38rem; line-height: 1.75; }
 .letter-single__card .memory-card__brand { font-size: 1rem; }
 .letter-single__card .memory-card__content { padding: 16px 34px 76px; }
 
 @media (max-width: 768px) {
   .letter-single__card { max-width: 420px; }
   .letter-single__card .memory-card { max-width: 420px; }
-  .letter-single__card .memory-card__name { font-size: 1.18rem; }
-  .letter-single__card .memory-card__message { font-size: 1.18rem; line-height: 1.7; }
+  .letter-single__card .memory-card__name { font-size: 1.28rem; }
+  .letter-single__card .memory-card__message { font-size: 1.25rem; line-height: 1.7; }
   .letter-single__card .memory-card__brand { font-size: 0.95rem; }
   .letter-single__card .memory-card__content { padding: 12px 30px 72px; }
 }
