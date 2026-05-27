@@ -1,0 +1,36 @@
+# 🧹 CLEANUP (after ~4 months / Oct 2026):
+#   Delete these files:
+#     - scripts/generate-messages.mjs
+#     - scripts/seed-messages.json
+#     - scripts/seed-submissions.mjs
+#     - .github/workflows/seed-submissions.yml  (this file)
+#   Also remove GitHub Secrets:
+#     - SUPABASE_SERVICE_ROLE_KEY (if not used elsewhere)
+
+name: Seed Submissions
+
+on:
+  schedule:
+    # Run every 30 minutes
+    - cron: '*/30 * * * *'
+  workflow_dispatch: {} # Manual trigger for testing
+
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run seeder
+        run: node scripts/seed-submissions.mjs
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
