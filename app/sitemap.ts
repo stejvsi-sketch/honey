@@ -60,12 +60,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }))
       );
 
-      // Recent individual letters -> /letter/[id] pages (cap at 1000 for sitemap size)
+      // Individual letters -> /letter/[id] pages (cap at 50K — Google's max per sitemap)
       const { data: letters } = await supabase
         .from('memories')
         .select('id, created_at')
         .order('created_at', { ascending: false })
-        .limit(1000);
+        .limit(50000);
 
       if (letters) {
         dynamicEntries.push(
