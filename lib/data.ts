@@ -137,8 +137,7 @@ const getCachedNameStats = unstable_cache(
     }
     const { data, error } = await supabase.from('memories')
       .select('name, slug')
-      .order('created_at', { ascending: false })
-      .limit(5000);
+      .order('created_at', { ascending: false });
     if (error || !data) return [];
     const stats: Record<string, NameStat> = {};
     data.forEach((m: { name: string; slug: string }) => {

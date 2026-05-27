@@ -40,6 +40,8 @@ const C = {
   yellowBorder:'rgba(232,196,74,0.30)',
 };
 
+const PAGE_SIZE = 50;
+
 export default function AdminDashboard({ secret }: { secret: string }) {
   const [tab, setTab] = useState<'pending' | 'approved' | 'banned'>('pending');
   const [submissions, setSubmissions] = useState<Submission[]>([]);
@@ -51,6 +53,11 @@ export default function AdminDashboard({ secret }: { secret: string }) {
   const [search, setSearch] = useState('');
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [bulkLoading, setBulkLoading] = useState(false);
+
+  // ── Pagination state ──
+  const [page, setPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+  const totalPages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE));
 
   const headers: Record<string, string> = { 'Content-Type': 'application/json', 'x-admin-secret': secret };
 
@@ -66,21 +73,30 @@ export default function AdminDashboard({ secret }: { secret: string }) {
         if (bannedRes.ok) setBannedUsers(await bannedRes.json());
         setSubmissions([]);
         setMemories([]);
+        setTotalItems(0);
       } else if (tab === 'approved') {
-        const memRes = await fetch('/api/admin/memories', { headers });
-        if (memRes.ok) setMemories(await memRes.json());
+        const memRes = await fetch(`/api/admin/memories?page=${page}&limit=${PAGE_SIZE}`, { headers });
+        if (memRes.ok) {
+          const json = await memRes.json();
+          setMemories(json.data || json);
+          setTotalItems(json.total || 0);
+        }
         setSubmissions([]);
         setBannedUsers([]);
       } else {
-        const subsRes = await fetch(`/api/admin/submissions?status=pending`, { headers });
-        if (subsRes.ok) setSubmissions(await subsRes.json());
+        const subsRes = await fetch(`/api/admin/submissions?status=pending&page=${page}&limit=${PAGE_SIZE}`, { headers });
+        if (subsRes.ok) {
+          const json = await subsRes.json();
+          setSubmissions(json.data || json);
+          setTotalItems(json.total || 0);
+        }
         setBannedUsers([]);
         setMemories([]);
       }
     } catch (e) { console.error(e); }
     setLoading(false);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tab, secret]);
+  }, [tab, secret, page]);
 
   useEffect(() => {
     let cancelled = false;
@@ -93,6 +109,12 @@ export default function AdminDashboard({ secret }: { secret: string }) {
       cancelled = true;
     };
   }, [fetchData]);
+
+  // Reset page when tab changes
+  useEffect(() => {
+    setPage(1);
+    setSearch('');
+  }, [tab]);
 
   async function handleAction(id: string, action: 'approve' | 'reject' | 'delete' | 'ban') {
     await fetch('/api/admin/action', {
@@ -206,6 +228,81 @@ export default function AdminDashboard({ secret }: { secret: string }) {
   const checkboxStyle: React.CSSProperties = {
     width: 18, height: 18, accentColor: C.accent, cursor: 'pointer',
   };
+
+  /* ── Pagination component ── */
+  function PaginationBar() {
+    if (tab === 'banned' || totalPages <= 1) return null;
+    
+    const startItem = (page - 1) * PAGE_SIZE + 1;
+    const endItem = Math.min(page * PAGE_SIZE, totalItems);
+
+    return (
+      <div style={{
+        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+        padding: '14px 16px', margin: '16px 0',
+        background: C.cardBg, borderRadius: '8px',
+        border: `1px solid ${C.cardBorder}`,
+        flexWrap: 'wrap', gap: '12px',
+      }}>
+        <span style={{ fontSize: '0.85rem', color: C.textMuted }}>
+          {startItem}–{endItem} of {totalItems.toLocaleString()}
+        </span>
+        <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+          <button
+            onClick={() => setPage(1)}
+            disabled={page <= 1}
+            style={{
+              ...btnStyle(C.cardBg, page <= 1 ? C.textFaint : C.text, C.cardBorder),
+              padding: '7px 12px',
+              cursor: page <= 1 ? 'not-allowed' : 'pointer',
+              opacity: page <= 1 ? 0.4 : 1,
+            }}
+          >
+            ««
+          </button>
+          <button
+            onClick={() => setPage(p => Math.max(1, p - 1))}
+            disabled={page <= 1}
+            style={{
+              ...btnStyle(C.cardBg, page <= 1 ? C.textFaint : C.text, C.cardBorder),
+              padding: '7px 14px',
+              cursor: page <= 1 ? 'not-allowed' : 'pointer',
+              opacity: page <= 1 ? 0.4 : 1,
+            }}
+          >
+            ‹ Prev
+          </button>
+          <span style={{ fontSize: '0.85rem', color: C.accent, fontWeight: 600, padding: '0 8px' }}>
+            {page} / {totalPages}
+          </span>
+          <button
+            onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+            disabled={page >= totalPages}
+            style={{
+              ...btnStyle(C.cardBg, page >= totalPages ? C.textFaint : C.text, C.cardBorder),
+              padding: '7px 14px',
+              cursor: page >= totalPages ? 'not-allowed' : 'pointer',
+              opacity: page >= totalPages ? 0.4 : 1,
+            }}
+          >
+            Next ›
+          </button>
+          <button
+            onClick={() => setPage(totalPages)}
+            disabled={page >= totalPages}
+            style={{
+              ...btnStyle(C.cardBg, page >= totalPages ? C.textFaint : C.text, C.cardBorder),
+              padding: '7px 12px',
+              cursor: page >= totalPages ? 'not-allowed' : 'pointer',
+              opacity: page >= totalPages ? 0.4 : 1,
+            }}
+          >
+            »»
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div style={{ maxWidth: '860px', margin: '0 auto', padding: '20px 16px', background: C.bg, minHeight: '100vh', color: C.text }}>
@@ -321,6 +418,9 @@ export default function AdminDashboard({ secret }: { secret: string }) {
         </div>
       )}
 
+      {/* Pagination — top */}
+      <PaginationBar />
+
       {/* Content */}
       <div style={{ paddingBottom: '60px' }}>
         {loading ? (
@@ -328,7 +428,7 @@ export default function AdminDashboard({ secret }: { secret: string }) {
         ) : tab === 'pending' ? (
           <>
             <p style={{ color: C.textMuted, marginBottom: '12px', fontSize: '0.85rem' }}>
-              Showing {filteredPending.length} of {submissions.length} pending
+              Showing {filteredPending.length} of {totalItems.toLocaleString()} pending
             </p>
             {filteredPending.length === 0 && <p style={{ color: C.textFaint, fontStyle: 'italic' }}>The queue is empty.</p>}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -378,7 +478,7 @@ export default function AdminDashboard({ secret }: { secret: string }) {
         ) : tab === 'approved' ? (
           <>
             <p style={{ color: C.textMuted, marginBottom: '12px', fontSize: '0.85rem' }}>
-              Showing {filteredApproved.length} of {memories.length} memories
+              Showing {filteredApproved.length} of {totalItems.toLocaleString()} memories
             </p>
             {filteredApproved.length === 0 && <p style={{ color: C.textFaint, fontStyle: 'italic' }}>No memories found.</p>}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -471,6 +571,9 @@ export default function AdminDashboard({ secret }: { secret: string }) {
           </>
         )}
       </div>
+
+      {/* Pagination — bottom */}
+      <PaginationBar />
     </div>
   );
 }
