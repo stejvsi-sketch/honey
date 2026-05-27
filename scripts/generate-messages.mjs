@@ -29,69 +29,198 @@ const CARD_COLORS = [
   'faded-denim', 'ivory-ash',
 ];
 
-// ─── 400+ INTERNATIONAL FIRST NAMES ─────────────────────────
+// ─── 1700+ INTERNATIONAL FIRST NAMES ────────────────────────
 const NAMES = [
-  // English
-  'James','Emma','Liam','Olivia','Noah','Ava','Ethan','Sophia','Mason','Isabella',
-  'Logan','Mia','Lucas','Charlotte','Aiden','Amelia','Jackson','Harper','Sebastian','Evelyn',
-  'Jack','Abigail','Owen','Emily','Daniel','Ella','Matthew','Scarlett','Henry','Grace',
-  'Alexander','Lily','William','Chloe','Benjamin','Zoey','Elijah','Penelope','Ryan','Layla',
-  'Nathan','Riley','Caleb','Nora','Dylan','Hannah','Luke','Aria','Connor','Ellie',
-  'Max','Stella','Cole','Violet','Tyler','Aurora','Hunter','Savannah','Wyatt','Audrey',
-  // Spanish / Latin
-  'Santiago','Valentina','Mateo','Camila','Diego','Valeria','Alejandro','Mariana','Carlos','Daniela',
-  'Miguel','Sofia','Andres','Gabriela','Pablo','Lucia','Rafael','Isabella','Fernando','Elena',
-  'Javier','Natalia','Luis','Maria','Eduardo','Carmen','Roberto','Rosa','Manuel','Adriana',
-  'Jorge','Alicia','Marco','Julieta','Emilio','Catalina','Rodrigo','Ximena','Hector','Renata',
-  // Indian
-  'Arjun','Priya','Rohan','Ananya','Aditya','Ishita','Vikram','Neha','Karan','Shreya',
-  'Rahul','Pooja','Aarav','Kavya','Siddharth','Aisha','Varun','Divya','Arnav','Riya',
-  'Dhruv','Meera','Kabir','Tara','Shiv','Anika','Dev','Sana','Nikhil','Zara',
-  'Vivek','Kiara','Akash','Nisha','Manish','Simran','Raj','Aditi','Sahil','Trisha',
-  // Filipino
-  'Rafael','Maria','Angelo','Jasmine','Miguel','Althea','Joshua','Keziah','Carl','Bea',
-  'Jericho','Francine','Kenneth','Marian','Renz','Shaira','Paolo','Aimee','Tristan','Katrina',
-  'Gelo','Janelle','Mark','Princess','Jayden','Rica','Cedric','Nina','Vince','Angelica',
-  // Arabic / Middle Eastern
-  'Omar','Layla','Yusuf','Amira','Adam','Noura','Hassan','Hana','Khalid','Yasmin',
-  'Tariq','Fatima','Samir','Leila','Ibrahim','Mariam','Zain','Sara','Faisal','Noor',
-  'Karim','Dina','Rami','Salma','Ali','Reem','Hamza','Jana','Bilal','Maha',
-  // Korean
-  'Jimin','Sora','Minho','Yuna','Jungkook','Jihye','Taehyung','Eunji','Seojun','Minji',
-  'Hyun','Sooyoung','Jaehyun','Haeun','Donghyuk','Chaewon','Sunwoo','Dahyun','Woojin','Soojin',
-  // Japanese
-  'Haruto','Sakura','Yuto','Hina','Sota','Yui','Ren','Aoi','Kaito','Mio',
-  'Riku','Rin','Hayato','Koharu','Hinata','Mei','Takumi','Akari','Sora','Honoka',
-  // French
-  'Theo','Chloe','Hugo','Lea','Louis','Manon','Raphael','Camille','Jules','Juliette',
-  'Antoine','Elise','Pierre','Margot','Maxime','Lucie','Alexandre','Marie','Nicolas','Sophie',
-  // African
-  'Kwame','Amara','Kofi','Nia','Tendai','Zuri','Chidi','Ayanda','Emeka','Thandiwe',
-  'Oluwaseun','Abena','Jabari','Ife','Amare','Nala','Obinna','Adaeze','Sekou','Imani',
-  'Tunde','Chioma','Jelani','Akosua','Nnamdi','Aminata','Dayo','Fatou','Idris','Nkechi',
-  // Brazilian / Portuguese
-  'Thiago','Beatriz','Gustavo','Larissa','Bruno','Amanda','Felipe','Juliana','Leonardo','Fernanda',
-  'Guilherme','Leticia','Caio','Bruna','Vitor','Isabela','Pedro','Rafaela','Henrique','Gabriela',
-  // Eastern European / Slavic
-  'Nikolai','Anya','Mikhail','Katya','Dmitri','Natasha','Ivan','Olga','Sergei','Mila',
-  'Aleksei','Irina','Andrei','Daria','Maxim','Svetlana','Viktor','Polina','Boris','Vera',
-  // Nordic / Scandinavian
-  'Erik','Freya','Lars','Astrid','Sven','Ingrid','Axel','Saga','Magnus','Elsa',
-  'Nils','Sigrid','Leif','Linnea','Bjorn','Thea','Odin','Maja','Gunnar','Liv',
-  // Turkish
-  'Emre','Elif','Burak','Defne','Cem','Zeynep','Alp','Yagmur','Baris','Selin',
-  'Mert','Ebru','Kaan','Nazli','Arda','Tugba','Deniz','Ceren','Onur','Asli',
-  // Southeast Asian / Others
-  'Anh','Linh','Minh','Thao','Duc','Mai','Thanh','Hoa','Phong','Lan',
-  'Arjun','Preeti','Wei','Mei','Jin','Yuki','Sun','Hae','Kai','Lani',
-  // More common names for diversity
-  'Alex','Sam','Jordan','Taylor','Morgan','Casey','Riley','Quinn','Avery','Cameron',
-  'Jesse','Jamie','Robin','Charlie','Drew','Sage','Kai','Eden','Skyler','River',
-  'Phoenix','Blake','Reese','Dakota','Rowan','Emery','Finley','Marlowe','Lennox','Haven',
-  'Leo','Mika','Nico','Ivy','June','Ruby','Ace','Kit','Wren','Jade',
-  'Clay','Reid','Nash','Lane','Hayes','Jude','Beau','Heath','Troy','Dean',
-  'Ezra','Iris','Vera','Alma','Noa','Lina','Lena','Ada','Eve','Mara',
+  // English (Male)
+  'James','Liam','Noah','Ethan','Mason','Logan','Lucas','Aiden','Jackson','Sebastian',
+  'Jack','Owen','Daniel','Matthew','Henry','Alexander','William','Benjamin','Elijah','Ryan',
+  'Nathan','Caleb','Dylan','Luke','Connor','Max','Cole','Tyler','Hunter','Wyatt',
+  'Carter','Asher','Leo','Ezra','Landon','Adrian','Nolan','Gavin','Miles','Elliot',
+  'Jasper','Silas','Oscar','Hudson','Declan','Colton','Parker','Brody','Brooks','Grayson',
+  'Dominic','Spencer','Grant','Graham','Tate','Brock','Reid','Garrett','Trevor','Chase',
+  'Preston','Maxwell','Bennett','Wesley','Dawson','Everett','Felix','Griffin','Hayes','Knox',
+  'Levi','Maddox','Micah','Orion','Pierce','Rhett','Sterling','Thatcher','Waylon','Zane',
+  // English (Female)
+  'Emma','Olivia','Ava','Sophia','Isabella','Mia','Charlotte','Amelia','Harper','Evelyn',
+  'Abigail','Emily','Ella','Scarlett','Grace','Lily','Chloe','Zoey','Penelope','Layla',
+  'Riley','Nora','Hannah','Aria','Ellie','Stella','Violet','Aurora','Savannah','Audrey',
+  'Claire','Sadie','Piper','Paisley','Hazel','Lydia','Madeline','Natalie','Anna','Alice',
+  'Autumn','Bella','Caroline','Clara','Daisy','Eleanor','Fiona','Georgia','Holly','Isla',
+  'Jade','Kate','Leah','Luna','Margot','Naomi','Paige','Rose','Serena','Vivian',
+  'Willow','Brooke','Celeste','Diana','Eden','Faith','Gemma','Hope','Ivy','Joy',
+  'Kennedy','Lucia','Molly','Nicole','Olive','Pearl','Rachel','Sienna','Tessa','Uma',
+  // Spanish / Latin (Male)
+  'Santiago','Mateo','Diego','Alejandro','Carlos','Miguel','Andres','Pablo','Rafael','Fernando',
+  'Javier','Luis','Eduardo','Roberto','Manuel','Jorge','Marco','Emilio','Rodrigo','Hector',
+  'Sergio','Raul','Arturo','Enrique','Oscar','Cesar','Victor','Alberto','Ignacio','Tomas',
+  'Angel','Cristian','Francisco','Gonzalo','Ivan','Julian','Lorenzo','Martin','Ricardo','Salvador',
+  // Spanish / Latin (Female)
+  'Valentina','Camila','Valeria','Mariana','Daniela','Sofia','Gabriela','Lucia','Elena','Natalia',
+  'Maria','Carmen','Rosa','Adriana','Alicia','Julieta','Catalina','Ximena','Renata','Isabella',
+  'Fernanda','Alejandra','Ana','Beatriz','Carolina','Dolores','Esperanza','Flora','Gloria','Ines',
+  'Jimena','Karla','Laura','Marisol','Nadia','Paloma','Regina','Silvia','Teresa','Yolanda',
+  // Indian (Male)
+  'Arjun','Rohan','Aditya','Vikram','Karan','Rahul','Aarav','Siddharth','Varun','Arnav',
+  'Dhruv','Kabir','Shiv','Dev','Nikhil','Vivek','Akash','Manish','Raj','Sahil',
+  'Aman','Ankit','Deepak','Gaurav','Harsh','Ishaan','Jay','Kunal','Lakshman','Mohan',
+  'Naveen','Om','Pranav','Rishi','Suresh','Tanmay','Utkarsh','Veer','Yash','Aryan',
+  'Krishna','Sagar','Amar','Ajay','Kartik','Neel','Parth','Rishabh','Sameer','Vishal',
+  // Indian (Female)
+  'Priya','Ananya','Ishita','Neha','Shreya','Pooja','Kavya','Aisha','Divya','Riya',
+  'Meera','Tara','Anika','Sana','Nisha','Simran','Aditi','Trisha','Kiara','Zara',
+  'Aaradhya','Bhavya','Charvi','Diya','Esha','Fatima','Gauri','Harini','Isha','Jaya',
+  'Khushi','Lavanya','Mahi','Nandini','Oviya','Payal','Radhika','Sakshi','Tanvi','Urmi',
+  'Vaishnavi','Anushka','Swara','Saanvi','Mahika','Myra','Pihu','Riddhi','Siya','Vedika',
+  // Filipino (Male)
+  'Angelo','Joshua','Carl','Jericho','Kenneth','Renz','Paolo','Tristan','Cedric','Vince',
+  'Gelo','Mark','Jayden','Miguel','Rafael','Jerome','Francis','Enzo','Darren','Gabriel',
+  'Andre','Benedict','Christian','Dominic','Elijah','Ian','Jed','Kyle','Lance','Martin',
+  'Neil','Patrick','Ray','Sean','Theo','Warren','Aldrin','Bryan','Cyrus','Dennis',
+  // Filipino (Female)
+  'Jasmine','Althea','Keziah','Bea','Francine','Marian','Shaira','Aimee','Katrina','Rica',
+  'Janelle','Princess','Nina','Angelica','Chelsea','Denise','Erica','Faye','Gia','Hannah',
+  'Iris','Julie','Kim','Lara','Mae','Nadine','Patrice','Rhea','Sophia','Trixie',
+  'Andrea','Bianca','Carla','Dawn','Ella','Gwen','Hailey','Joanna','Kristine','Leah',
+  // Arabic / Middle Eastern (Male)
+  'Omar','Yusuf','Adam','Hassan','Khalid','Tariq','Samir','Ibrahim','Zain','Faisal',
+  'Karim','Rami','Ali','Hamza','Bilal','Sami','Nabil','Amir','Rashid','Jamal',
+  'Ahmed','Basil','Daoud','Ehab','Farid','Ghazi','Hadi','Ismail','Jawad','Kareem',
+  'Latif','Majid','Nasir','Qasim','Rafiq','Said','Tahir','Wahid','Yasser','Zayd',
+  // Arabic / Middle Eastern (Female)
+  'Layla','Amira','Noura','Hana','Yasmin','Fatima','Leila','Mariam','Sara','Noor',
+  'Dina','Salma','Reem','Jana','Maha','Lina','Dalal','Rania','Huda','Lamia',
+  'Amal','Basma','Duaa','Esra','Farida','Ghada','Hayat','Inas','Jumana','Khadija',
+  'Lubna','Muna','Najwa','Ola','Rawia','Samira','Tahani','Wafa','Yara','Zahra',
+  // Korean (Male)
+  'Jimin','Minho','Jungkook','Taehyung','Seojun','Jaehyun','Donghyuk','Sunwoo','Woojin','Hyun',
+  'Siwoo','Hajun','Jiho','Doyun','Junseo','Yejun','Eunwoo','Hyunjin','Taemin','Changmin',
+  'Junwoo','Minseok','Seungho','Yoongi','Jinhyuk','Kyungsoo','Sangwoo','Dongwoo','Hoseok','Inhyuk',
+  // Korean (Female)
+  'Sora','Yuna','Jihye','Eunji','Minji','Sooyoung','Haeun','Chaewon','Dahyun','Soojin',
+  'Jiwon','Seoyeon','Hayeon','Subin','Nayeon','Yeji','Ryujin','Chaeyoung','Seulgi','Jihyo',
+  'Miyeon','Shuhua','Yuqi','Minnie','Jisoo','Jennie','Yeri','Irene','Wendy','Tzuyu',
+  // Japanese (Male)
+  'Haruto','Yuto','Sota','Ren','Kaito','Riku','Hayato','Hinata','Takumi','Sora',
+  'Yuma','Asahi','Minato','Shota','Akira','Daiki','Eiji','Fumiya','Genki','Hikaru',
+  'Itsuki','Jiro','Kenji','Makoto','Naoki','Ryo','Shinji','Taro','Yuki','Kenta',
+  // Japanese (Female)
+  'Sakura','Hina','Yui','Aoi','Mio','Rin','Koharu','Mei','Akari','Honoka',
+  'Haru','Nana','Saki','Misaki','Ayaka','Chihiro','Emi','Fumiko','Haru','Izumi',
+  'Kanon','Mana','Natsuki','Riko','Sayuri','Tomoko','Wakana','Yoko','Chiaki','Kana',
+  // French (Male)
+  'Theo','Hugo','Louis','Raphael','Jules','Antoine','Pierre','Maxime','Alexandre','Nicolas',
+  'Baptiste','Clement','Damien','Etienne','Florian','Guillaume','Hadrien','Jean','Laurent','Mathieu',
+  'Olivier','Philippe','Quentin','Romain','Sylvain','Thierry','Valentin','Xavier','Yann','Fabien',
+  // French (Female)
+  'Chloe','Lea','Manon','Camille','Juliette','Elise','Margot','Lucie','Marie','Sophie',
+  'Amelie','Brigitte','Charlotte','Delphine','Elodie','Fleur','Genevieve','Helene','Ines','Josephine',
+  'Laure','Madeleine','Nathalie','Oceane','Pauline','Roxane','Sandrine','Colette','Vivienne','Adele',
+  // African (Male)
+  'Kwame','Kofi','Tendai','Chidi','Emeka','Oluwaseun','Jabari','Amare','Obinna','Sekou',
+  'Tunde','Jelani','Nnamdi','Dayo','Idris','Kojo','Ayoub','Boubacar','Cedrick','Diallo',
+  'Ekon','Faraji','Gideon','Hamidi','Issa','Jomo','Kamau','Lekan','Musa','Nkosi',
+  'Olu','Pape','Rashidi','Simba','Thabo','Uche','Wole','Yaw','Zuberi','Adewale',
+  // African (Female)
+  'Amara','Nia','Zuri','Ayanda','Thandiwe','Abena','Ife','Nala','Adaeze','Imani',
+  'Chioma','Akosua','Aminata','Fatou','Nkechi','Ayana','Binta','Chiamaka','Dahlia','Efua',
+  'Folake','Gifty','Hadiza','Iyabo','Jamila','Keza','Lira','Makena','Nandi','Omolara',
+  'Palesa','Rashida','Sade','Temi','Uju','Wangari','Yetunde','Zanele','Abigail','Chinwe',
+  // Brazilian / Portuguese (Male)
+  'Thiago','Gustavo','Bruno','Felipe','Leonardo','Guilherme','Caio','Vitor','Pedro','Henrique',
+  'Arthur','Bernardo','Daniel','Eduardo','Gabriel','Igor','Joao','Kaique','Luan','Matheus',
+  'Nicolas','Otavio','Paulo','Rafael','Samuel','Tiago','Vinicius','Wagner','Yago','Andre',
+  // Brazilian / Portuguese (Female)
+  'Beatriz','Larissa','Amanda','Juliana','Fernanda','Leticia','Bruna','Isabela','Rafaela','Gabriela',
+  'Ana','Bianca','Camila','Daniela','Eduarda','Flavia','Helena','Ingrid','Jessica','Kelly',
+  'Livia','Marina','Natalia','Patricia','Renata','Sabrina','Tatiana','Vanessa','Yasmin','Aline',
+  // Eastern European / Slavic (Male)
+  'Nikolai','Mikhail','Dmitri','Ivan','Sergei','Aleksei','Andrei','Maxim','Viktor','Boris',
+  'Anton','Bogdan','Cyril','Denis','Evgeni','Fyodor','Grigori','Igor','Kirill','Leonid',
+  'Matvei','Oleg','Pavel','Roman','Stanislav','Timur','Vadim','Vladislav','Yaroslav','Zakhar',
+  // Eastern European / Slavic (Female)
+  'Anya','Katya','Natasha','Olga','Mila','Irina','Daria','Svetlana','Polina','Vera',
+  'Alina','Anastasia','Ekaterina','Galina','Ksenia','Lada','Marina','Nina','Oksana','Rada',
+  'Sofia','Tatiana','Valentina','Yelena','Zoya','Larisa','Tamara','Lydia','Nadia','Raisa',
+  // Nordic / Scandinavian (Male)
+  'Erik','Lars','Sven','Axel','Magnus','Nils','Leif','Bjorn','Odin','Gunnar',
+  'Anders','Emil','Filip','Gustaf','Henrik','Johan','Karl','Lukas','Martin','Niklas',
+  'Oskar','Per','Rasmus','Sigurd','Torsten','Ulrik','Viktor','Wilhelm','Arne','Dag',
+  // Nordic / Scandinavian (Female)
+  'Freya','Astrid','Ingrid','Saga','Elsa','Sigrid','Linnea','Thea','Maja','Liv',
+  'Alma','Britta','Dagny','Elin','Frida','Greta','Hedda','Idun','Johanna','Karin',
+  'Lovisa','Matilda','Nora','Oda','Petra','Ragnhild','Signe','Tilda','Ulla','Vigga',
+  // Turkish (Male)
+  'Emre','Burak','Cem','Alp','Baris','Mert','Kaan','Arda','Deniz','Onur',
+  'Ahmet','Berat','Cihan','Doruk','Efe','Furkan','Gokhan','Halil','Ilker','Kerem',
+  'Levent','Murat','Necip','Oguz','Polat','Recep','Serkan','Taner','Umut','Volkan',
+  // Turkish (Female)
+  'Elif','Defne','Zeynep','Yagmur','Selin','Ebru','Nazli','Tugba','Ceren','Asli',
+  'Aylin','Buse','Cansu','Damla','Ezgi','Fulya','Gulnur','Hazal','Ipek','Kardelen',
+  'Melis','Neslihan','Ozge','Pelin','Reyhan','Sevgi','Tulay','Yeliz','Zeliha','Bahar',
+  // Chinese (Male)
+  'Wei','Jin','Hao','Chen','Liang','Feng','Ming','Jun','Bo','Lei',
+  'Yong','Tao','Kai','Rui','Jie','Cheng','Peng','Sheng','Zhi','Gang',
+  'Qiang','Xin','Hong','Shan','Long','Hua','Guang','Dong','Nan','Yang',
+  // Chinese (Female)
+  'Mei','Xiao','Ying','Fang','Hui','Yan','Li','Na','Ting','Xue',
+  'Yue','Jing','Qian','Shu','Wen','Lan','Min','Ping','Rong','Zhen',
+  'Ai','Bao','Cui','Dan','En','Fei','Ge','Han','Juan','Kun',
+  // Vietnamese (Male)
+  'Anh','Minh','Duc','Thanh','Phong','Tuan','Hieu','Long','Dung','Hung',
+  'Bao','Cuong','Dat','Giang','Huy','Khoa','Loc','Nam','Phat','Quang',
+  // Vietnamese (Female)
+  'Linh','Thao','Mai','Hoa','Lan','Trang','Ngoc','Hanh','Phuong','Tuyet',
+  'An','Bich','Chi','Dao','Ha','Kieu','Lien','My','Nhu','Oanh',
+  // Thai (Male)
+  'Chai','Krit','Prem','Somchai','Tanawat','Nat','Pong','Sak','Ton','Win',
+  'Aran','Bank','Chart','Dej','Ek','Gun','Jett','Kan','Nai','Pat',
+  // Thai (Female)
+  'Ploy','Fah','Nong','Pim','Nan','Som','Dao','Lek','Bua','Joy',
+  'Aom','Bee','Gam','Ice','Kwan','May','Noi','Opal','Pang','Rung',
+  // Greek (Male)
+  'Nikos','Yannis','Dimitri','Kostas','Stavros','Petros','Giorgos','Alexis','Andreas','Vasilis',
+  'Christos','Elias','Fotis','Ilias','Kosmas','Leonidas','Marios','Panos','Sotiris','Thanasis',
+  // Greek (Female)
+  'Eleni','Maria','Sophia','Athena','Katerina','Daphne','Irene','Penelope','Thalia','Zoe',
+  'Ariadne','Calliope','Demetra','Evangelia','Fotini','Georgia','Helena','Ioanna','Konstantina','Lydia',
+  // Polish (Male)
+  'Jakub','Mateusz','Szymon','Kacper','Filip','Wojciech','Bartek','Dawid','Piotr','Tomasz',
+  'Adam','Aleksander','Bartosz','Cezary','Dominik','Emil','Grzegorz','Hubert','Jan','Konrad',
+  // Polish (Female)
+  'Zuzanna','Lena','Julia','Maja','Hanna','Aleksandra','Amelia','Wiktoria','Oliwia','Natalia',
+  'Agnieszka','Barbara','Celina','Dorota','Ewa','Gabriela','Izabela','Karolina','Magdalena','Patrycja',
+  // Persian / Iranian (Male)
+  'Arash','Darius','Farhad','Kaveh','Mehdi','Navid','Omid','Reza','Saman','Behnam',
+  'Amir','Cyrus','Ehsan','Hossein','Iman','Javad','Kian','Milad','Nima','Payam',
+  // Persian / Iranian (Female)
+  'Shirin','Parisa','Maryam','Narges','Setareh','Bahar','Azadeh','Darya','Elham','Fatemeh',
+  'Ghazal','Hasti','Kimia','Laleh','Mahsa','Nasrin','Parastoo','Roxana','Sahar','Tina',
+  // Malay / Indonesian (Male)
+  'Adi','Budi','Dimas','Farhan','Haris','Irfan','Johan','Rizal','Syafiq','Yusof',
+  'Arief','Bagus','Cahya','Eko','Fajar','Galih','Hafiz','Iwan','Lukman','Nugroho',
+  // Malay / Indonesian (Female)
+  'Putri','Siti','Dewi','Rani','Fitri','Laila','Maya','Wulan','Ratna','Ayu',
+  'Bunga','Citra','Dian','Eka','Gita','Indah','Kartini','Lestari','Melati','Nirmala',
+  // Hungarian (Male)
+  'Balazs','Csaba','Gabor','Istvan','Levente','Miklos','Tamas','Zoltan','Andras','Bence',
+  // Hungarian (Female)
+  'Eszter','Fanni','Katalin','Noemi','Reka','Vivien','Anna','Dorottya','Hanna','Lilla',
+  // Romanian (Male)
+  'Andrei','Cristian','Dragos','Mihai','Radu','Stefan','Alexandru','Bogdan','Cosmin','Florin',
+  // Romanian (Female)
+  'Ioana','Mihaela','Raluca','Simona','Andreea','Bianca','Cristina','Daniela','Elena','Gabriela',
+  // Gender-neutral / Universal
+  'Alex','Sam','Jordan','Taylor','Morgan','Casey','Quinn','Avery','Cameron','Jesse',
+  'Jamie','Robin','Charlie','Drew','Sage','Eden','Skyler','River','Phoenix','Blake',
+  'Reese','Dakota','Rowan','Emery','Finley','Marlowe','Lennox','Haven','Nico','Mika',
+  'June','Ruby','Ace','Kit','Wren','Clay','Nash','Lane','Jude','Beau',
+  'Heath','Troy','Dean','Ezra','Iris','Alma','Noa','Ada','Eve','Mara',
+  'Arlo','Blair','Corey','Dallas','Ellis','Flynn','Harley','Jess','Kerry','Lee',
+  'Marley','Noel','Pat','Rory','Shay','Toni','Val','Winter','Ashton','Bay',
 ];
+
+// Deduplicate names (some names appear across multiple regions)
+const UNIQUE_NAMES = [...new Set(NAMES)];
 
 // ─── MESSAGE TEMPLATES BY CATEGORY ──────────────────────────
 // Each message is a standalone string, written to sound like a real human.
@@ -913,11 +1042,28 @@ function generatePool() {
   ];
 
   console.log(`Total unique templates: ${allTemplates.length}`);
-  console.log(`Total unique names: ${NAMES.length}`);
+  console.log(`Total unique names: ${UNIQUE_NAMES.length}`);
 
   const usedMessages = new Set();
+  const nameUsage = {};    // Track how many times each name is used
+  const MAX_NAME_USAGE = 8;
   const pool = [];
   let attempts = 0;
+
+  function pickName() {
+    // Try up to 50 times to find a name under the cap
+    for (let i = 0; i < 50; i++) {
+      const name = randomChoice(UNIQUE_NAMES);
+      if ((nameUsage[name] || 0) < MAX_NAME_USAGE) {
+        return name;
+      }
+    }
+    // Fallback: find any name under the cap
+    const available = UNIQUE_NAMES.filter(n => (nameUsage[n] || 0) < MAX_NAME_USAGE);
+    if (available.length > 0) return randomChoice(available);
+    // All names at cap — just pick any (shouldn't happen with 1300+ names and 10K entries)
+    return randomChoice(UNIQUE_NAMES);
+  }
 
   function tryAdd(msg) {
     msg = cleanMsg(msg);
@@ -926,8 +1072,10 @@ function generatePool() {
     const key = msg.toLowerCase().trim();
     if (usedMessages.has(key)) return false;
     usedMessages.add(key);
+    const name = pickName();
+    nameUsage[name] = (nameUsage[name] || 0) + 1;
     pool.push({
-      name: randomChoice(NAMES),
+      name,
       message: msg,
       color_id: randomChoice(CARD_COLORS),
     });
