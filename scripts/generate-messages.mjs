@@ -841,38 +841,63 @@ function applyCasing(msg) {
   }
 }
 
-// Synonym swaps — much richer vocabulary for variation
+// Synonym swaps — rich vocabulary for variation (55+ groups)
 const SYNONYM_GROUPS = [
-  [[/\bmiss\b/gi], ['think about', 'keep thinking about']],
-  [[/\blove\b/gi], ['care about', 'adore']],
-  [[/\bscared\b/gi], ['afraid', 'terrified']],
-  [[/\bafraid\b/gi], ['scared', 'terrified']],
-  [[/\bhappy\b/gi], ['glad', 'grateful']],
-  [[/\bsad\b/gi], ['hurt', 'broken']],
-  [[/\bangry\b/gi], ['furious', 'mad', 'upset']],
-  [[/\bhurt\b/gi], ['wounded', 'damaged', 'broken']],
-  [[/\bbeautiful\b/gi], ['gorgeous', 'stunning', 'pretty']],
-  [[/\bamazing\b/gi], ['incredible', 'wonderful']],
-  [[/\bstupid\b/gi], ['dumb', 'foolish', 'silly']],
-  [[/\beverything\b/gi], ['all of it', 'it all']],
-  [[/\bnothing\b/gi], ['none of it']],
-  [[/\balways\b/gi], ['forever', 'constantly']],
-  [[/\bnever\b/gi], ['not once', 'not ever']],
-  [[/\breally\b/gi], ['truly', 'genuinely', 'honestly']],
-  [[/\bwant\b/gi], ['need', 'wish']],
-  [[/\bneed\b/gi], ['want', 'crave']],
-  [[/\bsorry\b/gi], ['apologetic']],
-  [[/\bremember\b/gi], ['recall', 'think back to']],
-  [[/\bforget\b/gi], ['let go of', 'move past']],
-  [[/\btrying\b/gi], ['working on', 'learning to']],
-  [[/\bhate\b/gi], ['despise', 'can\'t stand']],
-  [[/\bwish\b/gi], ['hope', 'pray']],
-  [[/\bhope\b/gi], ['wish', 'pray']],
-  [[/\bcrazy\b/gi], ['insane', 'wild']],
-  [[/\btired\b/gi], ['exhausted', 'drained', 'done']],
-  [[/\bperson\b/gi], ['human', 'soul']],
-  [[/\bheart\b/gi], ['soul', 'chest']],
-  [[/\blife\b/gi], ['world', 'existence']],
+  [[/\bmiss\b/gi], ['think about', 'keep thinking about', 'long for']],
+  [[/\blove\b/gi], ['care about', 'adore', 'cherish']],
+  [[/\bscared\b/gi], ['afraid', 'terrified', 'anxious']],
+  [[/\bafraid\b/gi], ['scared', 'terrified', 'worried']],
+  [[/\bhappy\b/gi], ['glad', 'grateful', 'thankful', 'at peace']],
+  [[/\bsad\b/gi], ['hurt', 'broken', 'empty', 'lost']],
+  [[/\bangry\b/gi], ['furious', 'mad', 'upset', 'frustrated']],
+  [[/\bhurt\b/gi], ['wounded', 'damaged', 'broken', 'crushed']],
+  [[/\bbeautiful\b/gi], ['gorgeous', 'stunning', 'pretty', 'radiant']],
+  [[/\bamazing\b/gi], ['incredible', 'wonderful', 'extraordinary']],
+  [[/\bstupid\b/gi], ['dumb', 'foolish', 'silly', 'careless']],
+  [[/\beverything\b/gi], ['all of it', 'it all', 'the whole thing']],
+  [[/\bnothing\b/gi], ['none of it', 'absolutely nothing']],
+  [[/\balways\b/gi], ['forever', 'constantly', 'endlessly']],
+  [[/\bnever\b/gi], ['not once', 'not ever', 'at no point']],
+  [[/\breally\b/gi], ['truly', 'genuinely', 'honestly', 'deeply']],
+  [[/\bwant\b/gi], ['need', 'wish', 'long']],
+  [[/\bneed\b/gi], ['want', 'crave', 'ache for']],
+  [[/\bsorry\b/gi], ['apologetic', 'regretful']],
+  [[/\bremember\b/gi], ['recall', 'think back to', 'replay']],
+  [[/\bforget\b/gi], ['let go of', 'move past', 'erase']],
+  [[/\btrying\b/gi], ['working on', 'learning to', 'struggling to']],
+  [[/\bhate\b/gi], ['despise', "can't stand", 'resent']],
+  [[/\bwish\b/gi], ['hope', 'pray', 'dream']],
+  [[/\bhope\b/gi], ['wish', 'pray', 'believe']],
+  [[/\bcrazy\b/gi], ['insane', 'wild', 'unreal']],
+  [[/\btired\b/gi], ['exhausted', 'drained', 'done', 'worn out']],
+  [[/\bperson\b/gi], ['human', 'soul', 'being']],
+  [[/\bheart\b/gi], ['soul', 'spirit', 'whole being']],
+  [[/\blife\b/gi], ['world', 'existence', 'days']],
+  [[/\bstay\b/gi], ['remain', 'stick around', 'hold on']],
+  [[/\bleave\b/gi], ['walk away', 'go', 'disappear']],
+  [[/\balone\b/gi], ['on my own', 'by myself', 'lonely']],
+  [[/\bsilence\b/gi], ['quiet', 'stillness', 'distance']],
+  [[/\bpain\b/gi], ['ache', 'agony', 'weight']],
+  [[/\bcry\b/gi], ['break down', 'tear up', 'weep']],
+  [[/\blaugh\b/gi], ['smile', 'grin', 'joy']],
+  [[/\bwrong\b/gi], ['mistaken', 'messed up', 'off']],
+  [[/\bstrong\b/gi], ['brave', 'tough', 'resilient']],
+  [[/\bweak\b/gi], ['vulnerable', 'fragile', 'soft']],
+  [[/\bfight\b/gi], ['struggle', 'push through', 'battle']],
+  [[/\bdream\b/gi], ['imagine', 'picture', 'fantasize about']],
+  [[/\bworry\b/gi], ['stress', 'overthink', 'obsess']],
+  [[/\bchange\b/gi], ['shift', 'transform', 'alter']],
+  [[/\bthink\b/gi], ['feel', 'believe', 'sense']],
+  [[/\bunderstand\b/gi], ['get it', 'see it', 'comprehend']],
+  [[/\bforgive\b/gi], ['pardon', 'let it go', 'make peace with']],
+  [[/\bdeserve\b/gi], ['are worthy of', 'earned', 'merit']],
+  [[/\bpromise\b/gi], ['swear', 'vow', 'commit']],
+  [[/\btrust\b/gi], ['believe in', 'rely on', 'have faith in']],
+  [[/\bperfect\b/gi], ['flawless', 'ideal', 'right']],
+  [[/\bmistake\b/gi], ['regret', 'error', 'blunder']],
+  [[/\bsecret\b/gi], ['truth', 'confession', 'thing']],
+  [[/\bchance\b/gi], ['shot', 'opportunity', 'moment']],
+  [[/\bfeeling\b/gi], ['emotion', 'sensation', 'vibe']],
 ];
 
 // Abbreviation swaps — more aggressive application
@@ -951,32 +976,56 @@ function applyAbbreviations(msg) {
   return result;
 }
 
-// Human-like prefixes (prepended occasionally)
+// Human-like prefixes (prepended occasionally) — 50 options
 const PREFIXES = [
   'honestly ', 'tbh ', 'idk why but ', 'look ', 'hey ', 'listen ',
   'okay so ', 'i mean ', 'not gonna lie ', 'ngl ', 'lowkey ',
   'real talk ', 'fr tho ', 'god ', 'ugh ', 'man ',
+  'bro ', 'dude ', 'yo ', 'okay ', 'so ', 'like ',
+  'can i just say ', 'the truth is ', 'hear me out ',
+  'i just wanna say ', 'here goes ', 'okay hear me out ',
+  'no but seriously ', 'for what it\'s worth ', 'between us ',
+  'confession: ', 'unpopular opinion but ', 'idk man ',
+  'it\'s 3am and ', 'late night thoughts but ', 'can\'t sleep so ',
+  'random thought but ', 'just saying ', 'fwiw ',
+  'not to be dramatic but ', 'please don\'t judge me but ',
+  'i keep thinking ', 'every day ', 'sometimes ', 'at this point ',
+  'after all this time ', 'even now ', 'still to this day ',
+  'the hardest part is ', 'what hurts most is ', 'deep down ',
 ];
 
-// Human-like suffixes (appended occasionally)
+// Human-like suffixes (appended occasionally) — 55 options
 const SUFFIXES = [
   '. always', '. forever', ' lol', ' haha', ' :(', ' :)',
   '..', '...', ' x', ' xx', ' <3', ' smh', ' sigh',
   ' fr', ' ngl', ' istg', ' bruh', ' ugh',
+  '. that\'s it', ' tbh', '. period', ' idk',
+  '. and it kills me', '. every single day', ' still',
+  '. no cap', ' sadly', ' unfortunately', ' apparently',
+  '. it is what it is', ' tho', ' honestly',
+  '. and i mean it', '. for real', ' always will',
+  ' and i hate it', ' and that\'s okay', '. whatever',
+  ' but it\'s fine', ' i guess', ' or something',
+  '. end of story', ' ya know', ' innit',
+  '. and that terrifies me', '. more than you know',
+  ' even now', '. nothing has changed', ' and it shows',
+  '. trust me', ' no matter what', '. always always',
+  '. i just needed to say it', ' finally', '. there i said it',
+  ' and i\'m done pretending otherwise', '. goodnight',
 ];
 
-// Add prefix (~10% chance)
+// Add prefix (~8% chance — reduced to lower repetition)
 function maybeAddPrefix(msg) {
-  if (randomFloat() < 0.10) {
+  if (randomFloat() < 0.08) {
     const prefix = randomChoice(PREFIXES);
     return prefix + msg;
   }
   return msg;
 }
 
-// Add suffix (~10% chance)
+// Add suffix (~8% chance — reduced to lower repetition)
 function maybeAddSuffix(msg) {
-  if (randomFloat() < 0.10) {
+  if (randomFloat() < 0.08) {
     const suffix = randomChoice(SUFFIXES);
     return msg + suffix;
   }
