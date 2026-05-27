@@ -33,7 +33,7 @@ const MIN_BATCH = 1;
 const MAX_BATCH = 5;
 const MIN_DELAY_MS = 2000;  // 2 seconds
 const MAX_DELAY_MS = 15000; // 15 seconds
-const SKIP_CHANCE = 0.0;    // temporarily disabled for testing (set back to 0.20 later)
+const SKIP_CHANCE = 0.20;   // 20% chance to skip a run entirely
 
 // Weighted country distribution (top countries for English confessions sites)
 const COUNTRIES = [
@@ -242,10 +242,9 @@ async function main() {
   const batchSize = Math.min(randomInt(MIN_BATCH, MAX_BATCH), remaining);
   console.log(`   Batch size: ${batchSize}`);
 
-  // Pick random entries from the pool (we pick randomly, not sequentially,
-  // because tracking exact index across runs would require persistent state)
-  const shuffled = [...allMessages].sort(() => Math.random() - 0.5);
-  const batch = shuffled.slice(0, batchSize);
+  // Use seededCount as index into the pool — guarantees zero duplicate messages.
+  // The pool is already shuffled during generation so order looks random.
+  const batch = allMessages.slice(seededCount, seededCount + batchSize);
 
   for (let i = 0; i < batch.length; i++) {
     const entry = batch[i];
