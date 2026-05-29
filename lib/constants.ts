@@ -35,6 +35,12 @@ export const HARD_BANNED_WORDS = [
   'ejaculate', 'ejaculation', 'whore', 'slut', 'prostitute', 'hooker',
   'faggot', 'fag', 'retard', 'retarded', 'cunt', 'twat', 'wanker',
   'kike', 'spic', 'chink', 'gook', 'wetback', 'beaner',
+  // Moved from soft-ban — now instant rejection
+  'bitch', 'bitches', 'bitchy',
+  // Added slurs and derogatory terms
+  'fatty', 'fatass', 'skank', 'tramp', 'thot', 'hoe',
+  // Self-harm goading & additional slurs
+  'kill yourself', 'kys', 'incel', 'tranny',
 ];
 
 // Soft-profanity words (allowed up to 30% of total words)
@@ -43,7 +49,7 @@ export const SOFT_PROFANITY_WORDS = [
   'shit', 'shitty', 'shitting', 'bullshit',
   'ass', 'asshole', 'asses',
   'damn', 'damned', 'dammit',
-  'hell', 'bitch', 'bitches', 'bitchy',
+  'hell',
   'bastard', 'bastards', 'crap', 'crappy',
   'piss', 'pissed', 'pissing',
 ];

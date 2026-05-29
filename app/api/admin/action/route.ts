@@ -105,15 +105,44 @@ export async function POST(request: NextRequest) {
       break;
     }
     case 'ban': {
-      // Add to banned_users
-      await supabase.from('banned_users').upsert({
+      // Add to banned_users with BOTH ip_hash and fingerprint_hash
+      const banData: Record<string, string> = {
         ip_hash: submission.ip_hash,
-        user_uuid: submission.user_uuid,
-        country: submission.country,
+        country: submission.country || 'Unknown',
         reason: 'Banned by admin',
-      }, { onConflict: 'ip_hash' });
-      // Delete the submission
-      await supabase.from('submissions').delete().eq('id', id);
+      };
+
+      // Include fingerprint if available on the submission
+      if (submission.fingerprint_hash) {
+        banData.fingerprint_hash = submission.fingerprint_hash;
+      }
+      if (submission.user_uuid) {
+        banData.user_uuid = submission.user_uuid;
+      }
+
+      await supabase.from('banned_users').upsert(banData, { onConflict: 'ip_hash' });
+
+      // ── Bulk-reject: delete ALL pending submissions from the same person ──
+      // Strategy: use fingerprint as primary identifier (per-browser, safe for
+      // shared networks like dorms/offices). Only fall back to IP-based bulk
+      // delete when no fingerprint is available.
+      if (submission.fingerprint_hash) {
+        // Fingerprint available — delete by fingerprint (catches across IPs)
+        await supabase
+          .from('submissions')
+          .delete()
+          .eq('status', 'pending')
+          .eq('fingerprint_hash', submission.fingerprint_hash);
+      } else {
+        // No fingerprint (old submission or JS blocked) — fall back to IP only
+        // This is less safe on shared networks, but it's the only signal we have
+        await supabase
+          .from('submissions')
+          .delete()
+          .eq('status', 'pending')
+          .eq('ip_hash', submission.ip_hash);
+      }
+
       break;
     }
     default:

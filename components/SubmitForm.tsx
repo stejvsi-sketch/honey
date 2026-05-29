@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { CARD_COLORS, MAX_WORDS } from '@/lib/constants';
+import { getBrowserFingerprint } from '@/lib/fingerprint';
 
 export default function SubmitForm() {
   const [name, setName] = useState('');
@@ -13,6 +14,16 @@ export default function SubmitForm() {
   // Ref-based lock to absolutely prevent double submissions across all edge cases
   // (rapid clicks, slow network, re-renders, etc.)
   const submitLockRef = useRef(false);
+  const fingerprintRef = useRef<string>('');
+
+  // Generate browser fingerprint on mount (async, non-blocking)
+  useEffect(() => {
+    getBrowserFingerprint().then(fp => {
+      fingerprintRef.current = fp;
+    }).catch(() => {
+      // Fingerprint generation failed — submit will work without it
+    });
+  }, []);
 
   const words = message.trim().split(/\s+/).filter(w => w.length > 0);
   const wordCount = words.length;
@@ -40,6 +51,7 @@ export default function SubmitForm() {
       message: message.trim(),
       color_id: colorId,
       idempotency_key: generateIdempotencyKey(),
+      fingerprint_hash: fingerprintRef.current || undefined,
     };
 
     // OPTIMISTIC: Show success instantly so user never feels compelled to re-click

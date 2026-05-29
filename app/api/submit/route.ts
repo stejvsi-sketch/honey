@@ -14,8 +14,20 @@ async function generateContentHash(ipHash: string, name: string, message: string
   return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
+// Cookie name for ban marker — innocuous name to avoid easy discovery
+const BAN_COOKIE = '__hio_pref';
+// 1 year in seconds
+const BAN_COOKIE_MAX_AGE = 365 * 24 * 60 * 60;
+
 export async function POST(request: NextRequest) {
   try {
+    // ── First-pass: check ban cookie ──
+    const banCookie = request.cookies.get(BAN_COOKIE);
+    if (banCookie?.value === '1') {
+      // Silently accept — banned user thinks it worked, but we discard it
+      return NextResponse.json({ success: true, message: 'Your letter has been received and will be reviewed shortly.' });
+    }
+
     // Parse body
     const body = await request.json();
 
@@ -27,6 +39,7 @@ export async function POST(request: NextRequest) {
     }
 
     const { name, message, color_id } = parsed.data;
+    const fingerprint_hash: string | undefined = typeof body.fingerprint_hash === 'string' ? body.fingerprint_hash : undefined;
 
     // Sanitize inputs
     const cleanName = sanitizeText(name);
@@ -81,15 +94,52 @@ export async function POST(request: NextRequest) {
       const { getSupabaseAdmin } = await import('@/lib/supabase');
       const supabase = getSupabaseAdmin();
 
-      // Check if user is banned
-      const { data: banned } = await supabase
+      // ── Multi-signal ban check: IP hash OR fingerprint hash ──
+      let isBanned = false;
+
+      // Check by IP hash
+      const { data: bannedByIP } = await supabase
         .from('banned_users')
         .select('id')
         .eq('ip_hash', ipHash)
         .maybeSingle();
 
-      if (banned) {
-        return NextResponse.json({ error: 'You are not allowed to submit.' }, { status: 403 });
+      if (bannedByIP) {
+        isBanned = true;
+      }
+
+      // Check by fingerprint hash (if provided and not already caught by IP)
+      if (!isBanned && fingerprint_hash) {
+        const { data: bannedByFP } = await supabase
+          .from('banned_users')
+          .select('id')
+          .eq('fingerprint_hash', fingerprint_hash)
+          .maybeSingle();
+
+        if (bannedByFP) {
+          isBanned = true;
+          // NOTE: We intentionally do NOT auto-ban this new IP.
+          // On shared networks (dorms, offices, libraries), a different
+          // person could be using the same computer. We shadow-ban this
+          // submission only — the admin can manually ban the new IP if needed.
+        }
+      }
+
+      if (isBanned) {
+        // Set ban cookie so future requests are caught at the cookie check
+        // and silently accept so they don't know they're banned
+        const response = NextResponse.json({
+          success: true,
+          message: 'Your letter has been received and will be reviewed shortly.',
+        });
+        response.cookies.set(BAN_COOKIE, '1', {
+          httpOnly: true,
+          secure: true,
+          sameSite: 'strict',
+          maxAge: BAN_COOKIE_MAX_AGE,
+          path: '/',
+        });
+        return response;
       }
 
       // Deduplication: check for identical content from same IP within last 5 minutes
@@ -112,6 +162,7 @@ export async function POST(request: NextRequest) {
         color_id,
         slug,
         ip_hash: ipHash,
+        fingerprint_hash: fingerprint_hash || null,
         country,
         user_uuid: userUUID,
         status: 'pending',
