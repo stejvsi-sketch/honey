@@ -6,8 +6,10 @@ export interface ProfanityCheckResult {
 }
 
 export function checkProfanity(text: string): ProfanityCheckResult {
-  const lower = text.toLowerCase();
-  const words = lower.split(/\s+/).filter(w => w.length > 0);
+  // Normalize whitespace so multi-word phrases like "kill yourself"
+  // can't be bypassed with extra spaces/tabs/newlines
+  const lower = text.toLowerCase().replace(/\s+/g, ' ').trim();
+  const words = lower.split(' ').filter(w => w.length > 0);
 
   // Check for hard-banned words
   for (const banned of HARD_BANNED_WORDS) {
