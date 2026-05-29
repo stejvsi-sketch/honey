@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useCallback } from 'react';
 import Link from 'next/link';
-import { UNSENT_MEMORIES, UnsentMemory } from '@/lib/unsent-data';
+import type { UnsentMemory } from '@/lib/unsent-data';
 
 interface UnsentArchiveProps {
   memories: UnsentMemory[];
@@ -123,7 +123,7 @@ function PaginationControls({ currentPage, totalPages }: { currentPage: number; 
 
 const SEARCH_PAGE_SIZE = 30;
 
-function SearchBar({ onSearch, query }: { onSearch: (q: string) => void; query: string }) {
+function SearchBar({ onSearch, query, isLoading }: { onSearch: (q: string) => void; query: string; isLoading?: boolean }) {
   const [value, setValue] = useState(query);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -152,8 +152,8 @@ function SearchBar({ onSearch, query }: { onSearch: (q: string) => void; query: 
             ✕
           </button>
         )}
-        <button type="submit" className="unsent-search__btn">
-          Search
+        <button type="submit" className="unsent-search__btn" disabled={isLoading}>
+          {isLoading ? 'Loading…' : 'Search'}
         </button>
       </div>
     </form>
@@ -163,18 +163,40 @@ function SearchBar({ onSearch, query }: { onSearch: (q: string) => void; query: 
 export default function UnsentArchive({ memories, currentPage, totalPages }: UnsentArchiveProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchPage, setSearchPage] = useState(1);
+  const [searchResults, setSearchResults] = useState<UnsentMemory[]>([]);
+  const [isSearchLoading, setIsSearchLoading] = useState(false);
 
-  // Search across ALL 1,486 memories, not just the current page
-  const searchResults = useMemo(() => {
-    if (!searchQuery) return [];
-    const q = searchQuery.toLowerCase();
-    return UNSENT_MEMORIES.filter(
-      m =>
-        m.to.toLowerCase().includes(q) ||
-        m.from.toLowerCase().includes(q) ||
-        m.message.toLowerCase().includes(q)
-    );
-  }, [searchQuery]);
+  // Cache the loaded data so we only import once
+  const allMemoriesRef = useRef<UnsentMemory[] | null>(null);
+
+  // Lazy-load the full dataset only when user actually searches
+  const loadAndSearch = useCallback(async (query: string) => {
+    if (!query) {
+      setSearchResults([]);
+      return;
+    }
+
+    setIsSearchLoading(true);
+
+    try {
+      // Load the data module on first search (lazy — not in the initial bundle)
+      if (!allMemoriesRef.current) {
+        const mod = await import('@/lib/unsent-data');
+        allMemoriesRef.current = mod.UNSENT_MEMORIES;
+      }
+
+      const q = query.toLowerCase();
+      const results = allMemoriesRef.current!.filter(
+        m =>
+          m.to.toLowerCase().includes(q) ||
+          m.from.toLowerCase().includes(q) ||
+          m.message.toLowerCase().includes(q)
+      );
+      setSearchResults(results);
+    } finally {
+      setIsSearchLoading(false);
+    }
+  }, []);
 
   const isSearching = searchQuery.length > 0;
 
@@ -187,6 +209,7 @@ export default function UnsentArchive({ memories, currentPage, totalPages }: Uns
   const handleSearch = (q: string) => {
     setSearchQuery(q);
     setSearchPage(1);
+    loadAndSearch(q);
   };
 
   return (
@@ -209,7 +232,7 @@ export default function UnsentArchive({ memories, currentPage, totalPages }: Uns
         </p>
       </div>
 
-      <SearchBar onSearch={handleSearch} query={searchQuery} />
+      <SearchBar onSearch={handleSearch} query={searchQuery} isLoading={isSearchLoading} />
 
       {!isSearching && (
         <>
