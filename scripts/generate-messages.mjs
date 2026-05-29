@@ -1,8 +1,19 @@
 #!/usr/bin/env node
 // =============================================================
-// generate-messages.mjs
-// One-time script to produce scripts/seed-messages.json
-// Contains 500+ hand-crafted message templates + 400+ names
+// generate-messages.mjs  (v3 — raw human rewrite)
+// Produces scripts/seed-messages.json with 10,000 unique messages
+// that sound like REAL humans on the Unsent Project.
+//
+// v3 changes from v2:
+//   • Every template rewritten to match real screenshot energy
+//   • No metaphors, no poetry, no literary language
+//   • Typos built in (alot, more then, ur, etc.)
+//   • Abbreviations in body (ily, ilysm, ly, sm, w)
+//   • ALL CAPS excited messages (~5%)
+//   • Name-in-message feature (~8%)
+//   • Super short messages (3-7 words) = 40%
+//   • Comma splices, run-ons, missing articles = real human writing
+//   • 25 word limit strictly enforced
 //
 // 🧹 CLEANUP (after ~4 months / Oct 2026):
 //   Delete these files:
@@ -15,7 +26,6 @@
 // =============================================================
 
 import { writeFileSync } from 'fs';
-import { createHash, randomUUID } from 'crypto';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -28,6 +38,14 @@ const CARD_COLORS = [
   'honey-gold', 'ocean-mist', 'blush-coral', 'dusty-mauve',
   'faded-denim', 'ivory-ash',
 ];
+
+// ─── HELPERS ────────────────────────────────────────────────
+function R(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function rand() { return Math.random(); }
+function wc(s) { return s.split(/\s+/).filter(w => w.length > 0).length; }
+function clean(s) {
+  return s.replace(/\s+/g, ' ').replace(/\.\./g,'.').replace(/,,/g,',').trim();
+}
 
 // ─── 1700+ INTERNATIONAL FIRST NAMES ────────────────────────
 const NAMES = [
@@ -49,1299 +67,1187 @@ const NAMES = [
   'Jade','Kate','Leah','Luna','Margot','Naomi','Paige','Rose','Serena','Vivian',
   'Willow','Brooke','Celeste','Diana','Eden','Faith','Gemma','Hope','Ivy','Joy',
   'Kennedy','Lucia','Molly','Nicole','Olive','Pearl','Rachel','Sienna','Tessa','Uma',
-  // Spanish / Latin (Male)
+  // Spanish / Latin
   'Santiago','Mateo','Diego','Alejandro','Carlos','Miguel','Andres','Pablo','Rafael','Fernando',
   'Javier','Luis','Eduardo','Roberto','Manuel','Jorge','Marco','Emilio','Rodrigo','Hector',
-  'Sergio','Raul','Arturo','Enrique','Oscar','Cesar','Victor','Alberto','Ignacio','Tomas',
+  'Sergio','Raul','Arturo','Enrique','Cesar','Victor','Alberto','Ignacio','Tomas',
   'Angel','Cristian','Francisco','Gonzalo','Ivan','Julian','Lorenzo','Martin','Ricardo','Salvador',
-  // Spanish / Latin (Female)
   'Valentina','Camila','Valeria','Mariana','Daniela','Sofia','Gabriela','Lucia','Elena','Natalia',
-  'Maria','Carmen','Rosa','Adriana','Alicia','Julieta','Catalina','Ximena','Renata','Isabella',
+  'Maria','Carmen','Rosa','Adriana','Alicia','Julieta','Catalina','Ximena','Renata',
   'Fernanda','Alejandra','Ana','Beatriz','Carolina','Dolores','Esperanza','Flora','Gloria','Ines',
   'Jimena','Karla','Laura','Marisol','Nadia','Paloma','Regina','Silvia','Teresa','Yolanda',
-  // Indian (Male)
+  // Indian
   'Arjun','Rohan','Aditya','Vikram','Karan','Rahul','Aarav','Siddharth','Varun','Arnav',
   'Dhruv','Kabir','Shiv','Dev','Nikhil','Vivek','Akash','Manish','Raj','Sahil',
   'Aman','Ankit','Deepak','Gaurav','Harsh','Ishaan','Jay','Kunal','Lakshman','Mohan',
   'Naveen','Om','Pranav','Rishi','Suresh','Tanmay','Utkarsh','Veer','Yash','Aryan',
   'Krishna','Sagar','Amar','Ajay','Kartik','Neel','Parth','Rishabh','Sameer','Vishal',
-  // Indian (Female)
   'Priya','Ananya','Ishita','Neha','Shreya','Pooja','Kavya','Aisha','Divya','Riya',
   'Meera','Tara','Anika','Sana','Nisha','Simran','Aditi','Trisha','Kiara','Zara',
   'Aaradhya','Bhavya','Charvi','Diya','Esha','Fatima','Gauri','Harini','Isha','Jaya',
   'Khushi','Lavanya','Mahi','Nandini','Oviya','Payal','Radhika','Sakshi','Tanvi','Urmi',
   'Vaishnavi','Anushka','Swara','Saanvi','Mahika','Myra','Pihu','Riddhi','Siya','Vedika',
-  // Filipino (Male)
+  // Filipino
   'Angelo','Joshua','Carl','Jericho','Kenneth','Renz','Paolo','Tristan','Cedric','Vince',
-  'Gelo','Mark','Jayden','Miguel','Rafael','Jerome','Francis','Enzo','Darren','Gabriel',
-  'Andre','Benedict','Christian','Dominic','Elijah','Ian','Jed','Kyle','Lance','Martin',
+  'Gelo','Mark','Jayden','Rafael','Jerome','Francis','Enzo','Darren','Gabriel',
+  'Andre','Benedict','Christian','Ian','Jed','Kyle','Lance',
   'Neil','Patrick','Ray','Sean','Theo','Warren','Aldrin','Bryan','Cyrus','Dennis',
-  // Filipino (Female)
   'Jasmine','Althea','Keziah','Bea','Francine','Marian','Shaira','Aimee','Katrina','Rica',
-  'Janelle','Princess','Nina','Angelica','Chelsea','Denise','Erica','Faye','Gia','Hannah',
-  'Iris','Julie','Kim','Lara','Mae','Nadine','Patrice','Rhea','Sophia','Trixie',
-  'Andrea','Bianca','Carla','Dawn','Ella','Gwen','Hailey','Joanna','Kristine','Leah',
-  // Arabic / Middle Eastern (Male)
+  'Janelle','Princess','Nina','Angelica','Chelsea','Denise','Erica','Faye','Gia',
+  'Iris','Julie','Kim','Lara','Mae','Nadine','Patrice','Rhea','Trixie',
+  'Andrea','Bianca','Carla','Dawn','Gwen','Hailey','Joanna','Kristine',
+  // Arabic / Middle Eastern
   'Omar','Yusuf','Adam','Hassan','Khalid','Tariq','Samir','Ibrahim','Zain','Faisal',
   'Karim','Rami','Ali','Hamza','Bilal','Sami','Nabil','Amir','Rashid','Jamal',
   'Ahmed','Basil','Daoud','Ehab','Farid','Ghazi','Hadi','Ismail','Jawad','Kareem',
   'Latif','Majid','Nasir','Qasim','Rafiq','Said','Tahir','Wahid','Yasser','Zayd',
-  // Arabic / Middle Eastern (Female)
-  'Layla','Amira','Noura','Hana','Yasmin','Fatima','Leila','Mariam','Sara','Noor',
+  'Amira','Noura','Hana','Yasmin','Leila','Mariam','Sara','Noor',
   'Dina','Salma','Reem','Jana','Maha','Lina','Dalal','Rania','Huda','Lamia',
   'Amal','Basma','Duaa','Esra','Farida','Ghada','Hayat','Inas','Jumana','Khadija',
   'Lubna','Muna','Najwa','Ola','Rawia','Samira','Tahani','Wafa','Yara','Zahra',
-  // Korean (Male)
+  // Korean
   'Jimin','Minho','Jungkook','Taehyung','Seojun','Jaehyun','Donghyuk','Sunwoo','Woojin','Hyun',
   'Siwoo','Hajun','Jiho','Doyun','Junseo','Yejun','Eunwoo','Hyunjin','Taemin','Changmin',
   'Junwoo','Minseok','Seungho','Yoongi','Jinhyuk','Kyungsoo','Sangwoo','Dongwoo','Hoseok','Inhyuk',
-  // Korean (Female)
   'Sora','Yuna','Jihye','Eunji','Minji','Sooyoung','Haeun','Chaewon','Dahyun','Soojin',
   'Jiwon','Seoyeon','Hayeon','Subin','Nayeon','Yeji','Ryujin','Chaeyoung','Seulgi','Jihyo',
   'Miyeon','Shuhua','Yuqi','Minnie','Jisoo','Jennie','Yeri','Irene','Wendy','Tzuyu',
-  // Japanese (Male)
-  'Haruto','Yuto','Sota','Ren','Kaito','Riku','Hayato','Hinata','Takumi','Sora',
+  // Japanese
+  'Haruto','Yuto','Sota','Ren','Kaito','Riku','Hayato','Hinata','Takumi',
   'Yuma','Asahi','Minato','Shota','Akira','Daiki','Eiji','Fumiya','Genki','Hikaru',
   'Itsuki','Jiro','Kenji','Makoto','Naoki','Ryo','Shinji','Taro','Yuki','Kenta',
-  // Japanese (Female)
   'Sakura','Hina','Yui','Aoi','Mio','Rin','Koharu','Mei','Akari','Honoka',
-  'Haru','Nana','Saki','Misaki','Ayaka','Chihiro','Emi','Fumiko','Haru','Izumi',
+  'Nana','Saki','Misaki','Ayaka','Chihiro','Emi','Fumiko',
   'Kanon','Mana','Natsuki','Riko','Sayuri','Tomoko','Wakana','Yoko','Chiaki','Kana',
-  // French (Male)
-  'Theo','Hugo','Louis','Raphael','Jules','Antoine','Pierre','Maxime','Alexandre','Nicolas',
+  // French
+  'Hugo','Louis','Raphael','Jules','Antoine','Pierre','Maxime','Alexandre','Nicolas',
   'Baptiste','Clement','Damien','Etienne','Florian','Guillaume','Hadrien','Jean','Laurent','Mathieu',
   'Olivier','Philippe','Quentin','Romain','Sylvain','Thierry','Valentin','Xavier','Yann','Fabien',
-  // French (Female)
-  'Chloe','Lea','Manon','Camille','Juliette','Elise','Margot','Lucie','Marie','Sophie',
-  'Amelie','Brigitte','Charlotte','Delphine','Elodie','Fleur','Genevieve','Helene','Ines','Josephine',
+  'Lea','Manon','Camille','Juliette','Elise','Lucie','Marie','Sophie',
+  'Amelie','Brigitte','Delphine','Elodie','Fleur','Genevieve','Helene',
   'Laure','Madeleine','Nathalie','Oceane','Pauline','Roxane','Sandrine','Colette','Vivienne','Adele',
-  // African (Male)
+  // African
   'Kwame','Kofi','Tendai','Chidi','Emeka','Oluwaseun','Jabari','Amare','Obinna','Sekou',
   'Tunde','Jelani','Nnamdi','Dayo','Idris','Kojo','Ayoub','Boubacar','Cedrick','Diallo',
   'Ekon','Faraji','Gideon','Hamidi','Issa','Jomo','Kamau','Lekan','Musa','Nkosi',
   'Olu','Pape','Rashidi','Simba','Thabo','Uche','Wole','Yaw','Zuberi','Adewale',
-  // African (Female)
   'Amara','Nia','Zuri','Ayanda','Thandiwe','Abena','Ife','Nala','Adaeze','Imani',
   'Chioma','Akosua','Aminata','Fatou','Nkechi','Ayana','Binta','Chiamaka','Dahlia','Efua',
   'Folake','Gifty','Hadiza','Iyabo','Jamila','Keza','Lira','Makena','Nandi','Omolara',
-  'Palesa','Rashida','Sade','Temi','Uju','Wangari','Yetunde','Zanele','Abigail','Chinwe',
-  // Brazilian / Portuguese (Male)
+  'Palesa','Rashida','Sade','Temi','Uju','Wangari','Yetunde','Zanele','Chinwe',
+  // Brazilian / Portuguese
   'Thiago','Gustavo','Bruno','Felipe','Leonardo','Guilherme','Caio','Vitor','Pedro','Henrique',
-  'Arthur','Bernardo','Daniel','Eduardo','Gabriel','Igor','Joao','Kaique','Luan','Matheus',
-  'Nicolas','Otavio','Paulo','Rafael','Samuel','Tiago','Vinicius','Wagner','Yago','Andre',
-  // Brazilian / Portuguese (Female)
-  'Beatriz','Larissa','Amanda','Juliana','Fernanda','Leticia','Bruna','Isabela','Rafaela','Gabriela',
-  'Ana','Bianca','Camila','Daniela','Eduarda','Flavia','Helena','Ingrid','Jessica','Kelly',
-  'Livia','Marina','Natalia','Patricia','Renata','Sabrina','Tatiana','Vanessa','Yasmin','Aline',
-  // Eastern European / Slavic (Male)
-  'Nikolai','Mikhail','Dmitri','Ivan','Sergei','Aleksei','Andrei','Maxim','Viktor','Boris',
+  'Arthur','Bernardo','Eduardo','Igor','Joao','Kaique','Luan','Matheus',
+  'Otavio','Paulo','Samuel','Tiago','Vinicius','Wagner','Yago',
+  'Larissa','Amanda','Juliana','Leticia','Bruna','Isabela','Rafaela',
+  'Flavia','Helena','Ingrid','Jessica','Kelly',
+  'Livia','Marina','Patricia','Renata','Sabrina','Tatiana','Vanessa','Aline',
+  // Eastern European / Slavic
+  'Nikolai','Mikhail','Dmitri','Sergei','Aleksei','Andrei','Maxim','Viktor','Boris',
   'Anton','Bogdan','Cyril','Denis','Evgeni','Fyodor','Grigori','Igor','Kirill','Leonid',
   'Matvei','Oleg','Pavel','Roman','Stanislav','Timur','Vadim','Vladislav','Yaroslav','Zakhar',
-  // Eastern European / Slavic (Female)
   'Anya','Katya','Natasha','Olga','Mila','Irina','Daria','Svetlana','Polina','Vera',
-  'Alina','Anastasia','Ekaterina','Galina','Ksenia','Lada','Marina','Nina','Oksana','Rada',
-  'Sofia','Tatiana','Valentina','Yelena','Zoya','Larisa','Tamara','Lydia','Nadia','Raisa',
-  // Nordic / Scandinavian (Male)
+  'Alina','Anastasia','Ekaterina','Galina','Ksenia','Lada',
+  'Tatiana','Yelena','Zoya','Larisa','Tamara','Raisa',
+  // Nordic / Scandinavian
   'Erik','Lars','Sven','Axel','Magnus','Nils','Leif','Bjorn','Odin','Gunnar',
-  'Anders','Emil','Filip','Gustaf','Henrik','Johan','Karl','Lukas','Martin','Niklas',
-  'Oskar','Per','Rasmus','Sigurd','Torsten','Ulrik','Viktor','Wilhelm','Arne','Dag',
-  // Nordic / Scandinavian (Female)
+  'Anders','Emil','Filip','Gustaf','Henrik','Johan','Karl','Lukas','Niklas',
+  'Oskar','Per','Rasmus','Sigurd','Torsten','Ulrik','Wilhelm','Arne','Dag',
   'Freya','Astrid','Ingrid','Saga','Elsa','Sigrid','Linnea','Thea','Maja','Liv',
   'Alma','Britta','Dagny','Elin','Frida','Greta','Hedda','Idun','Johanna','Karin',
-  'Lovisa','Matilda','Nora','Oda','Petra','Ragnhild','Signe','Tilda','Ulla','Vigga',
-  // Turkish (Male)
+  'Lovisa','Matilda','Oda','Petra','Ragnhild','Signe','Tilda','Ulla','Vigga',
+  // Turkish
   'Emre','Burak','Cem','Alp','Baris','Mert','Kaan','Arda','Deniz','Onur',
   'Ahmet','Berat','Cihan','Doruk','Efe','Furkan','Gokhan','Halil','Ilker','Kerem',
   'Levent','Murat','Necip','Oguz','Polat','Recep','Serkan','Taner','Umut','Volkan',
-  // Turkish (Female)
   'Elif','Defne','Zeynep','Yagmur','Selin','Ebru','Nazli','Tugba','Ceren','Asli',
   'Aylin','Buse','Cansu','Damla','Ezgi','Fulya','Gulnur','Hazal','Ipek','Kardelen',
   'Melis','Neslihan','Ozge','Pelin','Reyhan','Sevgi','Tulay','Yeliz','Zeliha','Bahar',
-  // Chinese (Male)
+  // Chinese
   'Wei','Jin','Hao','Chen','Liang','Feng','Ming','Jun','Bo','Lei',
   'Yong','Tao','Kai','Rui','Jie','Cheng','Peng','Sheng','Zhi','Gang',
   'Qiang','Xin','Hong','Shan','Long','Hua','Guang','Dong','Nan','Yang',
-  // Chinese (Female)
   'Mei','Xiao','Ying','Fang','Hui','Yan','Li','Na','Ting','Xue',
   'Yue','Jing','Qian','Shu','Wen','Lan','Min','Ping','Rong','Zhen',
   'Ai','Bao','Cui','Dan','En','Fei','Ge','Han','Juan','Kun',
-  // Vietnamese (Male)
-  'Anh','Minh','Duc','Thanh','Phong','Tuan','Hieu','Long','Dung','Hung',
-  'Bao','Cuong','Dat','Giang','Huy','Khoa','Loc','Nam','Phat','Quang',
-  // Vietnamese (Female)
-  'Linh','Thao','Mai','Hoa','Lan','Trang','Ngoc','Hanh','Phuong','Tuyet',
-  'An','Bich','Chi','Dao','Ha','Kieu','Lien','My','Nhu','Oanh',
-  // Thai (Male)
+  // Vietnamese
+  'Anh','Minh','Duc','Thanh','Phong','Tuan','Hieu','Dung','Hung',
+  'Cuong','Dat','Giang','Huy','Khoa','Loc','Nam','Phat','Quang',
+  'Linh','Thao','Mai','Hoa','Trang','Ngoc','Hanh','Phuong','Tuyet',
+  'Bich','Chi','Dao','Ha','Kieu','Lien','My','Nhu','Oanh',
+  // Thai
   'Chai','Krit','Prem','Somchai','Tanawat','Nat','Pong','Sak','Ton','Win',
   'Aran','Bank','Chart','Dej','Ek','Gun','Jett','Kan','Nai','Pat',
-  // Thai (Female)
-  'Ploy','Fah','Nong','Pim','Nan','Som','Dao','Lek','Bua','Joy',
-  'Aom','Bee','Gam','Ice','Kwan','May','Noi','Opal','Pang','Rung',
-  // Greek (Male)
+  'Ploy','Fah','Nong','Pim','Som','Lek','Bua',
+  'Aom','Bee','Gam','Ice','Kwan','Noi','Opal','Pang','Rung',
+  // Greek
   'Nikos','Yannis','Dimitri','Kostas','Stavros','Petros','Giorgos','Alexis','Andreas','Vasilis',
   'Christos','Elias','Fotis','Ilias','Kosmas','Leonidas','Marios','Panos','Sotiris','Thanasis',
-  // Greek (Female)
-  'Eleni','Maria','Sophia','Athena','Katerina','Daphne','Irene','Penelope','Thalia','Zoe',
-  'Ariadne','Calliope','Demetra','Evangelia','Fotini','Georgia','Helena','Ioanna','Konstantina','Lydia',
-  // Polish (Male)
-  'Jakub','Mateusz','Szymon','Kacper','Filip','Wojciech','Bartek','Dawid','Piotr','Tomasz',
-  'Adam','Aleksander','Bartosz','Cezary','Dominik','Emil','Grzegorz','Hubert','Jan','Konrad',
-  // Polish (Female)
-  'Zuzanna','Lena','Julia','Maja','Hanna','Aleksandra','Amelia','Wiktoria','Oliwia','Natalia',
-  'Agnieszka','Barbara','Celina','Dorota','Ewa','Gabriela','Izabela','Karolina','Magdalena','Patrycja',
-  // Persian / Iranian (Male)
+  'Athena','Katerina','Daphne','Irene','Penelope','Thalia','Zoe',
+  'Ariadne','Calliope','Demetra','Evangelia','Fotini','Ioanna','Konstantina',
+  // Polish
+  'Jakub','Mateusz','Szymon','Kacper','Wojciech','Bartek','Dawid','Piotr','Tomasz',
+  'Aleksander','Bartosz','Cezary','Grzegorz','Hubert','Jan','Konrad',
+  'Zuzanna','Lena','Julia','Maja','Hanna','Aleksandra','Wiktoria','Oliwia',
+  'Agnieszka','Barbara','Celina','Dorota','Ewa','Izabela','Karolina','Magdalena','Patrycja',
+  // Persian / Iranian
   'Arash','Darius','Farhad','Kaveh','Mehdi','Navid','Omid','Reza','Saman','Behnam',
-  'Amir','Cyrus','Ehsan','Hossein','Iman','Javad','Kian','Milad','Nima','Payam',
-  // Persian / Iranian (Female)
-  'Shirin','Parisa','Maryam','Narges','Setareh','Bahar','Azadeh','Darya','Elham','Fatemeh',
+  'Cyrus','Ehsan','Hossein','Iman','Javad','Kian','Milad','Nima','Payam',
+  'Shirin','Parisa','Maryam','Narges','Setareh','Azadeh','Darya','Elham','Fatemeh',
   'Ghazal','Hasti','Kimia','Laleh','Mahsa','Nasrin','Parastoo','Roxana','Sahar','Tina',
-  // Malay / Indonesian (Male)
+  // Malay / Indonesian
   'Adi','Budi','Dimas','Farhan','Haris','Irfan','Johan','Rizal','Syafiq','Yusof',
   'Arief','Bagus','Cahya','Eko','Fajar','Galih','Hafiz','Iwan','Lukman','Nugroho',
-  // Malay / Indonesian (Female)
   'Putri','Siti','Dewi','Rani','Fitri','Laila','Maya','Wulan','Ratna','Ayu',
   'Bunga','Citra','Dian','Eka','Gita','Indah','Kartini','Lestari','Melati','Nirmala',
-  // Hungarian (Male)
-  'Balazs','Csaba','Gabor','Istvan','Levente','Miklos','Tamas','Zoltan','Andras','Bence',
-  // Hungarian (Female)
-  'Eszter','Fanni','Katalin','Noemi','Reka','Vivien','Anna','Dorottya','Hanna','Lilla',
-  // Romanian (Male)
-  'Andrei','Cristian','Dragos','Mihai','Radu','Stefan','Alexandru','Bogdan','Cosmin','Florin',
-  // Romanian (Female)
-  'Ioana','Mihaela','Raluca','Simona','Andreea','Bianca','Cristina','Daniela','Elena','Gabriela',
   // Gender-neutral / Universal
   'Alex','Sam','Jordan','Taylor','Morgan','Casey','Quinn','Avery','Cameron','Jesse',
   'Jamie','Robin','Charlie','Drew','Sage','Eden','Skyler','River','Phoenix','Blake',
   'Reese','Dakota','Rowan','Emery','Finley','Marlowe','Lennox','Haven','Nico','Mika',
   'June','Ruby','Ace','Kit','Wren','Clay','Nash','Lane','Jude','Beau',
-  'Heath','Troy','Dean','Ezra','Iris','Alma','Noa','Ada','Eve','Mara',
+  'Heath','Troy','Dean','Noa','Ada','Eve','Mara',
   'Arlo','Blair','Corey','Dallas','Ellis','Flynn','Harley','Jess','Kerry','Lee',
-  'Marley','Noel','Pat','Rory','Shay','Toni','Val','Winter','Ashton','Bay',
+  'Marley','Noel','Shay','Toni','Val','Winter','Ashton','Bay',
 ];
 
-// Deduplicate names (some names appear across multiple regions)
 const UNIQUE_NAMES = [...new Set(NAMES)];
 
-// ─── MESSAGE TEMPLATES BY CATEGORY ──────────────────────────
-// Each message is a standalone string, written to sound like a real human.
-// ~80% lowercase, ~20% mixed case. Varied punctuation, abbreviations, typos.
+// ─── DETAIL POOLS (for {X} injection) ───────────────────────
+const PLACES = ['that coffee shop','the park','the beach','that bench','the parking lot','the library','the hallway','the bus stop','the lake','the pier','the balcony','the kitchen','the backseat','that restaurant','the train station','the rooftop','your doorstep','the playground','the mall','target','walmart','the movies','the gas station','the gym','school','the dorms','the cafeteria','church','the hospital','the airport'];
+const TIMES = ['that night','that summer','last december','3am','prom night','graduation','that tuesday','last winter','that weekend','christmas','valentines','that morning','october','that friday night','new years','sophomore year','8th grade','middle school','high school','that one time','junior year','last spring','february','that wednesday','last month','august','senior year'];
+const OBJECTS = ['your hoodie','that playlist','our photos','your old texts','that letter','your ring','the bracelet','our song','your jacket','that polaroid','your perfume','the necklace','those flowers','that voicemail','your birthday card','your sweatshirt','the stuffed animal you gave me','that note you wrote me','the blanket','your pillow','your t shirt','the earrings'];
+const SCHOOL_WORK = ['in class','at lunch','in the hallway','at the library','at practice','on the bus','at work','at the party','at prom','at the game','in study hall','at orientation','at the cafeteria','in homeroom','at recess','in the parking lot','at the dance','during assembly'];
 
-const LOVE_LONGING = [
-  "i still love you and i don't think that's ever going to change",
-  "you're the only person who ever made me feel like i was enough",
-  "i think about you every single day and it scares me",
-  "i never stopped loving you. i just stopped showing it",
-  "everything reminds me of you and i hate it",
-  "i wish you knew how much you mean to me",
-  "you were my favorite person and you didn't even know it",
-  "i'd wait for you. i think i always will",
-  "my heart still skips when i see your name",
-  "i loved you in a way i'll never love anyone else",
-  "you were my person. i miss that more than anything",
-  "i still have all your texts saved. i read them sometimes",
-  "the way you looked at me that night. i'll never forget it",
-  "you made ordinary days feel like something worth remembering",
-  "i dream about you more than i'd like to admit",
-  "i loved you before i even knew what love was",
-  "some days i still reach for my phone to text you",
-  "you changed my life and you don't even know it",
-  "i would choose you in every lifetime",
-  "you were the best part of my worst days",
-  "i still listen to our playlist when i miss you",
-  "nobody else makes me feel the way you did",
-  "i fell for you the moment you laughed at my stupid joke",
-  "you are the most beautiful soul i have ever known",
-  "i love you more than i love myself and that's the problem",
-  "i wrote your name in my journal again today",
-  "you make me want to be a better person",
-  "i've never felt this way about anyone before you",
-  "i think i'll always love you. even from far away",
-  "i saved the hoodie you left at my place. it still smells like you",
-  "you are my 11:11 wish every single time",
-  "i love you so much it physically hurts sometimes",
-  "i want to grow old with you more than anything in this world",
-  "my favorite sound is your laugh. i miss it every day",
-  "i still look for you in every crowded room",
-  "i can't listen to that song without thinking of you",
-  "every love song makes sense because of you",
-  "i wish i could tell you how much i care",
-  "you're the first person i want to talk to when something good happens",
-  "i've loved you quietly for so long now",
-  "you're the reason i believe in love at all",
-  "i love you. there. i said it. even if you'll never see this",
-  "being near you feels like coming home",
-  "my heart is yours even if you don't want it",
-  "i'd give anything to hear you say my name one more time",
-  "you're the missing piece i keep looking for in everyone else",
-  "even on my worst days you're the first thing i think about",
-  "i loved you with everything i had. it still wasn't enough",
-  "you don't know it but you saved me",
-  "i think about what we could have been all the time",
-  "i would drop everything if you asked me to",
-  "you feel like a song i want to listen to on repeat forever",
-  "i didn't know what love was until you showed me",
-  "every time i close my eyes i see your face",
-  "i'm still in love with you and i probably always will be",
-  "the way you say my name is my favorite thing",
-  "i keep your picture in my wallet still",
-  "i love you more than words could ever say",
-  "you're the only person who feels like home to me",
+// ─── TEMPLATES ──────────────────────────────────────────────
+// Written to match REAL unsent project submissions.
+// Rules: no metaphors, no poetry, no literary language.
+// Just raw, messy, direct, emotional human text messages.
+// {P} = place, {T} = time, {O} = object, {S} = school/work
+// {N} = will be replaced with the recipient's name
+
+const TPL = [];
+
+// ──── SUPER SHORT (3-7 words) ─── ~35% of total ────────────
+const SHORT = [
+  "i love you",
+  "i miss you",
+  "i miss u",
+  "come back",
+  "please come back",
+  "i hate you",
+  "i still love you",
+  "i love you so much",
+  "you are so special to me",
+  "your smile is so cute",
+  "i think i love you",
+  "i still love you baby",
+  "youre a really good person",
+  "i hope youre the one",
+  "i miss you alot",
+  "i love you and i wish i didnt",
+  "i hope we can be together",
+  "i miss u sm",
+  "im sorry",
+  "please forgive me",
+  "i need you",
+  "come home",
+  "dont leave",
+  "stay",
+  "why did you leave",
+  "i hate this",
+  "it hurts",
+  "i cant do this anymore",
+  "youre beautiful",
+  "youre so pretty",
+  "i like you alot",
+  "i have a crush on you",
+  "do you think about me",
+  "i think about you alot",
+  "i wish you knew",
+  "you changed me",
+  "thank you for everything",
+  "i forgive you",
+  "its okay",
+  "i understand now",
+  "im proud of you",
+  "you deserve better",
+  "you deserve the world",
+  "i wish i was enough",
+  "was i not enough",
+  "why wasnt i enough",
+  "i loved you first",
+  "youll always be my person",
+  "i still care about you",
+  "please be happy",
+  "i hope youre okay",
+  "are you happy now",
+  "do you miss me",
+  "do you ever think about me",
+  "i want you back",
+  "take me back",
+  "i was wrong",
+  "you were right",
+  "im sorry for everything",
+  "i should have stayed",
+  "i should have tried harder",
+  "you make me so happy",
+  "youre my best friend",
+  "i miss my best friend",
+  "i miss us",
+  "what happened to us",
+  "we were so good together",
+  "remember when we were happy",
+  "i wish things were different",
+  "things could have been different",
+  "i still dream about you",
+  "you were my everything",
+  "youre still my everything",
+  "nobody compares to you",
+  "i cant stop thinking about you",
+  "youre always on my mind",
+  "i never stopped loving you",
+  "i tried to forget you",
+  "i cant forget you",
+  "its been years and i still care",
+  "i lied when i said i was fine",
+  "im not over you",
+  "im not okay",
+  "you broke me",
+  "you ruined me",
+  "i trusted you",
+  "how could you",
+  "you promised",
+  "you lied to me",
+  "i believed you",
+  "i wish we never met",
+  "actually no i dont regret us",
+  "i would do it all again",
+  "i miss your laugh",
+  "i miss your voice",
+  "i miss your hugs",
+  "i miss your face",
+  "i miss your hands",
+  "i miss how you smell",
+  "i miss everything about you",
+  "ily",
+  "ilysm",
+  "ily so much it hurts",
+  "i love u more then u know",
+  "i love u sm",
+  "love you forever",
+  "always and forever",
+  "forever yours",
+  "youre my person",
+  "please dont forget me",
+  "dont forget about me",
+  "remember me",
+  "i wont forget you",
+  "hi i miss you",
+  "hey i love you",
+  "hey stranger",
+  "i hope you read this",
+  "this is for you",
+  "you know who you are",
+  "happy birthday i guess",
+  "merry christmas i miss you",
+  "happy new years without you sucks",
+  "its your birthday today and i almost texted you",
+  "i almost called you today",
+  "i almost texted you",
+  "i typed a message and deleted it",
+  "i wrote this for you",
+  "youre an idiot but i love you",
+  "i hate that i love you",
+  "i hate that i miss you",
+  "i hate how much i care",
+  "why do i still care",
+  "stop making me feel things",
+  "get out of my head",
+  "leave my dreams alone",
+  "you have no right to be in my dreams",
+  "i dreamt about you last night",
+  "i had a dream about you",
+  "you were in my dream again",
+  "cant sleep thinking about you",
+  "3am and im thinking about you",
+  "its late and i miss you",
+  "cant sleep",
+  "i hate nights like this",
+  "goodnight i love you",
+  "good morning i wish u were here",
+  "wish you were here",
+  "i wish i was with you rn",
+  "be safe please",
+  "take care of yourself",
+  "eat something today okay",
+  "drink water dummy",
+  "please take care of yourself",
+  "i worry about you",
+  "i pray for you everyday",
+  "God please protect them",
+  "im rooting for you always",
+  "i believe in you",
+  "youre gonna be okay",
+  "everything will be fine",
+  "you got this",
+  "im here for you always",
+  "ill always be here",
+  "ill wait for you",
+  "i would wait forever",
+  "forever is a long time but id do it",
+  "my heart hurts",
+  "this hurts so bad",
+  "crying rn",
+  "im literally crying writing this",
+  "lol im crying",
+  "why am i like this",
+  "i need to move on",
+  "i need to let you go",
+  "letting go is so hard",
+  "i dont wanna let go",
+  "i cant let go",
+  "youre the one that got away",
+  "wrong person wrong time",
+  "right person wrong time",
+  "maybe in another life",
+  "see you in another life",
+  "i hope i find you again",
+  "find me again please",
+  "we'll meet again",
+  "until next time",
+  "goodbye for now",
+  "this isnt goodbye",
+  "i dont want to say goodbye",
+  "bye i love you",
+  "i never got to say goodbye",
+  "you left without saying goodbye",
+  "you didnt even say bye",
+  "i hate goodbyes",
+  "i love you {N}",
+  "i miss you {N}",
+  "{N} i love you",
+  "{N} please come back",
+  "{N} im sorry",
+  "hey {N} i miss you",
+  "happy birthday {N}",
+  "thinking of you {N}",
+];
+TPL.push(...SHORT);
+
+// ──── MEDIUM DIRECT (8-18 words) ─── ~40% of total ─────────
+const MEDIUM = [
+  // Missing you / love
+  "i miss you a lot and i love you",
+  "i miss you so much and i dont know what to do about it",
+  "i love you more then anything in this world",
+  "i love you and i dont think ill ever stop",
+  "i still think about you all the time and it makes me sad",
+  "its been {T} and i still think about you",
+  "is it wrong to love you like i do? i miss you alot",
+  "i miss u so much more than words can say",
+  "youll always have a special place in my heart",
+  "youre the only person who ever made me feel like this",
+  "i would give anything to talk to you one more time",
+  "i just want to hear your voice one more time",
+  "i wish i could hug you right now",
+  "i miss you more everyday and i hate it",
+  "not a day goes by where i dont think about you",
+  "every day without you is harder then the last",
+  "you have no idea how much you mean to me",
+  "i didnt know it was possible to miss someone this much",
   "i still get butterflies when i think about you",
-  "you were the one. you'll always be the one",
-  "i can't stop thinking about you and it's been months",
-  "i love everything about you even the parts you hate",
-  "you make me believe good things can happen to me",
-  "i'd cross oceans for you without hesitation",
-  "i hope you know how loved you are even if i can't say it",
-  "your smile is the most beautiful thing i've ever seen",
-  "i think you're my soulmate. i really do",
-  "my world got brighter the day i met you",
-  "i'd rather have a lifetime of missing you than never having known you",
-  "you feel like the calm after a storm",
-  "i still pick up my phone to text you goodnight",
-  "i love you in ways i didn't think were possible",
-  "you made me feel safe when nothing else did",
-  "my heart knows your name before my mind does",
-  "i think i loved you from the very first moment",
-  "i'm terrified of how much i need you",
-  "you're the thought that keeps me up at 3am",
-  "i want you. just you. always",
-  "you're the kind of love people write songs about",
-  "i still get nervous around you even after all this time",
-  "i hope you think of me half as much as i think of you",
-  "loving you is the easiest and hardest thing i've ever done",
-  "i carry you with me everywhere i go",
-  "i didn't choose to love you. it just happened",
-  "the best moments of my life all have you in them",
-  "i still remember exactly how your hand felt in mine",
-  "you're the only person i've ever wanted to fight for",
-  "i wish i could pause time whenever i'm with you",
-  "you're my favorite chapter in this messy life",
-  "i love you beyond what i can put into words",
-  "some people come into your life and change everything. you did that",
-  "i never want to know what my life looks like without you",
-  "i love how you make me laugh when i want to cry",
-  "i'll love you even when the world ends",
-  "you're the one constant in my chaotic life",
-  "i want to spend every boring sunday morning with you",
-  "you see me. really see me. and that's everything",
-  "i'd choose your worst day over anyone else's best",
-  "i didn't know my heart could feel this full",
-  "you're the reason i look forward to tomorrow",
-  "i love you and i think part of me always knew i would",
-  "you're the first person who made love feel safe",
-  "i'd rather argue with you than laugh with anyone else",
-  "i love you like the moon loves the night",
-  "you're the good in every bad day i've ever had",
-  "i still remember the first time you hugged me",
-  "i'd walk through fire just to see you smile",
-  "you made me realize what i actually deserve",
-  "loving you taught me what it means to be vulnerable",
-  "i think you're the love of my life and i never told you",
-  "you are my calm in every storm",
-  "my favorite memory is any memory with you in it",
-  "i love you. not the way you think. more",
-  "you're the kind of person i want to wake up next to every day",
-  "i think about your eyes more than i should",
-  "you're everything i never knew i needed",
-  "i'll never regret loving you no matter what happens",
-  "you're the warmth i keep coming back to",
-  "i didn't know i was lost until you found me",
-  "you make my heart do stupid things",
-  "i think the universe put you in my life for a reason",
-  "i love you quietly but deeply",
-  "i'd give up everything for five more minutes with you",
-  "you feel like a warm blanket on a cold night",
-  "i wish i could hold your hand right now",
-  "i'm yours even if you don't know it yet",
-];
+  "you make my heart do that stupid thing",
+  "everything reminds me of you and its annoying",
+  "i hear our song and i think of you everytime",
+  "i still listen to the playlist you made me",
+  "i kept {O} and i look at it all the time",
+  "i found {O} the other day and i just started crying",
+  "i drove past {P} and thought of you",
+  "i went to {P} today and wished you were there",
+  "i was at {P} and i swear i saw you",
+  "i cant go to {P} anymore because of you",
+  "every time i pass {P} i think about {T}",
+  "remember {T}? i think about it all the time",
+  "i still remember {T} like it was yesterday",
+  "that day at {P} changed my whole life and you dont even know",
+  "i remember exactly what you were wearing {T}",
 
-const HEARTBREAK_BREAKUP = [
-  "i miss who you were before everything fell apart",
-  "you broke me in ways i didn't know i could break",
-  "i gave you everything and you threw it away like nothing",
-  "the worst part is i still care about you",
-  "you were the love of my life and the source of my pain",
-  "i hope she treats you better than you treated me",
-  "i'm still picking up the pieces you left behind",
-  "you left and took the best parts of me with you",
-  "i trusted you with my heart and you crushed it",
-  "i keep wondering what i did wrong",
-  "you moved on so fast it made me question everything we had",
-  "i hope you regret losing me one day",
-  "i'm not the same person i was before you broke my heart",
-  "you promised you'd never leave and then you did",
-  "i hate that i still miss you after everything",
-  "you chose her and that's something i'll never understand",
-  "i used to think we were unbreakable. i was so wrong",
-  "the hardest part was realizing i meant nothing to you",
-  "you walked away like i was easy to forget",
-  "i loved you more than you deserved and we both know it",
-  "i didn't just lose a partner. i lost my best friend",
-  "you said forever and i was stupid enough to believe you",
-  "i'm still healing from the way you left",
-  "you were my biggest lesson and my deepest wound",
-  "the way you ended things will haunt me for a long time",
-  "i don't miss you. i miss who i thought you were",
-  "you made me feel like i wasn't worth staying for",
-  "we were supposed to make it. what happened to us",
-  "you stopped loving me and forgot to tell me",
-  "i wish i could hate you but i can't",
-  "you ruined love for me. i hope you know that",
-  "i'm angry at myself for still wanting you back",
-  "you said you'd never hurt me. that was the biggest lie",
-  "i don't think you realize how much damage you did",
-  "i still sleep on my side of the bed even though you're gone",
-  "i keep replaying our last conversation in my head",
-  "you didn't just break my heart you broke my trust",
-  "i wonder if you think about me at all",
-  "it took me months to stop looking for your car in parking lots",
-  "i'm trying to move on but everything reminds me of you",
-  "you were the worst thing that happened to me and the best",
-  "i still flinch when someone says your name",
-  "i wish i never met you. and i wish i could stop wishing that",
-  "you left me at my lowest and i'll never forgive you for that",
-  "the empty side of my bed still feels wrong",
-  "i thought we were building something real",
-  "you made me afraid to love again",
-  "i gave you my whole heart and you only wanted half",
-  "you moved on like our years together were nothing",
-  "i hate how you're fine and i'm still falling apart",
-  "i can't believe i wasted so many tears on you",
-  "you made love feel like something i should be afraid of",
-  "i keep deleting our photos and then pulling them from trash",
-  "you chose the easy way out instead of fighting for us",
-  "i wish you fought harder for what we had",
-  "some nights the silence where your voice used to be is deafening",
-  "i think about the last time you kissed me and it breaks me",
-  "you were supposed to be different",
-  "i'm learning to live without you but i don't want to",
-  "you let me go like i was nothing",
-  "i'll never understand how you could just stop caring",
-  "the saddest part is i'd still take you back",
-  "you taught me that love isn't always enough",
-  "i can't believe we went from everything to nothing",
-  "you broke my heart and i still check on you",
-  "i keep wondering if she makes you happier than i did",
-  "you left but your ghost lives in every corner of my room",
-  "i hate that you're happy without me",
-  "i still wear the bracelet you gave me even tho we're done",
-  "you threw us away like we meant nothing at all",
-  "the night you left i couldn't breathe for hours",
-  "i loved you through things i shouldn't have tolerated",
-  "we could have been so much more if you just tried",
-  "you left me with questions i'll never get answers to",
-  "i can't listen to our song anymore without crying",
-  "i think about the last time we were happy and it hurts so bad",
-  "you made me feel so small in the end",
-  "i'm still not over you and i hate myself for it",
-  "the worst part is knowing you don't even think about me",
-  "you destroyed something beautiful because you were scared",
-  "i loved you through every version of yourself. you couldn't do the same",
-  "you stopped trying and expected me not to notice",
-  "i wonder if you miss me or if i imagined everything",
-  "you left without even saying goodbye properly",
-  "i thought we'd figure it out. i thought we had time",
-  "you hurt me in ways i'm still discovering",
-  "some days i'm fine. other days i miss you so much i can't function",
-  "you said i was your world and then you left the planet",
-  "i'm tired of pretending i'm okay without you",
-  "you made me feel disposable",
-  "we burned so bright and then you just let us go out",
-  "i keep hoping you'll text me but you never do",
-  "you left and i had to learn how to be alone all over again",
-  "the worst heartbreak is the one you never saw coming",
-  "you didn't even give us a chance to fix things",
-  "i miss the way things were before you changed",
-  "you made me believe in us and then took it all away",
-  "i'm still angry and i'm still sad and i still love you",
-  "i can't even look at photos from that year anymore",
-  "you replaced me so fast like i was temporary all along",
-];
+  // Sorry / regret
+  "im sorry for how i treated you, i really am",
+  "im sorry i didnt show how i felt i ruined us",
+  "i wish i tried harder for you, i wish i couldve been better",
+  "im sorry for everything i put you through. you didnt deserve that",
+  "i should have fought harder for us and i regret it everyday",
+  "i messed up and i know it. im so sorry",
+  "i was so stupid to let you go",
+  "leaving you was the biggest mistake of my life",
+  "i should have told you how i felt when i had the chance",
+  "i regret not saying i love you when i could",
+  "i took you for granted and i hate myself for it",
+  "im sorry i wasnt the person you needed me to be",
+  "im sorry im not the kid you wanted me to be",
+  "i wish i could take back everything i said that night",
+  "i didnt mean what i said i was just angry",
+  "i was scared and i pushed you away. im sorry",
+  "i self sabotaged the best thing that ever happened to me",
+  "i was too young to know what i had. im sorry",
 
-const GRIEF_LOSS = [
-  "i miss you every single day. heaven is lucky to have you",
-  "i wish i could hear your voice one more time",
-  "the world feels emptier without you in it",
-  "i talk to you even though you can't hear me anymore",
-  "i never got to say goodbye and it eats me alive",
-  "i see you in everything beautiful and it breaks my heart",
-  "grief doesn't get smaller. you just learn to carry it differently",
+  // Hurt / angry
+  "you ruined me with what you did and i hope you know that",
+  "you hurt me and i dont think you even care",
+  "you broke my heart and you didnt even notice",
+  "i hope it weighs on your conscience forever",
+  "you treated me like i was nothing",
+  "i gave you everything and you threw it away",
+  "you made me feel crazy for having normal feelings",
+  "you chose everyone else over me and it destroyed me",
+  "you moved on in weeks. it took me months to feel normal again",
+  "you made promises you never planned to keep",
+  "how do you just stop caring about someone like that",
+  "you didnt even have the decency to break up with me properly",
+  "i found out from someone else. do you know how that feels",
+  "you pretended to love me and i actually believed you",
+  "you said forever but you didnt even last the year",
+  "everyone warned me about you and i didnt listen",
+  "congratulations you turned me into someone i dont recognize",
+  "i hope shes worth it",
+  "i hope hes worth it",
+  "you lost someone who actually cared about you. good luck",
+  "the worst part is i still love you after everything you did",
+  "you dont deserve my tears but here i am crying over you",
+
+  // Crush / confession
+  "i have crush on you and you love another girl",
+  "i have the biggest crush on you and you have no idea",
+  "i like you so much and i dont know what to do about it",
+  "i like u. alot. more then i should probably",
+  "youre so cute and you dont even know it",
+  "your smile makes my whole day better",
+  "i get so nervous around you its embarrassing",
+  "every time you look at me i forget how to talk",
+  "you looked at me {T} and my heart literally stopped",
+  "i think about you way more then i should",
+  "do you like me back or am i being delusional",
+  "just tell me if you like me back please",
+  "i wish i had the guts to tell you how i feel",
+  "im so scared to tell you i like you",
+  "i wrote this because i cant say it to your face",
+  "i am so in love with you can you not tell",
+  "i dont think ive ever liked someone the way i like you",
+  "you have the prettiest eyes ive ever seen",
+  "youre literally the most beautiful person i know",
+  "i think youre one of the most beautiful girls ive ever seen",
+  "i stare at you when youre not looking and i know thats weird",
+  "every time you laugh i fall a little more",
+  "sitting next to you {S} is the best part of my day",
+  "i only go to {S} to see you",
+  "i changed my whole schedule just to have a class with you",
+  "i look for you everywhere i go",
+  "you changed my whole perspective on love :)",
+  "i didnt believe in love until i met you. thats so corny but its true",
+  "you make me want to be a better person",
+
+  // Friendship
+  "i miss u sm, u were the coolest friend i ever had",
+  "youre one of the strongest people i know and i hope you know it too. ily",
+  "you ll always be my brother and i ll always love you",
+  "i miss my best friend so much it hurts",
+  "we used to talk every day now we dont talk at all",
+  "i dont know what happened to us but i miss you",
+  "you were my ride or die and now we're strangers",
+  "i miss when we used to be close",
+  "remember when we would stay up all night talking about nothing",
+  "you were the only person who really understood me",
+  "i miss having someone who actually gets me",
+  "thank you for being there when no one else was",
+  "you saved me and you dont even know it",
+  "i wouldnt be here without you. literally",
+  "youre more then a friend to me. youre family",
+  "im sorry our friendship ended like that",
+  "i wish we could go back to how things were",
+  "i dont have friends like you anymore",
+
+  // Family
+  "i wish you could see who ive become. you'd be proud",
+  "i miss you mom. every single day",
+  "i miss you dad. i need your advice right now",
+  "i wish you were here to see me graduate",
+  "you would have loved my kids. i wish they met you",
+  "i talk to you even though youre gone. i hope you hear me",
+  "i light a candle for you every year. i always will",
+  "happy birthday in heaven. i miss you so much",
+  "i see you in everything. the sky, the flowers, the rain",
+  "grandma i miss your cooking and your hugs",
+  "i still hear your voice in my head giving me advice",
+  "thank you for sacrificing everything for our family",
   "i wish i told you i loved you more when i had the chance",
-  "the hardest part is accepting that you're really gone",
-  "i still set a place for you at the table sometimes",
-  "i would give anything for one more day with you",
-  "you left a hole in my life that no one else can fill",
-  "some days the grief hits me like it just happened",
-  "i still can't delete your number from my phone",
-  "i hope wherever you are you're at peace",
-  "you were taken too soon and it's not fair",
-  "i keep things the way you left them. i can't move them",
-  "i see you in the sunset every evening",
-  "i hope you know how much you were loved",
-  "the world keeps moving but mine stopped when you left",
-  "i still buy your favorite flowers. old habits",
-  "i miss your laugh the most. nothing sounds like it",
-  "i pray you're watching over me from somewhere",
-  "i carry your memory with me like a wound that won't heal",
-  "i thought i'd have more time with you. i was wrong",
-  "the holidays feel wrong without you here",
-  "i keep waiting for you to walk through the door",
-  "you were my safe place. now i have nowhere to go",
-  "i talk about you in present tense. i can't use past",
-  "i miss you more than words will ever capture",
-  "i found your old jacket today. i just held it and cried",
-  "i wish i could dream about you more often",
-  "you deserved so much more time on this earth",
-  "i light a candle for you every night before bed",
-  "nothing prepares you for losing someone you love this much",
-  "i still smell your perfume sometimes and it stops me cold",
-  "your birthday is the hardest day of the year for me now",
-  "i named my daughter after you. you would have loved her",
-  "you taught me everything about love before you left",
-  "i promise to live the life you wanted for me",
-  "i miss our conversations more than anything",
-  "i know you'd tell me to stop crying and start living",
-  "losing you was the worst thing that ever happened to me",
-  "i see your face in strangers sometimes and my heart stops",
-  "i'll carry you with me until it's my turn to go",
-  "you left fingerprints on my heart that will never fade",
-  "i wish you could see who i've become because of you",
-  "the first year without you was the longest year of my life",
-  "i don't think i'll ever fully heal from losing you",
-  "i hope you found the peace you couldn't find here",
-  "rest easy. i'll take care of everything you left behind",
-  "i miss the way you called me by my nickname",
-  "i still have the last voicemail you left me",
-  "some losses change you forever. losing you changed everything",
-  "i'll never stop missing you. never",
-  "you were the strongest person i ever knew",
-  "i would trade anything to hug you one more time",
-  "grief is just love with nowhere to go",
-  "you're gone but you'll never be forgotten",
-  "i visit your spot every sunday. it helps a little",
+  "im trying to make you proud. i hope im doing okay",
+
+  // Moving on / healing
+  "im happy now but sometimes i still think about you",
+  "i cant shake the feeling that something is missing and i think its you",
+  "im doing better but some days are still really hard",
+  "i finally stopped crying over you. took me long enough",
+  "i deleted your number today. it was the hardest thing ive ever done",
+  "i donated your clothes last month. i cried the whole time",
+  "i drove past your house and didnt stop. thats progress i guess",
+  "i saw you with her today. i smiled but it hurt so bad inside",
+  "i hope youre happy. i mean it even though it hurts to say",
+  "im learning to be okay without you",
+  "some days are good and some days i miss you so bad i cant breathe",
+  "i havent talked about you in months. doesnt mean i dont think about you",
+  "im finally at peace with what happened between us",
+  "i dont hate you. i just wish things ended differently",
+  "i forgive you but i wont forget what you did",
+  "i needed to lose you to find myself",
+  "you leaving was the worst and best thing that happened to me",
+
+  // Specific / quirky
+  "i still use your netflix and you havent noticed",
+  "you still owe me $20 from that time at {P}",
+  "i kept the receipt from our first date. its in my wallet",
+  "your dog likes me more then you and we both know it",
+  "you always ordered for me because you knew what i wanted",
+  "you used to save me the window seat. every single time",
+  "i wear your hoodie to sleep every night. dont judge me",
+  "the way your gums show when you smile. i love that",
+  "you always tucked my hair behind my ear and i miss that so much",
+  "you used to draw little hearts on my notes. i saved all of them",
+  "i still have the voicemail you left me. i play it sometimes",
+  "remember when we got lost driving to the beach? best day ever",
+  "i still laugh about that time we {S}",
+  "that stupid inside joke we had. i still laugh about it",
+  "you always made me try your food even when i didnt want to",
+  "you would hate the music i listen to now lol",
+  "i named a star after you. i know its cheesy but i did it",
+  "i brought your favorite flowers to your grave today",
+  "i still sit in your spot at {P}",
+
+  // Gratitude / positive
+  "thank you for making me feel like home even when im far from one",
+  "thank you for teaching me so much about love",
+  "thank you for being patient with me when i was difficult",
+  "youve filled my days with so much love and joy",
+  "i am so grateful for that random {T}",
+  "you believed in me when i didnt believe in myself",
+  "you were the first person to ever make me feel safe",
+  "i wouldnt be the person i am today without you",
+  "you showed me what real love looks like",
+  "meeting you was the best thing that ever happened to me",
+  "you made the bad days so much better just by being there",
+  "i love how you always know exactly what to say",
+  "you make me laugh harder then anyone else",
+  "i love you with everything i have. never forget that",
+  "youre the reason i smile so much",
+  "everything is better when youre around",
+  "i love you with sun and moon and all",
+
+  // Uncertainty / complicated
+  "i dont know what we are but i dont want to lose you",
+  "are we friends or is this something more because im confused",
+  "i wish you would just tell me how you feel",
+  "mixed signals are killing me please just be honest",
+  "one day youre all over me the next you act like i dont exist",
+  "you flirt with me then act like nothing happened",
+  "i dont know if you like me or if youre just being nice",
+  "every time i try to move on you pull me back in",
+  "stop giving me hope if youre not gonna follow through",
+  "i wish you knew how confused you make me",
+  "make up your mind please im begging you",
+  "i cant keep being your maybe. i deserve a yes or a no",
+  "youre the only person who can make me feel everything and nothing at once",
+
+  // Self reflection
+  "i wish i wasnt so difficult to love",
+  "i know im alot but you handled it so well",
+  "i push people away and then wonder why im alone",
+  "i wish i loved myself the way you loved me",
+  "i need to stop falling for people who dont care about me",
+  "why do i always love the people who hurt me the most",
+  "i give too much and receive nothing back and its my own fault",
+  "i need to learn to put myself first for once",
+  "i keep choosing the wrong people",
+  "im so tired of being the one who cares more",
+  "i always love harder and it always backfires",
+
+  // Long distance / waiting
+  "the distance is killing me but i would wait forever for you",
+  "i cant wait to finally see you again",
+  "counting down the days until i can hug you",
+  "i wish you didnt live so far away",
+  "facetime isnt the same as being next to you",
+  "i would drive all night just to see you for five minutes",
+  "one day the distance wont matter anymore",
+
+  // Pet loss / loss
+  "i miss you boy. you were the best dog anyone could ask for",
+  "you were such a good girl. i miss you every day",
+  "the house is so quiet without you",
+  "i still look for you when i come home",
+  "i kept your collar. i cant let go of it",
+
+  // With abbreviations naturally
+  "ilysm and i dont say that to just anyone",
+  "ily more then you will ever know fr",
+  "i love u so much it scares me sometimes",
+  "ur the best thing thats ever happened to me fr fr",
+  "miss u so much rn it hurts",
+  "cant believe ur gone. doesnt feel real",
+  "ur so beautiful and u dont even see it",
+  "u deserve so much better then what i gave u",
+  "i think about u literally all the time lol",
+  "pls come back i miss u sm",
+  "ly always no matter what",
+  "ur my whole heart and u dont even know",
+  "u were the coolest person ive ever met and i always looked up to u",
+  "brb crying over u again",
+  "nvm ill never tell u how i feel",
+  "wanna be w u forever ngl",
+
+  // Emotional dump / run-on style
+  "i miss you, i still feel you on my skin, i dont want you to move on from me ever",
+  "i love you so much, im sorry im so scared, but i want to be with you for as long as possible",
+  "im sorry for how ive treated you, ill always love you more then anything even if i dont show it",
+  "im happy now but i cant shake the feeling that something is missing and i think its you",
+  "a day hasnt gone by when i havent thought about you, and im terrified one never will",
+  "i wish you knew how i felt, i want to move on but ilysm",
+  "i cant wait to finally move into our own place and finally start our life together",
+  "i still think youre one of the most beautiful girls ive ever seen. i really loved you back then",
+  "even though we dont talk anymore, i still remember your voice in my heart",
+  "everything was real. everything IS real, at least still for me",
+  "you were my first and only true love. i wish you would have listened",
+  "using your favorite color. i miss you. youve moved on and i can tell, and im happy for you",
+  "i love you so much more then youll ever know and i hope one day i can tell you that",
+  "thank you for teaching me so much, ill love you always even if youre not in my life anymore",
+  "youve filled my days with so much love and joy i cant imagine one without you in it. forever yours",
+  "i miss you so much even though i shouldnt and i know it wasnt the right time for us",
+  "im sorry i didnt show how i felt, i ruined us and youve moved on while i still love you",
+  "you were my first and so far the only person i feel safe with",
+  "i love you so much it scares me, i dont want to lose you, please dont leave me",
+  "everything is going to be fine! trust and breathe. you got this",
+
+  // With name in message
+  "i miss you so much {N} please come home",
+  "{N} im yearning for you. i hope you will change ur mind someday",
+  "sure i like him alot but {N} i LOVE you",
+  "hey {N}! i hope the best for you! good luck with everything in life <3",
+  "{N} you are my world and i love you more than anything",
+  "happy birthday {N}!! i hope all your wishes come true. love you always",
+  "i miss you {N}. every day gets harder without you",
+  "{N} please talk to me. i cant take the silence anymore",
+  "dear {N}, i never got to tell you how much you mean to me",
+  "to {N}: you changed my life. thank you",
+  "{N} if youre reading this just know i still love you",
+  "i still love you {N} and i probably always will",
+  "thinking about you today {N}. hope youre doing okay",
+  "{N} im so proud of you. you have no idea",
+  "miss u {N} <3",
+  "{N} you deserve the whole world and more",
+
+  // ALL CAPS excited / emotional (will be uppercased in generation)
+  "BESTIE I LOVE YOU SO MUCH NEVER CHANGE",
+  "I MISS YOU SO MUCH IT HURTS",
+  "YOU ARE THE BEST PERSON IVE EVER MET",
+  "WHY DID YOU LEAVE ME",
+  "COME BACK PLEASE I NEED YOU",
+  "I LOVE YOU I LOVE YOU I LOVE YOU",
+  "YOURE SO BEAUTIFUL AND IM SO MAD ABOUT IT",
+  "IM SO PROUD OF YOU",
+  "HAPPY BIRTHDAY I LOVE YOU SO MUCH",
+  "I CANT BELIEVE YOU DID THAT TO ME",
+  "STOP BEING SO PERFECT ITS NOT FAIR",
+  "I LITERALLY CANNOT STOP THINKING ABOUT YOU",
+  "BESTIEEE ILYSM YOURE THE BEST THING IN MY LIFE",
+  "IM SO IN LOVE WITH YOU ITS EMBARRASSING",
+  "YOURE MY FAVORITE PERSON IN THE WHOLE WORLD",
 ];
+TPL.push(...MEDIUM);
 
-const REGRET_APOLOGY = [
-  "i'm sorry i wasn't brave enough to tell you how i felt",
-  "i should have treated you better when i had the chance",
-  "i regret every word i said that night. i was so wrong",
-  "i'm sorry for leaving when you needed me most",
-  "if i could go back i would do everything differently",
-  "i was too proud to apologize and now it's too late",
-  "i should have fought for us instead of walking away",
-  "i'm sorry i took you for granted. you deserved so much more",
-  "i wish i could undo the damage i caused",
-  "i was selfish and scared and i hurt the one person who mattered",
-  "i think about the things i said and i hate myself for them",
-  "you deserved a better version of me and i'm sorry you didn't get it",
-  "i should have called you back. i'll always regret that",
-  "i'm sorry i wasn't there when you needed someone",
-  "my biggest regret is not telling you i loved you sooner",
-  "i was wrong. about everything. and i'm so sorry",
-  "i wish i chose you instead of my pride",
-  "i let fear ruin the best thing that ever happened to me",
-  "i owe you an apology that words can't fully express",
-  "i'm sorry for the silence when you needed me to speak up",
-  "i should have listened to you more instead of always being right",
-  "i was a coward and you paid the price for it",
-  "i didn't realize what i had until it was gone. classic i know",
-  "i'm sorry for every time i made you feel unimportant",
-  "i pushed you away because i was scared of how much i loved you",
-  "i regret not showing up for you when it counted",
-  "i should have held on tighter instead of letting go",
-  "i hurt you and i know sorry doesn't fix it but i am",
-  "i wish i could take back the years i wasted being angry",
-  "i'll never forgive myself for how i made you cry",
-  "you gave me grace i didn't deserve and i threw it away",
-  "i'm sorry for being absent when you needed me present",
-  "the biggest mistake of my life was letting you walk away",
-  "i should have been kinder. i know that now",
-  "i regret not appreciating the small things you did for me",
-  "i was toxic and i'm only now realizing how much i hurt you",
-  "i'm sorry i didn't fight for us. i was a coward",
-  "if i could take it all back i would in a heartbeat",
-  "i owe you years of apologies and i don't know where to start",
-  "i should have chosen you every single time",
-  "i was so caught up in my own pain i forgot about yours",
-  "i'm sorry i made you feel like you weren't enough. you always were",
-  "i lied to protect myself and it cost me everything",
-  "i'm sorry for the version of me that hurt you",
-  "i should have stayed. i know that now",
-  "i let my insecurities ruin something beautiful. i'm so sorry",
-  "i'm sorry i couldn't be what you needed me to be",
-  "i wish i had the guts to say all this to your face",
-  "i failed you and i think about it every day",
-  "my ego cost me the best person in my life",
-  "i'm sorry i ghosted you. you deserved an explanation at least",
-  "i should have been honest with you from the start",
-  "i hope someday you can forgive me even if i don't deserve it",
-  "i was the villain in your story and i hate that",
-  "i hurt the only person who actually gave a damn about me",
-  "i'm sorry for wasting your time pretending i was ready",
-  "i wish i could rewrite our ending",
-  "i let you down and i'll carry that with me forever",
-  "i was wrong and i've been too scared to admit it until now",
-  "i'm sorry i made you feel alone when i was right there",
+// ──── LONGER RAW MESSAGES (15-25 words) ─── ~25% ──────────
+const LONGER = [
+  "i had a dream about you for the first time in ages. i was surprised because its been so long",
+  "you hurt me. your love for me was never real, i was too young and naive to realise it",
+  "i wish we could meet again for the first time",
+  "you ll always be my brother and i ll always ly. im sorry our friendship ended like this",
+  "the days we used to spend together are burnt into my memory as some of the happiest",
+  "i hope you knew. what you did shattered my heart. it haunts me everyday",
+  "your smile is cute. the way your gums show when you laugh. i miss you so much",
+  "i would have loved to have a nap with you on the couch. thats all i wanted",
+  "thank you for making me feel home even when im far from one. i love you with everything",
+  "i dont know if you remember me but you literally changed my whole life without even trying",
+  "remember that time at {P}? i replay it in my head like a movie i cant stop watching",
+  "i saw you at {P} the other day and my heart dropped. you looked happy. im glad",
+  "i keep your picture in my phone and i look at it when i miss you which is always",
+  "you deserve someone who loves you out loud. im sorry i could only love you in secret",
+  "i know you probably dont care anymore but i think about you every single day without fail",
+  "the hardest part isnt losing you its pretending it doesnt hurt every time someone says your name",
+  "you probably forgot about me by now and honestly thats okay. i just hope you know i cared",
+  "i wrote you so many letters i never sent. this is the closest ill ever get to sending one",
+  "im sorry i couldnt be what you needed. i tried so hard but it wasnt enough",
+  "i catch myself almost telling people about you and then i remember were not friends anymore",
+  "i still check your social media even though i know i shouldnt. old habits i guess",
+  "you were the only person who could make me feel better without even saying anything",
+  "i loved you in a way i didnt think i was capable of. you showed me i could feel that",
+  "if i could go back to {T} i would do everything different. i would hold on tighter",
+  "the worst part about losing you is that the world kept going like nothing happened",
+  "i kept everything you ever gave me. every note, every gift, every stupid little thing",
+  "people ask me why im single and i cant exactly say because im still in love with someone else",
+  "you walked out of my life like it was easy and i spent months trying to figure out what i did wrong",
+  "i think the reason i cant move on is because we never really got a proper ending",
+  "i pray for you every night. i dont even know if you believe in that stuff but i do it anyway",
+  "you were the first person i ever truly loved and no matter what happens you always will be",
+  "i see couples doing normal things and i think about how that couldve been us",
+  "im not mad at you anymore. im just sad. and tired. and i miss you",
+  "the fact that you exist in the same city as me and i cant see you is crazy",
+  "you made me feel insane for having completely normal feelings and i hate you for that",
+  "i pretend im okay when people ask about you but honestly im still a mess",
+  "i wonder if you know how many times i almost reached out. i always chicken out at the last second",
+  "you were my safe place and when you left i didnt know where to go",
+  "i miss the version of me that existed when i was with you. she was happier",
+  "i miss the version of us that existed before everything got complicated",
+  "sometimes i type your name into my phone just to look at our old conversations",
+  "you taught me that love isnt always enough and thats the saddest lesson ive ever learned",
+  "i think about what you said to me {T} and it still hurts just as much as it did then",
+  "i miss sitting with you doing nothing. those were some of the best moments of my life",
+  "i stopped going to {P} because its ours and going alone feels wrong",
+  "i found {O} while cleaning my room and i just sat there and cried for like twenty minutes",
+  "the last time i saw you you were wearing that green jacket. i think about it alot",
+  "i picked up the phone so many times today but i never pressed call",
+  "i wish i could tell you how proud i am of who youve become. youve grown so much",
+  "you asked if i was okay and i said yes. that was the biggest lie of my life",
+  "i never told you this but i cried the whole drive home after you left",
+  "im starting to forget the sound of your laugh and it scares me more then anything",
+  "you always walked me home even when it was out of your way. no one does that anymore",
+  "i saved the last text you sent me. it just says goodnight. i read it all the time",
+  "i lied when i said i dont love you anymore. i just said it because i was tired of getting hurt",
+  "some nights i still reach for you in my sleep and wake up to an empty bed",
+  "i want to hate you so bad but every time i try i just end up missing you more",
+  "i told everyone i was over you. i even almost believed it myself. but i lied",
+  "you were the first person i wanted to call when something good happened and now i cant",
+  "i keep finding excuses to bring up your name in conversation and its pathetic honestly",
+  "you made me feel like the most important person in the world and then you just stopped",
+  "i sometimes wonder what would happen if i just showed up at your door. would you let me in",
+  "i know its over between us but my heart didnt get the message",
+  "you promised you would never leave and i was dumb enough to believe it",
+  "im doing everything you said i couldnt. i wish you could see me now",
+  "you were my favorite hello and my hardest goodbye",
+  "i love you and i hate you and i miss you all at the same time and its exhausting",
+  "the truth is i think about you way more then i should and way more then youll ever know",
+  "remember when you said youd always be there? yeah me too",
+  "i have so much i want to say to you but i know none of it matters anymore",
+  "you are the one person i compare everyone else to and nobody ever comes close",
+  "i think about our last conversation alot. i wish id said something different",
+  "the worst part is i cant even be mad because the time we had together was so good",
+  "i hope one day you realize what you had. not for my sake but for yours",
+  "you didnt just break my heart you broke my ability to trust anyone after you",
+  "i miss being able to tell you everything. you were the only person who ever listened for real",
+  "i know we cant go back to what we had but god i wish we could",
+  "every time i hear our song i have to change it or ill cry in public like an idiot",
 ];
+TPL.push(...LONGER);
 
-const FRIENDSHIP = [
-  "i miss you and our friendship more than you'll ever know",
-  "you were my person before everything got complicated",
-  "i wish we could go back to how we used to be",
-  "i miss late night talks with you about nothing and everything",
-  "you were the best friend i ever had and i ruined it",
-  "i think about our old memories all the time",
-  "i hope you're doing well even though we don't talk anymore",
-  "i still consider you my best friend even if you don't",
-  "i miss laughing with you until we couldn't breathe",
-  "i didn't realize how much i needed you until you were gone",
-  "you were the only one who truly understood me",
-  "i hope life is treating you well. you deserve it",
-  "i wish we didn't grow apart. i miss us",
-  "i'd give anything to have one more night hanging out like we used to",
-  "you taught me what real friendship looks like",
-  "i'm sorry our friendship ended the way it did",
-  "nobody gets my humor the way you did",
-  "i still laugh at our inside jokes even alone",
-  "you were more than a friend. you were family",
-  "i wonder if you miss me the way i miss you",
-  "i keep almost texting you when funny things happen",
-  "our friendship was the most important relationship of my life",
-  "i hope wherever you are you have people who love you like i did",
-  "i'm sorry i let distance ruin what we had",
-  "you knew me better than anyone and that terrified me",
-  "i miss road trips with you and singing off key in the car",
-  "we were supposed to be friends forever. what happened",
-  "i think about you every time i hear that dumb song we loved",
-  "i hope you found friends who appreciate you the way i should have",
-  "you made my worst years bearable just by being there",
-  "i miss having someone who just gets it without me having to explain",
-  "i should have been a better friend to you and i'm sorry",
-  "i still keep the birthday card you made me. it's in my drawer",
-  "i miss the person i was when i was around you",
-  "you made me feel less alone in this world",
-  "our friendship was the kind of thing people write stories about",
-  "i'd drop everything to see you if you asked",
-  "i miss having a person. you were that person for me",
-  "i regret choosing a relationship over our friendship",
-  "nobody has ever known me the way you did",
-  "i still check your social media sometimes just to see you're okay",
-  "you were the sister i never had and i miss you so much",
-  "i can't believe we went from inseparable to strangers",
-  "i think the worst heartbreak is losing your best friend",
-  "i miss watching bad movies with you at 2am",
-  "our friendship felt effortless. i miss that feeling",
-  "i hope you know you'll always have a place in my heart",
-  "i wish i could text you right now but i know i shouldn't",
-  "you were the only one who never judged me",
-  "i miss having someone to tell everything to",
-];
+console.log(`Total templates: ${TPL.length}`);
 
-const SELF_REFLECTION = [
-  "i need to learn how to love myself before i try again",
-  "i'm scared that i'll never feel happy again",
-  "some days i don't recognize the person in the mirror",
-  "i've been pretending to be okay for so long i forgot what okay feels like",
-  "i think i'm finally ready to let go of who i used to be",
-  "i'm tired of being strong all the time. i just want to rest",
-  "i don't know who i am without you and that scares me",
-  "i need to stop looking for myself in other people",
-  "i'm learning that healing isn't linear and that's okay",
-  "i deserve better than what i keep accepting",
-  "i've been running from my feelings for too long",
-  "i need to forgive myself before i can forgive anyone else",
-  "i'm trying to be someone i'd be proud of",
-  "the version of me that existed with you is gone now",
-  "i think the loneliest feeling is being surrounded by people and still feeling alone",
-  "i'm done shrinking myself to make other people comfortable",
-  "i keep choosing people who can't love me the way i need",
-  "i'm learning to sit with the discomfort instead of running from it",
-  "i think i finally understand what they mean by growing pains",
-  "i need to stop waiting for someone to save me and save myself",
-  "i'm tired of being an afterthought in everyone's life",
-  "i deserve the love i keep giving to everyone else",
-  "i've been carrying other people's baggage and ignoring my own",
-  "i think i'm finally ready to start over",
-  "i'm learning that being alone doesn't mean being lonely",
-  "i need to stop apologizing for taking up space",
-  "i've outgrown people i never thought i would",
-  "i'm choosing myself for the first time and it's terrifying",
-  "i need to stop romanticizing people who hurt me",
-  "the hardest conversation i'll ever have is with myself",
-  "i'm not the same person i was a year ago and i'm glad",
-  "i've been my own worst enemy for way too long",
-  "i'm slowly learning that i am enough just as i am",
-  "i keep looking for closure when i need to give it to myself",
-  "i think the bravest thing i ever did was ask for help",
-  "i'm unlearning everything that made me small",
-  "i need to stop letting fear make my decisions for me",
-  "i've spent my whole life trying to be loved instead of loving myself",
-  "i'm finally starting to see my own worth",
-  "i've been so focused on surviving i forgot to live",
-];
-
-const UNSENT_CONFESSIONS = [
-  "i like you. a lot. more than i should probably admit here",
-  "i've been in love with you since that day at the park",
-  "i think about kissing you more than i'd ever say out loud",
-  "you have no idea how nervous you make me",
-  "i've liked you for three years and you still don't know",
-  "i'm too scared to tell you how i feel so i'm writing it here",
-  "every time you touch my arm i forget how to breathe",
-  "i think about you when i should be sleeping",
-  "you're the reason i started caring about how i look",
-  "i stare at you in class and pray you don't notice",
-  "i wrote your name in my notebook like we're in middle school",
-  "i get jealous when you talk to other people and i hate that about myself",
-  "i think you might like me back but i'm too scared to find out",
-  "you smiled at me today and it made my entire week",
-  "i wish i had the courage to ask you out",
-  "i practice what i'd say to you in the mirror",
-  "my friends are tired of hearing about you but i can't stop",
-  "i think we'd be great together if i could just say something",
-  "you make my heart race and you don't even try",
-  "i liked you the moment you walked into the room",
-  "i keep finding excuses to be near you and it's embarrassing",
-  "i get butterflies every time i see your name pop up on my phone",
-  "i think you're beautiful and i wish i could tell you that",
-  "i wrote this because i'll never have the guts to say it to your face",
-  "i can't focus on anything when you're around",
-  "you looked at me today and i swear my heart stopped",
-  "i've had a crush on you forever and it's not going away",
-  "i wonder what it would be like to hold your hand",
-  "i replay our conversations in my head before i fall asleep",
-  "you're the kind of person i'd be lucky to end up with",
-  "i'm too shy to tell you but i think you're amazing",
-  "i want to be more than friends but i'm terrified of losing you",
-  "i keep hoping you'll notice me the way i notice you",
-  "you have no idea the effect you have on me",
-  "i like you and i think you might like me too but neither of us will say it",
-  "i'd rather love you from a distance than lose you up close",
-  "you are the most interesting person i've ever met",
-  "i noticed the little things about you that nobody else sees",
-  "i got tongue tied every time i tried to tell you",
-  "you're the first thing on my mind when i wake up",
-];
-
-const ANGER_FRUSTRATION = [
-  "you don't deserve the energy i still spend thinking about you",
-  "i'm done making excuses for the way you treated me",
-  "you lied to my face and smiled while doing it",
-  "stop pretending you cared. your actions told me everything",
-  "i'm angry at myself for letting you treat me that way",
-  "you were never the person you pretended to be",
-  "i wasted years on someone who never deserved a day",
-  "you knew exactly what you were doing and you did it anyway",
-  "i hope karma finds you. i really do",
-  "the audacity you had to act like the victim after what you did",
-  "i'm not sad anymore. i'm furious",
-  "you don't get to hurt me and then act like nothing happened",
-  "i'm tired of people like you getting away with everything",
-  "you made me feel crazy for having valid feelings",
-  "you gaslit me and i believed every word. never again",
-  "i trusted you with my darkest secrets and you used them against me",
-  "you broke every promise you ever made and then blamed me",
-  "i shouldn't have to beg someone to treat me with basic respect",
-  "you strung me along knowing you didn't feel the same",
-  "stop texting me when you're bored. i'm not your backup plan",
-  "you treated me like an option and expected loyalty in return",
-  "you didn't love me. you loved having someone love you",
-  "i saw the real you and honestly i wish i hadn't",
-  "you chose her over me and now you want me back. absolutely not",
-  "i'm not going to sit around waiting for you to decide i'm worth it",
-  "the fact that you sleep fine at night knowing what you did disgusts me",
-  "you never apologized because you never cared enough to",
-  "i gave you chance after chance and you wasted every single one",
-  "you love bombed me and then disappeared like i was nothing",
-  "i can't believe i cried over someone who felt nothing for me",
-  "you didn't break me. you revealed who you really are",
-  "the worst part is other people think you're a good person",
-  "i'm tired of forgiving people who aren't even sorry",
-  "you used me and i let you. that's on both of us",
-  "i'm angry that i still care about someone who never cared about me",
-  "you took the best years of my life and gave me trauma in return",
-  "you showed me your true colors and they were ugly",
-  "i deserve so much better than the crumbs you gave me",
-  "you only reach out when you need something. i see you clearly now",
-  "i was loyal to a fault and you took full advantage of that",
-];
-
-const HOPE_HEALING = [
-  "i hope we find our way back to each other someday",
-  "i'm finally learning to be okay on my own",
-  "one day this won't hurt anymore and i look forward to that",
-  "i believe everything happens for a reason even when it hurts",
-  "maybe in another life we'll get it right",
-  "i'm healing slowly but i'm healing and that's enough for now",
-  "i hope the future version of us gets the happy ending we deserved",
-  "i'm letting you go not because i want to but because i need to",
-  "someday i'll look back on this and smile instead of cry",
-  "i'm choosing to believe that better things are coming",
-  "i hope you find whatever it is you're looking for",
-  "maybe we needed to fall apart to grow into who we're supposed to be",
-  "i'm starting to understand that some things aren't meant to be fixed",
-  "i wish you nothing but happiness even though you broke my heart",
-  "i think we'll meet again when we're both ready",
-  "i'm learning to let go of things i can't control",
-  "i hope one day you'll understand why i had to walk away",
-  "the universe has a plan even when i can't see it",
-  "i'm grateful for what we had even though it ended",
-  "maybe we're just two right people who met at the wrong time",
-  "i'm starting to find joy in small things again and it feels good",
-  "i forgive you. not for you but for me",
-  "i hope wherever you are you're smiling",
-  "one day i'll tell this story and it won't sting anymore",
-  "i'm becoming the person i needed when i was younger",
-  "i choose to believe that love will find me again",
-  "i hope time heals what my words never could",
-  "i'm letting go of the person i wanted you to be",
-  "maybe our story isn't over. maybe it's just paused",
-  "i'm finally starting to feel like myself again",
-  "i hope you're taking care of yourself the way you took care of me",
-  "i believe we'll find each other in the next life",
-  "i'm learning that endings can also be beginnings",
-  "i hope you grow into the person i always saw in you",
-  "the sun still rises even after the darkest night",
-  "i'm stronger than i was yesterday and that's enough",
-  "i'm rooting for you even from the sidelines",
-  "i hope life gives you everything you gave me",
-  "someday this pain will make sense. i have to believe that",
-  "i'm healing and it's messy but it's happening",
-  "i hope we meet again when we've both figured ourselves out",
-  "i'm letting go with love instead of anger",
-  "the best is yet to come and i'm choosing to believe that",
-  "i'll always care about you even from a distance",
-  "i think the hardest goodbyes lead to the best hellos",
-  "i'm finding pieces of myself i thought i'd lost forever",
-  "i hope happiness finds you wherever you go",
-  "i'm done looking back. it's time to look forward",
-  "we weren't meant to last but we were meant to teach each other something",
-  "i'm grateful for the pain because it taught me how strong i am",
-];
-
-// ─── VARIATION ENGINE ────────────────────────────────────────
-
-function randomChoice(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
+// ─── DETAIL INJECTION ───────────────────────────────────────
+function injectDetails(msg) {
+  let s = msg;
+  if (s.includes('{P}')) s = s.replace('{P}', R(PLACES));
+  if (s.includes('{T}')) s = s.replace('{T}', R(TIMES));
+  if (s.includes('{O}')) s = s.replace('{O}', R(OBJECTS));
+  if (s.includes('{S}')) s = s.replace('{S}', R(SCHOOL_WORK));
+  // {N} is handled separately in generation — inject recipient name
+  return s;
 }
 
-function randomFloat() { return Math.random(); }
-function randomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+// ─── LIGHT VARIATION ────────────────────────────────────────
+// Unlike v2, this does NOT do heavy synonym replacement.
+// Just light tweaks that real humans naturally vary.
 
-// ~80% lowercase, ~15% sentence case, ~5% capitalize "I" only
+const LIGHT_SWAPS = [
+  [/\byou\b/g, 'u'],
+  [/\byour\b/g, 'ur'],
+  [/\bare\b/g, 'r'],
+  [/\bplease\b/g, 'pls'],
+  [/\bprobably\b/g, 'prolly'],
+  [/\bbecause\b/g, 'bc'],
+  [/\bbecause\b/g, 'cuz'],
+  [/\bthough\b/g, 'tho'],
+  [/\bthrough\b/g, 'thru'],
+  [/\bpeople\b/g, 'ppl'],
+  [/\bwithout\b/g, 'w/o'],
+  [/\bwith\b/g, 'w'],
+  [/\bright now\b/g, 'rn'],
+  [/\bto be honest\b/g, 'tbh'],
+  [/\bfor real\b/g, 'fr'],
+  [/\bi dont know\b/g, 'idk'],
+  [/\bi love you\b/g, 'ily'],
+  [/\bi love you so much\b/g, 'ilysm'],
+  [/\blove you\b/g, 'ly'],
+  [/\bso much\b/g, 'sm'],
+  [/\bwant to\b/g, 'wanna'],
+  [/\bgoing to\b/g, 'gonna'],
+  [/\bgot to\b/g, 'gotta'],
+  [/\bkind of\b/g, 'kinda'],
+  [/\bsort of\b/g, 'sorta'],
+];
+
+function applyLightAbbrevs(msg) {
+  // Only apply 0-2 swaps randomly, not all at once
+  const numSwaps = Math.floor(rand() * 3);
+  let s = msg;
+  for (let i = 0; i < numSwaps; i++) {
+    const [pattern, replacement] = R(LIGHT_SWAPS);
+    if (rand() < 0.4) {
+      s = s.replace(pattern, replacement);
+    }
+  }
+  return s;
+}
+
+// ─── CASING ─────────────────────────────────────────────────
 function applyCasing(msg) {
-  const r = randomFloat();
-  if (r < 0.80) {
-    return msg.toLowerCase();
-  } else if (r < 0.95) {
+  const r = rand();
+  if (r < 0.65) return msg.toLowerCase(); // most are lowercase
+  if (r < 0.85) {
+    // Sentence case — capitalize first letter only
     return msg.charAt(0).toUpperCase() + msg.slice(1).toLowerCase();
-  } else {
-    return msg.toLowerCase().replace(/\bi\b/g, 'I');
   }
+  if (r < 0.92) {
+    // Mixed — capitalize first letter of each sentence
+    return msg.replace(/(^|[.!?]\s+)([a-z])/g, (_, pre, c) => pre + c.toUpperCase());
+  }
+  // ~8% ALL CAPS for excited/emotional messages
+  return msg.toUpperCase();
 }
 
-// Synonym swaps — rich vocabulary for variation (55+ groups)
-const SYNONYM_GROUPS = [
-  [[/\bmiss\b/gi], ['think about', 'keep thinking about', 'long for']],
-  [[/\blove\b/gi], ['care about', 'adore', 'cherish']],
-  [[/\bscared\b/gi], ['afraid', 'terrified', 'anxious']],
-  [[/\bafraid\b/gi], ['scared', 'terrified', 'worried']],
-  [[/\bhappy\b/gi], ['glad', 'grateful', 'thankful', 'at peace']],
-  [[/\bsad\b/gi], ['hurt', 'broken', 'empty', 'lost']],
-  [[/\bangry\b/gi], ['furious', 'mad', 'upset', 'frustrated']],
-  [[/\bhurt\b/gi], ['wounded', 'damaged', 'broken', 'crushed']],
-  [[/\bbeautiful\b/gi], ['gorgeous', 'stunning', 'pretty', 'radiant']],
-  [[/\bamazing\b/gi], ['incredible', 'wonderful', 'extraordinary']],
-  [[/\bstupid\b/gi], ['dumb', 'foolish', 'silly', 'careless']],
-  [[/\beverything\b/gi], ['all of it', 'it all', 'the whole thing']],
-  [[/\bnothing\b/gi], ['none of it', 'absolutely nothing']],
-  [[/\balways\b/gi], ['forever', 'constantly', 'endlessly']],
-  [[/\bnever\b/gi], ['not once', 'not ever', 'at no point']],
-  [[/\breally\b/gi], ['truly', 'genuinely', 'honestly', 'deeply']],
-  [[/\bwant\b/gi], ['need', 'wish', 'long']],
-  [[/\bneed\b/gi], ['want', 'crave', 'ache for']],
-  [[/\bsorry\b/gi], ['apologetic', 'regretful']],
-  [[/\bremember\b/gi], ['recall', 'think back to', 'replay']],
-  [[/\bforget\b/gi], ['let go of', 'move past', 'erase']],
-  [[/\btrying\b/gi], ['working on', 'learning to', 'struggling to']],
-  [[/\bhate\b/gi], ['despise', "can't stand", 'resent']],
-  [[/\bwish\b/gi], ['hope', 'pray', 'dream']],
-  [[/\bhope\b/gi], ['wish', 'pray', 'believe']],
-  [[/\bcrazy\b/gi], ['insane', 'wild', 'unreal']],
-  [[/\btired\b/gi], ['exhausted', 'drained', 'done', 'worn out']],
-  [[/\bperson\b/gi], ['human', 'soul', 'being']],
-  [[/\bheart\b/gi], ['soul', 'spirit', 'whole being']],
-  [[/\blife\b/gi], ['world', 'existence', 'days']],
-  [[/\bstay\b/gi], ['remain', 'stick around', 'hold on']],
-  [[/\bleave\b/gi], ['walk away', 'go', 'disappear']],
-  [[/\balone\b/gi], ['on my own', 'by myself', 'lonely']],
-  [[/\bsilence\b/gi], ['quiet', 'stillness', 'distance']],
-  [[/\bpain\b/gi], ['ache', 'agony', 'weight']],
-  [[/\bcry\b/gi], ['break down', 'tear up', 'weep']],
-  [[/\blaugh\b/gi], ['smile', 'grin', 'joy']],
-  [[/\bwrong\b/gi], ['mistaken', 'messed up', 'off']],
-  [[/\bstrong\b/gi], ['brave', 'tough', 'resilient']],
-  [[/\bweak\b/gi], ['vulnerable', 'fragile', 'soft']],
-  [[/\bfight\b/gi], ['struggle', 'push through', 'battle']],
-  [[/\bdream\b/gi], ['imagine', 'picture', 'fantasize about']],
-  [[/\bworry\b/gi], ['stress', 'overthink', 'obsess']],
-  [[/\bchange\b/gi], ['shift', 'transform', 'alter']],
-  [[/\bthink\b/gi], ['feel', 'believe', 'sense']],
-  [[/\bunderstand\b/gi], ['get it', 'see it', 'comprehend']],
-  [[/\bforgive\b/gi], ['pardon', 'let it go', 'make peace with']],
-  [[/\bdeserve\b/gi], ['are worthy of', 'earned', 'merit']],
-  [[/\bpromise\b/gi], ['swear', 'vow', 'commit']],
-  [[/\btrust\b/gi], ['believe in', 'rely on', 'have faith in']],
-  [[/\bperfect\b/gi], ['flawless', 'ideal', 'right']],
-  [[/\bmistake\b/gi], ['regret', 'error', 'blunder']],
-  [[/\bsecret\b/gi], ['truth', 'confession', 'thing']],
-  [[/\bchance\b/gi], ['shot', 'opportunity', 'moment']],
-  [[/\bfeeling\b/gi], ['emotion', 'sensation', 'vibe']],
-];
-
-// Abbreviation swaps — more aggressive application
-const ABBREV_SWAPS = [
-  [/\byou\b/gi, 'u'],
-  [/\byour\b/gi, 'ur'],
-  [/\byou're\b/gi, "ur"],
-  [/\bthough\b/gi, 'tho'],
-  [/\babout\b/gi, 'abt'],
-  [/\bso much\b/gi, 'sm'],
-  [/\bi don't know\b/gi, 'idk'],
-  [/\bto be honest\b/gi, 'tbh'],
-  [/\bi love you\b/gi, 'ily'],
-  [/\bright now\b/gi, 'rn'],
-  [/\bpeople\b/gi, 'ppl'],
-  [/\bbecause\b/gi, "cuz"],
-  [/\bprobably\b/gi, "prolly"],
-  [/\bwithout\b/gi, "w/o"],
-  [/\bplease\b/gi, "pls"],
-  [/\btomorrow\b/gi, "tmrw"],
-  [/\btonight\b/gi, "tn"],
-  [/\bforever\b/gi, "4ever"],
-  [/\bbefore\b/gi, "b4"],
-  [/\bsomeone\b/gi, "sb"],
-  [/\bsomething\b/gi, "sth"],
-  [/\beveryone\b/gi, "evry1"],
-  [/\banything\b/gi, "anythin"],
-  [/\bwhatever\b/gi, "whatevr"],
-  [/\bcoming\b/gi, "comin"],
-  [/\bgoing\b/gi, "goin"],
-  [/\bnothing\b/gi, "nothin"],
-  [/\bthinking\b/gi, "thinkin"],
-  [/\bfeeling\b/gi, "feelin"],
-  [/\bkind of\b/gi, "kinda"],
-  [/\bwant to\b/gi, "wanna"],
-  [/\bgoing to\b/gi, "gonna"],
-  [/\bgot to\b/gi, "gotta"],
-  [/\bdon't\b/gi, "dont"],
-  [/\bcan't\b/gi, "cant"],
-  [/\bwon't\b/gi, "wont"],
-  [/\bi'm\b/gi, "im"],
-  [/\bit's\b/gi, "its"],
-  [/\bthat's\b/gi, "thats"],
-  [/\bwhat's\b/gi, "whats"],
-];
-
-// Apply synonym swaps (1-2 swaps per message, 30% chance)
-function applySynonyms(msg) {
-  if (randomFloat() > 0.35) return msg; // 35% chance to apply any synonyms
-  let result = msg;
-  const numSwaps = randomInt(1, 2);
-  const shuffled = [...SYNONYM_GROUPS].sort(() => randomFloat() - 0.5);
-  let applied = 0;
-  for (const [patterns, replacements] of shuffled) {
-    if (applied >= numSwaps) break;
-    for (const pattern of patterns) {
-      if (pattern.test(result)) {
-        const replacement = randomChoice(replacements);
-        result = result.replace(pattern, replacement);
-        applied++;
-        break;
-      }
-    }
-  }
-  return result;
-}
-
-// Apply abbreviations (30% chance per swap — more aggressive)
-function applyAbbreviations(msg) {
-  let result = msg;
-  for (const [pattern, replacement] of ABBREV_SWAPS) {
-    if (randomFloat() < 0.30) {
-      result = result.replace(pattern, replacement);
-    }
-  }
-  return result;
-}
-
-// Human-like prefixes (prepended occasionally) — 50 options
-const PREFIXES = [
-  'honestly ', 'tbh ', 'idk why but ', 'look ', 'hey ', 'listen ',
-  'okay so ', 'i mean ', 'not gonna lie ', 'ngl ', 'lowkey ',
-  'real talk ', 'fr tho ', 'god ', 'ugh ', 'man ',
-  'bro ', 'dude ', 'yo ', 'okay ', 'so ', 'like ',
-  'can i just say ', 'the truth is ', 'hear me out ',
-  'i just wanna say ', 'here goes ', 'okay hear me out ',
-  'no but seriously ', 'for what it\'s worth ', 'between us ',
-  'confession: ', 'unpopular opinion but ', 'idk man ',
-  'it\'s 3am and ', 'late night thoughts but ', 'can\'t sleep so ',
-  'random thought but ', 'just saying ', 'fwiw ',
-  'not to be dramatic but ', 'please don\'t judge me but ',
-  'i keep thinking ', 'every day ', 'sometimes ', 'at this point ',
-  'after all this time ', 'even now ', 'still to this day ',
-  'the hardest part is ', 'what hurts most is ', 'deep down ',
-];
-
-// Human-like suffixes (appended occasionally) — 55 options
-const SUFFIXES = [
-  '. always', '. forever', ' lol', ' haha', ' :(', ' :)',
-  '..', '...', ' x', ' xx', ' <3', ' smh', ' sigh',
-  ' fr', ' ngl', ' istg', ' bruh', ' ugh',
-  '. that\'s it', ' tbh', '. period', ' idk',
-  '. and it kills me', '. every single day', ' still',
-  '. no cap', ' sadly', ' unfortunately', ' apparently',
-  '. it is what it is', ' tho', ' honestly',
-  '. and i mean it', '. for real', ' always will',
-  ' and i hate it', ' and that\'s okay', '. whatever',
-  ' but it\'s fine', ' i guess', ' or something',
-  '. end of story', ' ya know', ' innit',
-  '. and that terrifies me', '. more than you know',
-  ' even now', '. nothing has changed', ' and it shows',
-  '. trust me', ' no matter what', '. always always',
-  '. i just needed to say it', ' finally', '. there i said it',
-  ' and i\'m done pretending otherwise', '. goodnight',
-];
-
-// Add prefix (~8% chance — reduced to lower repetition)
-function maybeAddPrefix(msg) {
-  if (randomFloat() < 0.08) {
-    const prefix = randomChoice(PREFIXES);
-    return prefix + msg;
-  }
-  return msg;
-}
-
-// Add suffix (~8% chance — reduced to lower repetition)
-function maybeAddSuffix(msg) {
-  if (randomFloat() < 0.08) {
-    const suffix = randomChoice(SUFFIXES);
-    return msg + suffix;
-  }
-  return msg;
-}
-
-// Tweak punctuation
+// ─── PUNCTUATION TWEAKS ─────────────────────────────────────
 function tweakPunctuation(msg) {
-  if (randomFloat() < 0.4 && msg.endsWith('.')) {
-    return msg.slice(0, -1);
-  }
-  if (randomFloat() < 0.08 && !msg.endsWith('.') && !msg.endsWith('?') && !msg.endsWith('!')) {
-    return msg + '.';
-  }
+  let s = msg;
+  const r = rand();
+
+  // Sometimes add emoticons
+  if (r < 0.04) s = s + ' <3';
+  else if (r < 0.07) s = s + ' :(';
+  else if (r < 0.09) s = s + ' :)';
+  else if (r < 0.10) s = s + ' </3';
+  else if (r < 0.11) s = s + ' x';
+  else if (r < 0.12) s = s + ' lol';
+  else if (r < 0.13) s = s + ' haha';
+  else if (r < 0.135) s = s + ' :/';
+  else if (r < 0.14) s = s + ' :33';
+
+  // Sometimes strip trailing period for casualness
+  if (rand() < 0.3 && s.endsWith('.')) s = s.slice(0, -1);
+
+  // Sometimes add multiple periods
+  if (rand() < 0.05 && !s.endsWith('..')) s = s + '..';
+  
+  // Sometimes add exclamation
+  if (rand() < 0.03 && !s.endsWith('!')) s = s + '!';
+
+  return s;
+}
+
+// ─── NATURAL TAILS ──────────────────────────────────────────
+const TAILS = [
+  '. always','. forever','. i mean it','. please',
+  '. i swear','. truly','. somehow','. always and forever',
+  '. no matter what','. thats all','. yeah','. idk',
+  '. whatever','. its fine','. i guess','. but still',
+  '. honestly','. seriously','. for real',
+];
+function maybeTail(msg) {
+  if (rand() < 0.04) return msg + R(TAILS);
   return msg;
 }
 
-// Occasionally drop "i think" / "i feel" / "i just" from start (~15%)
-function maybeDropOpener(msg) {
-  if (randomFloat() < 0.15) {
-    const dropPatterns = [
-      /^i think /i, /^i feel like /i, /^i just /i, /^i really /i,
-      /^honestly /i, /^sometimes /i, /^maybe /i,
-    ];
-    for (const p of dropPatterns) {
-      if (p.test(msg)) {
-        return msg.replace(p, '');
-      }
-    }
-  }
-  return msg;
+// ─── NEAR-DUPLICATE DETECTION ───────────────────────────────
+function tokenize(msg) {
+  return msg.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(w => w.length > 0);
 }
 
-// Word count validator
-function wordCount(msg) {
-  return msg.split(/\s+/).filter(w => w.length > 0).length;
-}
-
-// Clean up whitespace and fix double conjunctions
-function cleanMsg(msg) {
-  return msg
-    .replace(/\s+/g, ' ')
-    .replace(/\bbut but\b/gi, 'but')
-    .replace(/\bbut and\b/gi, 'but')
-    .replace(/\band and\b/gi, 'and')
-    .replace(/\band but\b/gi, 'but')
-    .trim();
+function jaccard(tokA, tokB) {
+  const a = new Set(tokA);
+  const b = new Set(tokB);
+  let inter = 0;
+  for (const w of a) { if (b.has(w)) inter++; }
+  return inter / (a.size + b.size - inter);
 }
 
 // ─── MAIN GENERATION ─────────────────────────────────────────
-
 function generatePool() {
-  const allTemplates = [
-    ...LOVE_LONGING,
-    ...HEARTBREAK_BREAKUP,
-    ...GRIEF_LOSS,
-    ...REGRET_APOLOGY,
-    ...FRIENDSHIP,
-    ...SELF_REFLECTION,
-    ...UNSENT_CONFESSIONS,
-    ...ANGER_FRUSTRATION,
-    ...HOPE_HEALING,
-  ];
-
-  console.log(`Total unique templates: ${allTemplates.length}`);
-  console.log(`Total unique names: ${UNIQUE_NAMES.length}`);
-
   const usedMessages = new Set();
-  const nameUsage = {};    // Track how many times each name is used
+  const nameUsage = {};
   const MAX_NAME_USAGE = 8;
   const pool = [];
-  let attempts = 0;
+  
+  // Track structural patterns (first 3 words)
+  const openingPatterns = {};
+  const MAX_PATTERN_USAGE = 15;
+  
+  // Keep recent tokenizations for near-dup detection
+  const recentTokens = [];
+  const WINDOW_SIZE = 100;
+  const MAX_SIMILARITY = 0.70;
 
   function pickName() {
-    // Try up to 50 times to find a name under the cap
     for (let i = 0; i < 50; i++) {
-      const name = randomChoice(UNIQUE_NAMES);
-      if ((nameUsage[name] || 0) < MAX_NAME_USAGE) {
-        return name;
-      }
+      const name = R(UNIQUE_NAMES);
+      if ((nameUsage[name] || 0) < MAX_NAME_USAGE) return name;
     }
-    // Fallback: find any name under the cap
-    const available = UNIQUE_NAMES.filter(n => (nameUsage[n] || 0) < MAX_NAME_USAGE);
-    if (available.length > 0) return randomChoice(available);
-    // All names at cap — just pick any (shouldn't happen with 1300+ names and 10K entries)
-    return randomChoice(UNIQUE_NAMES);
+    const avail = UNIQUE_NAMES.filter(n => (nameUsage[n] || 0) < MAX_NAME_USAGE);
+    return avail.length > 0 ? R(avail) : R(UNIQUE_NAMES);
   }
 
-  function tryAdd(msg) {
-    msg = cleanMsg(msg);
-    if (wordCount(msg) > 25 || msg.length > 250) return false;
-    if (msg.length < 5) return false;
+  function tryAdd(msg, forceName) {
+    msg = clean(msg);
+    const words = wc(msg);
+    if (words > 25 || msg.length > 250) return false;
+    if (words < 2 || msg.length < 5) return false;
+
     const key = msg.toLowerCase().trim();
     if (usedMessages.has(key)) return false;
+
+    // Structural diversity check
+    const tokens = tokenize(msg);
+    const pattern = tokens.slice(0, 3).join(' ');
+    if ((openingPatterns[pattern] || 0) >= MAX_PATTERN_USAGE) return false;
+
+    // Near-duplicate check against recent messages
+    for (const recent of recentTokens) {
+      if (jaccard(tokens, recent) > MAX_SIMILARITY) return false;
+    }
+
+    // All checks passed — add it
     usedMessages.add(key);
-    const name = pickName();
+    openingPatterns[pattern] = (openingPatterns[pattern] || 0) + 1;
+
+    // Update sliding window
+    recentTokens.push(tokens);
+    if (recentTokens.length > WINDOW_SIZE) recentTokens.shift();
+
+    const name = forceName || pickName();
     nameUsage[name] = (nameUsage[name] || 0) + 1;
+
     pool.push({
       name,
       message: msg,
-      color_id: randomChoice(CARD_COLORS),
+      color_id: R(CARD_COLORS),
     });
     return true;
   }
 
-  // Phase 1: Use each template as-is (lowercase + minor tweaks)
-  const shuffledTemplates = [...allTemplates].sort(() => randomFloat() - 0.5);
-  for (const tpl of shuffledTemplates) {
-    let msg = applyCasing(tpl);
-    msg = tweakPunctuation(msg);
-    tryAdd(msg);
+  // Helper to process a template: inject name + details
+  function processTemplate(tpl) {
+    const name = pickName();
+    const hasName = tpl.includes('{N}');
+    let msg = hasName ? tpl.replace(/\{N\}/g, name) : tpl;
+    msg = injectDetails(msg); // always inject {P},{T},{O},{S}
+    return { msg, name, hasName };
   }
-  console.log(`After Phase 1 (originals): ${pool.length} entries`);
 
-  // Phase 2: Abbreviation + synonym variations
-  const maxPhase2 = 500000;
-  while (pool.length < 6000 && attempts < maxPhase2) {
-    attempts++;
-    const tpl = randomChoice(allTemplates);
-    let msg = applySynonyms(tpl);
+  // Phase 1: Use each template once with detail injection
+  console.log('Phase 1: Original templates...');
+  const shuffled1 = [...TPL].sort(() => rand() - 0.5);
+  for (const tpl of shuffled1) {
+    let { msg, name, hasName } = processTemplate(tpl);
     msg = applyCasing(msg);
-    msg = applyAbbreviations(msg);
     msg = tweakPunctuation(msg);
-    msg = maybeAddPrefix(msg);
-    msg = maybeAddSuffix(msg);
-    msg = maybeDropOpener(msg);
-    tryAdd(msg);
-    if (pool.length % 1000 === 0 && pool.length > 0) {
-      console.log(`  Phase 2: ${pool.length} entries (${attempts} attempts)...`);
+    tryAdd(msg, hasName ? name : undefined);
+  }
+  console.log(`  After Phase 1: ${pool.length} entries`);
+
+  // Phase 2: Variations — re-inject details + light abbreviations
+  console.log('Phase 2: Variations...');
+  let attempts = 0;
+  let lastLog = 0;
+  const maxAttempts = 500000;
+  while (pool.length < 7000 && attempts < maxAttempts) {
+    attempts++;
+    const tpl = R(TPL);
+    let { msg, name, hasName } = processTemplate(tpl);
+    msg = applyLightAbbrevs(msg);
+    msg = applyCasing(msg);
+    msg = tweakPunctuation(msg);
+    msg = maybeTail(msg);
+    tryAdd(msg, hasName ? name : undefined);
+    
+    if (pool.length >= lastLog + 1000) {
+      lastLog = pool.length;
+      console.log(`  Phase 2: ${pool.length} entries (${attempts} attempts)`);
     }
   }
-  console.log(`After Phase 2 (variations): ${pool.length} entries (${attempts} attempts)`);
+  console.log(`  After Phase 2: ${pool.length} entries (${attempts} attempts)`);
 
-  // Phase 3: Fragment combinations (opener + closer)
-  const openers = [
-    "i miss you", "i love you", "i'm sorry", "i think about you",
-    "i wish we", "i hope you", "i never told you", "i can't stop thinking about you",
-    "i'm still not over you", "i'll always remember", "i should have told you",
-    "i wish i could tell you", "i need you to know", "i'm afraid of losing you",
-    "i keep wondering about us", "i want you to know that", "i'll never forget the way",
-    "i hope one day we", "i just wanted to say", "i still care about you",
-    "i don't know how to tell you", "i'm trying to move on", "i can't believe you left",
-    "i always wanted to tell you", "i think the hardest part is knowing",
-    "i wish things were different", "sometimes i wonder if you think about me",
-    "i'm learning to live without you", "the truth is i never stopped",
-    "i never meant to hurt you", "every day i think about what we had",
-    "i'm still waiting for you", "part of me still loves you",
-    "all i wanted was for you to stay", "if only i could see you one more time",
-    "i didn't mean to push you away", "i keep telling myself it's over",
-    "the thing is i still love you", "i know i should move on",
-    "deep down i know you felt it too", "i'm not sure if you ever cared",
-    "i've always wanted to say this", "you were the best thing in my life",
-    "i think about our last conversation", "every night i wonder what happened",
-    "i can't pretend anymore", "my heart still aches for you",
-    "the worst part is i'd do it all again", "you don't know what you meant to me",
-    "i should have been braver", "i was wrong about everything",
-    "i'm trying to forgive you", "i can't get you out of my head",
-    "i regret not saying this sooner", "some nights i cry thinking about you",
-    "you deserved better from me", "i still dream about us",
-    "i'm not over it and maybe i never will be", "i hope you're happy now",
-    "i wonder if you miss me too", "i promised myself i'd forget you",
-    "you were my whole world", "i lost myself when i lost you",
-    "i can't hear that song without thinking of you", "you left a mark on me",
-    "i'm still mad at myself for what i said", "you made me feel alive",
-    "i never got closure and it kills me", "i was too proud to say i needed you",
-    "some days are harder than others", "i keep starting texts i'll never send",
-    "the silence between us is the loudest thing", "i gave you my all",
-    "it's been months and it still stings", "you were my favorite mistake",
-    "i wanted to be your forever", "i'm tired of acting like i'm fine",
-    "sometimes i still look at your photos", "i don't know what we were but i miss it",
-    "you're the one who got away", "i hate how much i still think about you",
-    "i see you everywhere even when you're not there", "you changed me",
+  // Phase 3: Compose simple opener + closer fragments
+  // These are deliberately SIMPLE and DIRECT — no poetry
+  console.log('Phase 3: Simple composing...');
+  
+  const SIMPLE_STARTS = [
+    "i miss you","i love you","im sorry","i still think about you",
+    "you mean everything to me","i wish you stayed","i hope youre happy",
+    "i cant stop thinking about you","i should have told you",
+    "i forgive you","you hurt me","i trusted you",
+    "i wish things were different","you were my best friend",
+    "you broke my heart","i hope you know","i was wrong",
+    "i need you to know","i wish i said something",
+    "i still care about you","you deserve better",
+    "i never forgot you","i dream about you",
+    "nobody compares to you","you changed me",
+    "i still love you","i cant forget you",
+    "i want you back","you were everything to me",
+    "i miss your laugh","i miss your voice",
+    "i think about you everyday","please come back",
+    "i loved you so much","i still do","you were my person",
+    "i miss us","im not over you","i lied when i said i was fine",
+    "youre always on my mind","i need you",
+    "i miss you sm","i love u","i hate that i still care",
+    "i miss how things were","you made me happy",
+    "i gave you everything","you left me","you promised me",
+    "i waited for you","i believed in us","i tried my best",
+    "i couldnt save us","i wanted to stay","you walked away",
+    "i think you were the one","i never stopped caring",
+    "i kept everything you gave me","i still wear {O}",
+    "i cant go to {P} anymore","i still remember {T}",
+    "i drove past {P} today","i found {O} yesterday",
+    "i heard our song today","remember {T}",
   ];
 
-  const closers = [
-    "and i don't think i ever will",
-    "but i was too afraid to say it",
-    "even after everything that happened",
-    "and it breaks my heart every time",
-    "but i never had the courage to tell you",
-    "more than you'll ever know",
-    "and that's okay i think",
-    "but it's too late now isn't it",
-    "and i hope you know that",
-    "even when you don't deserve it",
-    "but i'm learning to live with it",
-    "and it haunts me every single day",
-    "but some things are better left unsaid",
-    "and i wish i could change that",
-    "even if you never read this",
-    "and i'm tired of pretending otherwise",
-    "but i needed to get this off my chest",
-    "and i probably always will",
-    "but the timing was never right for us",
-    "and that's the hardest part of all this",
-    "even though it terrifies me",
-    "but i don't know how to anymore",
-    "and i think you feel the same way",
-    "but maybe it's for the best",
-    "even from this far away",
-    "and nothing has changed since then",
-    "but i'll be okay eventually i think",
-    "even if you've forgotten about me",
-    "and i hope you feel the same",
-    "but i'm afraid of the answer",
-    "and i'll carry that with me forever",
-    "but i couldn't find the words",
-    "and i think i always knew",
-    "but you already know that don't you",
-    "even on my worst days",
-    "and i don't regret a single second",
-    "but i couldn't hold on any longer",
-    "and maybe that's enough",
-    "but you left before i could",
-    "and i'd do it all over again",
-    "because you deserved to hear it",
-    "and now it's eating me alive",
-    "but life got in the way",
-    "and that's what hurts the most",
-    "but i guess some things aren't meant to be",
-    "even when it hurts this much",
-    "and i'm finally starting to accept that",
-    "but you'll never know",
-    "and i think that's beautiful in a sad way",
-    "because i owe you that much",
-    "and i wish you felt it too",
-    "but i've made my peace with it",
-    "and it keeps me up at night",
-    "but i'm done pretending",
-    "and i hope someday you'll understand",
-    "because you were worth it",
-    "and that will never change",
-    "but i have to let go now",
-    "even though it kills me",
-    "and i'm okay with that finally",
+  const SIMPLE_ENDS = [
+    "and i probably always will","but i was too scared to say it",
+    "and it hurts every single day","more then youll ever know",
+    "and i think thats okay","but its too late now",
+    "even after everything","and i dont know what to do about it",
+    "and im tired of pretending im fine","but the timing was never right",
+    "but i cant do anything about it","and i hate it",
+    "even tho you dont care anymore","and i probably shouldnt",
+    "but i dont regret anything","and im scared ill never stop",
+    "and i wish you knew","but i cant tell you",
+    "and it still hurts","but life goes on i guess",
+    "and its killing me","but i have to let go",
+    "more then anyone ever will","and i hope you know that",
+    "but i couldnt say it to your face","even when i try not to",
+    "and i dont think that will ever change","but you moved on already",
+    "and i just needed to say it somewhere","and thats okay",
+    "but im learning to be okay with it","and i think about it all the time",
+    "and im okay with that","but it still stings sometimes",
+    "and i just want you to know","even if it doesnt matter anymore",
+    "and i wish i could change it","but i cant keep waiting",
+    "and i hope youre happy. i really do","but i miss what we had",
+    "and im finally starting to accept it","even if you forgot about me",
+    "and i cried about it yesterday","but im getting better i think",
+    "and some days are worse then others","but today was a bad day",
+    "so yeah. thats that","and i needed to get that off my chest",
+    "and im done pretending otherwise","and i just wanna say thank you",
   ];
 
   attempts = 0;
-  const maxPhase3 = 500000;
-  while (pool.length < 10000 && attempts < maxPhase3) {
+  lastLog = pool.length;
+  const maxPhase3 = 800000;
+  while (pool.length < 9500 && attempts < maxPhase3) {
     attempts++;
-    const opener = randomChoice(openers);
-    const closer = randomChoice(closers);
-    let msg = `${opener} ${closer}`;
+    const start = R(SIMPLE_STARTS);
+    const end = R(SIMPLE_ENDS);
+    let msg = `${start} ${end}`;
+    msg = injectDetails(msg);
+    msg = applyLightAbbrevs(msg);
     msg = applyCasing(msg);
-    msg = applyAbbreviations(msg);
     msg = tweakPunctuation(msg);
-    msg = maybeAddPrefix(msg);
-    msg = maybeAddSuffix(msg);
     tryAdd(msg);
-    if (pool.length % 1000 === 0 && pool.length > 0 && pool.length <= 10000) {
-      console.log(`  Phase 3: ${pool.length} entries (${attempts} attempts)...`);
+    
+    if (pool.length >= lastLog + 500) {
+      lastLog = pool.length;
+      console.log(`  Phase 3: ${pool.length} entries (${attempts} attempts)`);
     }
   }
-  console.log(`After Phase 3 (combinations): ${pool.length} entries`);
+  console.log(`  After Phase 3: ${pool.length} entries (${attempts} attempts)`);
 
-  // Shuffle the final pool
-  pool.sort(() => randomFloat() - 0.5);
+  // Phase 4: Fill remaining with double-varied templates
+  if (pool.length < 10000) {
+    console.log('Phase 4: Final fill...');
+    attempts = 0;
+    lastLog = pool.length;
+    const maxPhase4 = 500000;
+    while (pool.length < 10000 && attempts < maxPhase4) {
+      attempts++;
+      const tpl = R(TPL);
+      let { msg, name, hasName } = processTemplate(tpl);
+      msg = applyLightAbbrevs(msg);
+      msg = applyLightAbbrevs(msg); // double abbreviation pass
+      msg = applyCasing(msg);
+      msg = tweakPunctuation(msg);
+      msg = maybeTail(msg);
+      tryAdd(msg, hasName ? name : undefined);
+      if (pool.length >= lastLog + 500) {
+        lastLog = pool.length;
+        console.log(`  Phase 4: ${pool.length} entries (${attempts} attempts)`);
+      }
+    }
+    console.log(`  After Phase 4: ${pool.length} entries (${attempts} attempts)`);
+  }
 
+  // Final shuffle
+  pool.sort(() => rand() - 0.5);
   return pool;
 }
 
 // ─── VALIDATION ──────────────────────────────────────────────
-
 function validate(pool) {
   const NAME_REGEX = /^[a-zA-Z\s'\-]+$/;
   let errors = 0;
 
   const messageSet = new Set();
+  const nameCount = {};
+  
   for (let i = 0; i < pool.length; i++) {
     const entry = pool[i];
 
-    // Name validation
     if (!NAME_REGEX.test(entry.name)) {
       console.error(`[${i}] Invalid name: "${entry.name}"`);
       errors++;
     }
 
-    // Word count
-    const wc = wordCount(entry.message);
-    if (wc > 25) {
-      console.error(`[${i}] Too many words (${wc}): "${entry.message}"`);
+    const words = wc(entry.message);
+    if (words > 25) {
+      console.error(`[${i}] Too many words (${words}): "${entry.message}"`);
       errors++;
     }
-    if (wc < 1) {
+    if (words < 1) {
       console.error(`[${i}] Empty message`);
       errors++;
     }
-
-    // Char length
     if (entry.message.length > 250) {
-      console.error(`[${i}] Too many chars (${entry.message.length}): "${entry.message.substring(0, 50)}..."`);
+      console.error(`[${i}] Too many chars (${entry.message.length})`);
       errors++;
     }
 
-    // Color validation
     if (!CARD_COLORS.includes(entry.color_id)) {
       console.error(`[${i}] Invalid color: "${entry.color_id}"`);
       errors++;
     }
 
-    // Duplicate check
     const key = entry.message.toLowerCase().trim();
     if (messageSet.has(key)) {
-      console.error(`[${i}] Duplicate message: "${entry.message.substring(0, 50)}..."`);
+      console.error(`[${i}] Duplicate: "${entry.message.substring(0, 50)}..."`);
       errors++;
     }
     messageSet.add(key);
+
+    nameCount[entry.name] = (nameCount[entry.name] || 0) + 1;
+  }
+
+  // Check name usage
+  const overused = Object.entries(nameCount).filter(([, c]) => c > 8);
+  if (overused.length > 0) {
+    console.error(`Names used >8 times: ${overused.map(([n, c]) => `${n}(${c})`).join(', ')}`);
+    errors += overused.length;
   }
 
   return errors;
 }
 
 // ─── RUN ─────────────────────────────────────────────────────
-
-console.log('Generating 10,000 unique human-like messages...\n');
+console.log('Generating 10,000 unique human-like messages (v3)...\n');
 const pool = generatePool();
 
 console.log(`\nValidating ${pool.length} entries...`);
@@ -1354,27 +1260,40 @@ if (errors > 0) {
 
 if (pool.length < 10000) {
   console.warn(`\n⚠ Only generated ${pool.length} entries (target: 10,000)`);
-  console.warn('This is still usable — the variation engine may need more templates to reach 10K.');
+  console.warn('Consider adding more templates or expanding detail pools.');
 }
 
-console.log(`\n✅ ${pool.length} entries generated and validated successfully!`);
+console.log(`\n✅ ${pool.length} entries generated and validated!`);
 
 // Write to file
 const outPath = join(__dirname, 'seed-messages.json');
 writeFileSync(outPath, JSON.stringify(pool, null, 2));
 console.log(`Written to: ${outPath}`);
 
-// Print some stats
+// Stats
 const colorDist = {};
 CARD_COLORS.forEach(c => colorDist[c] = 0);
 pool.forEach(e => colorDist[e.color_id]++);
 console.log('\nColor distribution:');
-Object.entries(colorDist).sort((a,b) => b[1] - a[1]).forEach(([c, n]) => {
-  console.log(`  ${c}: ${n} (${(n/pool.length*100).toFixed(1)}%)`);
+Object.entries(colorDist).sort((a, b) => b[1] - a[1]).forEach(([c, n]) => {
+  console.log(`  ${c}: ${n} (${(n / pool.length * 100).toFixed(1)}%)`);
 });
 
-const lowercaseCount = pool.filter(e => e.message === e.message.toLowerCase()).length;
-console.log(`\nCasing: ${lowercaseCount} lowercase (${(lowercaseCount/pool.length*100).toFixed(1)}%), ${pool.length - lowercaseCount} mixed`);
+const lcCount = pool.filter(e => e.message === e.message.toLowerCase()).length;
+console.log(`\nCasing: ${lcCount} lowercase (${(lcCount / pool.length * 100).toFixed(1)}%), ${pool.length - lcCount} mixed/caps`);
 
-const avgWords = pool.reduce((sum, e) => sum + wordCount(e.message), 0) / pool.length;
+const avgWords = pool.reduce((sum, e) => sum + wc(e.message), 0) / pool.length;
 console.log(`Average word count: ${avgWords.toFixed(1)}`);
+
+const nameUsed = new Set(pool.map(e => e.name)).size;
+console.log(`Unique names used: ${nameUsed}`);
+
+// Opening pattern diversity
+const patterns = {};
+pool.forEach(e => {
+  const p = tokenize(e.message).slice(0, 3).join(' ');
+  patterns[p] = (patterns[p] || 0) + 1;
+});
+const topPatterns = Object.entries(patterns).sort((a, b) => b[1] - a[1]).slice(0, 10);
+console.log('\nTop 10 opening patterns:');
+topPatterns.forEach(([p, n]) => console.log(`  "${p}": ${n}`));
