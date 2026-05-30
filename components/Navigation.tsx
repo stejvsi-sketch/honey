@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/letters', label: 'Letters' },
   { href: '/write', label: 'Write' },
+  { href: '/confess', label: 'Confess' },
 ];
 
 const MORE_LINKS = [
