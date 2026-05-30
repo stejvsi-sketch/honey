@@ -799,88 +799,87 @@ const TPL = [
 "I was at the bookstore and saw that book you always talked about. I bought it. finally reading it",
 "if you ever read this just know it was always you. from the very beginning it was always you",
 
-// ─── EXTRA {N} TEMPLATES for Phase 3 name variation ─────────
-"{N} I think about you more than I should",
+// ─── EXTRA TEMPLATES (standalone, no name in body) ──────────
+"I think about you more than I should",
+"you changed my life and you dont even know it",
+"I still love you. nothing changed",
+"I should have told you how I felt when I had the chance",
+"I saw your name today and my heart still skipped. why does it do that",
+"you are the best thing that ever happened to me and I mean that",
+"I dream about you sometimes. is that weird?",
+"please take care of yourself",
+"I never stopped loving you",
+"do you remember when things were good between us?",
+"I wrote this for you. I'll probably never send it",
+"you deserve someone who actually shows up for you",
+"im so proud of you. you dont hear that enough",
+"I cant believe we ended up like this",
+"you were everything to me. I hope you knew that",
+"I wish I could talk to you one more time",
+"I forgive you. I need you to know that",
+"Im not over you. I dont think I ever will be",
+"you made me feel like I wasnt alone in this world",
+"I still have your number memorized",
+"I think we could have been something incredible",
+"I wish you could see yourself the way I see you",
+"some days I still reach for my phone to text you",
+"youre on my mind. always have been",
+"I dont know how to do this without you",
+"I still pray for you every night",
+"you taught me what love actually looks like",
+"the world feels different without you",
+"I kept every letter you wrote me",
+"you were my best friend before anything else",
+"I miss our stupid conversations about nothing",
+"I still root for you. from a distance. but I do",
+"I cant listen to that song without thinking of you",
+"every birthday wish I make is about you",
+"you made the bad days bearable",
+"I have so much to tell you. I dont even know where to start",
+"I thought we had more time",
+"nobody compares to you. I tried. nobody does",
+"I wonder if you kept our photos",
+"you are braver than you think. dont forget that",
+"the way you smiled at me that day. I never forgot it",
+"I miss being your person",
+"I would do it all over again even knowing how it ends",
+"I hope you think of me sometimes",
+"I know I wasnt perfect but I loved you for real",
+"you will always have a place in my heart",
+"did you keep the bracelet I gave you?",
+"Im rooting for you. always will be",
+"I think you were my soulmate. wrong timing though",
+"you made me a better person and I never thanked you",
+"I drove past your street today. almost stopped",
+"the way you said my name. nobody else says it like that",
+"I never got to say a proper goodbye",
+"I saw someone wearing your perfume today. had to walk the other way",
+"you were the only person who made me feel safe",
+"everything reminds me of you. its exhausting but I dont want it to stop",
+"I started drinking coffee because of you. still hate it",
+"the last thing you said to me keeps playing in my head",
+"I wish I fought harder for us",
+"you deserved a better ending than what I gave you",
+"Im still wearing your ring. cant take it off",
+"I told my mom about you. she says I should reach out",
+"we were so close to making it work",
+"I made a playlist of songs that remind me of you. its embarrassingly long",
+"I miss the way you always knew what to say",
+"you changed everything for me. everything",
+"I wonder what we would be like if we met now instead of then",
+"I named my cat after you. dont judge me",
+"you were right about everything and I was too stubborn to see it",
+"I hope wherever you are you're smiling",
+"the distance between us kills me. every day",
+"I read your old messages when I cant sleep",
+"I think the universe keeps putting you in my path for a reason",
+"you made ordinary days feel special",
+// ─── KEEP {N} only where it sounds truly natural ─────────────
 "hey {N}. I miss you",
-"{N} you changed my life and you dont even know it",
-"I still love you {N}. nothing changed",
-"{N} I should have told you how I felt when I had the chance",
-"I saw your name today and my heart still skipped. why does it do that {N}",
-"{N} you are the best thing that ever happened to me and I mean that",
 "dear {N}, I wish things were different between us",
-"I dream about you sometimes {N}. is that weird?",
-"{N} please take care of yourself",
-"thinking of you today {N}",
-"I never stopped loving you {N}",
-"{N} do you remember when things were good between us?",
-"I wrote this for you {N}. I'll probably never send it",
-"{N} I hope you find everything you're looking for",
-"I miss your laugh {N}",
-"{N} you deserve someone who actually shows up for you",
-"im so proud of you {N}. you dont hear that enough",
 "hey {N}. just wanted you to know I still care",
-"{N} I cant believe we ended up like this",
-"you were everything to me {N}. I hope you knew that",
-"I wish I could talk to you one more time {N}",
-"{N} I forgive you. I need you to know that",
-"Im not over you {N}. I dont think I ever will be",
-"{N} you made me feel like I wasnt alone in this world",
-"I still have your number memorized {N}",
-"{N} I think we could have been something incredible",
-"I wish you could see yourself the way I see you {N}",
-"{N} some days I still reach for my phone to text you",
-"youre on my mind {N}. always have been",
-"{N} I dont know how to do this without you",
-"I still pray for you every night {N}",
-"{N} you taught me what love actually looks like",
-"the world feels different without you {N}",
-"{N} I kept every letter you wrote me",
-"you were my best friend before anything else {N}",
-"{N} I miss our stupid conversations about nothing",
-"I still root for you {N}. from a distance. but I do",
-"{N} I cant listen to that song without thinking of you",
-"every birthday wish I make is about you {N}",
-"{N} you made the bad days bearable",
-"I have so much to tell you {N}. I dont even know where to start",
-"{N} I thought we had more time",
-"nobody compares to you {N}. I tried. nobody does",
-"{N} I wonder if you kept our photos",
-"you are braver than you think {N}. dont forget that",
-"{N} the way you smiled at me that day. I never forgot it",
-"I miss being your person {N}",
-"{N} I would do it all over again even knowing how it ends",
-"I hope you think of me sometimes {N}",
-"{N} I know I wasnt perfect but I loved you for real",
-"you will always have a place in my heart {N}",
-"{N} did you keep the bracelet I gave you?",
-"Im rooting for you {N}. always will be",
-"{N} I think you were my soulmate. wrong timing though",
-"you made me a better person {N} and I never thanked you",
-"{N} I drove past your street today. almost stopped",
-"the way you said my name. nobody else says it like that {N}",
-"{N} I never got to say a proper goodbye",
-"I saw someone wearing your perfume today {N}. had to walk the other way",
-"{N} you were the only person who made me feel safe",
-"everything reminds me of you {N}. its exhausting but I dont want it to stop",
-"{N} I started drinking coffee because of you. still hate it",
-"the last thing you said to me keeps playing in my head {N}",
-"{N} I wish I fought harder for us",
-"you deserved a better ending than what I gave you {N}",
-"{N} Im still wearing your ring. cant take it off",
-"I told my mom about you {N}. she says I should reach out",
-"{N} we were so close to making it work",
-"I made a playlist of songs that remind me of you {N}. its embarrassingly long",
-"{N} I miss the way you always knew what to say",
-"you changed everything for me {N}. everything",
-"{N} I wonder what we would be like if we met now instead of then",
-"I named my cat after you {N}. dont judge me",
-"{N} you were right about everything and I was too stubborn to see it",
 "happy birthday {N}. I still remember every year",
-"{N} I hope wherever you are you're smiling",
-"the distance between us kills me {N}. every day",
-"{N} I read your old messages when I cant sleep",
-"I think the universe keeps putting you in my path for a reason {N}",
-"{N} you made ordinary days feel special",
+"{N} I hope you find everything you're looking for",
 ];
 
 // ═══════════════════════════════════════════════════════════════
@@ -894,27 +893,27 @@ const EXPAND = [
   "I {miss|think about|keep thinking about|can't stop missing|can't forget} you {every day|all the time|constantly|more than you know}",
   "I wish {you were here|things were different|we could go back|we never ended|I could see you again}",
   "it's been {weeks|months|a year|so long|ages} and I still {think about you|miss you|can't get over you|dream about you}",
-  "{N} I still {love you|miss you|think about you|care about you|want you in my life}",
+  "I still {love you|miss you|think about you|care about you|want you in my life}",
   "I {drove past|walked by|went near} {your house|our old spot|the coffee shop|the park|your street} and {almost cried|my heart dropped|I froze|it all came back|I had to stop}",
   "I keep {our photos|your old texts|that playlist|your hoodie|your letters|the bracelet you gave me} because {I can't let go|it's all I have left|throwing it away feels wrong|I'm not ready}",
   "the {worst|hardest|saddest} part is {you don't even know|you probably forgot|I can't tell you|you moved on already|I have to pretend I'm fine}",
   "I miss {our late night calls|when we used to talk|how it used to be|your laugh|your stupid jokes|our random adventures|movie nights with you}",
   "sometimes I {almost text you|type your name|open your chat|call you by accident|hear a song and think of you} and then {I remember|I stop myself|reality hits|I put my phone down}",
-  "{N} do you ever {miss me|think about me|wonder about us|miss what we had|regret how things ended}?",
+  "do you ever {miss me|think about me|wonder about us|miss what we had|regret how things ended}?",
   "I haven't {talked to you|seen you|heard from you|heard your voice} in {months|weeks|forever|so long|a year} and it still {hurts|stings|feels wrong|bothers me}",
   "I {found|saw|came across} {your old hoodie|our photos|your number|that note you wrote me|your birthday card} and it {broke me|hit me hard|made me cry|brought everything back}",
   "there's {a hole|an emptiness|a gap|something missing} in my {life|heart|world|routine} where you {used to be|were|fit perfectly|belonged}",
-  "{N} I just want you to know that {I still care|you still matter|I never stopped caring|I think about you|you were important to me}",
+  "I just want you to know that {I still care|you still matter|I never stopped caring|I think about you|you were important to me}",
 
   // ─── LOVE / AFFECTION with context ─────────────────────────
   "I love you {more than anything|so much it hurts|and I always will|even when you make me crazy|with everything I have}",
   "you are {my person|everything to me|the best thing in my life|the reason I smile|my whole world|so special to me}",
-  "{N} you are {the love of my life|my favorite person|my best friend|my everything|the sweetest person I know|my whole heart}",
+  "you are {the love of my life|my favorite person|my best friend|my everything|the sweetest person I know|my whole heart}",
   "I {love you|care about you|adore you} more than {you'll ever know|words can say|I can express|I should probably admit}",
   "I {fell in love with you|started loving you|knew you were special} the {moment I met you|first time we talked|day you smiled at me|second I saw you|night at that party}",
   "you make {me so happy|my life better|everything okay|bad days good|the world less scary|me feel safe}",
   "I would {do anything|cross oceans|drop everything|wait forever|give up everything} for you {and you know it|and I mean it|without hesitation|if you asked}",
-  "{N} I love {you so much|everything about you|your laugh|the way you care about people|how you make me feel|who you are}",
+  "I love {you so much|everything about you|your laugh|the way you care about people|how you make me feel|who you are}",
   "the way you {look at me|hold my hand|say my name|laugh|make me feel} is {everything|the best feeling|what I live for|something I never want to lose}",
   "I'm {so in love|completely in love|madly in love|hopelessly in love|deeply in love} with you and {I can't help it|there's nothing I can do|I don't want to stop|it scares me|I hope you feel it too}",
   "you {don't know|have no idea|can't imagine} how much you {mean to me|changed my life|matter|impact my day|make me feel}",
@@ -928,16 +927,16 @@ const EXPAND = [
   "I {keep replaying|can't stop thinking about|remember|still hear} {our last conversation|what you said|the last thing you told me|the day you left|that fight} and it {kills me|won't stop|hurts every time|breaks my heart}",
   "it hurts {knowing|seeing|realizing|watching} you {don't care|moved on|forgot about me|are happy without me|treat someone else the way you treated me}",
   "you walked {away|out of my life|right past me|away like it was nothing|out that door} and {didn't look back|left me standing there|never came back|I watched you go|I couldn't stop you}",
-  "{N} you {ruined me|changed me|broke something in me|took something from me} and {you don't even know|I don't think you care|I still can't fix it|I'm still trying to heal}",
+  "you {ruined me|changed me|broke something in me|took something from me} and {you don't even know|I don't think you care|I still can't fix it|I'm still trying to heal}",
   "the {worst|hardest|most painful} thing about {losing you|this|us ending|our breakup} was {realizing I wasn't enough|watching you move on|having to pretend I'm fine|knowing you're happier now}",
 
   // ─── FRIENDSHIP with real detail ───────────────────────────
-  "{N} you are {my best friend|the greatest friend|the most important person|someone I can't lose|the only one who gets me}",
+  "you are {my best friend|the greatest friend|the most important person|someone I can't lose|the only one who gets me}",
   "you were {always there|the only one|my person|my rock|the first one I called} when {things got bad|I needed someone|nobody else was|I was falling apart|everything went wrong}",
   "I {miss|wish I still had|think about|want back|need} our {friendship|late night talks|inside jokes|adventures|bond|hangouts}",
   "you were {the best friend|a better friend|more of a friend|a real friend} than {I deserved|anyone else|I ever had|I gave you credit for}",
   "I wish {we never stopped|we could go back to|I didn't lose|I fought harder for|I appreciated} our {friendship|bond|connection|time together}",
-  "{N} I {love you|appreciate you|am so grateful for you|am lucky to have you} and {I don't say it enough|you need to hear that|I hope you know|I mean it with everything}",
+  "I {love you|appreciate you|am so grateful for you|am lucky to have you} and {I don't say it enough|you need to hear that|I hope you know|I mean it with everything}",
   "losing {your friendship|you as a friend|our bond|what we had} hurt {more than any breakup|worse than I expected|differently|in a way I can't describe|so deep}",
   "you {taught me|showed me|made me understand|helped me see} what {real friendship|loyalty|trust|having someone in your corner|being understood} {looks like|means|feels like|really is}",
   "I {still laugh|think|smile|get emotional} about {our inside jokes|that one time|our dumb memories|the stuff we did|when we used to sneak out} and there's no one {left to share them with|who would get it|I can tell}",
@@ -945,22 +944,22 @@ const EXPAND = [
 
   // ─── REGRET / APOLOGY with context ─────────────────────────
   "I'm sorry for {everything|what I said|how I acted|not being there|pushing you away|hurting you|being selfish|not trying harder}",
-  "{N} I {should have|wish I had|regret not} {said something|fought harder|stayed|told you the truth|been better|been there|picked up the phone|apologized sooner}",
+  "I {should have|wish I had|regret not} {said something|fought harder|stayed|told you the truth|been better|been there|picked up the phone|apologized sooner}",
   "if I could {go back|do it over|change one thing|take it back|redo that day} I would {do everything differently|never let you go|say yes|tell you how I felt|stay}",
   "I {took you for granted|wasn't good enough|was the problem|messed up|ruined the best thing I had} and {I know it|I see that now|I hate myself for it|I can't fix it|I have to live with that}",
   "I was {wrong|selfish|scared|stupid|too proud|too stubborn|afraid} and {you paid for it|you deserved better|I lost you because of it|now you're gone|I see that now}",
   "the way I {treated you|acted|handled things|left|responded|reacted} {keeps me up at night|was wrong|was unfair|I can never take back|haunts me}",
-  "{N} I {owe you|need to say|want you to know|should have told you} {an apology|I'm sorry|the truth|how much you meant to me|that I was wrong}",
+  "I {owe you|need to say|want you to know|should have told you} {an apology|I'm sorry|the truth|how much you meant to me|that I was wrong}",
   "I {pushed you away|let you go|didn't fight for us|gave up too easy|chose wrong} and now {you're gone|it's too late|I'm the one hurting|I can't undo it|someone else has what I lost}",
 
   // ─── QUESTIONS / WONDERING ─────────────────────────────────
-  "{N} do you {ever|still|sometimes} think about {me|us|what we had|how things could have been|that night}?",
+  "do you {ever|still|sometimes} think about {me|us|what we had|how things could have been|that night}?",
   "I wonder if {you miss me|it was real|you remember|I ever cross your mind|you kept our photos|you still care}",
   "do you {still have|remember|think about|miss|listen to} {my number|our song|our photos|those letters|that playlist|what I said}?",
   "was {I|it|any of it|what we had|our time together} ever {real|important|special|more than just convenient|something you cared about} to you?",
   "if I {showed up|called you|texted you|asked you|told you I still loved you} {right now|today|tomorrow|one more time|out of nowhere} would you {care|answer|want to talk|give me a chance|feel anything}?",
   "why did you {leave|stop talking to me|give up|ghost me|act like I don't exist|change so much|walk away|lie to me}?",
-  "{N} are you {happy|okay|doing well|better without me|thinking about me}? {genuinely|honestly|seriously|for real}?",
+  "are you {happy|okay|doing well|better without me|thinking about me}? {genuinely|honestly|seriously|for real}?",
   "did you {ever love me|mean what you said|think about what you did|realize what you lost|know how I felt}?",
 
   // ─── JEALOUSY / THEIR NEW PERSON ───────────────────────────
@@ -970,7 +969,7 @@ const EXPAND = [
   "I bet you {say the same things|do the same stuff|make the same promises|use the same words|send the same texts} to {her|him|them} that you {used to say to|once said to|always told} me",
   "does {she|he|your new person} know about {me|us|what we had|what you did|how you were with me}?",
   "you took {her|him|them} to {our place|our restaurant|the spot you took me|where we went on our first date} and that {hurt|stung|was a choice|feels like a betrayal}",
-  "{N} I see you {with her|happy now|posting with someone new|moved on} and I {am happy for you|can't breathe|have to look away|pretend it doesn't hurt|smile through it}",
+  "I see you {with her|happy now|posting with someone new|moved on} and I {am happy for you|can't breathe|have to look away|pretend it doesn't hurt|smile through it}",
   "I {still love you|want you|am not over you} but you {chose someone else|are with them now|don't see me that way|moved on|want her instead}",
 
   // ─── SITUATIONSHIP / COMPLICATED ───────────────────────────
@@ -979,15 +978,15 @@ const EXPAND = [
   "I {can't keep|refuse to|am tired of|shouldn't have to} be your {maybe|backup plan|secret|option|sometimes|just in case}",
   "you {call me at night|want me in private|text when you're sad} but {ignore me|act different|pretend I don't exist|avoid me} {during the day|in public|around your friends|when it matters}",
   "this {thing|situation|whatever we are|mess|complicated thing} between us is {confusing|killing me|not fair|exhausting|undefined} and I {need an answer|deserve clarity|can't do it anymore|want more|need to know where I stand}",
-  "{N} {are we|is this|what are we|what is this}? I {need to know|deserve an answer|can't keep guessing|am tired of not knowing}",
+  "{are we something|is this real|what are we|what is this}? I {need to know|deserve an answer|can't keep guessing|am tired of not knowing}",
   "either {choose me|say something|commit|let me in|be mine} or {let me go|say goodbye|stop leading me on|walk away|stop pretending}",
   "you {want me|need me|miss me|love me} when {it's convenient|you're lonely|no one else is there|things go wrong|you need something} and that's {not enough|not love|not fair|what hurts the most|what I keep accepting}",
 
   // ─── ENCOURAGEMENT / SUPPORT ───────────────────────────────
   "I {am so proud|am proud|couldn't be prouder} of {you|how far you've come|what you've done|who you became|your growth}",
-  "{N} you are {doing so well|going to be fine|stronger than you think|amazing|so brave|going to make it}",
+  "you are {doing so well|going to be fine|stronger than you think|amazing|so brave|going to make it}",
   "the world is {better|brighter|kinder|luckier|more beautiful} because {you're in it|you exist|of who you are|of you}",
-  "{N} {keep going|don't give up|you got this|stay strong|I believe in you|never stop being you}",
+  "{keep going|don't give up|you got this|stay strong|I believe in you|never stop being you|you can do this|I'm proud of you}",
   "you {deserve|are worthy of|should have|need to accept} {love|happiness|good things|peace|someone who stays|better than what you got}",
   "I know {things are hard|it's rough right now|you're struggling|it doesn't feel like it} but {you're going to be okay|better days are coming|I'm here|you matter so much|this won't last forever}",
   "please {take care of yourself|eat something today|rest|don't be so hard on yourself|know you're loved|remember your worth}",
@@ -998,7 +997,7 @@ const EXPAND = [
   "it's been {a year|months|2 years|so long|3 years} and {I still expect your call|it still hurts|I can't believe you're gone|the house is still empty|I still set your place at the table}",
   "I {wore your favorite color|brought your flowers|played your song|made your recipe|told them about you} {to graduation|on your birthday|at Christmas|today|at the wedding} because {I wanted you there|it felt right|you should have been there|I needed you close}",
   "the world {got quieter|feels emptier|isn't the same|makes less sense|lost something real} without you {in it|here|around|to make it better|to talk to}",
-  "{N} I {wish you could see|hope you know|know you would be proud|need you to know|want to believe} {who I became|how much I've grown|that I'm trying|I'm okay|I made it|we're all okay}",
+  "I {wish you could see|hope you know|know you would be proud of|need you to know|want to believe} {who I became|how much I've grown|that I'm trying|I'm okay|I made it|we're all okay}",
   "heaven {got the best one|needed an angel|took you too soon|is lucky to have you} and {I'm still mad about it|we all feel it|the world feels it|I miss you every day}",
 
   // ─── MOVING ON / HEALING ───────────────────────────────────
@@ -1008,7 +1007,7 @@ const EXPAND = [
   "I {saw you today|heard your name|drove past our spot|looked at our photos} and felt {nothing|less than before|something small|almost nothing|peace} for the {first time|first time in months|first time ever|first time in years}",
   "I'm {putting you down|letting you go|saying goodbye|closing this chapter|walking away} and {it's the hardest thing|I mean it this time|I'm at peace|it hurts but it's right|I'm ready}",
   "I {used to|once|always|for so long} {need you|want you|look for you|depend on you} but {I found myself instead|I'm stronger now|I don't anymore|I grew past it|I have me now}",
-  "{N} I hope {you're happy|you find what you're looking for|life is good to you|you get everything you want|you heal too}. {I mean that|genuinely|even if it's not with me|from the bottom of my heart}",
+  "I hope {you're happy|you find what you're looking for|life is good to you|you get everything you want|you heal too}. {I mean that|genuinely|even if it's not with me|from the bottom of my heart}",
   "the {gap|space|silence|distance} between {my thoughts of you|missing you|the pain|wanting to text you} is {getting bigger|growing|longer|finally widening} and I think that's {progress|a good sign|healing|growth|okay}",
 
   // ─── MIXED / CONTRADICTIONS ────────────────────────────────
@@ -1020,8 +1019,8 @@ const EXPAND = [
   "I {forgive you|understand|get it|accept what happened} but I {don't trust you|can't forget|will never look at you the same|still hurt|won't let you close again}",
 
   // ─── SHORT / PUNCHY with meaning variety ───────────────────
-  "I {love you|miss you|want you|need you|forgive you|choose you} {N}",
-  "{N} I'm {sorry|here for you|proud of you|not giving up on you|always going to love you|rooting for you|thinking about you}",
+  "I {love you|miss you|want you|need you|forgive you|choose you}",
+  "I'm {sorry|here for you|proud of you|not giving up|always going to love you|rooting for you|thinking about you}",
   "you {matter|are enough|are loved|are not alone|are missed|deserve better|deserve the world}",
 
   // ─── SPECIFIC DETAIL messages ──────────────────────────────
@@ -1049,10 +1048,10 @@ const EXPAND = [
   "you {talk|text|call|show up} when you're {bored|lonely|drunk|sad|fighting with her} and I'm {done being that person|not your backup|tired of it|worth more than that}",
 
   // ─── EXTRA EXPANSION — family / siblings ───────────────────
-  "{N} you are {the best sister|my favorite person|the best brother|my biggest supporter|the reason I kept going} and {I don't say it enough|you need to hear that|I'll never forget what you did for me}",
+  "you are {the best sister|my favorite person|the best brother|my biggest supporter|the reason I kept going} and {I don't say it enough|you need to hear that|I'll never forget what you did for me}",
   "I wish {you were still here|I called more often|we had more time|I said I love you more|things weren't so complicated between us}",
   "you {raised me|took care of me|protected me|sacrificed everything} and {I never thanked you properly|I see that now|I am who I am because of you|I will never forget}",
-  "{N} I know {we fight|things are complicated|we don't always get along|I'm difficult} but {you're my person|I love you more than anything|you mean the world to me|I'd be lost without you}",
+  "I know {we fight|things are complicated|we don't always get along|I'm difficult} but {you're my person|I love you more than anything|you mean the world to me|I'd be lost without you}",
 
   // ─── EXTRA EXPANSION — growth / self awareness ─────────────
   "I'm {learning|figuring out|starting to understand|finally seeing} that {I can't fix everyone|I need to put myself first|some things aren't meant to be|not everyone deserves my energy|love isn't supposed to hurt}",
@@ -1062,11 +1061,11 @@ const EXPAND = [
   "healing {looks like|means|is} {unfollowing you|not texting back|crying in the shower|choosing myself for once|letting go of what could have been} and I'm {doing it|trying|getting there|proud of myself}",
 
   // ─── EXTRA EXPANSION — reconciliation specific ─────────────
-  "{N} if you {ever|still} want to {talk|try again|work things out|fix this|be friends}, {I'm here|the door is open|you know where to find me|just say the word|I'd be open to it}",
+  "if you {ever|still} want to {talk|try again|work things out|fix this|be friends}, {I'm here|the door is open|you know where to find me|just say the word|I'd be open to it}",
   "I keep {writing|typing|drafting|starting} messages to you and {deleting them|never sending them|chickening out|closing the app|putting my phone down}",
-  "one {conversation|honest talk|real conversation|phone call|sit-down} could {fix everything|change things|clear the air|give us closure|make this better} but {neither of us|you won't|I'm scared to|we're both too proud to} will {start it|make the first move|reach out|be the one}",
+  "one {conversation|honest talk|real conversation|phone call|sit-down} could {fix everything|change things|clear the air|give us closure|make this better} but {neither of us will|you won't|I'm too scared to|we're both too proud to|nobody wants to} {start it|make the first move|reach out|be the one}",
   "I still {set|keep|leave} {a spot for you|your mug out|your side of the bed|your favorite snack in the fridge} out of {habit|hope|denial|reflex|not wanting to let go}",
-  "the {door|offer|invitation|chance} is {still open|always open|never closed|there whenever you want it} {N}. I just need you to {walk through it|say something|show up|take it|try}",
+  "the {door|offer|invitation|chance} is {still open|always open|never closed|there whenever you want it}. I just need you to {walk through it|say something|show up|take it|try}",
 
   // ─── EXTRA EXPANSION — long distance / time ────────────────
   "{being apart|the distance|not seeing you|living in different cities} is {the hardest thing|killing me|testing everything|so unfair|making me question everything} but {you're worth it|I'd wait forever|I believe in us|I'm not giving up}",
@@ -1077,7 +1076,7 @@ const EXPAND = [
   // ─── EXTRA EXPANSION — gratitude deep ──────────────────────
   "you {showed up|were there|stayed|held me|sat with me} when {no one else did|I was falling apart|I needed someone most|everyone left|I hit rock bottom} and {that changed everything|I'll never forget|you saved me|I owe you my life}",
   "the way you {love|care|show up|listen|support} {me|people|your friends|everyone around you} makes me want to {be better|try harder|love louder|never take you for granted|protect you}",
-  "{N} you {believed in me|saw something in me|pushed me|encouraged me|never gave up on me} when {I couldn't believe in myself|I wanted to quit|no one else did|I was at my lowest|I had nothing}",
+  "you {believed in me|saw something in me|pushed me|encouraged me|never gave up on me} when {I couldn't believe in myself|I wanted to quit|no one else did|I was at my lowest|I had nothing}",
   "thank you for {never judging me|accepting my mess|loving my flaws|staying through the worst|being real with me} when {everyone else did|it would've been easier to leave|I gave you every reason not to}",
 
   // ─── EXTRA EXPANSION — specific memories deep ──────────────
@@ -1095,7 +1094,212 @@ const EXPAND = [
   "you are SO {cute|fine|annoyingly attractive|perfect|unfairly good looking} and you {walk around like it's normal|don't even know it|make it look easy|drive me insane|have no idea what you do to people}",
   "I have a {whole|secret|private|hidden|dedicated} {pinterest board|spotify playlist|journal|notes app|folder} about {you|us|our future|things that remind me of you} and {that's normal right|I'm not ashamed|don't judge me|it's getting long}",
   "told my {therapist|best friend|mom|dog|journal|mirror} about you and {they laughed|they're worried|they said I'm in too deep|they think I should tell you|I cried}",
-  "{N} you are SO {annoying|chaotic|loud|dramatic|extra} and I {love every second of it|wouldn't change a thing|can't get enough|am so glad you're in my life|adore you for it}",
+  "you are SO {annoying|chaotic|loud|dramatic|extra} and I {love every second of it|wouldn't change a thing|can't get enough|am so glad you're in my life|adore you for it}",
+
+  // ─── NOSTALGIA / SEASONS ──────────────────────────────────
+  "every {autumn|winter|spring|summer|rainy day|cold night|sunset|sunrise|holiday season} makes me {think of you|miss you more|remember us|ache a little|wish you were here}",
+  "{autumn|winter|spring|summer|december|january} was {our season|when we were happiest|when it all fell apart|the best time|when everything changed} and now {it just reminds me|it hurts to see it come|I dread it|I can't enjoy it the same}",
+  "the {leaves changing|first snow|cherry blossoms|summer heat|rain on the window|christmas lights|fireflies|fog} will always {be yours|remind me of you|mean something different now|carry your memory|take me back}",
+  "{holiday|Christmas|New Years|Thanksgiving|Easter|Valentine's Day|my birthday} felt {wrong|incomplete|empty|different|hollow|less} without {you there|your laugh|you beside me|you this year}",
+
+  // ─── SELF TALK / INNER MONOLOGUE ──────────────────────────
+  "I {keep telling|remind|convince|lie to} myself that {I'm over you|I don't care|it didn't matter|I'm fine|you weren't that important} but {my body knows the truth|I cry in the shower|I still check your profile|I can't sleep|I replay everything}",
+  "the {brave face|mask|act|front|smile} I {wear|put on|show everyone|maintain} is {exhausting|cracking|starting to slip|so heavy|not fooling anyone}",
+  "I {wonder|ask myself|can't figure out|keep questioning} why I {wasn't enough|couldn't make you stay|keep loving people who leave|fall for the wrong ones|give more than I get}",
+  "some {mornings|nights|days|moments|hours} I {wake up fine|forget for a second|feel nothing|think I'm healed} and then {it hits me|I remember|a song plays|reality crashes back|your ghost shows up}",
+  "the {voice in my head|part of me|thing I won't say out loud|truth I avoid|thought I suppress} is that {I still love you|I'd take you back|I miss you every day|I never got over it|I was the problem}",
+
+  // ─── TOXIC PATTERNS (recognizing them) ────────────────────
+  "you were {toxic|manipulative|controlling|emotionally unavailable|gaslighting me|love bombing me} and I {still miss you|kept going back|made excuses|called it love|defended you to everyone}",
+  "I {confused|mistook|thought} {chaos for chemistry|fighting for passion|jealousy for love|control for caring|breadcrumbs for effort}",
+  "every {red flag|warning sign|toxic trait|hurtful thing|boundary you crossed} looked {like love|like passion|normal|like caring|okay} when I was {in it|young|desperate|lonely|blinded by you}",
+  "you {apologized|said sorry|cried|promised to change} {every time|so many times|after every fight|and I believed you|like clockwork} and {nothing ever changed|I kept believing|we did the same dance|I was the fool|here I am again}",
+  "I know you're {bad for me|not good for me|a pattern I need to break|everything I should avoid|the worst decision} but {my heart doesn't listen|I keep coming back|I miss the good parts|I romanticize everything|the chemistry blinds me}",
+
+  // ─── PHYSICAL SENSATIONS / BODY ───────────────────────────
+  "my {chest|heart|stomach|throat|hands} {hurts|aches|tightens|drops|shakes} every time I {think about you|see your name|hear our song|remember|pass by your street}",
+  "I can still {feel your hand|smell your cologne|hear your laugh|taste that last kiss|feel your arms around me} even though {it's been months|you're gone|it's over|we're strangers now|you've moved on}",
+  "the {weight|heaviness|pressure|knot|sting} in my chest {won't go away|gets heavier|is always there|only shows up at night|is the only constant}",
+  "I {held my breath|stopped breathing|froze|felt my heart stop|went numb} when I {saw your face|heard your voice|read your text|bumped into you|saw you with someone}",
+
+  // ─── SOCIAL MEDIA ERA ─────────────────────────────────────
+  "I {unfollowed|muted|blocked|restricted|archived} you and it was {the hardest thing|necessary|liberating|painful|like cutting off a limb} but I {had to|needed to heal|kept checking anyway|regret it|don't regret it}",
+  "you {posted that|went live|updated your story|changed your photo|tweeted that} and I {know it was about me|felt it|overthought it|couldn't stop analyzing it|pretended I didn't see}",
+  "I {wrote a whole|typed out a long|drafted a|spent an hour on a} {text|DM|email|letter|reply} to you and {never sent it|deleted it|saved it in drafts|read it back and cried|it's still sitting there}",
+  "your {online|active|last seen|typing|viewed my story} status {drives me crazy|gives me hope|hurts|means nothing and everything|makes me spiral}",
+  "I {stalk|check|visit|look at} your {profile|page|stories|posts|photos} {way too much|more than I should|every night|even though it hurts|and I hate myself for it}",
+
+  // ─── DREAMS / SLEEP ───────────────────────────────────────
+  "I {dreamed|dreamt} about you {last night|again|every night this week|for the first time in months} and {woke up reaching for you|it felt so real|I didn't want to wake up|I cried when I opened my eyes|the bed was empty}",
+  "{3am|2am|midnight|4am|late at night} is when I {miss you most|think about you|break down|can't pretend anymore|feel everything I avoid during the day}",
+  "I {can't sleep|lie awake|toss and turn|stare at the ceiling|count the hours} because {my mind won't stop|I keep replaying us|the silence is too loud|your side of the bed is cold|I'm afraid to dream about you}",
+  "the {night|darkness|quiet|silence|emptiness} is when {I lose it|the mask comes off|I feel everything|I'm honest with myself|you creep back in}",
+
+  // ─── MUSIC / ART CONNECTION ───────────────────────────────
+  "that {song|album|playlist|artist|lyric} {you showed me|we listened to together|was playing when we kissed|you dedicated to me|reminds me of our drives} still {breaks me|makes me cry|transports me back|won't leave my head|hits different now}",
+  "I {heard|found|discovered|finally understood} a song that {perfectly describes|captures exactly|says everything about|nails|puts words to} {us|what we had|how I feel|what I lost|this pain}",
+  "music {used to be|was|is} our {language|thing|escape|connection|lifeline} and now every {song|beat|melody|lyric|note} is {a landmine|a trigger|haunted|bittersweet|tainted}",
+  "I {can't listen to|skip|avoid|cringe at|break down during} {our song|that album|that playlist|anything we shared|certain artists} because {it takes me right back|I'm not ready|it still hurts|the memories flood in}",
+
+  // ─── FOOD / PLACES ────────────────────────────────────────
+  "I {still order|can't stop making|accidentally made|found myself cooking|ordered} {your coffee order|your favorite meal|two plates|enough for us|the thing you always got} and {felt stupid|laughed at myself|cried into it|realized I'm not over it|old habits die hard}",
+  "{that restaurant|the diner|our coffee shop|the bar|that bakery|the pizza place} we {always went to|discovered together|had our first date at|spent hours in|called ours} is {ruined for me now|somewhere I avoid|closed actually|still there and it stings|our ghost's favorite spot}",
+  "I {went back to|visited|drove past|ate at|couldn't avoid} {our place|that spot|where we first met|your favorite restaurant} and {every corner had your ghost|it wasn't the same|I sat in your seat|I ate alone and felt it|the staff asked about you}",
+
+  // ─── WORK / SCHOOL / DAILY LIFE ───────────────────────────
+  "someone {at work|in class|at the store|on the bus|in line} {said something you would say|laughed like you|looked like you|wore your perfume|mentioned your name} and I {lost it|had to step away|froze for a second|smiled and then hurt|almost said your name}",
+  "I {got the promotion|graduated|passed the exam|landed the job|achieved the thing} {we used to talk about|you always said I could do|I was working toward when we were together|you never believed I would} and {the first person I wanted to tell was you|you weren't there to celebrate|it felt empty|I wished you saw it}",
+  "my {morning|day|commute|routine|schedule} is {built around avoiding|designed to not remind me of|reorganized since|missing the part where|emptier without} {you|our routine|what we had|the things we did together}",
+
+  // ─── PROMISES / COMMITMENTS ───────────────────────────────
+  "you said {forever|always|I promise|I'll never leave|we'll figure it out|it's you and me|I'm not going anywhere} and {I believed every word|I should've known|forever lasted 8 months|here I am alone|those words mean nothing now}",
+  "I {still believe|want to believe|can't stop believing|foolishly hope|know deep down} that {we'll find our way back|the universe has a plan|this isn't the end|you'll come back|we're not done yet}",
+  "we {planned|talked about|dreamed of|imagined|mapped out} {a future|growing old|traveling together|a house|kids|a life} and now {I drive past houses alone|none of that exists|someone else gets that dream|I mourn what could've been|I'm building it without you}",
+  "every {promise|plan|dream|word|future} we {made|shared|built|talked about|whispered} is just {a memory now|dust|something that haunts me|proof it was real|a wound that won't close}",
+
+  // ─── BOUNDARIES / SELF RESPECT ────────────────────────────
+  "I {chose myself|walked away|set a boundary|said no|stopped answering} for the {first time|first time ever|first time in my life|sake of my health|sake of my sanity} and {it was the hardest thing|I'm proud of that|I cried the whole drive home|I don't regret it|you made it easy}",
+  "loving {you|someone|a person} shouldn't {feel like drowning|hurt this much|require losing myself|mean giving up everything|come with conditions|mean begging}",
+  "I {deserve|am worth|need|want|have earned the right to} {better|consistency|honesty|effort|someone who stays|love that doesn't hurt|peace}",
+  "I'm not {your therapist|your placeholder|someone to keep warm|a safety net|an ego boost|a convenience} and {I refuse to be|I see that now|it took me too long to realize|I wish I knew sooner}",
+  "the {moment|day|second|instant|point} I {stopped chasing|quit begging|accepted it was over|let go|chose my peace} was {terrifying|freeing|the best and worst day|when I started healing|when I became myself again}",
+
+  // ─── VULNERABILITY / RAW ──────────────────────────────────
+  "I have {never|not once|literally never} {told anyone this|said this out loud|admitted this|written this down|been this honest} but {I loved you more than myself|you broke me|I think about you daily|you were the one|I would still choose you}",
+  "this is {embarrassing|pathetic|vulnerable|raw|terrifying|hard} to {say|write|admit|put into words|type} but {I need to get it out|you deserve to know|I can't hold it anymore|someone has to hear it|this app is all I have}",
+  "the {scariest|most vulnerable|hardest|bravest|most terrifying} thing I {ever did|have ever done|could do|had to do} was {loving you|trusting you|letting you in|opening up|telling you how I felt|being honest}",
+  "I'm {writing this|typing this|saying this|sending this|posting this} because {I'll never say it to your face|you'll never see it|I need to let go|the words are rotting inside me|holding it in is killing me}",
+
+  // ─── COMPARISON / MOVING ON STRUGGLES ──────────────────────
+  "I {went on a date|met someone|tried to move on|kissed someone new|downloaded the app} and {all I could think about was you|compared them to you|felt nothing|cried after|it confirmed what I already knew}",
+  "everyone says {you'll find someone better|time heals|there are other people|move on|get over it} but {nobody feels like you|time just makes it different|I don't want other people|it's not that simple|they don't understand}",
+  "the {new person|rebound|next one|someone after you|person I'm seeing} is {great|kind|everything I should want|good on paper|nice} but {they're not you|something is missing|I feel guilty|I can't connect|my heart isn't in it}",
+  "I {keep|catch myself|can't stop|hate that I} {comparing everyone to you|looking for you in other people|measuring them against us|searching for your traits|wanting what we had from someone else}",
+
+  // ─── SPECIFIC SMALL MOMENTS ───────────────────────────────
+  "I saw {a couple|two people|someone} {holding hands|laughing together|sharing food|being in love|kissing in the rain|arguing then making up} and {my heart cracked|I looked away|I smiled but it hurt|all I thought was that used to be us}",
+  "you {left|forgot} your {toothbrush|earring|hoodie|socks|charger|book|mug} here and I {can't throw it away|use it sometimes|stare at it|put it in a box|sleep with it}",
+  "the {grocery store|pharmacy|gas station|laundromat|parking lot} is where I {broke down|cried in public|lost it|finally felt it hit me|realized you were really gone}",
+  "I {wave|nod|smile|say hi|pretend} when I {see your mom|run into your friends|pass your brother|see your family} and {die inside|wonder if they know|hope they don't hate me|miss them too|act normal}",
+  "your {laugh|voice|smile|way of walking|handwriting|the way you pronounce certain words} {plays in my head|is something I'm terrified of forgetting|I hear in crowds|is imprinted in me|I'd recognize anywhere}",
+
+  // ─── TIME PASSING ─────────────────────────────────────────
+  "it's been {347|112|89|203|a thousand} days since {you left|we talked|I last saw you|it ended|you walked away} and {yes I'm counting|I counted just now|I wish I wasn't tracking|every single one hurt}",
+  "time {doesn't heal|isn't healing this|is supposed to help|keeps moving|passes differently now} the way {they said it would|people promise|I hoped|the quotes say|movies show}",
+  "{a year ago|six months ago|two years ago|last summer|this time last year} we were {happy|inseparable|planning forever|laughing about something stupid|in each other's arms} and now {we're strangers|I don't recognize us|look at us|it's like it never happened|you're a memory}",
+  "the {calendar|clock|days|weeks|months} keep {moving|going|ticking|passing|piling up} and I {keep standing still|am stuck in that moment|can't move forward|feel frozen|am slowly starting to catch up}",
+
+  // ─── WHAT IFS ─────────────────────────────────────────────
+  "what if {I had stayed|you had stayed|we tried harder|we met at a different time|I said yes|I didn't say that|I picked up the phone|we were braver}",
+  "I {replay|rewrite|reimagine|fantasize about|dream of} {our ending|that last day|what could've been|an alternate timeline|a version where we make it} and {it always hurts|in every version we're happy|I torture myself|none of them are real|I can't stop}",
+  "in {another life|a parallel universe|a different timeline|some other version of this|my head} we {made it|are still together|figured it out|are happy|never ended|got it right}",
+  "if {timing|distance|circumstances|life|our ages|our families|fear} wasn't {a factor|the issue|in the way|against us|the problem} we would {still be together|be married|be happy|have been forever|have made it work}",
+
+  // ─── ACCEPTANCE / PEACE ───────────────────────────────────
+  "I'm {choosing|finding|making|learning|fighting for} {peace|acceptance|closure|myself|my own happiness} even though {it means losing you|you never gave me closure|it's painful|every cell in me resists|I wanted us to work}",
+  "maybe {we were never meant to last|it was a chapter not the whole book|we met for a reason and that reason is over|some love is temporary|you were the lesson not the destination}",
+  "I {stopped being angry|released the resentment|forgave you in my heart|let go of the bitterness|made peace with it} not because {you deserve it|what you did was okay|I forgot|I'm over it} but because {I deserve peace|I was tired of carrying it|it was killing me|I need to move forward}",
+  "the {truth|reality|thing I finally accept|hardest pill|honest answer} is that {we were great but not right|love isn't always enough|I can love you and still leave|some people are meant to be temporary|it's over and I'm going to be okay}",
+
+  // ─── RANDOM LIFE OBSERVATIONS ─────────────────────────────
+  "I {wonder|think about|question|ask myself} if {love is supposed to hurt this much|I'll ever love anyone the way I loved you|we peak at one love and everything after is just trying|the universe is punishing me|second chances are real}",
+  "everyone's {getting married|having kids|building lives|moving forward|growing up} and I'm {still here|stuck on you|not over a text from 2 years ago|processing the same heartbreak|barely functioning}",
+  "the {irony|cruelest part|funniest thing|most painful twist|plot twist} is that {you taught me to love and then left|I became who you wanted after you left|you're with someone like me|I'm better now but you'll never see it|we were perfect on paper}",
+  "I {don't believe in|still believe in|want to believe in|have given up on|am terrified of} {love|soulmates|forever|second chances|trusting someone again|opening up} {after you|because of you|since you|now}",
+
+  // ─── DIRECT ADDRESS (no name, raw) ────────────────────────
+  "you {owe me|at least owe me|could've given me|should've had the decency to give me} {an explanation|closure|the truth|an honest conversation|a real goodbye|one last chance to understand}",
+  "I {hope|pray|wish} you {feel it someday|understand what you lost|grow from this|never do this to someone else|realize how good we were|think of me when it rains}",
+  "the {least|minimum|bare minimum} you could {do|have done|give me} is {be honest|explain|apologize|acknowledge what happened|admit you were wrong|not pretend we never existed}",
+  "stop {texting me|calling me|watching my stories|reaching out|showing up} if you're not going to {choose me|stay|mean it|commit|follow through|actually do something about it}",
+  "you know {exactly|damn well|perfectly well} {what you did|how you hurt me|why I'm like this|the effect you have on me|what you're doing} so don't {act confused|play dumb|pretend|act innocent|gaslight me}",
+
+  // ─── GRATITUDE FOR THE PAIN ───────────────────────────────
+  "you {breaking me|leaving|hurting me|walking away|destroying us} was the {best worst thing|push I needed|beginning of something better|painful gift|wake up call|turning point} {and I'm grateful now|that changed everything|that saved me|that forced me to grow|in disguise}",
+  "I {hated you|was so angry|wanted to destroy everything|cursed your name|cried for months} but {now I understand|I get it|I see the bigger picture|I'm grateful|it all makes sense}",
+  "losing you {taught me|showed me|forced me to learn|revealed|made me realize} {who I am|my own strength|what I actually need|that I'm enough alone|how to love myself first}",
+
+  // ─── SPECIFIC AGES / GROWTH ───────────────────────────────
+  "the {17|18|19|20|21|22|15|16} year old me who {loved you|met you|fell for you|gave you everything|believed in us} would {not recognize|be proud of|cry seeing|hug|forgive} the {person I am today|me now|version of me that survived|adult I became}",
+  "I {met you|loved you|lost you|found you|needed you} at {the wrong time|the right time|a time I was broken|my lowest|my most vulnerable|a crossroads} and {that's what makes it hurt|I wonder if timing was the only problem|life isn't fair|I'm still processing it}",
+  "I {grew up|matured|became an adult|found myself|healed} {without you|in your absence|because you left|on my own|in spite of everything} and {it's bittersweet|you wouldn't recognize me|I wish you could see|I'm proud and sad|I did it}",
+
+  // ─── UNSENT LETTER STYLE ──────────────────────────────────
+  "this is {my goodbye|the closure I'm giving myself|the last thing I'll write about you|what I should've said|the truth I owed you|my final word}",
+  "I don't {need you to respond|expect anything|want your pity|care if you read this|need your permission|want an apology anymore}. I just {needed to say it|had to write it down|wanted you to know|needed to let it go|had to release it}",
+  "by the time {you read this|this matters|you realize|you care|you look back} it'll {be too late|be years from now|not matter anymore|be just words|be a memory of a memory}",
+  "I'll {never send this|probably delete this|keep this forever|read this in 10 years and cry|forget I wrote this|come back to this when I'm stronger}",
+
+  // ─── MISCELLANEOUS UNIQUE ─────────────────────────────────
+  "if you're {reading this|out there|wondering|thinking about texting me|looking at the sky right now too}, {I still love you|I hope you're okay|I forgive you|I'm doing better|hi}",
+  "the {hardest|bravest|scariest|most grown up|realest} thing I {ever did|have done|had to do|am doing} was {walking away from you|choosing myself|forgiving you|admitting I was wrong|saying goodbye}",
+  "you {didn't break me|don't get that credit|weren't the villain|weren't the hero either|were just a person} you were just {a lesson|a chapter|someone I loved too much|part of my story|passing through}",
+  "I {carry|hold|keep|remember|treasure|protect} {what we had|our memories|the good parts|the love|your words} {like a bruise|like a secret|like a scar|close to my chest|in a place nobody can touch}",
+  "some {days|mornings|nights|hours|moments} I {miss you|love you|hate you|forgive you|need you|feel nothing} and {I never know which one it's going to be|they change by the hour|all of them feel true|it's exhausting|that's just life now}",
+
+  // ─── ADDITIONAL HIGH-COMBO TEMPLATES ───────────────────────
+  "I {think|wonder|worry|ask myself|stay up thinking} about whether {you ever loved me|I was just convenient|we were real|any of it mattered|you think about me too} and {it eats me alive|I'll never know|I'm scared of the answer|I hate not knowing}",
+  "the {problem|thing|truth|issue|reality} was {never you|never me|us|the timing|that we wanted different things} it was {everything around us|how we handled it|that we stopped trying|fear|pride}",
+  "{Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday} {mornings|nights|afternoons|evenings} are {when I miss you most|the hardest|when it all hits|when I feel it|when I break down}",
+  "I {pretend|act like|fake|convince everyone|tell people} {we're cool|I've moved on|it doesn't bother me|I'm over it|I'm happy} when {really I'm dying|I still check your profile|I cried yesterday|my heart is shattered|nothing has changed}",
+  "you had {my whole heart|everything I had|my trust|my loyalty|my vulnerability|my future} and you {treated it like nothing|dropped it|didn't care|used it|threw it back}",
+  "the {thing|part|detail|memory|moment} that {haunts me|I replay|won't leave|I fixate on|I can't shake} is {the look on your face|what you said last|how quiet it was|that you didn't cry|how easy it seemed for you}",
+  "I'm {doing|learning|trying|forcing myself|slowly getting} {new things|hobbies|routines|habits|anything} to {fill the void|stop thinking|distract myself|forget|replace what we had|become someone new}",
+  "you {smell like|remind me of|feel like|sound like|taste like} {home|safety|nostalgia|pain|everything I want|a memory I can't reach}",
+  "the {first|last|only|worst|best} {thing|word|look|touch|moment} between us was {unforgettable|the most real thing I've felt|burned into me|what I hold onto|what I keep coming back to}",
+  "I {built|created|constructed|designed|arranged} my {entire life|whole world|daily routine|future plans|identity} around {you|us|what we had|being yours|our love} and now {I have to start over|it's all rubble|I don't know who I am|I'm standing in the wreckage|nothing fits}",
+  "{nobody|no one|not a single person|none of them|nothing} {compares|comes close|measures up|feels the same|hits the same} and I {hate that|am terrified of that|know it's true|wish it wasn't|keep trying anyway}",
+  "I {learned|found out|realized|discovered|finally understood} that {I was the toxic one|I pushed you away|it was my fault too|I wasn't innocent|I contributed to our end} and {I'm working on it|I'm sorry|it keeps me up|I wish I could redo it|I'll be better next time}",
+  "you were {right|correct|honest|not wrong|telling the truth} about {everything|me|us|what would happen|how it would end} and I {was too stubborn|didn't listen|see it now|owe you that|wish I heard you then}",
+  "I {found|noticed|saw|discovered|stumbled on} {a note you wrote|your handwriting|an old photo|a video of us|your birthday card to me} and {collapsed|couldn't breathe|time stopped|I smiled through tears|I kept it}",
+  "{rain|thunder|the cold|darkness|silence|a full moon|cloudy skies} {makes me think of you|reminds me of that night|takes me back|is our weather|feels like you}",
+  "I {don't know|can't figure out|will never understand|keep asking|am confused about} {why you left|how you stopped loving me|what I did wrong|when it changed|if any of it was real}",
+  "the {way|fact} that I {can laugh again|found joy|am healing|smile now|don't cry as much} doesn't mean I {forgot you|don't miss you|am over it|don't love you still|wouldn't go back if I could}",
+  "I {regret|miss|mourn|grieve|ache for} {the version of us|who we were|the early days|before things got complicated|when loving you was easy|the beginning}",
+  "you {were|are|became|turned into|represent} {the standard|the benchmark|what I measure everyone against|impossible to follow|a hard act to follow} and {that's not fair to anyone|I know that's unhealthy|nobody asked for that|I'm working on it|everyone suffers}",
+  "I keep {your photo|our chat|your number|that voicemail|your letter|that text} {in my phone|in my wallet|under my pillow|in a box|hidden} like {evidence|proof|a secret|a lifeline|the last piece of you}",
+  "{graduation|prom|the wedding|that party|my birthday|Christmas dinner|new years} would have been {different|better|perfect|complete|bearable|less lonely} with {you|you there|you beside me|your hand in mine|your laugh in the room}",
+  "I {started|picked up|got into|began|dove into} {therapy|journaling|working out|meditation|painting|running} {because of you|after you left|to process us|to heal from this|to become who I should've been}",
+  "some {love|people|connections|bonds|relationships} are {supposed to end|not meant to last|beautiful and temporary|lessons disguised as forever|chapters not books}",
+  "the {silence|space|emptiness|distance|void} you left behind {screams|echoes|rings|reverberates|speaks louder than you ever did}",
+  "I {packed up|boxed|stored|hid|gathered} {your things|our memories|everything of yours|the gifts|the photos} and it felt like {a funeral|closing a book|surgery|amputation|saying goodbye to a version of me}",
+  "{strangers|acquaintances|people who barely know me} can tell {something's different|I'm carrying something|I'm not the same|I'm hurting|something broke} and I {don't even hide it well|laugh it off|change the subject|say I'm fine|blame allergies}",
+  "I {accidentally|almost|nearly|instinctively|reflexively} {called you|texted you|said your name|typed your number|opened your chat} and {caught myself|panicked|felt stupid|laughed sadly|let it ring once then hung up}",
+  "the {version of you|you that I remember|person you were|way you used to be} and {who you are now|the current you|what you became|you today} feel like {two different people|strangers|a before and after|a split timeline|someone I invented}",
+  "I {wear|still wear|haven't taken off|hold onto|sleep in} {your ring|that bracelet|your necklace|the shirt you gave me|your watch} because {it's all I have|taking it off means it's real|I'm not ready|it still smells like you|I'm sentimental}",
+  "the {worst days|hardest moments|times I break|moments I lose it|darkest hours} are {when I forget|when I reach for you|when no one's watching|birthdays and holidays|when I hear your name in public}",
+  "I {write|journal|type|scribble|pour out} {everything|my feelings|what I can't say|these words|this mess} because {talking is too hard|nobody would understand|it's all I have|the page doesn't judge|my therapist is booked}",
+  "you {live|exist|remain|persist|linger} in {every love song|every sunset|every coffee shop|every slow dance|every rom com|every quiet moment} and {I can't escape it|it's beautiful and cruel|I stopped fighting it|I'm learning to coexist with it}",
+  "I {gave you|offered you|showed you|handed you} {my deepest secrets|the parts nobody sees|my most vulnerable self|everything I hide|the real me} and {you held it so gently|you used it against me|you kept it safe|you let it fall|you didn't know what to do with it}",
+  "the {relationship|bond|love|connection|thing} we {had|built|created|shared|lived} was {imperfect|messy|real|raw|chaotic|flawed} and {that's what made it beautiful|I wouldn't trade it|I miss every part|it taught me everything|that's why it hurts so much}",
+  "{age|time|distance|maturity|life|growth} has {softened|changed|shifted|evolved|reframed} how I {see us|remember you|feel about it|understand what happened|look back} and {I'm grateful|I'm at peace|I still hurt|I'd do it again|I forgive us both}",
+  "I {whisper|pray for|manifest|wish for|send out|put into the universe} {good things for you|that you're okay|peace for us both|your healing|happiness for you} even though {you'll never know|we don't talk|you hurt me|I'm still broken|you wouldn't do the same}",
+  "our {story|love|chapter|time|saga|mess} {deserved|earned|warranted|needed|should've had} a {better ending|proper goodbye|final conversation|real closure|chance to try again|different outcome}",
+  "I {didn't eat|couldn't sleep|skipped class|called in sick|cancelled plans|drove aimlessly} for {days|weeks|a month|way too long} after {you left|we ended|that night|the text|I found out}",
+  "the {way|speed|ease|casualness} you {moved on|got over it|started dating|seemed fine|forgot} makes me {question everything|feel crazy|wonder if I imagined us|spiral|doubt my own memory}",
+  "I {cried|broke down|lost it|sobbed|fell apart} in {the car|the bathroom|the shower|a parking lot|my room|a public restroom} and {nobody knew|I cleaned up and went back|I let it happen|it was the most honest I'd been|I needed it}",
+  "you {texted|called|reached out|messaged|showed up} {at the worst time|when I was finally moving on|right when I was healing|after months of silence|out of nowhere} and {ruined my progress|set me back|I wasn't ready|everything came flooding back|I didn't respond}",
+  "I {trace|reread|revisit|scroll through|analyze} our {old conversations|text history|DMs|photos together|voicemails} looking for {the moment it changed|where it went wrong|signs I missed|proof you loved me|clues I ignored}",
+  "the {thought|idea|possibility|chance|hope} that {you might come back|we could try again|this isn't permanent|there's still something there|you miss me too} is {what keeps me going|dangerous|probably delusion|the only thing I have|fading but still there}",
+  "I {celebrate|mark|acknowledge|remember|honor} the {milestones|achievements|wins|moments|growth} {we talked about|you helped me reach|that belong partly to you|that remind me of our plans|that feel incomplete without you}",
+  "you {showed me|taught me|revealed|opened my eyes to|introduced me to} what {love|trust|safety|vulnerability|happiness|companionship} {could look like|feels like|is supposed to be|tastes like|really means} and then {took it away|left with it|disappeared|walked out|proved it temporary}",
+
+  // ─── FINAL BATCH — push past 10K ──────────────────────────
+  "I {keep thinking|catch myself wondering|can't shake the thought|lie awake asking} {what if we met now|would it be different now|if the timing was just wrong|whether we'd work today|if you've changed too}",
+  "you {walked into|crashed into|stumbled into|entered|appeared in} my {life|world|universe|story|chaos} and {nothing was ever the same|everything shifted|I didn't ask for it|rearranged everything|wrecked the plan I had}",
+  "there are {moments|seconds|flashes|instants|glimpses} where I {forget|let go|am free|don't think of you|almost breathe normally} and then {it rushes back|gravity returns|I remember|something triggers it|the ache restarts}",
+  "I {used to think|once believed|was so sure|naively thought|genuinely believed} {love conquers all|we were different|we'd be the exception|forever existed|nothing could break us} and {you proved me wrong|reality happened|life disagreed|here we are|I was foolish}",
+  "the {most unfair|cruel|twisted|ironic|backwards} part is {I still root for you|I'd still help you|I wish you well|I can't hate you|I want your happiness}",
+  "my {phone|camera roll|gallery|notes app|search history} is {a graveyard|a museum|a shrine|a minefield|evidence} of {us|you|what we were|memories I can't delete|a past I haven't processed}",
+  "I {told|swore to|promised|begged|convinced} myself {never again|not this time|I wouldn't|I'd be stronger|I learned my lesson} and {here I am|look at me|I'm doing it again|my heart had other plans|nothing changed}",
+  "you {left a mark|changed my DNA|rewired my brain|altered my chemistry|broke and rebuilt me} and {you have no idea|I'm still dealing with it|I'll carry it forever|nobody sees it|it's invisible but permanent}",
+  "{sunsets|the ocean|empty chairs|train stations|airports|highways at night|park benches} {remind me of you|feel like you|carry your energy|are where I feel you|make my chest tight|bring you back}",
+  "the {bravest|scariest|hardest|most painful|realest} {version of me|part of my story|moment of my life|chapter|decision} was {letting you go|choosing to stay|forgiving you|walking away|admitting the truth}",
+  "I {refuse to believe|can't accept|won't accept|reject the idea|don't buy} that {this is it|we're really over|love dies like this|you meant nothing|people are just temporary}",
+  "you {ruined|wrecked|destroyed|broke|poisoned} {a perfectly good song|my favorite movie|that restaurant|coffee shops|rain|autumn|that color} for me and {I'll never tell you|you don't even know|I think that's funny actually|I forgive you for it|it's the little things that linger}",
+  "I {practice|rehearse|imagine|draft|plan} {what I'd say to you|our reunion conversation|the perfect response|how I'd act cool|running into you} {in the mirror|in the shower|driving home|at 3am|while walking alone} and {it never goes like that|I always cry|I know I'd freeze|I nail it every time except in reality}",
+  "the {loneliest|emptiest|quietest|most hollow|saddest} {feeling|moment|experience|thing|realization} is {missing someone who's alive|grieving someone who's still here|wanting someone you can't have|losing someone who chose to leave|being forgotten by someone you remember daily}",
+  "I {hope|wish|pray|need|am trying to believe} that {the pain has a purpose|this is building something|I'll understand someday|it was worth it|I'm becoming who I need to be|there's light at the end}",
 ];
 
 console.log(`Base templates: ${TPL.length}`);
@@ -1120,6 +1324,8 @@ function generate() {
   const pool = [];
   const seen = new Set();
   const nameUsage = {};
+  const templateUsage = new Map();  // track per-template usage
+  const MAX_TPL_USES = 40;  // no single template used more than this
 
   // Build available names list with usage tracking
   function getName() {
@@ -1130,7 +1336,7 @@ function generate() {
     return null;
   }
 
-  function tryAdd(msg, name) {
+  function tryAdd(msg, name, tplIdx) {
     if (!msg || msg.length < 2) return false;
     const w = wc(msg);
     if (w > 25 || w < 1) return false;
@@ -1141,6 +1347,7 @@ function generate() {
 
     seen.add(key);
     nameUsage[name] = (nameUsage[name] || 0) + 1;
+    if (tplIdx !== undefined) templateUsage.set(tplIdx, (templateUsage.get(tplIdx) || 0) + 1);
     pool.push({ name, message: msg.trim(), color_id: R(CARD_COLORS) });
     return true;
   }
@@ -1157,20 +1364,39 @@ function generate() {
   }
   console.log(`  ${pool.length} entries`);
 
-  // Phase 2: Expand slot-based templates (each produces many unique messages)
+  // Pre-calculate each template's max viable uses based on combinatorial space
+  function countCombos(tpl) {
+    let product = 1;
+    tpl.replace(/\{([^{}]+)\}/g, (match, inner) => {
+      if (inner === 'N') return match;
+      const opts = inner.split('|');
+      if (opts.length >= 2) product *= opts.length;
+      return match;
+    });
+    return product;
+  }
+  const templateCaps = EXPAND.map(tpl => {
+    const combos = countCombos(tpl);
+    return Math.min(Math.max(Math.floor(combos * 0.5), 5), 100);
+  });
+
+  // Phase 2: Expand slot-based templates with dynamic per-template cap
   console.log('Phase 2: Slot-based expansion...');
   let attempts = 0;
   let lastLog = pool.length;
-  while (pool.length < 8500 && attempts < 300000) {
+  while (pool.length < 10000 && attempts < 500000) {
     attempts++;
-    const tpl = R(EXPAND);
+    // Pick a random template that hasn't been overused
+    const tplIdx = Math.floor(Math.random() * EXPAND.length);
+    if ((templateUsage.get(tplIdx) || 0) >= templateCaps[tplIdx]) continue;
+
+    const tpl = EXPAND[tplIdx];
     const name = getName();
     if (!name) { console.log('  Names exhausted at', pool.length); break; }
 
     let msg = resolveSlots(tpl);
     msg = msg.replace(/\{N\}/g, name);
-    // If template didn't use {N}, the name is just for the card "To:" field
-    tryAdd(msg, name);
+    tryAdd(msg, name, tplIdx);
 
     if (pool.length >= lastLog + 1000) {
       lastLog = pool.length;
@@ -1179,37 +1405,11 @@ function generate() {
   }
   console.log(`  ${pool.length} entries after Phase 2 (${attempts} attempts)`);
 
-  // Phase 3: Reuse base templates that contain {N} with new names
-  if (pool.length < 10000) {
-    console.log('Phase 3: Name variations on base {N} templates...');
-    const nTemplates = TPL.filter(t => t.includes('{N}'));
-    attempts = 0;
-    while (pool.length < 10000 && attempts < 100000) {
-      attempts++;
-      const tpl = R(nTemplates.length > 0 ? nTemplates : TPL);
-      const name = getName();
-      if (!name) break;
-      let msg = tpl.replace(/\{N\}/g, name);
-      tryAdd(msg, name);
-    }
-    console.log(`  ${pool.length} entries after Phase 3`);
-  }
-
-  // Phase 4: Generate more from expansion templates if still short
-  if (pool.length < 10000) {
-    console.log('Phase 4: Additional expansion...');
-    attempts = 0;
-    while (pool.length < 10000 && attempts < 500000) {
-      attempts++;
-      const tpl = R(EXPAND);
-      const name = getName();
-      if (!name) break;
-      let msg = resolveSlots(tpl);
-      msg = msg.replace(/\{N\}/g, name);
-      tryAdd(msg, name);
-    }
-    console.log(`  ${pool.length} entries after Phase 4 (${attempts} attempts)`);
-  }
+  // Log template usage stats
+  const usages = [...templateUsage.values()].sort((a,b) => b-a);
+  console.log(`  Template usage: max=${usages[0]}, min=${usages[usages.length-1]}, avg=${(usages.reduce((a,b)=>a+b,0)/usages.length).toFixed(1)}`);
+  const capped = [...templateUsage.entries()].filter(([idx, u]) => u >= templateCaps[idx]).length;
+  console.log(`  Templates at cap: ${capped}/${EXPAND.length}`);
 
   pool.sort(() => Math.random() - 0.5);
   return pool;
