@@ -3,8 +3,8 @@ import type { JournalPost } from './journal-data';
 export const POSTS_PART5: JournalPost[] = [
   {
     slug: 'unsent-project-alternative',
-    title: 'Unsent Project Alternative — The Best Unsent Letter Archive in 2026',
-    excerpt: 'Looking for an unsent project alternative? Honey If Only is the best unsent letter archive for anonymous messages, love letters never sent, and unspoken words. Curated, aesthetic, and safe.',
+    title: 'Unsent Project Alternative — The Best Unsent Letter Website in 2026',
+    excerpt: 'Looking for an unsent project alternative? Honey If Only is the best unsent letter website for anonymous messages, love letters never sent, and unspoken words. Curated, aesthetic, and safe.',
     date: 'June 2026',
     content: `The unsent letter is not a new invention. People have been writing letters they never intended to send for as long as people have been writing letters at all. Beethoven wrote one to his "Immortal Beloved" that was found in a secret drawer after his death. Virginia Woolf composed unsent letters as a way to process her mental anguish. Frida Kahlo filled journals with correspondence addressed to Diego Rivera that she never delivered. The impulse to write directly to someone with no intention of that person ever reading the words is a deeply human one, rooted in the need for emotional expression that exists independently of the need for communication. You are not writing to be heard. You are writing to survive.
 
