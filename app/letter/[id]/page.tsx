@@ -18,7 +18,7 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
   const description = `"${snippet}" - an anonymous unsent letter, message, and unspoken words to ${displayName} on ${SITE_NAME}. Things never said, love letters and messages never sent.`;
 
   return {
-    title: `Unsent Letter to ${displayName}`,
+    title: `Unsent Letters and Messages to ${displayName}`,
     description,
     keywords: [
       `unsent letter to ${displayName}`,
@@ -33,7 +33,7 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
     ],
     alternates: { canonical: letterUrl },
     openGraph: {
-      title: `Unsent Letter to ${displayName}`,
+      title: `Unsent Letters and Messages to ${displayName}`,
       description,
       url: letterUrl,
     },
@@ -65,8 +65,8 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
     '@context': 'https://schema.org',
     '@type': 'SocialMediaPosting',
     url: letterUrl,
-    name: `Unsent letter to ${displayName}`,
-    headline: `Unsent letter to ${displayName}`,
+    name: `Unsent Letters and Messages to ${displayName}`,
+    headline: `Unsent Letters and Messages to ${displayName}`,
     datePublished: memory.created_at,
     text: memory.message,
     author: {
@@ -92,7 +92,7 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="page__header" style={{ marginBottom: '32px' }}>
-        <h1 className="page__title">Unsent Letter to {displayName}</h1>
+        <h1 className="page__title">Unsent Letters and Messages to {displayName}</h1>
         <p className="page__subtitle">An anonymous unsent letter, message, and unspoken words to {displayName}.</p>
       </div>
       <div className="letter-single__card">

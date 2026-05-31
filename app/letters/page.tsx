@@ -59,7 +59,7 @@ export default async function LettersPage() {
         const displayName = formatSubmittedName(memory.name);
         const letterUrl = `${SITE_URL}/letter/${memory.id}`;
         const recipientUrl = `${SITE_URL}/to/${memory.slug}`;
-        const itemName = `Unsent letter to ${displayName}`;
+        const itemName = `Unsent Letters and Messages to ${displayName}`;
 
         return {
           '@type': 'SocialMediaPosting',
