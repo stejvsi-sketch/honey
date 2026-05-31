@@ -63,9 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         
         {/* Preload LCP-critical texture image */}
         <link rel="preload" href="/textures/rough-paper.webp" as="image" type="image/webp" fetchPriority="high" />
-        {/* Preconnect to analytics & ads origins */}
-        <link rel="preconnect" href="https://www.googletagmanager.com" />
-        <link rel="preconnect" href="https://www.google-analytics.com" />
+        {/* Preconnect to ads origin (loads eagerly in head) */}
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
       </head>
       <body>
