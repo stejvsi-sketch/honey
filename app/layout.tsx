@@ -58,8 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <head>
-        {/* Google AdSense Verification Script */}
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4151123662328725" crossOrigin="anonymous"></script>
+        {/* Google AdSense Verification Script will be loaded in body via next/script */}
         
         {/* Preload LCP-critical texture image */}
         <link rel="preload" href="/textures/rough-paper.webp" as="image" type="image/webp" fetchPriority="high" />
@@ -70,6 +69,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navigation />
         <main>{children}</main>
         <Footer />
+        {/* Google AdSense — deferred to reduce render blocking and main thread work */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4151123662328725"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         {/* Google Analytics — deferred to reduce TBT */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
