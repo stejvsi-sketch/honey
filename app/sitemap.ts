@@ -60,21 +60,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }))
       );
 
-      // Individual letters -> /letter/[id] pages (cap at 50K — max per sitemap file)
+      // Build set of slugs that have an indexed aggregation page (/to/{slug})
+      const indexableSlugs = new Set(
+        indexableNameSlugs
+      );
+
+      // Individual letters -> /letter/[id] pages
+      // Only include letters for names that DON'T have an indexed aggregation page.
+      // Letters for names with ≥5 count already have canonical → /to/{slug},
+      // so including them in the sitemap would be redundant.
       const { data: letters } = await supabase
         .from('memories')
-        .select('id, created_at')
+        .select('id, created_at, slug')
         .order('created_at', { ascending: false })
         .limit(50000);
 
       if (letters) {
         dynamicEntries.push(
-          ...letters.map(letter => ({
-            url: `${SITE_URL}/letter/${letter.id}`,
-            lastModified: new Date(letter.created_at),
-            changeFrequency: 'yearly' as const,
-            priority: 0.5,
-          }))
+          ...letters
+            .filter(letter => !indexableSlugs.has(letter.slug))
+            .map(letter => ({
+              url: `${SITE_URL}/letter/${letter.id}`,
+              lastModified: new Date(letter.created_at),
+              changeFrequency: 'yearly' as const,
+              priority: 0.5,
+            }))
         );
       }
     } catch (e) {

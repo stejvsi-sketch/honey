@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { getMemoryById } from '@/lib/data';
+import { getMemoryById, getNameCountForSlug } from '@/lib/data';
 import { CARD_COLORS, SITE_NAME, SITE_URL } from '@/lib/constants';
 import { formatSubmittedName } from '@/lib/names';
 
@@ -17,6 +17,15 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
   const snippet = memory.message.slice(0, 140);
   const description = `"${snippet}" - an anonymous unsent letter, message, and unspoken words to ${displayName} on ${SITE_NAME}. Things never said, love letters and messages never sent.`;
 
+  // Canonical consolidation: if this name has a live aggregation page (≥5 letters
+  // and real name), point canonical to /to/{slug} to consolidate SEO signals.
+  const nameCount = await getNameCountForSlug(memory.slug);
+  const isRealName = memory.slug.replace(/-/g, '').length >= 3;
+  const hasAggregationPage = isRealName && nameCount >= 5;
+  const canonicalUrl = hasAggregationPage
+    ? `${SITE_URL}/to/${memory.slug}`
+    : letterUrl;
+
   return {
     title: `Unsent Letters and Messages to ${displayName}`,
     description,
@@ -31,7 +40,7 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
       `letter to ${displayName} never sent`,
       `things I never said to ${displayName}`,
     ],
-    alternates: { canonical: letterUrl },
+    alternates: { canonical: canonicalUrl },
     openGraph: {
       title: `Unsent Letters and Messages to ${displayName}`,
       description,

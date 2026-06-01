@@ -207,3 +207,21 @@ const getCachedMemoriesByCollection = unstable_cache(
 export async function getMemoriesByCollection(themeSlug: string, page: number = 1, limit: number = 24): Promise<{ memories: Memory[]; total: number }> {
   return getCachedMemoriesByCollection(themeSlug, page, limit);
 }
+
+const getCachedNameCountForSlug = unstable_cache(
+  async (slug: string) => {
+    const supabase = getSupabaseClient();
+    const { count, error } = await supabase
+      .from('memories')
+      .select('*', { count: 'exact', head: true })
+      .eq('slug', slug);
+    if (error) return 0;
+    return count || 0;
+  },
+  ['name-count-for-slug'],
+  { revalidate: 18000 }
+);
+
+export async function getNameCountForSlug(slug: string): Promise<number> {
+  return getCachedNameCountForSlug(slug);
+}
