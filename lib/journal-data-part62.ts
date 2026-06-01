@@ -3,7 +3,7 @@ import type { JournalPost } from './journal-data';
 export const POSTS_PART62: JournalPost[] = [
   {
     slug: 'you-dont-find-the-same-person-twice',
-    title: 'You Don\\'t Find the Same Person Twice, Even in the Same Person',
+    title: "You Don't Find the Same Person Twice, Even in the Same Person",
     excerpt: 'When we reunite with an ex, we are usually looking for the person they used to be, and the relationship we used to have. But time changes us all, and the ghost of the past cannot survive in the present.',
     date: 'June 2026',
     content: `There is a profound, almost universal fantasy that occurs in the months and years following a painful breakup: the fantasy of the reunion. We imagine running into them at a coffee shop, or receiving a long, heartfelt email out of the blue. We imagine that the time apart has served as a crucible, burning away all the petty arguments, the immaturity, and the circumstantial issues that drove us apart. We imagine that we will look at each other, recognize the enduring spark, and seamlessly pick up exactly where we left off, only better this time. We believe that if we can just get them back, we will get the relationship back. 
