@@ -96,8 +96,8 @@ export async function POST(request: NextRequest) {
         created_at: submission.created_at,
       });
       if (insertErr) return NextResponse.json({ error: insertErr.message }, { status: 500 });
-      // Update submission status
-      await supabase.from('submissions').update({ status: 'approved' }).eq('id', id);
+      // Remove from submissions queue (no need to keep — banning happens from pending only)
+      await supabase.from('submissions').delete().eq('id', id);
       break;
     }
     case 'reject': {
