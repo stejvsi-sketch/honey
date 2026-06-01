@@ -2,8 +2,8 @@ import type { JournalPost } from './journal-data';
 
 export const POSTS_PART56: JournalPost[] = [
   {
-    slug: 'when-my-name-isnt-in-the-unsent-project',
-    title: 'When My Name Isnt in The Unsent Project',
+    slug: 'why-my-name-isnt-in-the-unsent-project',
+    title: 'Why My Name Isn\\'t in The Unsent Project',
     excerpt: 'You searched The Unsent Project for your name and found nothing. Here is what that absence means, why it does not define your worth, and where to look instead.',
     date: 'June 2026',
     content: `You searched for your name. You know you did. Maybe you typed it casually, pretending you were just browsing. Maybe you typed it with shaking hands at three in the morning, desperately hoping that the person who left without saying goodbye had said something here instead. Maybe you searched for your name every day for a week after the breakup, refreshing the results like checking for a text that never comes. And every time, the results were the same. Nothing. Your name is not in The Unsent Project. No one has written an unsent letter addressed to you. Or at least, no one has written one that you can find.
