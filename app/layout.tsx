@@ -58,13 +58,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <head>
-        {/* Google AdSense Verification Script — using Next.js Script for optimization */}
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4151123662328725"
-          crossOrigin="anonymous"
-          strategy="beforeInteractive"
-        />
+        {/* Google AdSense Verification Script — EXACT copy-paste from Google */}
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4151123662328725" crossOrigin="anonymous"></script>
         
         {/* Preload LCP-critical texture image */}
         <link rel="preload" href="/textures/rough-paper.webp" as="image" type="image/webp" fetchPriority="high" />
