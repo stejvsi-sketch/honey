@@ -21,11 +21,34 @@ const BAN_COOKIE_MAX_AGE = 365 * 24 * 60 * 60;
 
 export async function POST(request: NextRequest) {
   try {
-    // ── First-pass: check ban cookie ──
+    // ── First-pass: check ban cookie (fast path) ──
+    // If present, verify against DB in case they were unbanned
     const banCookie = request.cookies.get(BAN_COOKIE);
     if (banCookie?.value === '1') {
-      // Silently accept — banned user thinks it worked, but we discard it
-      return NextResponse.json({ success: true, message: 'Your letter has been received and will be reviewed shortly.' });
+      // Quick DB check to see if they were unbanned
+      if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+        const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+          || request.headers.get('cf-connecting-ip')
+          || 'unknown';
+        const ipHash = await hashIP(ip);
+        const { getSupabaseAdmin } = await import('@/lib/supabase');
+        const supabase = getSupabaseAdmin();
+        const { data: stillBanned } = await supabase
+          .from('banned_users')
+          .select('id')
+          .eq('ip_hash', ipHash)
+          .maybeSingle();
+
+        if (stillBanned) {
+          // Still banned — silently discard
+          return NextResponse.json({ success: true, message: 'Your letter has been received and will be reviewed shortly.' });
+        }
+        // Unbanned! Clear the cookie and let them through
+        // (cookie will be cleared in the final response below)
+      } else {
+        // No DB to verify — trust the cookie
+        return NextResponse.json({ success: true, message: 'Your letter has been received and will be reviewed shortly.' });
+      }
     }
 
     // Parse body
@@ -175,7 +198,12 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    return NextResponse.json({ success: true, message: 'Your letter has been received and will be reviewed shortly.' });
+    const response = NextResponse.json({ success: true, message: 'Your letter has been received and will be reviewed shortly.' });
+    // Clear stale ban cookie if user was unbanned
+    if (banCookie?.value === '1') {
+      response.cookies.set(BAN_COOKIE, '', { httpOnly: true, secure: true, sameSite: 'strict', maxAge: 0, path: '/' });
+    }
+    return response;
   } catch (err) {
     console.error('Submit API error:', err);
     return NextResponse.json({ error: 'Something went wrong.' }, { status: 500 });
