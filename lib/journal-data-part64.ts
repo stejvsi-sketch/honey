@@ -3,7 +3,7 @@ import type { JournalPost } from './journal-data';
 export const POSTS_PART64: JournalPost[] = [
   {
     slug: 'how-to-send-an-anonymous-message-why-its-better-left-unsent',
-    title: 'How to Send an Anonymous Message (And Why Sometimes, It\\'s Better Left Unsent)',
+    title: `How to Send an Anonymous Message (And Why Sometimes, It's Better Left Unsent)`,
     excerpt: 'In the digital age, figuring out how to send anonymous text messages is easier than ever. But just because you can disguise your identity does not mean you should break a boundary. Here is a look at anonymous texting versus anonymous archiving.',
     date: 'June 2026',
     content: `It is 2 AM. You are lying awake, replaying a conversation from three years ago in your head. The urge to reach out to them is suffocating, but you know you cannot send a text from your own number. Maybe they blocked you. Maybe you promised yourself you would maintain no contact. Maybe you are terrified of rejection and just want them to know you are still thinking about them without the vulnerability of attaching your name. And so, the inevitable search begins: how to send an anonymous message. 
