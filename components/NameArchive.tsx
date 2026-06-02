@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import VirtualizedCardGrid from '@/components/cards/VirtualizedCardGrid';
+import { NAME_PAGE_SIZE } from '@/lib/constants';
 import type { Memory } from '@/lib/types';
 
 function deduplicateMemories(memories: Memory[]): Memory[] {
@@ -14,23 +15,25 @@ function deduplicateMemories(memories: Memory[]): Memory[] {
   });
 }
 
-const PAGE_SIZE = 10;
+
 
 export default function NameArchive({
   nameSlug,
   displayName,
   initialTotal,
+  initialMemories = [],
 }: {
   nameSlug: string;
   displayName: string;
   initialTotal: number;
+  initialMemories?: Memory[];
 }) {
   const storageKey = `hio:name:${nameSlug}`;
-  const [memories, setMemories] = useState<Memory[]>([]);
+  const [memories, setMemories] = useState<Memory[]>(initialMemories);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(initialTotal);
   const [loading, setLoading] = useState(false);
-  const [initialLoad, setInitialLoad] = useState(true);
+  const [initialLoad, setInitialLoad] = useState(initialMemories.length === 0);
   const [restored, setRestored] = useState(false);
   const loaderRef = useRef<HTMLDivElement>(null);
   const fetchingRef = useRef(false);
@@ -81,8 +84,8 @@ export default function NameArchive({
     try {
       const params = new URLSearchParams({
         page: pageNum.toString(),
-        limit: PAGE_SIZE.toString(),
-        search: displayName,
+        limit: NAME_PAGE_SIZE.toString(),
+        slug: nameSlug,
       });
       const res = await fetch(`/api/letters?${params}`);
       if (res.ok) {
@@ -102,7 +105,7 @@ export default function NameArchive({
     setLoading(false);
     setInitialLoad(false);
     fetchingRef.current = false;
-  }, [displayName]);
+  }, [nameSlug]);
 
   useEffect(() => {
     if (!restored) return;
@@ -119,6 +122,11 @@ export default function NameArchive({
         }
       } catch {
         // Non-fatal.
+      }
+
+      if (initialMemories.length > 0) {
+        setInitialLoad(false);
+        return; // Already have server-rendered data
       }
 
       void fetchLetters(1, false);

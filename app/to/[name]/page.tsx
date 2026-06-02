@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { getMemoriesByName } from '@/lib/data';
 import NameArchive from '@/components/NameArchive';
 import RelatedNames from '@/components/RelatedNames';
-import { SITE_URL } from '@/lib/constants';
+import { SITE_URL, NAME_PAGE_SIZE } from '@/lib/constants';
 import { formatSubmittedName } from '@/lib/names';
 
 export const revalidate = 18000;
@@ -44,7 +44,7 @@ export default async function NamePage(props: {
   params: Promise<{ name: string }>;
 }) {
   const { name } = await props.params;
-  const { total, displayName: rawDisplayName } = await getMemoriesByName(name, 1, 1);
+  const { memories: initialMemories, total, displayName: rawDisplayName } = await getMemoriesByName(name, 1, NAME_PAGE_SIZE);
   const displayName = formatSubmittedName(rawDisplayName);
   const canonicalUrl = `${SITE_URL}/to/${name}`;
 
@@ -76,7 +76,7 @@ export default async function NamePage(props: {
           unresolved heartbreak, unspoken gratitude, and late-night longing. What was left unsaid?
         </p>
       </div>
-      <NameArchive nameSlug={name} displayName={displayName} initialTotal={total} />
+      <NameArchive key={name} nameSlug={name} displayName={displayName} initialTotal={total} initialMemories={initialMemories} />
       <RelatedNames currentName={displayName} currentSlug={name} />
     </div>
   );

@@ -14,6 +14,7 @@ export async function GET(request: NextRequest) {
   const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
   const limit = Math.min(20, Math.max(1, parseInt(searchParams.get('limit') || '10', 10)));
   const search = searchParams.get('search')?.trim() || '';
+  const slug = searchParams.get('slug')?.trim() || '';
   const color = searchParams.get('color')?.trim() || '';
   const themeSlug = searchParams.get('theme')?.trim() || '';
   const offset = (page - 1) * limit;
@@ -25,7 +26,9 @@ export async function GET(request: NextRequest) {
     .select('id, name, message, color_id, created_at, slug, pinned_until', { count: 'exact' })
     .order('created_at', { ascending: false });
 
-  if (search) {
+  if (slug) {
+    query = query.eq('slug', slug);
+  } else if (search) {
     query = query.ilike('name', `%${search}%`);
   }
   if (color) {
