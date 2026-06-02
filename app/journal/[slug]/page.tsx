@@ -28,6 +28,12 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
   const post = JOURNAL_POSTS.find(p => p.slug === slug);
   if (!post) notFound();
 
+  // Convert human date like "May 2026" to ISO "2026-05-01"
+  const isoDate = (() => {
+    const d = new Date(post.date + ' 1'); // "May 2026 1" → valid Date
+    return isNaN(d.getTime()) ? new Date().toISOString().split('T')[0] : d.toISOString().split('T')[0];
+  })();
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -46,8 +52,12 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
         url: `${SITE_URL}/android-chrome-512x512.png`,
       },
     },
-    datePublished: post.date,
-    dateModified: post.date,
+    datePublished: isoDate,
+    dateModified: isoDate,
+    image: {
+      '@type': 'ImageObject',
+      url: `${SITE_URL}/android-chrome-512x512.png`,
+    },
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `${SITE_URL}/journal/${post.slug}`,
