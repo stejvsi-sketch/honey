@@ -29,9 +29,16 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
   if (!post) notFound();
 
   // Convert human date like "May 2026" to ISO "2026-05-01"
+  const MONTHS: Record<string, string> = {
+    January: '01', February: '02', March: '03', April: '04',
+    May: '05', June: '06', July: '07', August: '08',
+    September: '09', October: '10', November: '11', December: '12',
+  };
   const isoDate = (() => {
-    const d = new Date(post.date + ' 1'); // "May 2026 1" → valid Date
-    return isNaN(d.getTime()) ? new Date().toISOString().split('T')[0] : d.toISOString().split('T')[0];
+    const [month, year] = post.date.split(' ');
+    const mm = MONTHS[month];
+    if (!mm || !year) return post.date; // leave as-is if unparseable
+    return `${year}-${mm}-01`;
   })();
 
   const jsonLd = {

@@ -64,7 +64,7 @@ export default async function NamePage(props: {
       },
       {
         "@type": "ItemList",
-        "numberOfItems": total,
+        "numberOfItems": initialMemories.length,
         "itemListElement": initialMemories.map((memory, i) => ({
           "@type": "ListItem",
           "position": i + 1,
