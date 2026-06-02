@@ -151,27 +151,51 @@ async function supabaseQuery(method, table, params = {}) {
   return response.json();
 }
 
-async function countSeededSubmissions() {
-  // Count submissions where ip_hash starts with 'seed_'
-  const url = new URL(`${SUPABASE_URL}/rest/v1/submissions`);
-  url.searchParams.set('ip_hash', 'like.seed_%');
-  url.searchParams.set('select', 'id');
+async function getProgress() {
+  // Read current pool index from the seed_progress table.
+  // This survives approve/delete actions on submissions.
+  const url = new URL(`${SUPABASE_URL}/rest/v1/seed_progress`);
+  url.searchParams.set('id', 'eq.1');
+  url.searchParams.set('select', 'current_index');
 
   const response = await fetch(url.toString(), {
-    method: 'HEAD',
+    method: 'GET',
     headers: {
       'apikey': SUPABASE_SERVICE_ROLE_KEY,
       'Authorization': `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
-      'Prefer': 'count=exact',
     },
   });
 
-  const range = response.headers.get('content-range');
-  if (range) {
-    const total = range.split('/')[1];
-    return parseInt(total, 10) || 0;
+  if (!response.ok) {
+    throw new Error(`Failed to read seed_progress: ${response.status}`);
   }
-  return 0;
+
+  const rows = await response.json();
+  if (!rows || rows.length === 0) {
+    throw new Error('seed_progress table is empty — run the migration SQL first.');
+  }
+
+  return rows[0].current_index;
+}
+
+async function updateProgress(newIndex) {
+  const url = new URL(`${SUPABASE_URL}/rest/v1/seed_progress`);
+  url.searchParams.set('id', 'eq.1');
+
+  const response = await fetch(url.toString(), {
+    method: 'PATCH',
+    headers: {
+      'apikey': SUPABASE_SERVICE_ROLE_KEY,
+      'Authorization': `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=minimal',
+    },
+    body: JSON.stringify({ current_index: newIndex, updated_at: new Date().toISOString() }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to update seed_progress: ${response.status}`);
+  }
 }
 
 async function insertSubmission(entry) {
@@ -212,11 +236,11 @@ async function main() {
     return;
   }
 
-  // Count existing seeded submissions
+  // Read progress from dedicated tracker
   let seededCount = 0;
   if (!isDryRun) {
-    seededCount = await countSeededSubmissions();
-    console.log(`   Seeded so far: ${seededCount} / ${TARGET_TOTAL}`);
+    seededCount = await getProgress();
+    console.log(`   Pool index: ${seededCount} / ${TARGET_TOTAL}`);
 
     if (seededCount >= TARGET_TOTAL) {
       console.log('   ✅ Target reached! All 10,000 submissions have been seeded.');
@@ -271,6 +295,12 @@ async function main() {
   }
 
   const newTotal = isDryRun ? seededCount : seededCount + batchSize;
+
+  // Persist progress so it survives approve/delete actions
+  if (!isDryRun) {
+    await updateProgress(newTotal);
+  }
+
   console.log(`\n   📊 Progress: ${newTotal} / ${TARGET_TOTAL} (${((newTotal / TARGET_TOTAL) * 100).toFixed(1)}%)`);
   console.log('   🌱 Done.');
 }
