@@ -135,7 +135,7 @@ export default function NameArchive({
     return () => {
       cancelled = true;
     };
-  }, [restored, storageKey, fetchLetters]);
+  }, [restored, storageKey, fetchLetters, initialMemories.length]);
 
   useEffect(() => {
     function handleBeforeNav() {
