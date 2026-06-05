@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // =============================================================
-// generate-messages.mjs (v12 — strict emotion silos + expanded base)
+// generate-messages.mjs (v13 — foolproof grammar + raw texting)
 // =============================================================
 
 import { writeFileSync } from 'fs';
@@ -169,14 +169,20 @@ const NAMES = [
 const UNAMES = [...new Set(NAMES)];
 
 // ═══════════════════════════════════════════════════════════════
-// NEW ARCHITECTURE: STRICT EMOTION SILOS
+// STRICT EMOTION SILOS
+// Apostrophes are intentionally removed for raw textspeak feeling
+// and to avoid regex bugs.
 // ═══════════════════════════════════════════════════════════════
+
+function cleanApostrophes(arr) {
+  return arr.map(str => str.replace(/'/g, ""));
+}
 
 const EMOTIONS = {
   ANGRY: {
-    INDEPENDENT: [
-      "i hate you", "you're terrible", "i hope she breaks your heart",
-      "i never want to see you again", "delete my number", "we're done",
+    INDEPENDENT: cleanApostrophes([
+      "i hate you", "youre terrible", "i hope she breaks your heart",
+      "i never want to see you again", "delete my number", "were done",
       "im blocking you", "you ruined my life", "you played me so hard",
       "everyone warned me about you", "my friends were right about you",
       "youre toxic", "give me my stuff back", "you owe me an apology",
@@ -188,7 +194,7 @@ const EMOTIONS = {
       "stop playing the victim", "everyone knows the truth", "the truth will come out",
       "im done covering for you", "im so done", "we are never getting back together",
       "youre dead to me", "you owe me so much", "you brought out the worst in me",
-      "you were a walking red flag", "you need serious help", "youre so toxic",
+      "you were a walking red flag", "you need serious help",
       "never speak to me again", "im not your friend", "i dont care",
       "im taking my power back", "you mean nothing", "im thriving without you",
       "you held me back", "youre a child", "you never grew up", "deal with your own issues",
@@ -208,9 +214,9 @@ const EMOTIONS = {
       "stay out of my life", "i finally woke up", "i see through your lies now", 
       "im done being your safety net", "im closing this chapter forever",
       "i deserve a massive apology", "you dragged me down for so long",
-      "i'm so over your mind games"
-    ],
-    THEM_PAST: [
+      "im so over your mind games"
+    ]),
+    THEM_PAST: cleanApostrophes([
       "you lied to my face", "you cheated on me", "you left me", "you walked away",
       "you gave up on us", "you stopped trying", "you stopped caring", "you stopped loving me",
       "you chose her", "you chose him", "you broke my trust", "you ruined everything",
@@ -225,17 +231,16 @@ const EMOTIONS = {
       "you isolated me from everyone", "you broke every single promise", "you faked the whole thing",
       "you replaced me in a week", "you moved on so fast", "you erased me from your life",
       "you gave up at the first sign of trouble", "you shut me out", "you ghosted me after everything",
-      "you turned into someone i don't even know", "you betrayed me in the worst way",
+      "you turned into someone i dont even know", "you betrayed me in the worst way",
       "you tore me down to build yourself up", "you crushed my spirit",
       "you made everything my fault", "you never took responsibility",
-      "you showed your true colors",
-      "you made me feel like an option", "you never prioritized me", 
+      "you showed your true colors", "you made me feel like an option", "you never prioritized me", 
       "you always put yourself first", "you expected me to wait around", 
       "you crossed every boundary", "you took my kindness for weakness", 
       "you disrespected me", "you thought i would never leave",
       "you made me feel completely invisible", "you strung me along"
-    ],
-    ME_PAST: [
+    ]),
+    ME_PAST: cleanApostrophes([
       "i tried my absolute hardest", "i ignored all the warning signs",
       "i gave you way too many chances", "i made a mistake trusting you",
       "i compromised everything for you", "i lost myself loving you",
@@ -244,8 +249,8 @@ const EMOTIONS = {
       "i ignored my intuition", "i let you treat me poorly", 
       "i settled for less than i deserve", "i put up with too much nonsense",
       "i justified all your toxic traits"
-    ],
-    OPENER_PAST: [
+    ]),
+    OPENER_PAST: cleanApostrophes([
       "i cant believe", "it sucks that", "i hate that", "im so mad that",
       "it kills me that", "the worst part is", "the hardest part is", "funny how", "its crazy how",
       "wild how", "sometimes i cant believe", "every night i think about how",
@@ -260,62 +265,52 @@ const EMOTIONS = {
       "i find it hilarious that", "its pathetic how", "it infuriates me that", 
       "i cant stand the fact that", "i cringe when i think about how",
       "it boils my blood that", "it annoys me so much that"
-    ],
-    ME_PRESENT: [
+    ]),
+    ME_PRESENT: cleanApostrophes([
       "i hope you get what you deserve", "im never speaking to you again",
       "i hope karma gets you", "im so done with you", "i want nothing to do with you",
       "i hope you end up alone", "i finally see who you really are",
       "im so angry every time i think of you",
       "i laugh at how blind i was", "i feel absolutely nothing for you", 
       "i pity the next person who dates you", "im finally free", 
-      "i am so relieved it's over", "i dont even recognize you anymore"
-    ],
-    Q_START: [
-      "why did you", "how could you", "when did you decide to",
-      "were you ever going to", "what made you", "why didn't you", "how did you",
-      "why would you", "what possessed you to", "how long did it take you to",
-      "how did you find it so easy to", "did you even hesitate to", "did it hurt you to",
-      "did it bother you to", "how on earth could you", "why the hell did you",
-      "did you ever plan to", "was it your goal to", "was it fun for you to",
-      "how could you ever", "why is it so hard to", "do you ever regret trying to",
-      "what made you decide to",
-      "did it ever cross your mind to", "were you even trying to", "did you even care when you",
-      "how dare you", "who do you think you are to", "did you honestly think you could", 
-      "what gave you the right to", "when did you become someone who would",
-      "why did you even bother to", "did it ever make you feel guilty to"
-    ],
-    THEM_BASE: [
-      "lie to me", "walk away", "give up on us", "choose them", "choose yourself",
-      "stop loving me", "stop caring", "throw it all away", "ghost me",
-      "hurt me like that", "break my heart", "ruin everything", "betray me",
-      "stab me in the back", "lead me on", "use me", "take advantage of me",
-      "make me feel crazy", "gaslight me", "make me feel worthless", "replace me",
-      "forget about me", "erase me from your life", "move on", "leave me crying",
-      "walk out without a word", "shut me out", "give up without trying",
-      "throw me under the bus", "drain me of everything i had", "replace me in a week",
-      "run away when things got hard", "cross every line",
-      "walk away from everything we built", "stop trying to fix us",
-      "give up when things got hard", "let me go so easily",
-      "pretend like we meant nothing", "push me away when i tried to help",
-      "make me feel so special just to leave", "act like a completely different person",
-      "throw away years of history", "break every promise we made", "give up on all our plans",
-      "treat me like an afterthought", "disrespect my boundaries", 
-      "play games with my head", "act so selfishly", "manipulate the situation",
-      "make me feel like i was the problem", "act like a complete victim"
-    ],
-    P3_TIME: [
+      "i am so relieved its over", "i dont even recognize you anymore"
+    ]),
+    Q_THEM_BASE: cleanApostrophes([
+      "why did you", "how could you", "what made you", "how did you find it so easy to", 
+      "did you even hesitate to", "did it hurt you to", "how dare you", 
+      "who do you think you are to", "what gave you the right to", 
+      "when did you become someone who would", "did it ever make you feel guilty to", 
+      "was it fun for you to", "why would you", "what possessed you to", 
+      "how long did it take you to", "did it bother you to", "how on earth could you", 
+      "why the hell did you", "how could you ever", "why did you even bother to"
+    ]),
+    THEM_BASE: cleanApostrophes([
+      "lie to me", "walk away", "ghost me", "hurt me like that", "betray me", 
+      "stab me in the back", "lead me on", "use me", "take advantage of me", 
+      "make me feel crazy", "gaslight me", "make me feel worthless", "replace me", 
+      "forget about me", "erase me from your life", "move on", "leave me crying", 
+      "walk out without a word", "shut me out", "throw me under the bus", 
+      "run away when things got hard", "cross every line", "walk away from everything we built", 
+      "stop trying to fix us", "give up when things got hard", "let me go so easily", 
+      "push me away when i tried to help", "act like a completely different person", 
+      "throw away years of history", "break every promise we made", "give up on all our plans", 
+      "treat me like an afterthought", "disrespect my boundaries", "play games with my head", 
+      "act so selfishly", "manipulate the situation", "act like a complete victim",
+      "give up on us", "choose them", "choose yourself", "throw it all away", "ruin everything"
+    ]),
+    P3_TIME: cleanApostrophes([
       "sometimes", "late at night", "when i wake up", "randomly",
       "when i see your friends", "out of nowhere",
-      "in the middle of the night", "when i'm alone",
-      "every morning", "every single day", "when i'm driving alone",
+      "in the middle of the night", "when im alone",
+      "every morning", "every single day", "when im driving alone",
       "when someone mentions your name"
-    ],
-    P3_MEMORY_PREFIX: [
+    ]),
+    P3_MEMORY_PREFIX: cleanApostrophes([
       "i remember how", "i think about how",
-      "i can't stop thinking about how", "my mind goes back to how",
+      "i cant stop thinking about how", "my mind goes back to how",
       "i get a flashback to how", "i recall exactly how", "i start replaying how"
-    ],
-    P3_FEELING: [
+    ]),
+    P3_FEELING: cleanApostrophes([
       "and it ruins my day",
       "and i just feel completely empty", "and it still hurts",
       "and i wish i could forget",
@@ -324,19 +319,19 @@ const EMOTIONS = {
       "and i realize how much you hurt me", "and i feel so numb",
       "and it breaks my heart all over again",
       "and i wish i never met you", "and i just feel so pathetic",
-      "and it reminds me why we ended", "and it reminds me that you're gone"
-    ],
-    P4_CONFESSION: [
+      "and it reminds me why we ended", "and it reminds me that youre gone"
+    ]),
+    P4_CONFESSION: cleanApostrophes([
       "i never told you but", "i have a confession:", "secretly,", "truth is,",
-      "i act like i don't care but",
-      "i tell everyone i'm over you but", "i pretend i'm fine but",
-      "i try to act tough but", "nobody knows this but", "i've been hiding that",
-      "i hate to admit it but", "i promised myself i wouldn't say this but",
-      "i swore i was done but", "i know it's pathetic but", "to be totally honest,",
+      "i act like i dont care but",
+      "i tell everyone im over you but", "i pretend im fine but",
+      "i try to act tough but", "nobody knows this but", "ive been hiding that",
+      "i hate to admit it but", "i promised myself i wouldnt say this but",
+      "i swore i was done but", "i know its pathetic but", "to be totally honest,",
       "if im being completely honest,", "the hard truth is",
       "i never admitted this but"
-    ],
-    PAST_ENDINGS: [
+    ]),
+    PAST_ENDINGS: cleanApostrophes([
       "and i hate you for it", "and ill never forgive you",
       "and ill never forget it", "and it still hurts",
       "and it hurts so much", "and im still bleeding",
@@ -354,71 +349,71 @@ const EMOTIONS = {
       "and i hope she does to you what you did to me",
       "and i hope he breaks your heart",
       "and i hope you get what you deserve",
-      "and i hope you're miserable",
+      "and i hope youre miserable",
       "and i hope you think of me and it ruins your day",
       "and i hope you regret it", "and i hope you realize what you lost",
       "and i hope you realize you messed up",
       "and i hope you know you ruined a good thing",
-      "and i honestly don't care anymore", "and i'm finally done caring",
-      "and i'm finally moving on", "and i'm finally over you",
-      "and i'm finally happy without you", "and i'm finally choosing myself",
-      "and i'm better off without you", "and i deserve so much better",
-      "and i know i deserve better", "and you didn't deserve me",
+      "and i honestly dont care anymore", "and im finally done caring",
+      "and im finally moving on", "and im finally over you",
+      "and im finally happy without you", "and im finally choosing myself",
+      "and im better off without you", "and i deserve so much better",
+      "and i know i deserve better", "and you didnt deserve me",
       "and you never deserved me", "and you were never good enough for me",
       "and you were always the problem", "and it was all your fault",
       "and im done taking the blame", "and im done making excuses for you",
       "and im done waiting for you to change",
       "and im done waiting for you to come back",
-      "and quite frankly i'm exhausted", "and i'm just so tired",
-      "and i literally can't do this anymore", "and i'm at my breaking point",
+      "and quite frankly im exhausted", "and im just so tired",
+      "and i literally cant do this anymore", "and im at my breaking point",
       "and i just want it all to stop",
-      "and honestly good riddance", "and i wouldn't take you back if you begged",
-      "and please don't ever contact me again",
+      "and honestly good riddance", "and i wouldnt take you back if you begged",
+      "and please dont ever contact me again",
       "and i feel nothing for you anymore", "and i honestly pity you",
       "and i feel sorry for whoever comes next", "and i hope she sees through you too",
-      "and i hope he realizes what you are", "and you're going to end up alone",
+      "and i hope he realizes what you are", "and youre going to end up alone",
       "and you threw away the best thing you ever had",
-      "and you're going to regret this for the rest of your life",
-      "and one day you'll realize what you did", "and by the time you realize, i'll be gone",
-      "and i'm never looking back", "and i'm so done with your games",
-      "and i can't believe i wasted so much time on you",
-      "and you took years of my life i'll never get back", "and i hate myself for staying so long",
+      "and youre going to regret this for the rest of your life",
+      "and one day youll realize what you did", "and by the time you realize, ill be gone",
+      "and im never looking back", "and im so done with your games",
+      "and i cant believe i wasted so much time on you",
+      "and you took years of my life ill never get back", "and i hate myself for staying so long",
       "and i should have walked away years ago", "and everyone was right about you",
       "and my mom was right about you from the start", "and my friends warned me about you",
       "and i was so blind to not see it", "and i feel so stupid for trusting you",
-      "and i'll never trust anyone again because of you", "and you ruined my ability to love",
+      "and ill never trust anyone again because of you", "and you ruined my ability to love",
       "and you left me with so much trauma",
-      "and i'm still trying to unlearn all your toxic habits",
-      "and i'm finally starting to heal", "and i'm finally finding myself again",
-      "and i'm doing so much better without you", "and i've never been happier",
-      "and my life is so much better now", "and you're just a bad memory now",
-      "and i don't even recognize you anymore", "and you're dead to me",
+      "and im still trying to unlearn all your toxic habits",
+      "and im finally starting to heal", "and im finally finding myself again",
+      "and im doing so much better without you", "and ive never been happier",
+      "and my life is so much better now", "and youre just a bad memory now",
+      "and i dont even recognize you anymore", "and youre dead to me",
       "and you mean absolutely nothing to me",
-      "and don't ever reach out to me again", "and lose my number",
+      "and dont ever reach out to me again", "and lose my number",
       "and keep away from me", "and i never want to hear your name again",
       "and just stay out of my life", "and please just leave me alone",
-      "and don't you dare try to come back", "and it's way too late for apologies",
+      "and dont you dare try to come back", "and its way too late for apologies",
       "and your apologies mean nothing to me", "and you can shove your apologies",
-      "and you're not sorry, you're just sorry you got caught",
-      "and i'm never going to let you hurt me again", "and i'm finally free of you",
+      "and youre not sorry, youre just sorry you got caught",
+      "and im never going to let you hurt me again", "and im finally free of you",
       "and i finally cut the cord", "and good riddance",
-      "and i wouldn't wish you on my worst enemy",
-      "and you're going to get exactly what's coming to you", "and karma never forgets",
-      "and the universe will make you pay for it", "and i can't wait to see you get your karma",
-      "and i'm just waiting for the day you get what you deserve",
+      "and i wouldnt wish you on my worst enemy",
+      "and youre going to get exactly whats coming to you", "and karma never forgets",
+      "and the universe will make you pay for it", "and i cant wait to see you get your karma",
+      "and im just waiting for the day you get what you deserve",
       "and just go away",
       "and it makes absolutely no sense",
       "and im just so confused", "and i just want the truth",
       "and i cant wrap my head around it", "and i just need to know why",
       "and i cant find peace without knowing", "and it drives me crazy"
-    ]
+    ])
   },
   
   SAD: {
-    INDEPENDENT: [
+    INDEPENDENT: cleanApostrophes([
       "i miss you", "im sorry", "im so sorry", "please come back", "i need you",
       "just one more chance", "i promise ill change", "i cant live without you",
-      "why wasn't i enough", "what did she have that i didnt", "was any of it real",
+      "why wasnt i enough", "what did she have that i didnt", "was any of it real",
       "i hate that i miss you", "i hate that i still love you", "im crying right now",
       "you broke my heart", "you ruined me", "i trusted you", "you promised",
       "you said forever", "i feel so stupid", "it hurts so much", "im so numb",
@@ -442,8 +437,8 @@ const EMOTIONS = {
       "im trying to be okay but im not", "my heart feels so heavy", 
       "i miss my best friend", "i feel so lonely in crowded rooms", 
       "i still cry in the shower over you", "i am so incredibly tired of missing you"
-    ],
-    THEM_PAST: [
+    ]),
+    THEM_PAST: cleanApostrophes([
       "you left me", "you walked away", "you gave up on us", "you stopped trying", 
       "you stopped caring", "you stopped loving me", "you broke my trust", "you ruined everything",
       "you destroyed us", "you broke my heart", "you shattered my heart", "you tore me apart", 
@@ -453,21 +448,21 @@ const EMOTIONS = {
       "you became a stranger", "you gave up without a fight", 
       "you let us slip away", "you let me go", "you closed the door on us", 
       "you stopped trying to understand me", "you let my hand go"
-    ],
-    ME_PAST: [
+    ]),
+    ME_PAST: cleanApostrophes([
       "i lost you", "i let you go", "i pushed you away", "i gave up",
       "i stopped trying", "i walked away", "i ruined it",
       "i messed it up", "i made a mistake", "i made the biggest mistake",
       "i loved you", "i loved you so much",
       "i gave you everything", "i gave you my all", "i tried so hard",
-      "i couldn't save you", "i couldn't fix us",
+      "i couldnt save you", "i couldnt fix us",
       "i gave you my whole heart", "i never wanted to say goodbye",
       "i poured all my energy into us", "i made you the center of my universe",
       "i tried to hold on", "i prayed we would make it", 
       "i cried myself to sleep", "i begged you to stay", 
       "i gave you everything i had left", "i held on for far too long"
-    ],
-    OPENER_PAST: [
+    ]),
+    OPENER_PAST: cleanApostrophes([
       "it kills me that", "the hardest part is", "every night i think about how",
       "you have no idea how much it hurts that", "i am still in shock that",
       "i just cant accept that", "its hard to accept that",
@@ -476,8 +471,8 @@ const EMOTIONS = {
       "i struggle to accept that", "it shatters me that", 
       "i still cry when i think about how", "it tears me apart that", 
       "i hate waking up and realizing", "i just cant stomach the fact that"
-    ],
-    ME_PRESENT: [
+    ]),
+    ME_PRESENT: cleanApostrophes([
       "i still love you", "i need you in my life", "i miss holding you",
       "i still wait for your text", "i look for you everywhere", "i still think about our future",
       "i cant picture my life without you", "i still wear the shirt you gave me",
@@ -487,22 +482,18 @@ const EMOTIONS = {
       "im craving your touch", "i wish you were here with me", "i just need you right now",
       "i still talk to my friends about you", "i still dream about you",
       "i still look for you in everyone else", "i pretend im fine when im not", 
-      "i still hope it's a bad dream", "i just want to go back to how it was",
+      "i still hope its a bad dream", "i just want to go back to how it was",
       "i just want you to come home to me"
-    ],
-    Q_START: [
+    ]),
+    Q_THEM_BASE: cleanApostrophes([
       "why did you", "how could you", "when did you decide to",
-      "what made you", "why didn't you", "how did you",
-      "how did you find it so easy to", "did you even hesitate to",
-      "why is it so hard to",
+      "what made you", "how did you find it so easy to", "did you even hesitate to",
       "why was it so easy for you to", "how did you manage to", 
-      "when did you stop trying to", "why couldn't you just",
-      "when did it become so easy for you to"
-    ],
-    THEM_BASE: [
+      "when did it become so easy for you to", "why is it so hard to understand why you would"
+    ]),
+    THEM_BASE: cleanApostrophes([
       "walk away", "give up on us", "choose them", "choose yourself",
-      "stop loving me", "stop caring", "throw it all away", "ghost me",
-      "hurt me like that", "break my heart", "ruin everything",
+      "throw it all away", "ghost me", "hurt me like that", "break my heart", "ruin everything",
       "forget about me", "erase me from your life", "move on", "leave me crying",
       "walk out without a word", "shut me out", "give up without trying",
       "run away when things got hard",
@@ -511,51 +502,51 @@ const EMOTIONS = {
       "throw away years of history", "break every promise we made", "give up on all our plans",
       "let me go", "give up on everything", "walk out of my life", 
       "stop fighting for us", "turn your back on me", "throw me away like i meant nothing"
-    ],
-    P3_TIME: [
+    ]),
+    P3_TIME: cleanApostrophes([
       "late at night", "when i wake up",
       "every time i drive past your house", "when our song plays",
-      "when i look at old photos", "in the middle of the night", "when i'm alone", "when it rains",
-      "every single day", "when i'm driving alone",
+      "when i look at old photos", "in the middle of the night", "when im alone", "when it rains",
+      "every single day", "when im driving alone",
       "every time it snows", "when i smell your cologne", "when i smell your perfume",
       "when i pass our spot", "on your birthday", "on our anniversary",
       "when i see someone who looks like you", "when im having a bad day",
       "when i watch our favorite movie", "first thing in the morning",
       "right before i fall asleep", "when i hear that one song on the radio",
       "every time i walk through the park"
-    ],
-    P3_MEMORY_PREFIX: [
+    ]),
+    P3_MEMORY_PREFIX: cleanApostrophes([
       "i remember how", "i think about how",
-      "i can't stop thinking about how", "my mind goes back to how",
+      "i cant stop thinking about how", "my mind goes back to how",
       "i get a flashback to how", "i picture how",
       "i catch myself thinking about how",
       "i start replaying how", "i reminisce about how",
       "my heart aches remembering how", "i tear up thinking about how",
       "i get so emotional remembering how"
-    ],
-    P3_FEELING: [
+    ]),
+    P3_FEELING: cleanApostrophes([
       "and it ruins my day", "and i just start crying",
       "and i just feel completely empty", "and it still hurts", "and i miss it",
       "and i hate that i miss it", "and i wish i could forget",
       "and i feel so numb",
       "and it breaks my heart all over again", "and i just want to sleep forever",
       "and i just feel so pathetic",
-      "and it reminds me that you're gone",
+      "and it reminds me that youre gone",
       "and it breaks me down", "and i just cant stop crying",
       "and it hurts more than ever", "and i wish we could go back",
       "and it reminds me of everything i lost", "and i realize i still love you"
-    ],
-    P4_CONFESSION: [
+    ]),
+    P4_CONFESSION: cleanApostrophes([
       "i never told you but", "i have a confession:", "secretly,", "truth is,",
-      "i act like i don't care but",
-      "i tell everyone i'm over you but", "i pretend i'm fine but",
-      "nobody knows this but", "i've been hiding that",
-      "i hate to admit it but", "i promised myself i wouldn't say this but",
-      "i know it's pathetic but", "to be totally honest,",
+      "i act like i dont care but",
+      "i tell everyone im over you but", "i pretend im fine but",
+      "nobody knows this but", "ive been hiding that",
+      "i hate to admit it but", "i promised myself i wouldnt say this but",
+      "i know its pathetic but", "to be totally honest,",
       "if im being completely honest,", "deep down,", "the hard truth is",
-      "even after all this time,", "i know i shouldn't say this but"
-    ],
-    PAST_ENDINGS: [
+      "even after all this time,", "i know i shouldnt say this but"
+    ]),
+    PAST_ENDINGS: cleanApostrophes([
       "and it still hurts",
       "and it hurts so much", "and im still bleeding",
       "and im still broken", "and im still putting the pieces back together",
@@ -570,44 +561,44 @@ const EMOTIONS = {
       "but i still miss you", "but i still love you", "but i still care",
       "but i still think about you", "but i still dream about you",
       "but i still cry over you", "but i still check your social media",
-      "but i still look for you in crowds", "but i still hope you'll call",
+      "but i still look for you in crowds", "but i still hope youll call",
       "but i still wish you were here", "but i still wish we could try again",
       "and maybe one day we can", "and maybe in another life",
       "and maybe our timing was just wrong",
-      "and maybe we'll find each other again",
-      "and i've completely lost my mind",
+      "and maybe well find each other again",
+      "and ive completely lost my mind",
       "and i cant believe i wasted so much time on you",
-      "and i'm still picking up the pieces", 
+      "and im still picking up the pieces", 
       "and i dont know how to live without you", "and im begging you to come back",
       "and i just want one more chance", "and please just answer me",
       "and i miss you more than anything", "and i still love you so much",
       "and my heart literally aches for you", "and im so incredibly lonely",
       "and i would do anything to fix us", "and i just cant do this alone",
-      "and it hurts more every single day", "and im just praying you'll come back",
+      "and it hurts more every single day", "and im just praying youll come back",
       "and nothing feels right without you", "and please just give me a sign",
       "and im so lost without you",
       "and it keeps me up at night", 
-      "and i know i shouldn't be saying this", "and please just ignore this",
-      "and im sorry for bothering you", "and i'll probably regret this tomorrow",
+      "and i know i shouldnt be saying this", "and please just ignore this",
+      "and im sorry for bothering you", "and ill probably regret this tomorrow",
       "and please just text me back", "and i just had to tell you", "and ugh i miss you",
       "and i hate that i still care", "and just tell me you miss me too", "and i wish you were awake",
-      "and i just wish things were different", "and i'll never understand why it had to end",
+      "and i just wish things were different", "and ill never understand why it had to end",
       "and i still wait for you to come back", "and i wonder if you think of me too"
-    ]
+    ])
   },
   
   LOVE_NOSTALGIA: {
-    INDEPENDENT: [
+    INDEPENDENT: cleanApostrophes([
       "i will always love you", "you were the best thing that ever happened to me",
-      "i still think you're my soulmate", "nobody will ever compare to you",
+      "i still think youre my soulmate", "nobody will ever compare to you",
       "i would do it all over again just to see you smile",
-      "i just want you to be happy", "im so proud of everything you've accomplished",
+      "i just want you to be happy", "im so proud of everything youve accomplished",
       "i smile every time i think of you", "you made me a better person",
       "i still get butterflies thinking about our first date",
       "you will always have a piece of my heart", "i truly wanted it to be you",
       "my life is better because you were in it", "i still pray for you every night",
-      "you were my favorite chapter", "i hope you find exactly what you're looking for",
-      "i cherish every memory we made", "i wouldn't trade our time together for anything",
+      "you were my favorite chapter", "i hope you find exactly what youre looking for",
+      "i cherish every memory we made", "i wouldnt trade our time together for anything",
       "you taught me how to love", "i still remember the exact moment i fell for you",
       "part of me will always belong to you", "i will always root for you from afar",
       "you brought out the best in me", "i still count my lucky stars that i met you",
@@ -619,7 +610,7 @@ const EMOTIONS = {
       "i keep remembering our late night conversations",
       "i still have the ticket stub from our first movie",
       "it feels like just yesterday we were inseparable",
-      "i miss our midnight drives", "i miss the way we used to laugh until we couldn't breathe",
+      "i miss our midnight drives", "i miss the way we used to laugh until we couldnt breathe",
       "do you ever think about that summer we spent together", 
       "i stumbled upon your old letters in my drawer", "i played our playlist today",
       "everything around this city reminds me of you", "i walked past the park where we first met",
@@ -629,8 +620,8 @@ const EMOTIONS = {
       "you will always have a special place in my heart", "i am grateful our paths crossed", 
       "you taught me what it means to be loved", "im so glad i got to know you",
       "you were the right person at the wrong time", "i will always be your biggest fan"
-    ],
-    THEM_PAST: [
+    ]),
+    THEM_PAST: cleanApostrophes([
       "you made me feel so special", "you showed me what love actually is",
       "you always knew how to make me laugh", "you held my hand when i was scared",
       "you promised it would be okay", "you made me feel safe",
@@ -640,8 +631,8 @@ const EMOTIONS = {
       "you made ordinary days feel magical", "you saw the best in me", 
       "you always knew how to comfort me", "you made me feel so seen", 
       "you brought out a side of me i never knew existed"
-    ],
-    ME_PAST: [
+    ]),
+    ME_PAST: cleanApostrophes([
       "i fell for you instantly", "i knew from day one",
       "i loved you", "i loved you so much",
       "i tried my absolute hardest", 
@@ -649,8 +640,8 @@ const EMOTIONS = {
       "i cherished every moment", "i loved you fiercely", 
       "i thought we had forever", "i saw my whole future in your eyes", 
       "i grew so much with you", "i felt so lucky to be yours"
-    ],
-    OPENER_PAST: [
+    ]),
+    OPENER_PAST: cleanApostrophes([
       "im so grateful that", "it makes me smile that", "i love that",
       "i will always cherish how", "i smile when i remember how",
       "i still remember the exact moment that", "it means everything to me that",
@@ -659,35 +650,44 @@ const EMOTIONS = {
       "it brings me peace knowing that", "i love looking back on how", 
       "it fills me with joy to remember how", "im so glad that", 
       "i will forever hold onto how", "it makes my day to think about how"
-    ],
-    ME_PRESENT: [
-      "i hope you're doing well", "i just want the best for you",
+    ]),
+    ME_PRESENT: cleanApostrophes([
+      "i hope youre doing well", "i just want the best for you",
       "i miss your laugh", "i miss how we used to be", "i still believe in us",
       "i still get butterflies", 
-      "i wonder if you're happy now", "i hope someone is treating you right",
-      "i check your spotify to see what you're listening to",
+      "i wonder if youre happy now", "i hope someone is treating you right",
+      "i check your spotify to see what youre listening to",
       "i still catch myself smiling when someone mentions your name",
       "i pray for your happiness every single day", "i still wonder what could have been",
-      "i find myself looking for you in crowds", "i keep hoping we'll bump into each other",
+      "i find myself looking for you in crowds", "i keep hoping well bump into each other",
       "i still smile when i think of you", "i hope all your dreams are coming true", 
       "i still have a soft spot for you", "i send you love from afar", 
       "i still think of you fondly", "i am so deeply proud of you"
-    ],
-    Q_START: [
-      "do you ever regret trying to",
-      "when did you first realize you wanted to",
-      "did it ever cross your mind to",
-      "do you still remember when we used to", "i wonder if you still", 
-      "do you ever look back and", "do you ever think about the time we used to"
-    ],
-    THEM_BASE: [
-      "make me feel so special", "show me what love is",
-      "be there for me when no one else was", "change my life completely",
+    ]),
+    Q_WE_BASE: cleanApostrophes([
+      "do you still remember when we used to", 
+      "do you ever look back and miss when we would", 
+      "do you ever think about the time we would", 
+      "i wonder if you still think about when we would",
+      "did you ever realize how much it meant when we would"
+    ]),
+    WE_BASE: cleanApostrophes([
       "laugh until the sun came up", "talk about our dreams", 
-      "make those late night runs", "dream about the future",
-      "stay up talking all night"
-    ],
-    P3_TIME: [
+      "make those late night runs", "dream about the future", 
+      "stay up talking all night", "drive around with no destination", 
+      "talk about everything and nothing", "plan our whole future out"
+    ]),
+    Q_THEM_BASE: cleanApostrophes([
+      "when did you first realize you wanted to", 
+      "how did you always know how to",
+      "did you ever realize how much it meant when you would"
+    ]),
+    THEM_BASE: cleanApostrophes([
+      "make me feel so special", "show me what love is", 
+      "be there for me when no one else was", "comfort me", "make me feel safe",
+      "look at me like i was the only person in the room"
+    ]),
+    P3_TIME: cleanApostrophes([
       "sometimes", "randomly",
       "when our song plays",
       "when i see your friends", "when i look at old photos", 
@@ -697,8 +697,8 @@ const EMOTIONS = {
       "when i watch our favorite movie", 
       "when i hear that one song on the radio",
       "every time i walk through the park"
-    ],
-    P3_MEMORY_PREFIX: [
+    ]),
+    P3_MEMORY_PREFIX: cleanApostrophes([
       "i remember how", "i think about how",
       "my mind goes back to how",
       "i get a flashback to how", "i picture how",
@@ -706,33 +706,33 @@ const EMOTIONS = {
       "i reminisce about how",
       "i smile thinking about how", "i find peace knowing how",
       "i get chills remembering how"
-    ],
-    P3_FEELING: [
-      "and it makes me smile", "and i wouldn't change a thing",
+    ]),
+    P3_FEELING: cleanApostrophes([
+      "and it makes me smile", "and i wouldnt change a thing",
       "and it fills me with so much warmth", "and i still feel so lucky",
-      "and it makes me hope you're doing okay", "and i pray that you're happy",
+      "and it makes me hope youre doing okay", "and i pray that youre happy",
       "and it reminds me how beautiful life can be", "and i feel grateful we happened at all"
-    ],
-    P4_CONFESSION: [
+    ]),
+    P4_CONFESSION: cleanApostrophes([
       "i never told you but", "i have a confession:", "secretly,", "truth is,",
       "nobody knows this but", 
       "to be totally honest,", "if im being completely honest,", "deep down,", 
       "i never admitted this but", "i still havent told anyone but",
       "even after all this time,", 
       "i was too scared to say this before but", "i always wanted to tell you that"
-    ],
-    PAST_ENDINGS: [
-      "and i will always be grateful", "and i wouldn't change a single thing",
+    ]),
+    PAST_ENDINGS: cleanApostrophes([
+      "and i will always be grateful", "and i wouldnt change a single thing",
       "and you made my life so much better", "and i will never stop loving you",
-      "and i hope you're doing well", "and i wish you nothing but the best",
-      "and i hope you found your happiness", "and i'll always root for you",
+      "and i hope youre doing well", "and i wish you nothing but the best",
+      "and i hope you found your happiness", "and ill always root for you",
       "and i hope someone loves you right", "and you will always be special to me",
       "and it was the best time of my life", "and i miss those days so much",
       "and i would do it all over again", "and i still believe we were meant to be",
       "and i wonder if you think of me too",
       "and it warms my heart every time i think of it", "and i feel so lucky to have had you",
       "and i will carry those memories with me forever", "and my life is forever changed because of you"
-    ]
+    ])
   }
 };
 
@@ -791,11 +791,11 @@ function generate() {
     if (words < 1 || words > 30) return false;
     
     const opening = msg.toLowerCase().split(/\s+/).slice(0, 2).join(' ');
-    if ((firstTwoWords[opening] || 0) >= 200) return false; // Stricter variety
+    if ((firstTwoWords[opening] || 0) >= 200) return false;
     
     const trigrams = getTrigrams(msg);
     for (const gram of trigrams) {
-      if ((trigramCounts[gram] || 0) >= 40) return false; // Stricter variety
+      if ((trigramCounts[gram] || 0) >= 40) return false;
     }
     
     return true;
@@ -818,7 +818,6 @@ function generate() {
     pool.push({ name, message: msg, color_id: R(CARD_COLORS) });
   }
 
-  // 1. Add base independent sentences first (from all emotions)
   console.log("Phase 1: Adding base independent messages");
   for (const emotionKey in EMOTIONS) {
       for (let msg of EMOTIONS[emotionKey].INDEPENDENT) {
@@ -831,14 +830,13 @@ function generate() {
   console.log(`Phase 1 total: ${pool.length}`);
   
   let attempts = 0;
-  console.log("Phase 2: Generating combos with STRICT EMOTIONAL MATCHING and EXPANDED BASES");
+  console.log("Phase 2: Generating combos with STRICT EMOTIONAL MATCHING and FOOLPROOF GRAMMAR");
   
   const emotionKeys = Object.keys(EMOTIONS);
   
   while (pool.length < 10000 && attempts < 5000000) {
       attempts++;
       
-      // Pick ONE emotional category for this sentence so parts don't mismatch!
       const currentEmotion = R(emotionKeys);
       const E = EMOTIONS[currentEmotion];
       
@@ -863,13 +861,17 @@ function generate() {
           }
       } else if (structureType < 0.55) {
           // Template 3: Questions
-          msg = R(E.Q_START) + " " + R(E.THEM_BASE);
+          if (E.Q_WE_BASE && Math.random() < 0.5) {
+              msg = R(E.Q_WE_BASE) + " " + R(E.WE_BASE);
+          } else {
+              msg = R(E.Q_THEM_BASE) + " " + R(E.THEM_BASE);
+          }
       } else if (structureType < 0.70) {
           // Template 4: Memories
           if (Math.random() < 0.5) {
-              msg = R(E.P3_TIME) + " " + R(E.P3_MEMORY_PREFIX) + " " + R(E.THEM_PAST);
+              msg = R(E.P3_TIME) + " " + R(E.P3_MEMORY_PREFIX) + " " + R(pastClauses);
           } else {
-              msg = R(E.P3_TIME) + " " + R(E.P3_MEMORY_PREFIX) + " " + R(E.THEM_PAST) + " " + R(E.P3_FEELING);
+              msg = R(E.P3_TIME) + " " + R(E.P3_MEMORY_PREFIX) + " " + R(pastClauses) + " " + R(E.P3_FEELING);
           }
       } else if (structureType < 0.85) {
           // Template 5: Confessions + Independent
@@ -885,6 +887,7 @@ function generate() {
       }
       
       // Some random textspeak mutations for extra spice
+      // Apostrophes have been stripped, so regex bounds work flawlessly.
       if (Math.random() < 0.15) msg = msg.replace(/\byou\b/gi, 'u');
       if (Math.random() < 0.15) msg = msg.replace(/\byour\b/gi, 'ur');
       
@@ -923,7 +926,7 @@ function validate(pool) {
   return errors;
 }
 
-console.log('Generating 10,000 unique RAW texts with STRICT EMOTION SILOS...\n');
+console.log('Generating 10,000 unique RAW texts with FOOLPROOF GRAMMAR...\n');
 const pool = generate();
 
 console.log(`\nValidating ${pool.length} entries...`);
