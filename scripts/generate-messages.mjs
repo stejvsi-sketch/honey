@@ -3392,30 +3392,30 @@ const WORD_SWAPS = [
 
 function applyCasing(msg) {
   const r = Math.random();
-  if (r < 0.55) return msg;
-  if (r < 0.70) return msg.toLowerCase();
-  if (r < 0.82) return msg.charAt(0).toUpperCase() + msg.slice(1);
-  if (r < 0.94) {
-    return msg.replace(/(^|[.!?]\s+)([a-z])/g, (_, p, c) => p + c.toUpperCase());
+  if (r < 0.25) return msg;           // 25% keep as-is
+  if (r < 0.60) return msg.toLowerCase(); // 35% lowercase (very common)
+  if (r < 0.80) return msg.charAt(0).toUpperCase() + msg.slice(1); // 20% capitalize first
+  if (r < 0.97) {
+    return msg.replace(/(^|[.!?]\s+)([a-z])/g, (_, p, c) => p + c.toUpperCase()); // 17% sentence case
   }
-  return msg.toUpperCase();
+  return msg.toUpperCase(); // 3% ALL CAPS
 }
 
 function applyPunctuation(msg) {
-  if (Math.random() < 0.65) return msg;
-  msg = msg.replace(/[.!?,;:…]+$/, '').trimEnd();
+  // 98% leave bare to prevent the duplicate checker from artificially saturating the pool with punctuation
+  if (Math.random() < 0.98) return msg;
   const r = Math.random();
-  if (r < 0.30) return msg;
-  if (r < 0.50) return msg + '.';
-  if (r < 0.70) return msg + '...';
-  if (r < 0.85) return msg + '..';
-  if (r < 0.95) return msg + '?';
+  if (r < 0.40) return msg + '.';
+  if (r < 0.60) return msg + '...';
+  if (r < 0.70) return msg + '..';
+  if (r < 0.90) return msg + '?';
   return msg + '!';
 }
 
 function applyYouSwap(msg) {
-  if (Math.random() < 0.75) return msg;
-  if (Math.random() < 0.5) {
+  const r = Math.random();
+  if (r < 0.40) return msg; // 40% keep as-is
+  if (r < 0.70) {
     return msg.replace(/\bu\b/g, 'you').replace(/\bur\b/g, 'your');
   }
   return msg.replace(/\byou\b/gi, 'u').replace(/\byour\b/gi, 'ur');
@@ -3449,6 +3449,8 @@ function applyWordSwaps(msg) {
 
 function processMessage(raw) {
   let msg = raw;
+  // Strip trailing whitespace, THEN strip all trailing punctuation
+  msg = msg.trim().replace(/[.!?,;:…]+$/, '').trim();
   msg = applyWordSwaps(msg);
   msg = applyYouSwap(msg);
   msg = applyCasing(msg);
