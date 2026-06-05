@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // =============================================================
-// generate-messages.mjs (v9 — perfectly coherent grammar + max variety)
+// generate-messages.mjs (v10 — coherent grammar + ALL EMOTIONS)
 // =============================================================
 
 import { writeFileSync } from 'fs';
@@ -169,7 +169,7 @@ const NAMES = [
 const UNAMES = [...new Set(NAMES)];
 
 // ═══════════════════════════════════════════════════════════════
-// NEW ARCHITECTURE: COHERENT COMPONENTS
+// NEW ARCHITECTURE: COHERENT COMPONENTS ACROSS ALL EMOTIONS
 // ═══════════════════════════════════════════════════════════════
 
 const SENTENCES_ANGRY = [
@@ -194,7 +194,12 @@ const SENTENCES_ANGRY = [
   "im shaking im so angry", "you give me the ick", "never again", "hard lesson learned",
   "your karma is coming", "compulsive liar", "youre delusional",
   "sucks to be you", "you lost", "you fumbled the bag", "my gain", "im better off",
-  "you never loved me", "you have no heart", "ice cold"
+  "you never loved me", "you have no heart", "ice cold",
+  "i hope you get exactly what you deserve", "you played me for a fool",
+  "im done being your backup plan", "you only wanted me when it was convenient",
+  "you never took me seriously", "im so tired of your excuses",
+  "you ruined everything good we had", "i cant believe i defended you",
+  "you are incredibly selfish", "i refuse to let you manipulate me anymore"
 ];
 
 const SENTENCES_SAD = [
@@ -213,10 +218,47 @@ const SENTENCES_SAD = [
   "i feel so light without you", "im out of tears", "im just so sad",
   "i feel so empty", "my heart literally aches", "im so incredibly lonely",
   "i would do anything to fix us", "i just cant do this alone",
-  "nothing feels right without you", "please just give me a sign", "im so lost without you"
+  "nothing feels right without you", "please just give me a sign", "im so lost without you",
+  "i still look for your car when i drive", "i saved all our polaroids",
+  "i cant bring myself to delete our texts", "every love song reminds me of you",
+  "my heart drops every time my phone vibrates", "i still smell your perfume on my jacket",
+  "the silence in my room is deafening without you", "i keep rereading our old conversations",
+  "im terrified ill never feel this way again", "i dont even know who i am anymore"
 ];
 
-const INDEPENDENT = [...SENTENCES_ANGRY, ...SENTENCES_SAD];
+const SENTENCES_LOVE = [
+  "i will always love you", "you were the best thing that ever happened to me",
+  "i still think you're my soulmate", "nobody will ever compare to you",
+  "i would do it all over again just to see you smile",
+  "i just want you to be happy", "im so proud of everything you've accomplished",
+  "i smile every time i think of you", "you made me a better person",
+  "i still get butterflies thinking about our first date",
+  "you will always have a piece of my heart", "i truly wanted it to be you",
+  "my life is better because you were in it", "i still pray for you every night",
+  "you were my favorite chapter", "i hope you find exactly what you're looking for",
+  "i cherish every memory we made", "i wouldn't trade our time together for anything",
+  "you taught me how to love", "i still remember the exact moment i fell for you",
+  "part of me will always belong to you", "i will always root for you from afar",
+  "you brought out the best in me", "i still count my lucky stars that i met you",
+  "you were my safe place", "no matter what happens i will always care about you",
+  "you are the most beautiful soul i have ever known", "i will never regret loving you"
+];
+
+const SENTENCES_NOSTALGIA = [
+  "i still go to our favorite coffee shop", "i drove past your old house today",
+  "i found that mixtape you made me", "i wore your favorite shirt today",
+  "that road trip we took still feels like yesterday",
+  "i keep remembering our late night conversations",
+  "i still have the ticket stub from our first movie",
+  "it feels like just yesterday we were inseparable",
+  "i miss our midnight drives", "i miss the way we used to laugh until we couldn't breathe",
+  "do you ever think about that summer we spent together", 
+  "i stumbled upon your old letters in my drawer", "i played our playlist today",
+  "everything around this city reminds me of you", "i walked past the park where we first met",
+  "sometimes i just close my eyes and remember your laugh"
+];
+
+const INDEPENDENT = [...SENTENCES_ANGRY, ...SENTENCES_SAD, ...SENTENCES_LOVE, ...SENTENCES_NOSTALGIA];
 
 const THEM_PAST = [
   "you lied to my face", "you cheated on me", "you left me", "you walked away",
@@ -236,7 +278,15 @@ const THEM_PAST = [
   "you turned into someone i don't even know", "you betrayed me in the worst way",
   "you tore me down to build yourself up", "you crushed my spirit",
   "you made everything my fault", "you never took responsibility",
-  "you showed your true colors"
+  "you showed your true colors",
+  "you made me feel so special", "you showed me what love actually is",
+  "you always knew how to make me laugh", "you held my hand when i was scared",
+  "you promised it would be okay", "you made me feel safe",
+  "you kissed my forehead", "you looked at me like i was the only person in the room",
+  "you forgot my birthday", "you stopped texting back", "you slowly drifted away",
+  "you gave up on us without a word", "you let me slip through your fingers",
+  "you taught me how to trust again", "you brought so much light into my life",
+  "you completely changed my perspective on love", "you believed in me when no one else did"
 ];
 
 const ME_PAST = [
@@ -247,7 +297,14 @@ const ME_PAST = [
   "i gave you everything", "i gave you my all", "i tried so hard",
   "i did everything for you", "i bent over backwards for you",
   "i compromised everything for you", "i changed for you", "i lost myself loving you",
-  "i couldn't save you", "i couldn't fix us"
+  "i couldn't save you", "i couldn't fix us",
+  "i fell for you instantly", "i knew from day one",
+  "i gave you my whole heart", "i never wanted to say goodbye",
+  "i tried my absolute hardest", "i fought so hard for us",
+  "i would have done anything for you", "i ignored all the warning signs",
+  "i gave you way too many chances", "i poured all my energy into us",
+  "i made you the center of my universe", "i looked past all your flaws",
+  "i romanticized everything about you"
 ];
 
 const PAST_CLAUSES = [...THEM_PAST, ...ME_PAST];
@@ -263,7 +320,13 @@ const OPENER_PAST = [
   "what hurts the most is", "the worst feeling is", "i hate waking up and remembering how",
   "i hate going to sleep knowing that", "it makes me sick that", "it physically hurts that",
   "im so disgusted by how", "how do you even justify how", "i will never forgive you for how",
-  "im never going to forget how", "its sad that", "its just so sad that", "it breaks my heart that"
+  "im never going to forget how", "its sad that", "its just so sad that", "it breaks my heart that",
+  "im so grateful that", "it makes me smile that", "i love that",
+  "i will always cherish how", "i smile when i remember how",
+  "it breaks me knowing that", "i cant help but cry when i think about how",
+  "i still remember the exact moment that", "it means everything to me that",
+  "i will never forget how", "it comforts me to know that", "i find peace in the fact that",
+  "it honestly warms my heart that", "im forever thankful that"
 ];
 
 const ME_PRESENT = [
@@ -273,7 +336,16 @@ const ME_PRESENT = [
   "i cant delete your pictures", "im holding onto the memories", "i still reread our old messages",
   "i cant sleep without you here", "i cant stop thinking about you", "i just really miss you",
   "i want to hear your voice", "im looking at our old photos", "i need to talk to you",
-  "im craving your touch", "i wish you were here with me", "i just need you right now"
+  "im craving your touch", "i wish you were here with me", "i just need you right now",
+  "i hope you're doing well", "i just want the best for you",
+  "i miss your laugh", "i miss how we used to be", "i still believe in us",
+  "i still get butterflies", "i still want you to call",
+  "i wonder if you're happy now", "i hope someone is treating you right",
+  "i check your spotify to see what you're listening to",
+  "i still talk to my friends about you", "i still dream about you",
+  "i still catch myself smiling when someone mentions your name",
+  "i pray for your happiness every single day", "i still wonder what could have been",
+  "i find myself looking for you in crowds", "i keep hoping we'll bump into each other"
 ];
 
 const Q_START = [
@@ -282,7 +354,10 @@ const Q_START = [
   "why would you", "what possessed you to", "how long did it take you to",
   "how did you find it so easy to", "did you even hesitate to", "did it hurt you to",
   "did it bother you to", "how on earth could you", "why the hell did you",
-  "did you ever plan to", "was it your goal to", "was it fun for you to"
+  "did you ever plan to", "was it your goal to", "was it fun for you to",
+  "how could you ever", "why is it so hard to", "do you ever regret trying to",
+  "when did you first realize you wanted to", "what made you decide to",
+  "did it ever cross your mind to", "were you even trying to", "did you even care when you"
 ];
 
 const THEM_BASE = [
@@ -294,7 +369,12 @@ const THEM_BASE = [
   "forget about me", "erase me from your life", "move on", "leave me crying",
   "walk out without a word", "shut me out", "give up without trying",
   "throw me under the bus", "drain me of everything i had", "replace me in a week",
-  "run away when things got hard", "cross every line"
+  "run away when things got hard", "cross every line",
+  "walk away from everything we built", "stop trying to fix us",
+  "give up when things got hard", "let me go so easily",
+  "pretend like we meant nothing", "push me away when i tried to help",
+  "make me feel so special just to leave", "act like a completely different person",
+  "throw away years of history", "break every promise we made", "give up on all our plans"
 ];
 
 const P3_TIME = [
@@ -304,7 +384,13 @@ const P3_TIME = [
   "in the middle of the night", "when i'm alone", "when it rains",
   "every morning", "every single day", "when i'm driving alone",
   "when someone mentions your name", "when i go to that restaurant",
-  "when i wear that shirt", "every time i close my eyes", "almost every day"
+  "when i wear that shirt", "every time i close my eyes", "almost every day",
+  "every time it snows", "when i smell your cologne", "when i smell your perfume",
+  "when i pass our spot", "on your birthday", "on our anniversary",
+  "when i see someone who looks like you", "when im having a bad day",
+  "when i watch our favorite movie", "first thing in the morning",
+  "right before i fall asleep", "when i hear that one song on the radio",
+  "every time i walk through the park"
 ];
 
 const P3_MEMORY_PREFIX = [
@@ -312,7 +398,11 @@ const P3_MEMORY_PREFIX = [
   "i can't stop thinking about how", "my mind goes back to how",
   "i get a flashback to how", "i picture how",
   "i recall exactly how", "i catch myself thinking about how",
-  "i start replaying how", "i reminisce about how"
+  "i start replaying how", "i reminisce about how",
+  "i smile thinking about how", "i find peace knowing how",
+  "my heart aches remembering how", "i tear up thinking about how",
+  "i get chills remembering how", "i lose my breath thinking about how",
+  "i get so emotional remembering how"
 ];
 
 const P3_FEELING = [
@@ -324,7 +414,14 @@ const P3_FEELING = [
   "and i realize how much you hurt me", "and i feel so numb",
   "and it breaks my heart all over again", "and i just want to sleep forever",
   "and i wish i never met you", "and i just feel so pathetic",
-  "and it reminds me why we ended", "and it reminds me that you're gone"
+  "and it reminds me why we ended", "and it reminds me that you're gone",
+  "and it makes me smile", "and i wouldn't change a thing",
+  "and it fills me with so much warmth", "and i still feel so lucky",
+  "and it breaks me down", "and i just cant stop crying",
+  "and it hurts more than ever", "and i wish we could go back",
+  "and it reminds me of everything i lost", "and i realize i still love you",
+  "and it makes me hope you're doing okay", "and i pray that you're happy",
+  "and it reminds me how beautiful life can be", "and i feel grateful we happened at all"
 ];
 
 const P4_CONFESSION = [
@@ -333,7 +430,11 @@ const P4_CONFESSION = [
   "i tell everyone i'm over you but", "i pretend i'm fine but",
   "i try to act tough but", "nobody knows this but", "i've been hiding that",
   "i hate to admit it but", "i promised myself i wouldn't say this but",
-  "i swore i was done but", "i know it's pathetic but", "to be totally honest,"
+  "i swore i was done but", "i know it's pathetic but", "to be totally honest,",
+  "if im being completely honest,", "deep down,", "the hard truth is",
+  "i never admitted this but", "i still havent told anyone but",
+  "even after all this time,", "i know i shouldn't say this but",
+  "i was too scared to say this before but", "i always wanted to tell you that"
 ];
 
 const PAST_ENDINGS = [
@@ -434,7 +535,18 @@ const PAST_ENDINGS = [
   "and i know i shouldn't be saying this", "and please just ignore this",
   "and im sorry for bothering you", "and i'll probably regret this tomorrow",
   "and please just text me back", "and i just had to tell you", "and ugh i miss you",
-  "and i hate that i still care", "and just tell me you miss me too", "and i wish you were awake"
+  "and i hate that i still care", "and just tell me you miss me too", "and i wish you were awake",
+  "and i will always be grateful", "and i wouldn't change a single thing",
+  "and you made my life so much better", "and i will never stop loving you",
+  "and i hope you're doing well", "and i wish you nothing but the best",
+  "and i hope you found your happiness", "and i'll always root for you",
+  "and i hope someone loves you right", "and you will always be special to me",
+  "and it was the best time of my life", "and i miss those days so much",
+  "and i would do it all over again", "and i still believe we were meant to be",
+  "and i just wish things were different", "and i'll never understand why it had to end",
+  "and i still wait for you to come back", "and i wonder if you think of me too",
+  "and it warms my heart every time i think of it", "and i feel so lucky to have had you",
+  "and i will carry those memories with me forever", "and my life is forever changed because of you"
 ];
 
 // =============================================================
@@ -492,11 +604,11 @@ function generate() {
     if (words < 1 || words > 30) return false;
     
     const opening = msg.toLowerCase().split(/\s+/).slice(0, 2).join(' ');
-    if ((firstTwoWords[opening] || 0) >= 300) return false; 
+    if ((firstTwoWords[opening] || 0) >= 200) return false; // Stricter variety
     
     const trigrams = getTrigrams(msg);
     for (const gram of trigrams) {
-      if ((trigramCounts[gram] || 0) >= 60) return false;
+      if ((trigramCounts[gram] || 0) >= 40) return false; // Stricter variety
     }
     
     return true;
@@ -530,7 +642,7 @@ function generate() {
   console.log(`Phase 1 total: ${pool.length}`);
   
   let attempts = 0;
-  console.log("Phase 2: Generating combos with strictly valid grammar");
+  console.log("Phase 2: Generating combos with strictly valid grammar and ALL emotions");
   
   while (pool.length < 10000 && attempts < 5000000) {
       attempts++;
@@ -578,7 +690,6 @@ function generate() {
       // Some random textspeak mutations for extra spice
       if (Math.random() < 0.15) msg = msg.replace(/\byou\b/gi, 'u');
       if (Math.random() < 0.15) msg = msg.replace(/\byour\b/gi, 'ur');
-      // No more replacing 'to' or 'for' to prevent 'give anything 2 you'
       
       msg = applyCasing(msg);
       msg = applyPunctuation(msg);
@@ -615,7 +726,7 @@ function validate(pool) {
   return errors;
 }
 
-console.log('Generating 10,000 unique RAW texts...\n');
+console.log('Generating 10,000 unique RAW texts with ALL emotions...\n');
 const pool = generate();
 
 console.log(`\nValidating ${pool.length} entries...`);
