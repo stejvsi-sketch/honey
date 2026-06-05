@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // =============================================================
-// generate-messages.mjs (v11 — strict emotional coherence)
+// generate-messages.mjs (v12 — strict emotion silos + expanded base)
 // =============================================================
 
 import { writeFileSync } from 'fs';
@@ -201,7 +201,14 @@ const EMOTIONS = {
       "im done being your backup plan", "you only wanted me when it was convenient",
       "you never took me seriously", "im so tired of your excuses",
       "you ruined everything good we had", "i cant believe i defended you",
-      "you are incredibly selfish", "i refuse to let you manipulate me anymore"
+      "you are incredibly selfish", "i refuse to let you manipulate me anymore",
+      "you were my biggest mistake", "i regret the day i met you", 
+      "im doing so much better without you", "i cant believe i ever loved you", 
+      "im embarrassed i was with you", "dont you ever contact me again", 
+      "stay out of my life", "i finally woke up", "i see through your lies now", 
+      "im done being your safety net", "im closing this chapter forever",
+      "i deserve a massive apology", "you dragged me down for so long",
+      "i'm so over your mind games"
     ],
     THEM_PAST: [
       "you lied to my face", "you cheated on me", "you left me", "you walked away",
@@ -221,13 +228,22 @@ const EMOTIONS = {
       "you turned into someone i don't even know", "you betrayed me in the worst way",
       "you tore me down to build yourself up", "you crushed my spirit",
       "you made everything my fault", "you never took responsibility",
-      "you showed your true colors"
+      "you showed your true colors",
+      "you made me feel like an option", "you never prioritized me", 
+      "you always put yourself first", "you expected me to wait around", 
+      "you crossed every boundary", "you took my kindness for weakness", 
+      "you disrespected me", "you thought i would never leave",
+      "you made me feel completely invisible", "you strung me along"
     ],
     ME_PAST: [
       "i tried my absolute hardest", "i ignored all the warning signs",
       "i gave you way too many chances", "i made a mistake trusting you",
       "i compromised everything for you", "i lost myself loving you",
-      "i gave you everything", "i bent over backwards for you"
+      "i gave you everything", "i bent over backwards for you",
+      "i made excuses for your bad behavior", "i defended you to my friends", 
+      "i ignored my intuition", "i let you treat me poorly", 
+      "i settled for less than i deserve", "i put up with too much nonsense",
+      "i justified all your toxic traits"
     ],
     OPENER_PAST: [
       "i cant believe", "it sucks that", "i hate that", "im so mad that",
@@ -240,13 +256,19 @@ const EMOTIONS = {
       "what hurts the most is", "the worst feeling is",
       "it makes me sick that", "it physically hurts that",
       "im so disgusted by how", "how do you even justify how", "i will never forgive you for how",
-      "im never going to forget how"
+      "im never going to forget how",
+      "i find it hilarious that", "its pathetic how", "it infuriates me that", 
+      "i cant stand the fact that", "i cringe when i think about how",
+      "it boils my blood that", "it annoys me so much that"
     ],
     ME_PRESENT: [
       "i hope you get what you deserve", "im never speaking to you again",
       "i hope karma gets you", "im so done with you", "i want nothing to do with you",
       "i hope you end up alone", "i finally see who you really are",
-      "im so angry every time i think of you"
+      "im so angry every time i think of you",
+      "i laugh at how blind i was", "i feel absolutely nothing for you", 
+      "i pity the next person who dates you", "im finally free", 
+      "i am so relieved it's over", "i dont even recognize you anymore"
     ],
     Q_START: [
       "why did you", "how could you", "when did you decide to",
@@ -257,7 +279,10 @@ const EMOTIONS = {
       "did you ever plan to", "was it your goal to", "was it fun for you to",
       "how could you ever", "why is it so hard to", "do you ever regret trying to",
       "what made you decide to",
-      "did it ever cross your mind to", "were you even trying to", "did you even care when you"
+      "did it ever cross your mind to", "were you even trying to", "did you even care when you",
+      "how dare you", "who do you think you are to", "did you honestly think you could", 
+      "what gave you the right to", "when did you become someone who would",
+      "why did you even bother to", "did it ever make you feel guilty to"
     ],
     THEM_BASE: [
       "lie to me", "walk away", "give up on us", "choose them", "choose yourself",
@@ -273,7 +298,10 @@ const EMOTIONS = {
       "give up when things got hard", "let me go so easily",
       "pretend like we meant nothing", "push me away when i tried to help",
       "make me feel so special just to leave", "act like a completely different person",
-      "throw away years of history", "break every promise we made", "give up on all our plans"
+      "throw away years of history", "break every promise we made", "give up on all our plans",
+      "treat me like an afterthought", "disrespect my boundaries", 
+      "play games with my head", "act so selfishly", "manipulate the situation",
+      "make me feel like i was the problem", "act like a complete victim"
     ],
     P3_TIME: [
       "sometimes", "late at night", "when i wake up", "randomly",
@@ -408,7 +436,12 @@ const EMOTIONS = {
       "i cant bring myself to delete our texts", "every love song reminds me of you",
       "my heart drops every time my phone vibrates", "i still smell your perfume on my jacket",
       "the silence in my room is deafening without you", "i keep rereading our old conversations",
-      "im terrified ill never feel this way again", "i dont even know who i am anymore"
+      "im terrified ill never feel this way again", "i dont even know who i am anymore",
+      "i still wait for your name to pop up on my phone", "i dont know how to unlove you", 
+      "it still hurts to breathe sometimes", "i wish i could turn back time", 
+      "im trying to be okay but im not", "my heart feels so heavy", 
+      "i miss my best friend", "i feel so lonely in crowded rooms", 
+      "i still cry in the shower over you", "i am so incredibly tired of missing you"
     ],
     THEM_PAST: [
       "you left me", "you walked away", "you gave up on us", "you stopped trying", 
@@ -416,7 +449,10 @@ const EMOTIONS = {
       "you destroyed us", "you broke my heart", "you shattered my heart", "you tore me apart", 
       "we fell apart", "we broke up", "we drifted apart", "we lost each other", 
       "you completely blindsided me", "you stole my peace", "you took my happiness", 
-      "you left without saying goodbye", "you forgot all our promises"
+      "you left without saying goodbye", "you forgot all our promises",
+      "you became a stranger", "you gave up without a fight", 
+      "you let us slip away", "you let me go", "you closed the door on us", 
+      "you stopped trying to understand me", "you let my hand go"
     ],
     ME_PAST: [
       "i lost you", "i let you go", "i pushed you away", "i gave up",
@@ -426,14 +462,20 @@ const EMOTIONS = {
       "i gave you everything", "i gave you my all", "i tried so hard",
       "i couldn't save you", "i couldn't fix us",
       "i gave you my whole heart", "i never wanted to say goodbye",
-      "i poured all my energy into us", "i made you the center of my universe"
+      "i poured all my energy into us", "i made you the center of my universe",
+      "i tried to hold on", "i prayed we would make it", 
+      "i cried myself to sleep", "i begged you to stay", 
+      "i gave you everything i had left", "i held on for far too long"
     ],
     OPENER_PAST: [
       "it kills me that", "the hardest part is", "every night i think about how",
       "you have no idea how much it hurts that", "i am still in shock that",
       "i just cant accept that", "its hard to accept that",
       "what hurts the most is", "the worst feeling is", "i hate waking up and remembering how",
-      "i hate going to sleep knowing that", "it breaks my heart that"
+      "i hate going to sleep knowing that", "it breaks my heart that",
+      "i struggle to accept that", "it shatters me that", 
+      "i still cry when i think about how", "it tears me apart that", 
+      "i hate waking up and realizing", "i just cant stomach the fact that"
     ],
     ME_PRESENT: [
       "i still love you", "i need you in my life", "i miss holding you",
@@ -443,13 +485,19 @@ const EMOTIONS = {
       "i cant sleep without you here", "i cant stop thinking about you", "i just really miss you",
       "i want to hear your voice", "im looking at our old photos", "i need to talk to you",
       "im craving your touch", "i wish you were here with me", "i just need you right now",
-      "i still talk to my friends about you", "i still dream about you"
+      "i still talk to my friends about you", "i still dream about you",
+      "i still look for you in everyone else", "i pretend im fine when im not", 
+      "i still hope it's a bad dream", "i just want to go back to how it was",
+      "i just want you to come home to me"
     ],
     Q_START: [
       "why did you", "how could you", "when did you decide to",
       "what made you", "why didn't you", "how did you",
       "how did you find it so easy to", "did you even hesitate to",
-      "why is it so hard to"
+      "why is it so hard to",
+      "why was it so easy for you to", "how did you manage to", 
+      "when did you stop trying to", "why couldn't you just",
+      "when did it become so easy for you to"
     ],
     THEM_BASE: [
       "walk away", "give up on us", "choose them", "choose yourself",
@@ -460,7 +508,9 @@ const EMOTIONS = {
       "run away when things got hard",
       "walk away from everything we built", "stop trying to fix us",
       "give up when things got hard", "let me go so easily",
-      "throw away years of history", "break every promise we made", "give up on all our plans"
+      "throw away years of history", "break every promise we made", "give up on all our plans",
+      "let me go", "give up on everything", "walk out of my life", 
+      "stop fighting for us", "turn your back on me", "throw me away like i meant nothing"
     ],
     P3_TIME: [
       "late at night", "when i wake up",
@@ -573,7 +623,12 @@ const EMOTIONS = {
       "do you ever think about that summer we spent together", 
       "i stumbled upon your old letters in my drawer", "i played our playlist today",
       "everything around this city reminds me of you", "i walked past the park where we first met",
-      "sometimes i just close my eyes and remember your laugh"
+      "sometimes i just close my eyes and remember your laugh",
+      "i will forever cherish our time together", "you were a beautiful chapter in my story", 
+      "i still talk about you with a smile", "i hope life treats you beautifully", 
+      "you will always have a special place in my heart", "i am grateful our paths crossed", 
+      "you taught me what it means to be loved", "im so glad i got to know you",
+      "you were the right person at the wrong time", "i will always be your biggest fan"
     ],
     THEM_PAST: [
       "you made me feel so special", "you showed me what love actually is",
@@ -581,20 +636,29 @@ const EMOTIONS = {
       "you promised it would be okay", "you made me feel safe",
       "you kissed my forehead", "you looked at me like i was the only person in the room",
       "you taught me how to trust again", "you brought so much light into my life",
-      "you completely changed my perspective on love", "you believed in me when no one else did"
+      "you completely changed my perspective on love", "you believed in me when no one else did",
+      "you made ordinary days feel magical", "you saw the best in me", 
+      "you always knew how to comfort me", "you made me feel so seen", 
+      "you brought out a side of me i never knew existed"
     ],
     ME_PAST: [
       "i fell for you instantly", "i knew from day one",
       "i loved you", "i loved you so much",
       "i tried my absolute hardest", 
-      "i romanticized everything about you"
+      "i romanticized everything about you",
+      "i cherished every moment", "i loved you fiercely", 
+      "i thought we had forever", "i saw my whole future in your eyes", 
+      "i grew so much with you", "i felt so lucky to be yours"
     ],
     OPENER_PAST: [
       "im so grateful that", "it makes me smile that", "i love that",
       "i will always cherish how", "i smile when i remember how",
       "i still remember the exact moment that", "it means everything to me that",
       "i will never forget how", "it comforts me to know that", "i find peace in the fact that",
-      "it honestly warms my heart that", "im forever thankful that"
+      "it honestly warms my heart that", "im forever thankful that",
+      "it brings me peace knowing that", "i love looking back on how", 
+      "it fills me with joy to remember how", "im so glad that", 
+      "i will forever hold onto how", "it makes my day to think about how"
     ],
     ME_PRESENT: [
       "i hope you're doing well", "i just want the best for you",
@@ -604,16 +668,24 @@ const EMOTIONS = {
       "i check your spotify to see what you're listening to",
       "i still catch myself smiling when someone mentions your name",
       "i pray for your happiness every single day", "i still wonder what could have been",
-      "i find myself looking for you in crowds", "i keep hoping we'll bump into each other"
+      "i find myself looking for you in crowds", "i keep hoping we'll bump into each other",
+      "i still smile when i think of you", "i hope all your dreams are coming true", 
+      "i still have a soft spot for you", "i send you love from afar", 
+      "i still think of you fondly", "i am so deeply proud of you"
     ],
     Q_START: [
       "do you ever regret trying to",
       "when did you first realize you wanted to",
-      "did it ever cross your mind to"
+      "did it ever cross your mind to",
+      "do you still remember when we used to", "i wonder if you still", 
+      "do you ever look back and", "do you ever think about the time we used to"
     ],
     THEM_BASE: [
       "make me feel so special", "show me what love is",
-      "be there for me when no one else was", "change my life completely"
+      "be there for me when no one else was", "change my life completely",
+      "laugh until the sun came up", "talk about our dreams", 
+      "make those late night runs", "dream about the future",
+      "stay up talking all night"
     ],
     P3_TIME: [
       "sometimes", "randomly",
@@ -759,7 +831,7 @@ function generate() {
   console.log(`Phase 1 total: ${pool.length}`);
   
   let attempts = 0;
-  console.log("Phase 2: Generating combos with STRICT EMOTIONAL MATCHING");
+  console.log("Phase 2: Generating combos with STRICT EMOTIONAL MATCHING and EXPANDED BASES");
   
   const emotionKeys = Object.keys(EMOTIONS);
   
