@@ -1,13 +1,11 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import { Lora, Inter, Caveat } from 'next/font/google';
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from '@/lib/constants';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import AdSenseScript from '@/components/AdSenseScript';
+import AnalyticsScript from '@/components/AnalyticsScript';
 import './globals.css';
-
-const GA_MEASUREMENT_ID = 'G-QNJ151X277';
 
 const lora = Lora({
   subsets: ['latin'],
@@ -69,19 +67,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navigation />
         <main>{children}</main>
         <Footer />
-        {/* Google Analytics — deferred to reduce TBT */}
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          strategy="lazyOnload"
-        />
-        <Script id="google-analytics" strategy="lazyOnload">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_MEASUREMENT_ID}');
-          `}
-        </Script>
+        {/* Google Analytics — conditionally loaded */}
+        <AnalyticsScript />
       </body>
     </html>
   );
