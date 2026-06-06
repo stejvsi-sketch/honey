@@ -39,8 +39,8 @@ export default async function CollectionPage({ params }: Props) {
     notFound();
   }
 
-  // Pre-fetch the first page to pass down as initial total
-  const { total } = await getMemoriesByCollection(slug, 1, 10);
+  // Pre-fetch the first page for SSR content
+  const { memories: initialMemories, total } = await getMemoriesByCollection(slug, 1, 10);
 
   return (
     <div className="page">
@@ -57,7 +57,7 @@ export default async function CollectionPage({ params }: Props) {
         </p>
       </div>
 
-      <CollectionArchive themeSlug={slug} themeName={collection.title} initialTotal={total} />
+      <CollectionArchive themeSlug={slug} themeName={collection.title} initialTotal={total} initialMemories={initialMemories} />
     </div>
   );
 }

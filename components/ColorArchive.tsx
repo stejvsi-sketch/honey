@@ -20,17 +20,19 @@ export default function ColorArchive({
   colorId,
   colorName,
   initialTotal,
+  initialMemories = [],
 }: {
   colorId: string;
   colorName: string;
   initialTotal: number;
+  initialMemories?: Memory[];
 }) {
   const storageKey = `hio:color:${colorId}`;
-  const [memories, setMemories] = useState<Memory[]>([]);
+  const [memories, setMemories] = useState<Memory[]>(() => deduplicateMemories(initialMemories));
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(initialTotal);
   const [loading, setLoading] = useState(false);
-  const [initialLoad, setInitialLoad] = useState(true);
+  const [initialLoad, setInitialLoad] = useState(initialMemories.length === 0);
   const [restored, setRestored] = useState(false);
   const loaderRef = useRef<HTMLDivElement>(null);
   const fetchingRef = useRef(false);

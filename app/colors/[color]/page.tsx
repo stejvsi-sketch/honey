@@ -40,8 +40,8 @@ export default async function ColorPage({ params }: Props) {
     notFound();
   }
 
-  // Pre-fetch the first page to pass down as initial total
-  const { total } = await getMemoriesByColor(color, 1, 10);
+  // Pre-fetch the first page for SSR content
+  const { memories: initialMemories, total } = await getMemoriesByColor(color, 1, 10);
 
   return (
     <div className="page">
@@ -64,7 +64,7 @@ export default async function ColorPage({ params }: Props) {
         </p>
       </div>
 
-      <ColorArchive colorId={color} colorName={meaning.name} initialTotal={total} />
+      <ColorArchive colorId={color} colorName={meaning.name} initialTotal={total} initialMemories={initialMemories} />
     </div>
   );
 }

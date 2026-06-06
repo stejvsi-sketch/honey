@@ -4,6 +4,7 @@ import { Lora, Inter, Caveat } from 'next/font/google';
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from '@/lib/constants';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import AdSenseScript from '@/components/AdSenseScript';
 import './globals.css';
 
 const GA_MEASUREMENT_ID = 'G-QNJ151X277';
@@ -58,14 +59,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <head>
-        {/* Google AdSense Verification Script */}
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4151123662328725" crossOrigin="anonymous"></script>
         {/* Preload LCP-critical texture image */}
         <link rel="preload" href="/textures/rough-paper.webp" as="image" type="image/webp" fetchPriority="high" />
         {/* Preconnect to ads origin */}
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
       </head>
       <body>
+        <AdSenseScript />
         <Navigation />
         <main>{children}</main>
         <Footer />
