@@ -15,7 +15,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
     description: story.synopsis,
     alternates: { canonical: canonicalUrl },
     openGraph: {
-      title: `${story.title} | Honey, If Only`,
+      title: story.title,
       description: story.synopsis,
       url: canonicalUrl,
     },

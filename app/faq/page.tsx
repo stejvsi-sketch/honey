@@ -4,7 +4,7 @@ import TrustPage from '@/components/TrustPage';
 import { SITE_NAME, SITE_URL } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: `Unsent Messages FAQ | ${SITE_NAME}`,
+  title: 'Unsent Messages FAQ',
   description: 'Find answers about searching the archive, submitting anonymous messages, moderation, privacy, color tags, and how the project works.',
   alternates: {
     canonical: `${SITE_URL}/faq`,
@@ -19,7 +19,7 @@ export default function FAQPage() {
     },
     {
       question: 'Is my submission truly anonymous?',
-      answer: 'Yes. We do not collect names, email addresses, or account information when you submit a message. We do not display IP addresses. The only information published is exactly what you type into the submission form.',
+      answer: 'Yes — your identity is anonymous to the public. We do not require accounts, names, or email addresses to submit a message, and none of that information is ever published. Behind the scenes, hashed network identifiers and browser-abuse signals may be processed for rate limiting, spam prevention, and safety moderation, but these are never displayed publicly. The only information that appears in the archive is exactly what you type into the submission form.',
     },
     {
       question: 'How do I find messages for a specific name?',
@@ -116,7 +116,7 @@ export default function FAQPage() {
         subtitle="Everything you need to know about searching the archive, submitting anonymous messages, moderation, and privacy."
         highlights={[
           { label: 'Format', value: '25 words', detail: 'Messages are strictly limited to distill raw emotion.' },
-          { label: 'Anonymity', value: '100% Anonymous', detail: 'We never collect names, emails, or IP addresses.' },
+          { label: 'Anonymity', value: 'Anonymous to the public', detail: 'No names, emails, or accounts are ever published. Hashed signals are used only for safety.' },
           { label: 'Moderation', value: 'Strictly filtered', detail: 'Hate speech and identifying info are blocked.' },
         ]}
         sections={[
@@ -134,7 +134,7 @@ export default function FAQPage() {
             eyebrow: 'Privacy',
             children: (
               <p>
-                Yes. We do not collect names, email addresses, or account information when you submit a message. We do not display IP addresses. The only information published is exactly what you type into the submission form.
+                Yes &mdash; your identity is anonymous to the public. We do not require accounts, names, or email addresses to submit a message, and none of that information is ever published. Behind the scenes, hashed network identifiers and browser-abuse signals may be processed for rate limiting, spam prevention, and safety moderation, but these are never displayed publicly. The only information that appears in the archive is exactly what you type into the submission form.
               </p>
             ),
           },

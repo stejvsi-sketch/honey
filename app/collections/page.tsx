@@ -4,7 +4,7 @@ import { SITE_NAME, SITE_URL } from '@/lib/constants';
 import { COLLECTIONS } from '@/lib/collections-data';
 
 export const metadata: Metadata = {
-  title: `Unsent Message Collections | ${SITE_NAME}`,
+  title: 'Unsent Message Collections',
   description: 'Explore curated collections of anonymous unsent messages, including heartbreak letters, crush confessions, and apologies.',
   alternates: {
     canonical: `${SITE_URL}/collections`,

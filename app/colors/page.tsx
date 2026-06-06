@@ -4,7 +4,7 @@ import { SITE_NAME, SITE_URL } from '@/lib/constants';
 import { COLOR_MEANINGS } from '@/lib/color-meanings';
 
 export const metadata: Metadata = {
-  title: `Unsent Messages Color Meanings | ${SITE_NAME}`,
+  title: 'Unsent Messages Color Meanings',
   description: 'Learn how color meanings work in the archive and explore the emotions people associate with love, loss, and memory in their unsent messages.',
   alternates: {
     canonical: `${SITE_URL}/colors`,

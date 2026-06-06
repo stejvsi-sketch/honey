@@ -1,4 +1,3 @@
-import { CARD_COLORS } from './constants';
 import type { CardColorId } from './constants';
 
 export interface ColorMeaning {

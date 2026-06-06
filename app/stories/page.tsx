@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: 'Original fiction from Honey, If Only. Stories about love, loss, and the things we carry with us long after the road ends.',
   alternates: { canonical: `${SITE_URL}/stories` },
   openGraph: {
-    title: 'Stories | Honey, If Only',
+    title: 'Stories',
     description: 'Original fiction about love, loss, and the things we carry.',
     url: `${SITE_URL}/stories`,
   },

@@ -6,11 +6,11 @@ import TableView from '@/components/TableView';
 export const revalidate = 18000;
 
 export const metadata: Metadata = {
-  title: `The Table - Letters Laid Bare | ${SITE_NAME}`,
+  title: 'The Table - Letters Laid Bare',
   description: 'Fifty recent unsent letters scattered across a table. Pick one up and read the words someone never got to say.',
   alternates: { canonical: `${SITE_URL}/table` },
   openGraph: {
-    title: `The Table | ${SITE_NAME}`,
+    title: 'The Table',
     description: 'Fifty unsent letters scattered across a table, waiting to be read.',
     url: `${SITE_URL}/table`,
   },

@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!collection) return { title: 'Not Found' };
 
   return {
-    title: `${collection.title} | ${SITE_NAME}`,
+    title: collection.title,
     description: collection.description,
     keywords: collection.keywords.join(', '),
     alternates: {

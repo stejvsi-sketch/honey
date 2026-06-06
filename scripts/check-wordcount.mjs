@@ -35,7 +35,7 @@ console.log('Over 30 words:', over30, `(${(over30/msgs.length*100).toFixed(1)}%)
 console.log('Over 35 words:', over35, `(${(over35/msgs.length*100).toFixed(1)}%)`);
 
 // Show the longest 10
-const sorted = msgs.map((m, i) => ({ wc: m.split(/\s+/).length, msg: m }))
+const sorted = msgs.map((m) => ({ wc: m.split(/\s+/).length, msg: m }))
   .sort((a, b) => b.wc - a.wc)
   .slice(0, 15);
 

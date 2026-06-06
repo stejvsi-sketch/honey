@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import type { UnsentMemory } from '@/lib/unsent-data';
 
@@ -219,7 +219,7 @@ export default function UnsentArchive({ memories, currentPage, totalPages }: Uns
         <div className="unsent-merge-banner__icon">⟶</div>
         <p>
           <strong>If Only I Sent This</strong> has been merged into <strong>Honey, If Only</strong>.
-          All 1,486 messages from the original archive are preserved here.
+          All 1,441 messages from the original archive are preserved here.
         </p>
       </div>
 
@@ -227,7 +227,7 @@ export default function UnsentArchive({ memories, currentPage, totalPages }: Uns
         <div className="unsent-archive__badge">From the vault</div>
         <h1 className="unsent-archive__title">The Unsent Archive <span className="unsent-archive__formerly">Formerly If Only I Sent This</span></h1>
         <p className="unsent-archive__subtitle">
-          1,486 unsent messages from a merged archive — raw, unfiltered, and preserved.
+          1,441 unsent messages from a merged archive — moderated, and preserved.
           These are the longer confessions that didn&apos;t fit into 25 words.
         </p>
       </div>
@@ -241,7 +241,7 @@ export default function UnsentArchive({ memories, currentPage, totalPages }: Uns
               Page <strong>{currentPage}</strong> of <strong>{totalPages}</strong>
             </span>
             <span className="unsent-archive__stat unsent-archive__stat--muted">
-              Showing {(currentPage - 1) * 30 + 1}–{Math.min(currentPage * 30, 1486)} of 1,486
+              Showing {(currentPage - 1) * 30 + 1}–{Math.min(currentPage * 30, 1441)} of 1,441
             </span>
           </div>
 

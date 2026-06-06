@@ -8,7 +8,7 @@ import TrendingNames from '@/components/TrendingNames';
 export const revalidate = 18000;
 
 export const metadata: Metadata = {
-  title: `${SITE_NAME} - Unsent Letters`,
+  title: { absolute: `${SITE_NAME} - Unsent Letters` },
   description: SITE_DESCRIPTION,
   alternates: { canonical: SITE_URL },
   openGraph: {

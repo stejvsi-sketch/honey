@@ -4,34 +4,57 @@ import { JOURNAL_POSTS } from '@/lib/journal-data';
 import { STORIES } from '@/lib/stories';
 import { UNSENT_TOTAL_PAGES } from '@/lib/unsent-data';
 
+// Helper: parse a "Month YYYY" date string into a Date (1st of the month)
+function parseMonthDate(dateStr: string): Date | undefined {
+  const parsed = Date.parse(dateStr + ' 1');
+  return isNaN(parsed) ? undefined : new Date(parsed);
+}
+
+// Site launch date — used as the "last modified" for static pages
+// that haven't changed since deployment
+const SITE_LAUNCH = new Date('2026-05-15');
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = [
-    '', '/letters', '/write', '/about', '/archive', '/journal',
-    '/stories', '/terms', '/privacy', '/cookies', '/disclaimer', '/contact',
-    '/faq', '/colors', '/collections', '/unsent',
+    { path: '', changeFrequency: 'daily' as const, priority: 1 },
+    { path: '/letters', changeFrequency: 'daily' as const, priority: 0.9 },
+    { path: '/write', changeFrequency: 'monthly' as const, priority: 0.8 },
+    { path: '/about', changeFrequency: 'monthly' as const, priority: 0.6 },
+    { path: '/archive', changeFrequency: 'weekly' as const, priority: 0.8 },
+    { path: '/journal', changeFrequency: 'weekly' as const, priority: 0.7 },
+    { path: '/stories', changeFrequency: 'weekly' as const, priority: 0.7 },
+    { path: '/terms', changeFrequency: 'monthly' as const, priority: 0.3 },
+    { path: '/privacy', changeFrequency: 'monthly' as const, priority: 0.3 },
+    { path: '/cookies', changeFrequency: 'monthly' as const, priority: 0.3 },
+    { path: '/disclaimer', changeFrequency: 'monthly' as const, priority: 0.3 },
+    { path: '/contact', changeFrequency: 'monthly' as const, priority: 0.4 },
+    { path: '/faq', changeFrequency: 'monthly' as const, priority: 0.5 },
+    { path: '/colors', changeFrequency: 'monthly' as const, priority: 0.6 },
+    { path: '/collections', changeFrequency: 'weekly' as const, priority: 0.7 },
+    { path: '/unsent', changeFrequency: 'monthly' as const, priority: 0.6 },
   ];
 
-  const staticEntries: MetadataRoute.Sitemap = staticPages.map(path => ({
+  const staticEntries: MetadataRoute.Sitemap = staticPages.map(({ path, changeFrequency, priority }) => ({
     url: `${SITE_URL}${path}`,
-    lastModified: new Date(),
-    changeFrequency: path === '' || path === '/letters' ? 'daily' : path === '/archive' ? 'weekly' : 'monthly',
-    priority: path === '' ? 1 : path === '/letters' ? 0.9 : path === '/archive' ? 0.8 : 0.6,
+    lastModified: SITE_LAUNCH,
+    changeFrequency,
+    priority,
   }));
 
-  // Dynamic colors
+  // Dynamic colors — static content, use site launch date
   const { COLOR_MEANINGS } = await import('@/lib/color-meanings');
   const colorEntries: MetadataRoute.Sitemap = Object.keys(COLOR_MEANINGS).map(colorId => ({
     url: `${SITE_URL}/colors/${colorId}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly',
+    lastModified: SITE_LAUNCH,
+    changeFrequency: 'monthly',
     priority: 0.6,
   }));
 
-  // Dynamic Collections
+  // Dynamic Collections — static content, use site launch date
   const { COLLECTIONS } = await import('@/lib/collections-data');
   const collectionEntries: MetadataRoute.Sitemap = COLLECTIONS.map(c => ({
     url: `${SITE_URL}/collections/${c.slug}`,
-    lastModified: new Date(),
+    lastModified: SITE_LAUNCH,
     changeFrequency: 'weekly',
     priority: 0.8,
   }));
@@ -54,7 +77,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       dynamicEntries.push(
         ...indexableNameSlugs.map(slug => ({
           url: `${SITE_URL}/to/${slug}`,
-          lastModified: new Date(),
+          // Name pages grow over time; omit lastModified since we can't
+          // efficiently determine the latest letter date per name at build time
           changeFrequency: 'weekly' as const,
           priority: 0.7,
         }))
@@ -92,39 +116,40 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  // Journal article pages
+  // Journal article pages — use post date
   const journalEntries: MetadataRoute.Sitemap = JOURNAL_POSTS.map(post => ({
     url: `${SITE_URL}/journal/${post.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
+    lastModified: parseMonthDate(post.date) || SITE_LAUNCH,
+    changeFrequency: 'yearly' as const,
     priority: 0.7,
   }));
 
-  // Story pages
+  // Story pages — use story date
   const storyEntries: MetadataRoute.Sitemap = [];
   for (const story of STORIES) {
+    const storyDate = parseMonthDate(story.date) || SITE_LAUNCH;
     storyEntries.push({
       url: `${SITE_URL}/stories/${story.slug}`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
+      lastModified: storyDate,
+      changeFrequency: 'yearly',
       priority: 0.8,
     });
     for (const chapter of story.chapters) {
       storyEntries.push({
         url: `${SITE_URL}/stories/${story.slug}/${chapter.number}`,
-        lastModified: new Date(),
-        changeFrequency: 'monthly',
+        lastModified: storyDate,
+        changeFrequency: 'yearly',
         priority: 0.7,
       });
     }
   }
 
-  // Unsent archive paginated pages
+  // Unsent archive paginated pages — static imported content
   const unsentEntries: MetadataRoute.Sitemap = [];
   for (let i = 2; i <= UNSENT_TOTAL_PAGES; i++) {
     unsentEntries.push({
       url: `${SITE_URL}/unsent/${i}`,
-      lastModified: new Date(),
+      lastModified: SITE_LAUNCH,
       changeFrequency: 'monthly',
       priority: 0.5,
     });

@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!meaning) return { title: 'Not Found' };
 
   return {
-    title: `${meaning.name} Color Meaning in Unsent Messages | ${SITE_NAME}`,
+    title: `${meaning.name} Color Meaning in Unsent Messages`,
     description: `Explore what ${meaning.name} represents in unsent messages and read anonymous letters expressing ${meaning.emotion.toLowerCase()}.`,
     keywords: meaning.seoKeywords.join(', '),
     alternates: {

@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const title = `The Unsent Archive — Page ${pageNum} | Formerly If Only I Sent This`;
-  const description = `Page ${pageNum} of the unsent messages archive. Browse 1,486 preserved unsent letters and confessions from the "If Only I Sent This" collection, now merged into Honey, If Only.`;
+  const description = `Page ${pageNum} of the unsent messages archive. Browse 1,441 preserved unsent letters and confessions from the "If Only I Sent This" collection, now merged into Honey, If Only.`;
 
   const links: Record<string, string> = {
     canonical: `${SITE_URL}/unsent/${pageNum}`,
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description,
     alternates: links,
     openGraph: {
-      title: `${title} | ${SITE_NAME}`,
+      title,
       description,
       url: `${SITE_URL}/unsent/${pageNum}`,
     },

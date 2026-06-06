@@ -28,20 +28,33 @@ export type CardColorId = typeof CARD_COLORS[number]['id'];
 
 // Hard-banned words (submission rejected entirely)
 export const HARD_BANNED_WORDS = [
+  // Pornography / explicit sexual
   'porn', 'pornography', 'cp', 'nigga', 'nigger', 'dick', 'penis', 'vagina',
   'pussy', 'cock', 'cum', 'semen', 'rape', 'rapist', 'molest', 'pedophile',
   'paedophile', 'pedo', 'incest', 'bestiality', 'necrophilia', 'hentai',
   'xxx', 'nude', 'nudes', 'naked', 'genitals', 'genital', 'anus', 'anal',
   'blowjob', 'handjob', 'masturbate', 'masturbation', 'orgasm', 'erection',
   'ejaculate', 'ejaculation', 'whore', 'slut', 'prostitute', 'hooker',
+  'boobs', 'tits', 'titties', 'clitoris', 'dildo', 'vibrator',
+  'threesome', 'orgy', 'bondage', 'bdsm', 'fetish', 'erotic', 'smut',
+  'horny', 'stripper',
+  // Slurs and derogatory terms
   'faggot', 'fag', 'retard', 'retarded', 'cunt', 'twat', 'wanker',
   'kike', 'spic', 'chink', 'gook', 'wetback', 'beaner',
-  // Moved from soft-ban — now instant rejection
   'bitch', 'bitches', 'bitchy',
-  // Added slurs and derogatory terms
   'fatty', 'fatass', 'skank', 'tramp', 'thot', 'hoe',
-  // Self-harm goading & additional slurs
+  'dyke', 'troon',
+  // Self-harm goading and suicide
   'kill yourself', 'kys', 'incel', 'tranny',
+  'kill myself', 'kill me', 'want to die', 'wanna die',
+  'end my life', 'end it all', 'suicide', 'suicidal',
+  'slit my wrists', 'hang myself', 'self-harm', 'self harm',
+  'cutting myself',
+  // Violence and criminal accusations
+  'murder', 'pedophiles', 'child abuse', 'domestic violence',
+  // Drug references
+  'cocaine', 'heroin', 'meth', 'methamphetamine',
+  'crack whore', 'crack cocaine', 'drug dealer',
 ];
 
 // Soft-profanity words (allowed up to 30% of total words)

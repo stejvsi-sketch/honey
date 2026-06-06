@@ -193,7 +193,7 @@ export default function ColorArchive({
       {!hasMore && memories.length > 0 && !loading && (
         <div style={{ textAlign: 'center', padding: '40px 0 20px' }}>
           <p style={{ color: 'var(--text-faint)', fontStyle: 'italic', fontSize: '0.85rem' }}>
-            You've reached the end.
+            You&apos;ve reached the end.
           </p>
         </div>
       )}

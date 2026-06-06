@@ -31,6 +31,7 @@ export default function PrivacyPage() {
                 <li>Letter content, recipient name, selected paper color, and submission time.</li>
                 <li>A generated URL slug for recipient-name pages.</li>
                 <li>A hashed network identifier used for rate limiting, abuse prevention, and moderation.</li>
+                <li>Hashed browser-abuse signals (such as canvas rendering, device and screen attributes, and GPU identifiers) used to detect ban evasion and automated abuse. These signals are processed as a one-way hash and are never used to identify individual users publicly.</li>
                 <li>General country information when provided by hosting or security infrastructure.</li>
                 <li>A random submission identifier used to manage moderation records.</li>
                 <li>Basic technical, security, and performance data processed by our hosting, database, analytics, and advertising providers.</li>

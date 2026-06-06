@@ -42,6 +42,96 @@ const C = {
 
 const PAGE_SIZE = 50;
 
+/* ── Shared styles ── */
+const btnStyle = (bg: string, color: string, border: string): React.CSSProperties => ({
+  background: bg, color, border: `1px solid ${border}`,
+  padding: '7px 18px', borderRadius: '6px', cursor: 'pointer',
+  fontSize: '0.85rem', fontWeight: 500, transition: 'all 0.15s',
+});
+
+/* ── Pagination component (module-level to avoid re-creation during render) ── */
+function PaginationBar({
+  tab, page, totalPages, totalItems, setPage,
+}: {
+  tab: string;
+  page: number;
+  totalPages: number;
+  totalItems: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+}) {
+  if (tab === 'banned' || totalPages <= 1) return null;
+
+  const startItem = (page - 1) * PAGE_SIZE + 1;
+  const endItem = Math.min(page * PAGE_SIZE, totalItems);
+
+  return (
+    <div style={{
+      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+      padding: '14px 16px', margin: '16px 0',
+      background: C.cardBg, borderRadius: '8px',
+      border: `1px solid ${C.cardBorder}`,
+      flexWrap: 'wrap', gap: '12px',
+    }}>
+      <span style={{ fontSize: '0.85rem', color: C.textMuted }}>
+        {startItem}–{endItem} of {totalItems.toLocaleString()}
+      </span>
+      <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+        <button
+          onClick={() => setPage(1)}
+          disabled={page <= 1}
+          style={{
+            ...btnStyle(C.cardBg, page <= 1 ? C.textFaint : C.text, C.cardBorder),
+            padding: '7px 12px',
+            cursor: page <= 1 ? 'not-allowed' : 'pointer',
+            opacity: page <= 1 ? 0.4 : 1,
+          }}
+        >
+          ««
+        </button>
+        <button
+          onClick={() => setPage(p => Math.max(1, p - 1))}
+          disabled={page <= 1}
+          style={{
+            ...btnStyle(C.cardBg, page <= 1 ? C.textFaint : C.text, C.cardBorder),
+            padding: '7px 14px',
+            cursor: page <= 1 ? 'not-allowed' : 'pointer',
+            opacity: page <= 1 ? 0.4 : 1,
+          }}
+        >
+          ‹ Prev
+        </button>
+        <span style={{ fontSize: '0.85rem', color: C.accent, fontWeight: 600, padding: '0 8px' }}>
+          {page} / {totalPages}
+        </span>
+        <button
+          onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+          disabled={page >= totalPages}
+          style={{
+            ...btnStyle(C.cardBg, page >= totalPages ? C.textFaint : C.text, C.cardBorder),
+            padding: '7px 14px',
+            cursor: page >= totalPages ? 'not-allowed' : 'pointer',
+            opacity: page >= totalPages ? 0.4 : 1,
+          }}
+        >
+          Next ›
+        </button>
+        <button
+          onClick={() => setPage(totalPages)}
+          disabled={page >= totalPages}
+          style={{
+            ...btnStyle(C.cardBg, page >= totalPages ? C.textFaint : C.text, C.cardBorder),
+            padding: '7px 12px',
+            cursor: page >= totalPages ? 'not-allowed' : 'pointer',
+            opacity: page >= totalPages ? 0.4 : 1,
+          }}
+        >
+          »»
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function AdminDashboard({ secret }: { secret: string }) {
   const [tab, setTab] = useState<'pending' | 'approved' | 'banned'>('pending');
   const [submissions, setSubmissions] = useState<Submission[]>([]);
@@ -109,12 +199,6 @@ export default function AdminDashboard({ secret }: { secret: string }) {
       cancelled = true;
     };
   }, [fetchData]);
-
-  // Reset page when tab changes
-  useEffect(() => {
-    setPage(1);
-    setSearch('');
-  }, [tab]);
 
   async function handleAction(id: string, action: 'approve' | 'reject' | 'delete' | 'ban') {
     await fetch('/api/admin/action', {
@@ -218,91 +302,9 @@ export default function AdminDashboard({ secret }: { secret: string }) {
     fetchData();
   }
 
-  /* ── Shared styles ── */
-  const btnStyle = (bg: string, color: string, border: string): React.CSSProperties => ({
-    background: bg, color, border: `1px solid ${border}`,
-    padding: '7px 18px', borderRadius: '6px', cursor: 'pointer',
-    fontSize: '0.85rem', fontWeight: 500, transition: 'all 0.15s',
-  });
-
   const checkboxStyle: React.CSSProperties = {
     width: 18, height: 18, accentColor: C.accent, cursor: 'pointer',
   };
-
-  /* ── Pagination component ── */
-  function PaginationBar() {
-    if (tab === 'banned' || totalPages <= 1) return null;
-    
-    const startItem = (page - 1) * PAGE_SIZE + 1;
-    const endItem = Math.min(page * PAGE_SIZE, totalItems);
-
-    return (
-      <div style={{
-        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        padding: '14px 16px', margin: '16px 0',
-        background: C.cardBg, borderRadius: '8px',
-        border: `1px solid ${C.cardBorder}`,
-        flexWrap: 'wrap', gap: '12px',
-      }}>
-        <span style={{ fontSize: '0.85rem', color: C.textMuted }}>
-          {startItem}–{endItem} of {totalItems.toLocaleString()}
-        </span>
-        <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-          <button
-            onClick={() => setPage(1)}
-            disabled={page <= 1}
-            style={{
-              ...btnStyle(C.cardBg, page <= 1 ? C.textFaint : C.text, C.cardBorder),
-              padding: '7px 12px',
-              cursor: page <= 1 ? 'not-allowed' : 'pointer',
-              opacity: page <= 1 ? 0.4 : 1,
-            }}
-          >
-            ««
-          </button>
-          <button
-            onClick={() => setPage(p => Math.max(1, p - 1))}
-            disabled={page <= 1}
-            style={{
-              ...btnStyle(C.cardBg, page <= 1 ? C.textFaint : C.text, C.cardBorder),
-              padding: '7px 14px',
-              cursor: page <= 1 ? 'not-allowed' : 'pointer',
-              opacity: page <= 1 ? 0.4 : 1,
-            }}
-          >
-            ‹ Prev
-          </button>
-          <span style={{ fontSize: '0.85rem', color: C.accent, fontWeight: 600, padding: '0 8px' }}>
-            {page} / {totalPages}
-          </span>
-          <button
-            onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-            disabled={page >= totalPages}
-            style={{
-              ...btnStyle(C.cardBg, page >= totalPages ? C.textFaint : C.text, C.cardBorder),
-              padding: '7px 14px',
-              cursor: page >= totalPages ? 'not-allowed' : 'pointer',
-              opacity: page >= totalPages ? 0.4 : 1,
-            }}
-          >
-            Next ›
-          </button>
-          <button
-            onClick={() => setPage(totalPages)}
-            disabled={page >= totalPages}
-            style={{
-              ...btnStyle(C.cardBg, page >= totalPages ? C.textFaint : C.text, C.cardBorder),
-              padding: '7px 12px',
-              cursor: page >= totalPages ? 'not-allowed' : 'pointer',
-              opacity: page >= totalPages ? 0.4 : 1,
-            }}
-          >
-            »»
-          </button>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div style={{ maxWidth: '860px', margin: '0 auto', padding: '20px 16px', background: C.bg, minHeight: '100vh', color: C.text }}>
@@ -328,7 +330,7 @@ export default function AdminDashboard({ secret }: { secret: string }) {
           return (
             <button 
               key={t}
-              onClick={() => { setTab(t); setSelected(new Set()); }}
+              onClick={() => { setTab(t); setPage(1); setSearch(''); setSelected(new Set()); }}
               style={{ 
                 flex: 1, padding: '10px 0', border: 'none', cursor: 'pointer',
                 borderRadius: '6px', transition: 'all 0.15s',
@@ -419,7 +421,7 @@ export default function AdminDashboard({ secret }: { secret: string }) {
       )}
 
       {/* Pagination — top */}
-      <PaginationBar />
+      <PaginationBar tab={tab} page={page} totalPages={totalPages} totalItems={totalItems} setPage={setPage} />
 
       {/* Content */}
       <div style={{ paddingBottom: '60px' }}>
@@ -573,7 +575,7 @@ export default function AdminDashboard({ secret }: { secret: string }) {
       </div>
 
       {/* Pagination — bottom */}
-      <PaginationBar />
+      <PaginationBar tab={tab} page={page} totalPages={totalPages} totalItems={totalItems} setPage={setPage} />
     </div>
   );
 }
