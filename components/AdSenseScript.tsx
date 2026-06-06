@@ -9,9 +9,7 @@ import { usePathname } from 'next/navigation';
  */
 const NO_ADS_PATHS = new Set([
   '/write',
-  '/contact',
   '/xqvjkl',
-  '/confess',
 ]);
 
 /** Path prefixes that must not load ads */
