@@ -3402,14 +3402,7 @@ function applyCasing(msg) {
 }
 
 function applyPunctuation(msg) {
-  // 98% leave bare to prevent the duplicate checker from artificially saturating the pool with punctuation
-  if (Math.random() < 0.98) return msg;
-  const r = Math.random();
-  if (r < 0.40) return msg + '.';
-  if (r < 0.60) return msg + '...';
-  if (r < 0.70) return msg + '..';
-  if (r < 0.90) return msg + '?';
-  return msg + '!';
+  return msg;
 }
 
 function applyYouSwap(msg) {
@@ -3428,10 +3421,9 @@ function applyICase(msg) {
     : msg.replace(/\bi\b/g, 'I');
 }
 
-// Apply 1-3 random word-level swaps (contraction toggles, abbreviations)
+// Apply 2-4 random word-level swaps (contraction toggles, abbreviations)
 function applyWordSwaps(msg) {
-  if (Math.random() < 0.40) return msg; // 60% chance to apply swaps
-  const numSwaps = Math.random() < 0.6 ? 1 : (Math.random() < 0.7 ? 2 : 3);
+  const numSwaps = Math.random() < 0.4 ? 2 : (Math.random() < 0.6 ? 3 : 4);
   const candidates = shuffle(WORD_SWAPS).slice(0, numSwaps);
   for (const [a, b] of candidates) {
     if (a === b) continue;
@@ -3449,14 +3441,16 @@ function applyWordSwaps(msg) {
 
 function processMessage(raw) {
   let msg = raw;
-  // Strip trailing whitespace, THEN strip all trailing punctuation
+  // Strip ALL trailing punctuation
   msg = msg.trim().replace(/[.!?,;:…]+$/, '').trim();
   msg = applyWordSwaps(msg);
   msg = applyYouSwap(msg);
   msg = applyCasing(msg);
   msg = applyPunctuation(msg);
   msg = applyICase(msg);
-  return msg.replace(/\s+/g, ' ').trim();
+  // Final cleanup — strip any trailing punctuation that snuck back in
+  msg = msg.replace(/\s+/g, ' ').trim().replace(/[.!?,;:…]+$/, '').trim();
+  return msg;
 }
 
 
