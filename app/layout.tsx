@@ -61,9 +61,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preload" href="/textures/rough-paper.webp" as="image" type="image/webp" fetchPriority="high" />
         {/* Preconnect to ads origin */}
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
+        <AdSenseScript />
       </head>
       <body>
-        <AdSenseScript />
         <Navigation />
         <main>{children}</main>
         <Footer />
