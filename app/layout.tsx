@@ -58,9 +58,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         {/* Preload LCP-critical texture image */}
         <link rel="preload" href="/textures/rough-paper.webp" as="image" type="image/webp" fetchPriority="high" />
-        {/* Preconnect to ads origin */}
-        <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4151123662328725" crossOrigin="anonymous"></script>
+        {/* Preconnect to Grow (Mediavine) origin */}
+        <link rel="preconnect" href="https://faves.grow.me" crossOrigin="anonymous" />
+        {/* Grow by Mediavine initializer */}
+        <script
+          data-grow-initializer=""
+          dangerouslySetInnerHTML={{
+            __html: `!(function(){window.growMe||((window.growMe=function(e){window.growMe._.push(e);}),(window.growMe._=[]));var e=document.createElement("script");(e.type="text/javascript"),(e.src="https://faves.grow.me/main.js"),(e.defer=!0),e.setAttribute("data-grow-faves-site-id","U2l0ZTo2OGVmOGIwMy0wMTRjLTQwZmItODYwYi1lODI0MGI3OGM4NmI=");var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t);})();`,
+          }}
+        />
       </head>
       <body>
         <Navigation />

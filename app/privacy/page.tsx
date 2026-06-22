@@ -5,7 +5,7 @@ import { SITE_NAME, SITE_URL } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: `Privacy Policy for ${SITE_NAME}, including submissions, moderation data, Google Analytics, AdSense, cookies, and user choices.`,
+  description: `Privacy Policy for ${SITE_NAME}, including submissions, moderation data, Google Analytics, advertising, cookies, and user choices.`,
   alternates: { canonical: `${SITE_URL}/privacy` },
 };
 
@@ -63,26 +63,25 @@ export default function PrivacyPage() {
           ),
         },
         {
-          title: 'Google Analytics and Google advertising',
-          eyebrow: 'Required AdSense disclosure',
+          title: 'Analytics and advertising',
+          eyebrow: 'Advertising disclosure',
           children: (
             <>
               <p>
-                We use Google Analytics to understand aggregate usage. If Google AdSense or other Google advertising
-                products are enabled, Google and other ad technology partners may use cookies, web beacons, IP addresses,
+                We use Google Analytics to understand aggregate usage. If third-party advertising partners are
+                enabled, those partners may use cookies, web beacons, IP addresses,
                 device identifiers, and similar technologies to provide ads, measure performance, prevent fraud, and
                 improve ad relevance.
               </p>
               <p>
-                Third-party vendors, including Google, may serve ads based on previous visits to this site or other
-                websites. Google advertising cookies help Google and its partners deliver ads that may be relevant to a
+                Third-party advertising vendors may serve ads based on previous visits to this site or other
+                websites. Advertising cookies help those vendors deliver ads that may be relevant to a
                 user&apos;s visits across the internet.
               </p>
               <p>
-                You can manage personalized advertising through
-                <a href="https://adssettings.google.com/" target="_blank" rel="noreferrer"> Google Ad Settings</a>. You
-                can also learn about broader third-party opt-out choices at
-                <a href="https://www.aboutads.info/" target="_blank" rel="noreferrer"> AboutAds.info</a>.
+                You can manage personalized advertising through industry opt-out tools such as
+                <a href="https://www.aboutads.info/choices/" target="_blank" rel="noreferrer"> YourAdChoices (DAA)</a> and the
+                <a href="https://optout.networkadvertising.org/" target="_blank" rel="noreferrer"> Network Advertising Initiative</a>.
               </p>
             </>
           ),
@@ -107,8 +106,8 @@ export default function PrivacyPage() {
           children: (
             <p>
               Where laws require consent for analytics, advertising cookies, local storage, or personalized ads, we aim
-              to request and respect that consent. For users in the EEA, the UK, and Switzerland, AdSense publishers may
-              need a Google-certified consent management platform before serving personalized ads.
+              to request and respect that consent. For users in the EEA, the UK, and Switzerland, a certified consent
+              management platform may be used before serving personalized ads.
             </p>
           ),
         },

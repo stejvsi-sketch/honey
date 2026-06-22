@@ -76,7 +76,7 @@ export default function AboutPage() {
           children: (
             <p>
               Visitors can explore recent letters, search by name, browse the A-Z archive, read journal essays, and find
-              trust pages from the footer and navigation. That clear structure matters for people and for AdSense review.
+              trust pages from the footer and navigation. That clear structure matters for people and for advertising partner review.
             </p>
           ),
         },

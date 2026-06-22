@@ -4,7 +4,7 @@ import { SITE_NAME, SITE_URL } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title: 'Cookie Policy',
-  description: `Cookie Policy for ${SITE_NAME}, including essential cookies, analytics, Google advertising cookies, and user controls.`,
+  description: `Cookie Policy for ${SITE_NAME}, including essential cookies, analytics, advertising cookies, and user controls.`,
   alternates: { canonical: `${SITE_URL}/cookies` },
 };
 
@@ -18,7 +18,7 @@ export default function CookiesPage() {
       highlights={[
         { label: 'Essential', value: 'Always needed', detail: 'Security, delivery, and core site behavior.' },
         { label: 'Analytics', value: 'Google Analytics', detail: 'Aggregate usage measurement and performance insight.' },
-        { label: 'Advertising', value: 'Google AdSense', detail: 'Ad delivery, measurement, fraud prevention, and personalization where allowed.' },
+        { label: 'Advertising', value: 'Advertising partners', detail: 'Ad delivery, measurement, fraud prevention, and personalization where allowed.' },
       ]}
       sections={[
         {
@@ -52,17 +52,17 @@ export default function CookiesPage() {
         },
         {
           title: 'Advertising cookies',
-          eyebrow: 'AdSense disclosure',
+          eyebrow: 'Advertising disclosure',
           children: (
             <>
               <p>
-                If Google AdSense or other advertising partners are enabled, advertising cookies and similar technologies
+                If third-party advertising partners are enabled, advertising cookies and similar technologies
                 may be used for ad serving, frequency capping, fraud prevention, reporting, measurement, and
                 personalization where permitted.
               </p>
               <p>
-                Third-party vendors, including Google, may use cookies to show ads based on visits to this site or other
-                sites. Other ad networks may also use cookies if they serve ads here.
+                Third-party advertising vendors may use cookies to show ads based on visits to this site or other
+                sites. Ad networks may also use cookies if they serve ads here.
               </p>
             </>
           ),
@@ -73,8 +73,7 @@ export default function CookiesPage() {
             <>
               <ul>
                 <li>Use your browser settings to block or delete cookies.</li>
-                <li>Manage Google personalized ads in <a href="https://adssettings.google.com/" target="_blank" rel="noreferrer">Google Ad Settings</a>.</li>
-                <li>Review broader industry opt-out choices at <a href="https://www.aboutads.info/" target="_blank" rel="noreferrer">AboutAds.info</a>.</li>
+                <li>Manage personalized advertising through industry opt-out tools such as <a href="https://www.aboutads.info/choices/" target="_blank" rel="noreferrer">YourAdChoices (DAA)</a> and the <a href="https://optout.networkadvertising.org/" target="_blank" rel="noreferrer">Network Advertising Initiative</a>.</li>
                 <li>Where a consent prompt is shown, use it to accept, reject, or update eligible cookie choices.</li>
               </ul>
               <p>
@@ -89,8 +88,8 @@ export default function CookiesPage() {
           children: (
             <p>
               For visitors in regions where consent is legally required, we aim to request consent before using eligible
-              non-essential cookies or personalized advertising features. For AdSense traffic in the EEA, the UK, and
-              Switzerland, publishers may need a Google-certified consent management platform.
+              non-essential cookies or personalized advertising features. For traffic in the EEA, the UK, and
+              Switzerland, a certified consent management platform may be used to collect and manage consent.
             </p>
           ),
         },
