@@ -7,6 +7,10 @@ import type { Memory } from '@/lib/types';
 
 const CARD_RATIO = 520 / 420;
 const DEFAULT_OVERSCAN_ROWS = 3;
+// Cards rendered as a plain, CSS-responsive grid for SSR and the first paint
+// (before hydration), so the layout is correct on every device with no flash of
+// squished/overlapping cards. The virtualizer takes over after mount for long lists.
+const STATIC_RENDER_CAP = 30;
 
 interface GridMetrics {
   columns: number;
@@ -55,6 +59,7 @@ export default function VirtualizedCardGrid({
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<number | null>(null);
+  const [mounted, setMounted] = useState(false);
   const [metrics, setMetrics] = useState<GridMetrics>({
     columns: 3,
     gap: 40,
@@ -99,11 +104,18 @@ export default function VirtualizedCardGrid({
     });
   }, [updateVisibleRange]);
 
+  // Render the static SSR grid first, then switch to the virtualizer after mount.
   useLayoutEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!mounted) return;
     updateVisibleRange();
-  }, [updateVisibleRange]);
+  }, [mounted, updateVisibleRange]);
 
   useEffect(() => {
+    if (!mounted) return;
     const node = containerRef.current;
     if (!node) return;
 
@@ -125,7 +137,7 @@ export default function VirtualizedCardGrid({
         frameRef.current = null;
       }
     };
-  }, [scheduleUpdate]);
+  }, [mounted, scheduleUpdate]);
 
   const rowCount = Math.ceil(memories.length / metrics.columns);
   const startRow = Math.min(range.startRow, Math.max(0, rowCount - 1));
@@ -152,6 +164,18 @@ export default function VirtualizedCardGrid({
     gap: metrics.gap,
     justifyItems: 'center',
   };
+
+  // SSR / first paint / no-JS: a plain responsive grid whose columns come from CSS
+  // media queries, so it lays out correctly on every device with zero shift.
+  if (!mounted) {
+    return (
+      <div className="card-grid">
+        {memories.slice(0, STATIC_RENDER_CAP).map(memory => (
+          <CardRenderer key={memory.id} memory={memory} animate={false} />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div

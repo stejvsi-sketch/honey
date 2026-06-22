@@ -56,8 +56,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <head>
-        {/* Preload LCP-critical texture image */}
-        <link rel="preload" href="/textures/rough-paper.webp" as="image" type="image/webp" fetchPriority="high" />
+        {/* Preload LCP-critical texture image (crossorigin matches the CSS mask fetch) */}
+        <link rel="preload" href="/textures/rough-paper.webp" as="image" type="image/webp" fetchPriority="high" crossOrigin="anonymous" />
         {/* Preconnect to Grow (Mediavine) origin */}
         <link rel="preconnect" href="https://faves.grow.me" crossOrigin="anonymous" />
         {/* Grow by Mediavine initializer */}

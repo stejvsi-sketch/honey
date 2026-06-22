@@ -166,6 +166,12 @@ a:hover { color: var(--accent-hover); }
 }
 .card-grid--home { grid-template-columns: repeat(3, 1fr); }
 
+/* Home grid shows 6 recent letters on phones/tablets and 12 on desktop - done in
+   CSS (no JS) so the count is correct on first paint with no layout shift. */
+@media (max-width: 1023px) {
+  .card-grid--home > :nth-child(n + 7) { display: none; }
+}
+
 .virtual-card-grid {
   position: relative;
   width: 100%;

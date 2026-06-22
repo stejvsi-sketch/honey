@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { CARD_COLORS, SITE_NAME } from '@/lib/constants';
 import { formatSubmittedName } from '@/lib/names';
