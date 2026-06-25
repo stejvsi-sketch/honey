@@ -54,10 +54,36 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'https://schema.org',
-            '@type': 'WebSite',
-            name: SITE_NAME,
-            url: SITE_URL,
-            description: 'A place for unsent letters and unspoken words.',
+            '@graph': [
+              {
+                '@type': 'Organization',
+                '@id': `${SITE_URL}/#organization`,
+                name: SITE_NAME,
+                url: SITE_URL,
+                logo: {
+                  '@type': 'ImageObject',
+                  url: `${SITE_URL}/android-chrome-512x512.png`,
+                  width: 512,
+                  height: 512,
+                },
+              },
+              {
+                '@type': 'WebSite',
+                '@id': `${SITE_URL}/#website`,
+                name: SITE_NAME,
+                url: SITE_URL,
+                description: 'A place for unsent letters and unspoken words.',
+                publisher: { '@id': `${SITE_URL}/#organization` },
+                potentialAction: {
+                  '@type': 'SearchAction',
+                  target: {
+                    '@type': 'EntryPoint',
+                    urlTemplate: `${SITE_URL}/letters?search={search_term_string}`,
+                  },
+                  'query-input': 'required name=search_term_string',
+                },
+              },
+            ],
           }),
         }}
       />

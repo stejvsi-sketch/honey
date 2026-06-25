@@ -31,8 +31,22 @@ export default async function StoryPage(props: { params: Promise<{ slug: string 
   const story = STORIES.find(s => s.slug === slug);
   if (!story) notFound();
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Stories', item: `${SITE_URL}/stories` },
+      { '@type': 'ListItem', position: 3, name: story.title, item: `${SITE_URL}/stories/${story.slug}` },
+    ],
+  };
+
   return (
     <div className="page page--narrow">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <div style={{ marginBottom: '48px' }}>
         <Link href="/stories" style={{ fontSize: '0.85rem', color: 'var(--text-light)', textDecoration: 'none' }}>
           Back to Stories

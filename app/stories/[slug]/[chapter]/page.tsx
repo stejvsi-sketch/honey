@@ -56,8 +56,23 @@ export default async function ChapterPage(
   const isFirst = !prevChapter;
   const isLast = !nextChapter;
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Stories', item: `${SITE_URL}/stories` },
+      { '@type': 'ListItem', position: 3, name: story.title, item: `${SITE_URL}/stories/${story.slug}` },
+      { '@type': 'ListItem', position: 4, name: `Chapter ${chapter.number}: ${chapter.title}`, item: `${SITE_URL}/stories/${story.slug}/${chapter.number}` },
+    ],
+  };
+
   return (
     <div className="page page--narrow">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',

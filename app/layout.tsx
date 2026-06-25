@@ -4,6 +4,7 @@ import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from '@/lib/constants';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import AnalyticsScript from '@/components/AnalyticsScript';
+import Script from 'next/script';
 import './globals.css';
 
 const lora = Lora({
@@ -60,18 +61,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preload" href="/textures/rough-paper.webp" as="image" type="image/webp" fetchPriority="high" crossOrigin="anonymous" />
         {/* Preconnect to Grow (Mediavine) origin */}
         <link rel="preconnect" href="https://faves.grow.me" crossOrigin="anonymous" />
-        {/* Grow by Mediavine initializer */}
-        <script
-          data-grow-initializer=""
-          dangerouslySetInnerHTML={{
-            __html: `!(function(){window.growMe||((window.growMe=function(e){window.growMe._.push(e);}),(window.growMe._=[]));var e=document.createElement("script");(e.type="text/javascript"),(e.src="https://faves.grow.me/main.js"),(e.defer=!0),e.setAttribute("data-grow-faves-site-id","U2l0ZTo2OGVmOGIwMy0wMTRjLTQwZmItODYwYi1lODI0MGI3OGM4NmI=");var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t);})();`,
-          }}
-        />
       </head>
       <body>
         <Navigation />
         <main>{children}</main>
         <Footer />
+        {/* Grow by Mediavine initializer — injected via next/script (afterInteractive) so it
+            runs after hydration. The snippet inserts a script before the first <script> tag,
+            which reorders <head> and breaks hydration if rendered inline by React. */}
+        <Script
+          id="grow-initializer"
+          strategy="afterInteractive"
+          data-grow-initializer=""
+          dangerouslySetInnerHTML={{
+            __html: `!(function(){window.growMe||((window.growMe=function(e){window.growMe._.push(e);}),(window.growMe._=[]));var e=document.createElement("script");(e.type="text/javascript"),(e.src="https://faves.grow.me/main.js"),(e.defer=!0),e.setAttribute("data-grow-faves-site-id","U2l0ZTo2OGVmOGIwMy0wMTRjLTQwZmItODYwYi1lODI0MGI3OGM4NmI=");var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t);})();`,
+          }}
+        />
         {/* Google Analytics — conditionally loaded */}
         <AnalyticsScript />
       </body>

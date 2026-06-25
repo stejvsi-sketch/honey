@@ -6,6 +6,21 @@ export const POSTS_PART49: JournalPost[] = [
     title: 'Why Is My Unsent Project Not Sending? Why Your Message Is Not Posting and What to Do Instead',
     excerpt: 'Your unsent project message is not posting. The page spins, the submission vanishes, and you have no idea why. Here is what is actually happening and the best unsent project alternative that works.',
     date: 'June 2026',
+    related: ['unsent-project-alternative', 'is-the-unsent-project-down-where-to-submit', 'does-the-unsent-project-actually-work', 'websites-similar-to-the-unsent-project'],
+    faq: [
+      {
+        question: 'Why is my Unsent Project message not posting?',
+        answer: 'It is almost always technical rather than personal: a moderation backlog, server overload, or a content filter flag. The platform did not reject your feelings, the submission simply did not complete.',
+      },
+      {
+        question: 'How long should an unsent message take to appear?',
+        answer: 'On large unmoderated platforms it can take days or never post at all. On Honey, If Only most messages are reviewed and published within a few hours.',
+      },
+      {
+        question: 'What should I do if my message will not submit?',
+        answer: 'Use a reliable alternative. Honey, If Only is actively maintained and moderated daily, so you can write your 25 words and have them published without the submission vanishing.',
+      },
+    ],
     content: `You finally worked up the nerve to write it. Maybe you spent twenty minutes staring at the unsent project text box, trying to compress months of grief into a single message. Maybe the words came out in a rush, faster than you could think, and you hit submit before you could talk yourself out of it. Either way, you wrote the thing you needed to write, and then nothing happened. The page spun. The message vanished. It never appeared in the archive. You refreshed. You resubmitted. You searched for the name. Nothing. Your unsent project message is not posting and you have no idea why, and the frustration of being denied the emotional release you were counting on is almost worse than the original pain that drove you to write it in the first place.
 
 This happens more often than you would think, and the reasons are almost always technical rather than personal. The platform did not reject your emotions. It did not decide your message was not important enough. What happened is almost certainly one of a handful of common issues that affect large scale anonymous submission platforms, and understanding them can save you a lot of confusion and heartache.

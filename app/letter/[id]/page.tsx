@@ -94,11 +94,25 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
     },
   };
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Letters', item: `${SITE_URL}/letters` },
+      { '@type': 'ListItem', position: 3, name: `Unsent Letters and Messages to ${displayName}`, item: letterUrl },
+    ],
+  };
+
   return (
     <div className="letter-single">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <div className="page__header" style={{ marginBottom: '32px' }}>
         <h1 className="page__title">Unsent Letters and Messages to {displayName}</h1>

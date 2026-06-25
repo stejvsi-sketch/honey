@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { SITE_NAME, SITE_URL } from '@/lib/constants';
+import { SITE_URL } from '@/lib/constants';
 import { COLOR_MEANINGS } from '@/lib/color-meanings';
 import type { CardColorId } from '@/lib/constants';
 import { getMemoriesByColor } from '@/lib/data';
@@ -43,8 +43,22 @@ export default async function ColorPage({ params }: Props) {
   // Pre-fetch the first page for SSR content
   const { memories: initialMemories, total } = await getMemoriesByColor(color, 1, 10);
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Colors', item: `${SITE_URL}/colors` },
+      { '@type': 'ListItem', position: 3, name: meaning.name, item: `${SITE_URL}/colors/${color}` },
+    ],
+  };
+
   return (
     <div className="page">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <div className="page__header" style={{ marginBottom: '24px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '16px' }}>
           <div style={{ width: '24px', height: '24px', borderRadius: '50%', backgroundColor: meaning.hex, boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }} />

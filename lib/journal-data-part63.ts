@@ -6,6 +6,21 @@ export const POSTS_PART63: JournalPost[] = [
     title: 'Is The Unsent Project Down? Where to Submit Your Letters',
     excerpt: 'When you are ready to let go of heartbreak, technical difficulties can be devastating. If you are wondering if the unsent project down, here is what you need to know and how to submit to the unsent project or an alternative.',
     date: 'June 2026',
+    related: ['unsent-project-alternative', 'why-is-unsent-project-not-working-message-not-posting', 'does-the-unsent-project-actually-work', 'websites-similar-to-the-unsent-project'],
+    faq: [
+      {
+        question: 'Is The Unsent Project down right now?',
+        answer: 'Outages are common during traffic spikes and database migrations, so a timeout or 502 error often means it is temporarily down. If you need to release your words now, you can post them somewhere reliable instead.',
+      },
+      {
+        question: 'Where can I submit my unsent letter if the site is down?',
+        answer: 'Honey, If Only lets you write and publish an anonymous 25-word letter in seconds, with no account required, and it is actively maintained so submissions go through.',
+      },
+      {
+        question: 'How do I find old unsent project messages?',
+        answer: 'Search by first name. Honey, If Only groups every letter by the name it was written to, so you can see all the messages addressed to a given person in one place.',
+      },
+    ],
     content: `You finally found the courage. After weeks or maybe even months of staring at a blank screen, carrying the heavy weight of words you desperately needed to say but couldn't, you sat down to type them out. You wanted to release them into the void. You navigated to the site you've seen all over TikTok and Instagram, only to be met with a frustrating reality: a loading screen that never finishes, a server error, or a blank page. The immediate panic sets in. Is the unsent project down? Why isn't it working right now when you finally gathered the emotional strength to hit submit?
 
 This experience is surprisingly common. When a platform gains massive viral popularity on social media overnight, the sudden influx of millions of users can overwhelm servers, causing databases to crash and search functions to lag. If you find yourself asking, "is the unsent project down?" the answer is often yes, temporarily. Server outages, database migrations, and moderation backlogs are standard growing pains for any digital archive that experiences exponential growth. But when you are in the middle of processing intense grief or heartbreak, a 502 Bad Gateway error feels like the universe telling you to keep your feelings bottled up.

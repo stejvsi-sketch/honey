@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { SITE_NAME, SITE_URL } from '@/lib/constants';
+import { SITE_URL } from '@/lib/constants';
 import { COLLECTIONS } from '@/lib/collections-data';
 import { getMemoriesByCollection } from '@/lib/data';
 import CollectionArchive from '@/components/CollectionArchive';
@@ -42,8 +42,22 @@ export default async function CollectionPage({ params }: Props) {
   // Pre-fetch the first page for SSR content
   const { memories: initialMemories, total } = await getMemoriesByCollection(slug, 1, 10);
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Collections', item: `${SITE_URL}/collections` },
+      { '@type': 'ListItem', position: 3, name: collection.title, item: `${SITE_URL}/collections/${slug}` },
+    ],
+  };
+
   return (
     <div className="page">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <div className="page__header" style={{ marginBottom: '24px' }}>
         <h1 className="page__title" style={{ margin: 0 }}>{collection.title}</h1>
       </div>

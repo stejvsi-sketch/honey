@@ -6,6 +6,21 @@ export const POSTS_PART53: JournalPost[] = [
     title: 'Does The Unsent Project Actually Work',
     excerpt: 'Does submitting to The Unsent Project actually help you heal? An honest look at whether unsent letter platforms deliver on their promise of emotional catharsis.',
     date: 'June 2026',
+    related: ['unsent-project-alternative', 'is-the-unsent-project-down-where-to-submit', 'unsent-project-real-or-fake', 'why-is-unsent-project-not-working-message-not-posting'],
+    faq: [
+      {
+        question: 'Does The Unsent Project still work?',
+        answer: 'It works intermittently. After its viral growth the platform has seen outages, broken search, and moderation backlogs, so reliability varies. For a consistently working option, Honey, If Only is actively maintained and moderated daily.',
+      },
+      {
+        question: 'Does writing an unsent letter actually help you heal?',
+        answer: 'Yes. Expressive writing research shows that naming and externalizing an emotion lowers its intensity. The 25-word limit on Honey, If Only forces you to distill the single core truth, which is where most of the relief comes from.',
+      },
+      {
+        question: 'Where can I submit an unsent letter that reliably posts?',
+        answer: 'Honey, If Only publishes submissions within a few hours after a brief human review, with no account or email required, so your message does not vanish into a broken queue.',
+      },
+    ],
     content: `The question of whether The Unsent Project actually works is really two questions disguised as one. The first is a technical question: does the platform function? Can you submit a message and have it appear in the archive? The second, and far more interesting question, is a psychological one: does the act of writing and submitting an unsent letter to a public archive actually do anything for you emotionally? Does it help you process grief, release attachment, or move forward? Or is it just a digital placebo, a ritual that feels meaningful in the moment but changes nothing?
 
 Let us address the technical question first, because it is the simpler of the two. The Unsent Project, like many platforms that experienced explosive viral growth, has had a complicated technical history. At various points, users have reported issues with submissions not appearing, search functionality breaking, the site going down entirely, and the archive appearing to lose content. Whether the platform is currently functioning as intended depends on when you visit and what you are trying to do. Some users report smooth experiences. Others report frustration. The inconsistency itself is a kind of answer: the platform works sometimes, for some people, in some ways.

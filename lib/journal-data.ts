@@ -4,6 +4,12 @@ export interface JournalPost {
   excerpt: string;
   content: string;
   date: string;
+  /** Optional topic cluster used to group related posts. */
+  category?: string;
+  /** Optional explicit list of related post slugs (overrides auto-relation). */
+  related?: string[];
+  /** Optional FAQ pairs rendered as FAQPage structured data. */
+  faq?: { question: string; answer: string }[];
 }
 
 import { POSTS_PART1 } from './journal-data-part1';

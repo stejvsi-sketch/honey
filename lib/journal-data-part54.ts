@@ -6,6 +6,21 @@ export const POSTS_PART54: JournalPost[] = [
     title: 'Unsent Project Real or Fake',
     excerpt: 'Are the messages on The Unsent Project real or fake? An honest examination of authenticity on unsent letter platforms and why moderation determines everything.',
     date: 'June 2026',
+    related: ['unsent-project-alternative', 'does-the-unsent-project-actually-work', 'is-the-unsent-project-down-where-to-submit', 'why-is-unsent-project-not-working-message-not-posting'],
+    faq: [
+      {
+        question: 'Are the messages on The Unsent Project real or fake?',
+        answer: 'Large unmoderated archives contain a mix of genuine confessions, jokes, and spam. On Honey, If Only every message is reviewed by a human before publishing, so the archive stays authentic and free of bot or joke entries.',
+      },
+      {
+        question: 'How can you tell a real unsent letter from a fake one?',
+        answer: 'Genuine letters carry specific, lived detail that fiction rarely invents. Active moderation is what protects that authenticity at scale, which is why curated archives feel more real than open ones.',
+      },
+      {
+        question: 'Are the letters on Honey, If Only real?',
+        answer: 'Yes. Every letter is written by a real person and approved by a human moderator before it appears, and the 25-word limit naturally discourages low-effort or insincere submissions.',
+      },
+    ],
     content: `The first time you scroll through an unsent letter archive, a question forms almost immediately: are these real? Did a real person actually write this, or is this fabricated, generated, or submitted as a joke? The question haunts the experience because the answer determines everything. If the messages are real, you are witnessing something extraordinary, a vast, anonymous outpouring of genuine human vulnerability. If they are fake, you are reading fiction dressed up as confession, and the emotional impact collapses entirely. The difference between a real unsent letter and a fake one is not literary. It is existential. It is the difference between bearing witness and being manipulated.
 
 The honest answer is that on most unsent letter platforms, including The Unsent Project at its peak, the archive contains a mixture of both. Some messages are devastatingly real. You can feel the weight of them through the screen. They are specific in ways that fiction rarely is. They reference the color of a shirt someone was wearing on a particular Tuesday, or the exact words spoken in a fight that happened three years ago, or the way someone's laugh sounded in a car on a highway at midnight. That level of specificity is the fingerprint of genuine memory. No one fabricates those details. They are the kinds of things that embed themselves in your consciousness precisely because they mattered.

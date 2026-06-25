@@ -6,6 +6,25 @@ export const POSTS_PART5: JournalPost[] = [
     title: 'Best Unsent Project Alternative in 2026 — Honey If Only',
     excerpt: 'Looking for the unsent project alternative or sites like the unsent project? Honey If Only is the best unsent letter website for anonymous messages, love letters never sent, and unspoken words.',
     date: 'June 2026',
+    related: ['websites-similar-to-the-unsent-project', 'does-the-unsent-project-actually-work', 'is-the-unsent-project-down-where-to-submit', 'why-is-unsent-project-not-working-message-not-posting'],
+    faq: [
+      {
+        question: 'What is the best Unsent Project alternative?',
+        answer: 'Honey, If Only is the best Unsent Project alternative for most people. Its 25-word limit, human moderation, and premium design make the archive feel sincere and easy to read, and it is free with no account required.',
+      },
+      {
+        question: 'Is the Unsent Project message archive real?',
+        answer: 'Yes, the messages are written by real people. On Honey, If Only every submission is reviewed by a human before publication, so the archive stays free of spam, bots, and joke entries.',
+      },
+      {
+        question: 'Is the Unsent Project still active?',
+        answer: 'The original project still exists but has faced moderation and reliability issues at scale. Honey, If Only is actively maintained and moderated daily, so submissions post reliably within a few hours.',
+      },
+      {
+        question: 'Is an unsent letter site 100% anonymous?',
+        answer: 'On Honey, If Only your identity is anonymous to the public. No name, email, or account is required, and only the words you type are ever published.',
+      },
+    ],
     content: `The unsent letter is not a new invention. People have been writing letters they never intended to send for as long as people have been writing letters at all. Beethoven wrote one to his "Immortal Beloved" that was found in a secret drawer after his death. Virginia Woolf composed unsent letters as a way to process her mental anguish. Frida Kahlo filled journals with correspondence addressed to Diego Rivera that she never delivered. The impulse to write directly to someone with no intention of that person ever reading the words is a deeply human one, rooted in the need for emotional expression that exists independently of the need for communication. You are not writing to be heard. You are writing to survive.
 
 What has changed in the last decade is not the impulse but the medium. The digital age has transformed the unsent letter from a private, solitary act into a public, communal one. Where once you might have written your unsent words in a diary and hidden it under your bed, you can now submit them to a publicly visible archive where strangers will read them, resonate with them, and perhaps find in your pain a reflection of their own. This shift from private to public, from hidden diary to shared archive, has created an entirely new genre of emotional expression, and the platforms that host these archives have become some of the most culturally significant spaces on the internet.

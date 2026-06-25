@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { SITE_NAME, SITE_URL } from '@/lib/constants';
+import { SITE_URL } from '@/lib/constants';
 import { COLOR_MEANINGS } from '@/lib/color-meanings';
 
 export const metadata: Metadata = {

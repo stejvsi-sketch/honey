@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import type { CSSProperties } from 'react';
 import CardRenderer from '@/components/cards/CardRenderer';
 import type { Memory } from '@/lib/types';
@@ -11,6 +11,9 @@ const DEFAULT_OVERSCAN_ROWS = 3;
 // (before hydration), so the layout is correct on every device with no flash of
 // squished/overlapping cards. The virtualizer takes over after mount for long lists.
 const STATIC_RENDER_CAP = 30;
+
+// Stable no-op subscribe for useSyncExternalStore (the mount flag never changes).
+const subscribeNoop = () => () => {};
 
 interface GridMetrics {
   columns: number;
@@ -59,7 +62,9 @@ export default function VirtualizedCardGrid({
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<number | null>(null);
-  const [mounted, setMounted] = useState(false);
+  // `mounted` is false during SSR and the first hydration render (so the static
+  // grid matches the server), then true on the client — without setState-in-effect.
+  const mounted = useSyncExternalStore(subscribeNoop, () => true, () => false);
   const [metrics, setMetrics] = useState<GridMetrics>({
     columns: 3,
     gap: 40,
@@ -105,10 +110,6 @@ export default function VirtualizedCardGrid({
   }, [updateVisibleRange]);
 
   // Render the static SSR grid first, then switch to the virtualizer after mount.
-  useLayoutEffect(() => {
-    setMounted(true);
-  }, []);
-
   useLayoutEffect(() => {
     if (!mounted) return;
     updateVisibleRange();

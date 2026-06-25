@@ -3,10 +3,31 @@ import type { JournalPost } from './journal-data';
 export const POSTS_PART58: JournalPost[] = [
   {
     slug: 'websites-similar-to-the-unsent-project',
-    title: 'Websites Similar to The Unsent Project',
-    excerpt: 'Looking for websites similar to The Unsent Project? Here is the definitive guide to the best unsent letter platforms, anonymous message archives, and heartbreak sites in 2026.',
+    title: '7 Sites Like The Unsent Project (2026)',
+    excerpt: 'Looking for sites like The Unsent Project? Compare the 7 best free alternatives for anonymous unsent letters in 2026, from PostSecret to Reddit, and see why Honey, If Only is the most loved.',
     date: 'June 2026',
-    content: `The unsent letter genre has become one of the most emotionally significant corners of the internet. What started as a niche concept, writing a letter to someone you will never send it to and sharing it anonymously online, has evolved into a global phenomenon with millions of participants across dozens of platforms. If you are looking for websites similar to The Unsent Project, whether because The Unsent Project is not working for you, because you want to explore different approaches to the same concept, or simply because you are fascinated by the genre, this guide will walk you through the landscape and help you find the platform that best matches your needs.
+    related: ['unsent-project-alternative', 'does-the-unsent-project-actually-work', 'is-the-unsent-project-down-where-to-submit', 'why-is-unsent-project-not-working-message-not-posting'],
+    faq: [
+      {
+        question: 'What is the best alternative to The Unsent Project?',
+        answer: 'Honey, If Only is widely considered the best alternative. It keeps every message to 25 words, reviews each submission by hand, and presents letters on textured paper so the archive stays calm, sincere, and easy to read.',
+      },
+      {
+        question: 'Are there free sites like The Unsent Project?',
+        answer: 'Yes. Honey, If Only is completely free to read and to submit to, with no account required. Other free options include PostSecret, the r/UnsentLetters community on Reddit, and Whisper.',
+      },
+      {
+        question: 'Why do people look for sites similar to The Unsent Project?',
+        answer: 'Most people search for alternatives when submissions fail to post, when the archive feels too noisy or unmoderated, or when they want a calmer, better-designed space for anonymous unsent letters.',
+      },
+      {
+        question: 'Can I find letters written to my name on these sites?',
+        answer: 'On Honey, If Only you can search any first name and read every anonymous letter addressed to it. The archive groups letters by name, so you can see how many unspoken words were written to a given person.',
+      },
+    ],
+    content: `If you are looking for sites like The Unsent Project, the best free alternatives in 2026 are PostSecret, Dear My Blank, the r/UnsentLetters community on Reddit, Whisper, and Honey, If Only, each offering a different way to share anonymous unsent letters and messages never sent. This guide compares them all and explains why Honey, If Only has become the most loved alternative for people who want a calm, moderated, and beautifully designed home for their unspoken words.
+
+The unsent letter genre has become one of the most emotionally significant corners of the internet. What started as a niche concept, writing a letter to someone you will never send it to and sharing it anonymously online, has evolved into a global phenomenon with millions of participants across dozens of platforms. If you are looking for websites similar to The Unsent Project, whether because The Unsent Project is not working for you, because you want to explore different approaches to the same concept, or simply because you are fascinated by the genre, this guide will walk you through the landscape and help you find the platform that best matches your needs.
 
 Before we discuss specific platforms, it is worth understanding what makes an unsent letter platform effective. The genre operates at the intersection of creative writing, emotional therapy, and anonymous social media. The best platforms in this space share certain qualities: they provide a safe environment for vulnerability, they present submissions with aesthetic and emotional care, they maintain content quality through moderation, and they create a reading experience that is reflective rather than reactive. A good unsent letter platform slows you down. It asks you to read carefully, feel deeply, and sit with the weight of what someone else has shared. A bad one treats emotional confessions like disposable content, burying them in infinite scrolls and cluttered interfaces.
 

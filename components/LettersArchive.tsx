@@ -69,6 +69,16 @@ export default function LettersArchive({
     queueMicrotask(() => {
       if (cancelled) return;
 
+      // A ?search= URL parameter (e.g. from the sitelinks search box) takes
+      // priority over any previously saved scroll/restore state.
+      const urlSearch = (new URLSearchParams(window.location.search).get('search') || '').trim();
+      if (urlSearch) {
+        setSearch(urlSearch);
+        setSearchInput(urlSearch);
+        setRestored(true);
+        return;
+      }
+
       const saved = loadState();
       if (saved && saved.memories.length > 0) {
         setMemories(deduplicateMemories(saved.memories));
