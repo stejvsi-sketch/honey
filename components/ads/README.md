@@ -94,7 +94,17 @@ Here's the exact list of files to edit:
 - Remove: `import AdBanner from '@/components/ads/AdBanner';`
 - Remove: `<AdBanner variant="rectangle" />`
 
-### Step 4: Build and deploy
+### Step 4: Remove Adsterra domains from Content-Security-Policy
+
+**File:** `next.config.ts`
+
+In the `headers()` configuration under `Content-Security-Policy`, remove `https://*.highperformanceformat.com` and `https://*.effectivecpmnetwork.com` from:
+- `script-src`
+- `img-src`
+- `connect-src`
+- `frame-src`
+
+### Step 5: Build and deploy
 
 ```bash
 npx next build
