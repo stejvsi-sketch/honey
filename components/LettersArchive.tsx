@@ -3,7 +3,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import VirtualizedCardGrid from '@/components/cards/VirtualizedCardGrid';
+import CardRenderer from '@/components/cards/CardRenderer';
 import { AdResponsiveBanner } from '@/components/ads/AdBanner';
+import AdBanner from '@/components/ads/AdBanner';
 import type { Memory } from '@/lib/types';
 
 function deduplicateMemories(memories: Memory[]): Memory[] {
@@ -17,6 +19,7 @@ function deduplicateMemories(memories: Memory[]): Memory[] {
 
 const PAGE_SIZE = 10;
 const STORAGE_KEY = 'hio:letters';
+const IN_FEED_AD_AFTER = 9; // Show in-feed ad after this many cards
 
 interface ArchiveState {
   memories: Memory[];
@@ -244,7 +247,24 @@ export default function LettersArchive({
 
       <AdResponsiveBanner />
 
-      <VirtualizedCardGrid memories={memories} />
+      {/* First batch of cards (plain grid — always visible, no virtualization needed) */}
+      {memories.length > 0 && (
+        <div className="card-grid">
+          {memories.slice(0, IN_FEED_AD_AFTER).map(memory => (
+            <CardRenderer key={memory.id} memory={memory} animate={true} />
+          ))}
+        </div>
+      )}
+
+      {/* In-feed ad after first batch */}
+      {memories.length > IN_FEED_AD_AFTER && (
+        <AdBanner variant="rectangle" />
+      )}
+
+      {/* Remaining cards (virtualized for performance) */}
+      {memories.length > IN_FEED_AD_AFTER && (
+        <VirtualizedCardGrid memories={memories.slice(IN_FEED_AD_AFTER)} />
+      )}
 
       {!initialLoad && memories.length === 0 && (
         <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginTop: 48, fontStyle: 'italic' }}>

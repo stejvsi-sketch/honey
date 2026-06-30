@@ -16,7 +16,7 @@ This site uses **Adsterra** for monetization with 4 ad unit types:
 | Page | Route | Ad(s) |
 |---|---|---|
 | Homepage | `/` | Rectangle (300×250) |
-| Letters Archive | `/letters` | Leaderboard (728×90) / Mobile (320×50) |
+| Letters Archive | `/letters` | Leaderboard (728×90) / Mobile (320×50) + In-feed Rectangle (300×250) after 9th card |
 | Single Letter | `/letter/[id]` | Rectangle (300×250) |
 | Name Page | `/to/[name]` | Leaderboard/Mobile + Native Banner |
 | Journal Article | `/journal/[slug]` | Rectangle (300×250) + Native Banner |
@@ -82,8 +82,13 @@ Here's the exact list of files to edit:
 - Remove: `<AdResponsiveBanner />`
 
 #### `components/LettersArchive.tsx` (Letters Archive)
+- Remove: `import CardRenderer from '@/components/cards/CardRenderer';`
 - Remove: `import { AdResponsiveBanner } from '@/components/ads/AdBanner';`
+- Remove: `import AdBanner from '@/components/ads/AdBanner';`
+- Remove: `const IN_FEED_AD_AFTER = 9;`
 - Remove: `<AdResponsiveBanner />`
+- Remove: the entire first-batch plain grid block, `<AdBanner variant="rectangle" />`, and the conditional `<VirtualizedCardGrid memories={memories.slice(IN_FEED_AD_AFTER)} />`
+- Restore: `<VirtualizedCardGrid memories={memories} />` as a single call
 
 #### `components/UnsentArchive.tsx` (Unsent Archive)
 - Remove: `import AdBanner from '@/components/ads/AdBanner';`
