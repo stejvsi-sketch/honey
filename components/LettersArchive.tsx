@@ -251,7 +251,7 @@ export default function LettersArchive({
       {memories.length > 0 && (
         <div className="card-grid">
           {memories.slice(0, IN_FEED_AD_AFTER).map(memory => (
-            <CardRenderer key={memory.id} memory={memory} animate={true} />
+            <CardRenderer key={memory.id} memory={memory} animate={false} />
           ))}
         </div>
       )}
