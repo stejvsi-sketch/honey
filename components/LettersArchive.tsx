@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import VirtualizedCardGrid from '@/components/cards/VirtualizedCardGrid';
+import { AdResponsiveBanner } from '@/components/ads/AdBanner';
 import type { Memory } from '@/lib/types';
 
 function deduplicateMemories(memories: Memory[]): Memory[] {
@@ -240,6 +241,8 @@ export default function LettersArchive({
           </p>
         )}
       </form>
+
+      <AdResponsiveBanner />
 
       <VirtualizedCardGrid memories={memories} />
 

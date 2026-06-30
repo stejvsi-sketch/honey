@@ -1,0 +1,90 @@
+/* ===== AD SLOTS ===== */
+/* Minimal, premium-feeling ad containers that blend with the site's aesthetic.
+   Fixed min-heights prevent CLS. Responsive classes control visibility. */
+
+.ad-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 40px auto;
+  padding: 0;
+  max-width: 100%;
+  position: relative;
+  z-index: 1; /* Stay below sticky nav (z-index: 100) */
+}
+
+.ad-slot__label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 8px;
+  text-align: center;
+  opacity: 0.6;
+}
+
+.ad-slot__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.015);
+  border-radius: var(--radius);
+}
+
+/* === Rectangle (300×250) === */
+.ad-slot--rectangle {
+  min-height: 250px;
+  max-width: 300px;
+}
+
+/* === Leaderboard (728×90) — desktop only === */
+.ad-slot--leaderboard {
+  min-height: 90px;
+  max-width: 728px;
+}
+
+@media (max-width: 768px) {
+  .ad-slot--leaderboard {
+    display: none;
+  }
+}
+
+/* === Mobile Banner (320×50) — mobile only === */
+.ad-slot--mobile {
+  min-height: 50px;
+  max-width: 320px;
+}
+
+@media (min-width: 769px) {
+  .ad-slot--mobile {
+    display: none;
+  }
+}
+
+/* === Native Banner === */
+.ad-slot--native {
+  max-width: 100%;
+  margin: 48px auto 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-light);
+}
+
+.ad-slot--native .ad-slot__label {
+  font-family: var(--font-serif);
+  font-size: 0.75rem;
+  font-style: italic;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--text-light);
+  opacity: 0.8;
+  margin-bottom: 16px;
+}
+
+/* Ensure ad iframes don't overflow their containers */
+.ad-slot__inner iframe {
+  max-width: 100%;
+}

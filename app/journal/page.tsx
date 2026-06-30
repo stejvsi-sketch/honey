@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { JOURNAL_POSTS } from '@/lib/journal-data';
 import { SITE_URL } from '@/lib/constants';
+import { AdResponsiveBanner } from '@/components/ads/AdBanner';
 
 export const metadata: Metadata = {
   title: 'Journal',
@@ -40,6 +41,8 @@ export default function JournalPage() {
           </article>
         ))}
       </div>
+
+      <AdResponsiveBanner />
 
       <div style={{ marginTop: '64px', display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
         <div style={{ flex: '1 1 280px', padding: '32px', background: 'rgba(255,255,255,0.4)', borderRadius: 'var(--radius)' }}>

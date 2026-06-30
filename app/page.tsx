@@ -4,6 +4,7 @@ import { getHomeMemories } from '@/lib/data';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/constants';
 import HomeCardGrid from '@/components/cards/HomeCardGrid';
 import TrendingNames from '@/components/TrendingNames';
+import AdBanner from '@/components/ads/AdBanner';
 
 export const revalidate = 18000;
 
@@ -29,6 +30,7 @@ export default async function HomePage() {
           <p className="page__subtitle">Fragments of love, regret, and everything left unsaid</p>
         </div>
         <HomeCardGrid memories={memories} />
+        <AdBanner variant="rectangle" />
         <div style={{ textAlign: 'center', marginTop: 40 }}>
           <Link href="/letters" className="btn btn--outline" style={{ width: 'auto', display: 'inline-flex' }}>
             See All Letters
