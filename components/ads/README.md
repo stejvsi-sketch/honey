@@ -27,16 +27,19 @@ Pages with NO ads: `/write`, `/about`, `/faq`, `/contact`, `/terms`, `/privacy`,
 
 ## Content Security Policy (CSP)
 
-Adsterra requires the following domains whitelisted in `next.config.ts` under `Content-Security-Policy`:
+Adsterra uses **randomly-generated rotating delivery domains** (e.g., `realizationnewestfangs.com`, `zoologyfibre.com`, `protrafficinspector.com`). Whitelisting them individually is an endless game of whack-a-mole.
 
-| Domain | Purpose | CSP Directives |
-|---|---|---|
-| `*.highperformanceformat.com` | Main ad script delivery (`invoke.js`) | `script-src`, `connect-src`, `frame-src`, `img-src` |
-| `*.effectivecpmnetwork.com` | Native banner delivery | `script-src`, `connect-src`, `frame-src`, `img-src` |
-| `*.protrafficinspector.com` | Ad stats & tracking | `connect-src`, `script-src`, `img-src` |
-| `*.realizationnewestfangs.com` | Ad creative JS & iframe delivery | `script-src`, `connect-src`, `frame-src`, `img-src` |
+**Current approach:** The CSP in `next.config.ts` uses `https:` (any HTTPS source) for `script-src`, `connect-src`, `frame-src`, and `img-src`. This allows Adsterra to work regardless of which domains they rotate to.
 
-> **Note:** Adsterra may rotate delivery domains over time. If you see new CSP violations in the browser console with unfamiliar domain names, add them the same way.
+**What's still strictly protected (even with ads):**
+- `default-src 'self'` — everything not explicitly listed is restricted to our domain
+- `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com` — only our styles + Google Fonts
+- `font-src 'self' data: https://fonts.gstatic.com` — only our fonts + Google Fonts
+- `object-src 'none'` — no Flash/plugins
+- `base-uri 'self'` — prevents base tag injection
+- `form-action 'self'` — forms can only submit to our domain
+
+See **Step 4** in the removal guide below for the original strict CSP to restore when removing ads.
 
 ## Local Development Note
 
@@ -111,18 +114,31 @@ Here's the exact list of files to edit:
 - Remove: `import AdBanner from '@/components/ads/AdBanner';`
 - Remove: `<AdBanner variant="rectangle" />`
 
-### Step 4: Remove Adsterra domains from Content-Security-Policy
+### Step 4: Restore the strict Content-Security-Policy
 
 **File:** `next.config.ts`
 
-In the `headers()` configuration under `Content-Security-Policy`, remove all 4 Adsterra domains from `script-src`, `img-src`, `connect-src`, and `frame-src`:
+The CSP was relaxed to `https:` for ad compatibility. Replace the current CSP block with the original strict version:
 
+```ts
+{
+  key: 'Content-Security-Policy',
+  value: [
+    "default-src 'self'",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com https://faves.grow.me https://*.grow.me https://cdn.prod.uidapi.com",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com https://*.grow.me",
+    "font-src 'self' data: https://fonts.gstatic.com",
+    "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://static.cloudflareinsights.com https://*.supabase.co https://*.upstash.io https://*.grow.me https://*.growplow.events https://*.uidapi.com",
+    "frame-src 'self' https://*.grow.me",
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+  ].join('; '),
+},
 ```
-https://*.highperformanceformat.com
-https://*.effectivecpmnetwork.com
-https://*.protrafficinspector.com
-https://*.realizationnewestfangs.com
-```
+
+This restores the pre-ad strict CSP that only allows Google Analytics, Cloudflare, Grow.me, Supabase, and Upstash.
 
 ### Step 5: Build and deploy
 
