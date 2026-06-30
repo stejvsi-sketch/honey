@@ -25,6 +25,23 @@ This site uses **Adsterra** for monetization with 4 ad unit types:
 
 Pages with NO ads: `/write`, `/about`, `/faq`, `/contact`, `/terms`, `/privacy`, `/cookies`, `/disclaimer`, `/colors`, `/collections`, `/stories`, `/table`, `/archive`
 
+## Content Security Policy (CSP)
+
+Adsterra requires the following domains whitelisted in `next.config.ts` under `Content-Security-Policy`:
+
+| Domain | Purpose | CSP Directives |
+|---|---|---|
+| `*.highperformanceformat.com` | Main ad script delivery (`invoke.js`) | `script-src`, `connect-src`, `frame-src`, `img-src` |
+| `*.effectivecpmnetwork.com` | Native banner delivery | `script-src`, `connect-src`, `frame-src`, `img-src` |
+| `*.protrafficinspector.com` | Ad stats & tracking | `connect-src`, `script-src`, `img-src` |
+| `*.realizationnewestfangs.com` | Ad creative JS & iframe delivery | `script-src`, `connect-src`, `frame-src`, `img-src` |
+
+> **Note:** Adsterra may rotate delivery domains over time. If you see new CSP violations in the browser console with unfamiliar domain names, add them the same way.
+
+## Local Development Note
+
+**Ads will NOT render on `localhost`.** You will see "This content is blocked. Contact the site owner to fix the issue." — this is normal. Adsterra only serves ad creatives to authorized production domains (e.g., `honeyifonly.com`). This is an anti-fraud measure and cannot be bypassed.
+
 ---
 
 ## How to Remove All Ads
@@ -98,11 +115,14 @@ Here's the exact list of files to edit:
 
 **File:** `next.config.ts`
 
-In the `headers()` configuration under `Content-Security-Policy`, remove `https://*.highperformanceformat.com` and `https://*.effectivecpmnetwork.com` from:
-- `script-src`
-- `img-src`
-- `connect-src`
-- `frame-src`
+In the `headers()` configuration under `Content-Security-Policy`, remove all 4 Adsterra domains from `script-src`, `img-src`, `connect-src`, and `frame-src`:
+
+```
+https://*.highperformanceformat.com
+https://*.effectivecpmnetwork.com
+https://*.protrafficinspector.com
+https://*.realizationnewestfangs.com
+```
 
 ### Step 5: Build and deploy
 
