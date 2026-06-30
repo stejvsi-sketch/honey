@@ -57,6 +57,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <head>
+        {/* Ezoic Privacy Scripts */}
+        <script data-cfasync="false" src="https://cmp.gatekeeperconsent.com/min.js"></script>
+        <script data-cfasync="false" src="https://the.gatekeeperconsent.com/cmp.min.js"></script>
+        {/* Ezoic Header Script */}
+        <script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
+        <script dangerouslySetInnerHTML={{ __html: `window.ezstandalone = window.ezstandalone || {}; ezstandalone.cmd = ezstandalone.cmd || [];` }} />
+        <script src="//ezoicanalytics.com/analytics.js"></script>
+
         {/* Preload LCP-critical texture image (crossorigin matches the CSS mask fetch) */}
         <link rel="preload" href="/textures/rough-paper.webp" as="image" type="image/webp" fetchPriority="high" crossOrigin="anonymous" />
         {/* Preconnect to Grow (Mediavine) origin */}
