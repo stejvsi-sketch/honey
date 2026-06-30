@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { getMemoryById, getNameCountForSlug } from '@/lib/data';
 import { CARD_COLORS, SITE_NAME, SITE_URL } from '@/lib/constants';
 import { formatSubmittedName } from '@/lib/names';
-import AdBanner from '@/components/ads/AdBanner';
 
 export const revalidate = 18000;
 
@@ -139,7 +138,6 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
       <div className="letter-single__meta">
         <p>{formattedDate} at {formattedTime}</p>
       </div>
-      <AdBanner variant="rectangle" />
       <div style={{ marginTop: 32 }}>
         <Link href="/letters" className="btn btn--outline" style={{ width: 'auto', display: 'inline-flex' }}>
           Back to Letters

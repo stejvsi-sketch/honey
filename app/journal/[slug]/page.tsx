@@ -5,8 +5,6 @@ import { JOURNAL_POSTS } from '@/lib/journal-data';
 import { SITE_NAME, SITE_URL } from '@/lib/constants';
 import JournalContent from '@/components/JournalContent';
 import RelatedPosts from '@/components/RelatedPosts';
-import AdBanner from '@/components/ads/AdBanner';
-import AdNativeBanner from '@/components/ads/AdNativeBanner';
 
 const MONTHS: Record<string, string> = {
   January: '01', February: '02', March: '03', April: '04',
@@ -122,8 +120,6 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
           <JournalContent content={post.content} slug={post.slug} />
         </article>
 
-        <AdBanner variant="rectangle" />
-
         {post.faq && post.faq.length > 0 && (
           <section style={{ marginTop: '64px', paddingTop: '40px', borderTop: '1px solid var(--border-light)' }}>
             <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', marginBottom: '28px', color: 'var(--text)' }}>
@@ -145,8 +141,6 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
         )}
 
         <RelatedPosts slug={post.slug} />
-
-        <AdNativeBanner />
 
         <div style={{ marginTop: '80px', padding: '40px', background: 'rgba(255,255,255,0.4)', borderRadius: 'var(--radius)', textAlign: 'center' }}>
           <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.4rem', marginBottom: '16px' }}>What was left unsaid?</h3>

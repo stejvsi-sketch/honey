@@ -3,7 +3,6 @@
 import { useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import type { UnsentMemory } from '@/lib/unsent-data';
-import AdBanner from '@/components/ads/AdBanner';
 
 interface UnsentArchiveProps {
   memories: UnsentMemory[];
@@ -344,8 +343,6 @@ export default function UnsentArchive({ memories, currentPage, totalPages }: Uns
           </Link>
         </div>
       </div>
-
-      <AdBanner variant="rectangle" />
     </section>
   );
 }

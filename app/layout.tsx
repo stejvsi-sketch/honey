@@ -6,7 +6,6 @@ import Footer from '@/components/Footer';
 import AnalyticsScript from '@/components/AnalyticsScript';
 import Script from 'next/script';
 import './globals.css';
-import './ads.css';
 
 const lora = Lora({
   subsets: ['latin'],

@@ -4,8 +4,6 @@ import NameArchive from '@/components/NameArchive';
 import RelatedNames from '@/components/RelatedNames';
 import { SITE_URL, NAME_PAGE_SIZE } from '@/lib/constants';
 import { formatSubmittedName } from '@/lib/names';
-import { AdResponsiveBanner } from '@/components/ads/AdBanner';
-import AdNativeBanner from '@/components/ads/AdNativeBanner';
 
 export const revalidate = 18000;
 
@@ -112,10 +110,8 @@ export default async function NamePage(props: {
           unresolved heartbreak, unspoken gratitude, and late-night longing. What was left unsaid?
         </p>
       </div>
-      <AdResponsiveBanner />
       <NameArchive key={name} nameSlug={name} displayName={displayName} initialTotal={total} initialMemories={initialMemories} />
       <RelatedNames currentName={displayName} currentSlug={name} />
-      <AdNativeBanner />
     </div>
   );
 }
