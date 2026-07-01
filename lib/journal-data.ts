@@ -10,6 +10,8 @@ export interface JournalPost {
   related?: string[];
   /** Optional FAQ pairs rendered as FAQPage structured data. */
   faq?: { question: string; answer: string }[];
+  /** When true, the page will have a noindex robots directive. */
+  noindex?: boolean;
 }
 
 import { POSTS_PART1 } from './journal-data-part1';

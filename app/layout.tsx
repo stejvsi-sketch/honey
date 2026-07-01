@@ -57,20 +57,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <head>
-        {/* Ezoic Privacy Scripts */}
-        <script data-cfasync="false" src="https://cmp.gatekeeperconsent.com/min.js"></script>
-        <script data-cfasync="false" src="https://the.gatekeeperconsent.com/cmp.min.js"></script>
-        {/* Ezoic Header Script */}
-        <script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
-        <script dangerouslySetInnerHTML={{ __html: `window.ezstandalone = window.ezstandalone || {}; ezstandalone.cmd = ezstandalone.cmd || [];` }} />
-        <script src="//ezoicanalytics.com/analytics.js"></script>
-
         {/* Preload LCP-critical texture image (crossorigin matches the CSS mask fetch) */}
         <link rel="preload" href="/textures/rough-paper.webp" as="image" type="image/webp" fetchPriority="high" crossOrigin="anonymous" />
         {/* Preconnect to Grow (Mediavine) origin */}
         <link rel="preconnect" href="https://faves.grow.me" crossOrigin="anonymous" />
       </head>
       <body>
+        {/* Ezoic Privacy Scripts — beforeInteractive to load in head without hydration issues */}
+        <Script id="ezoic-gatekeeper-cmp" src="https://cmp.gatekeeperconsent.com/min.js" strategy="beforeInteractive" data-cfasync="false" />
+        <Script id="ezoic-gatekeeper-min" src="https://the.gatekeeperconsent.com/cmp.min.js" strategy="beforeInteractive" data-cfasync="false" />
+        {/* Ezoic Header Script */}
+        <Script id="ezoic-sa" src="//www.ezojs.com/ezoic/sa.min.js" strategy="beforeInteractive" />
+        <Script id="ezoic-standalone-init" strategy="beforeInteractive">{`window.ezstandalone = window.ezstandalone || {}; ezstandalone.cmd = ezstandalone.cmd || [];`}</Script>
+        <Script id="ezoic-analytics" src="//ezoicanalytics.com/analytics.js" strategy="beforeInteractive" />
+        {/* Google AdSense */}
+        <Script id="google-adsense" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4151123662328725" strategy="beforeInteractive" crossOrigin="anonymous" />
+
         <Navigation />
         <main>{children}</main>
         <Footer />

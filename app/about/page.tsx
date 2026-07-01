@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import TrustPage from '@/components/TrustPage';
-import { SITE_NAME, SITE_URL } from '@/lib/constants';
+import { SITE_NAME, SITE_URL, EDITOR_NAME, EDITOR_BIO } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title: 'How It Works',
@@ -88,6 +88,20 @@ export default function AboutPage() {
               If a letter appears to reference you, contains personal information, or violates our rules, send the URL
               through the <Link href="/contact">contact page</Link>. We prioritize safety, privacy, and removal requests.
             </p>
+          ),
+        },
+        {
+          title: 'About the editor',
+          eyebrow: 'Who runs this',
+          children: (
+            <>
+              <p>
+                <strong>{EDITOR_NAME}</strong> is the founder and editor of {SITE_NAME}. He reviews every
+                letter submitted to the archive, oversees all journal and editorial content, and ensures
+                the site remains a safe, moderated space for anonymous expression.
+              </p>
+              <p>{EDITOR_BIO}</p>
+            </>
           ),
         },
       ]}

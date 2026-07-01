@@ -285,7 +285,8 @@ export default function TableView({ memories }: { memories: Memory[] }) {
           if (e.target === e.currentTarget) setLiftedId(null);
         }}
       >
-        {/* Handwritten scribbles on the table */}
+        {/* Handwritten scribbles on the table — decorative only, hidden from crawlers */}
+        <div aria-hidden="true" role="presentation" data-nosnippet="">
         {scribbles.map((scribble, i) => (
           <span
             key={`scribble-${i}`}
@@ -301,6 +302,7 @@ export default function TableView({ memories }: { memories: Memory[] }) {
             {scribble.text}
           </span>
         ))}
+        </div>
 
         {placements.map(placement => (
           <TableCard

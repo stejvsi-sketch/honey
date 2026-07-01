@@ -32,6 +32,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/colors', changeFrequency: 'monthly' as const, priority: 0.6 },
     { path: '/collections', changeFrequency: 'weekly' as const, priority: 0.7 },
     { path: '/unsent', changeFrequency: 'monthly' as const, priority: 0.6 },
+    { path: '/table', changeFrequency: 'daily' as const, priority: 0.6 },
   ];
 
   const staticEntries: MetadataRoute.Sitemap = staticPages.map(({ path, changeFrequency, priority }) => ({
@@ -116,13 +117,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  // Journal article pages — use post date
-  const journalEntries: MetadataRoute.Sitemap = JOURNAL_POSTS.map(post => ({
-    url: `${SITE_URL}/journal/${post.slug}`,
-    lastModified: parseMonthDate(post.date) || SITE_LAUNCH,
-    changeFrequency: 'yearly' as const,
-    priority: 0.7,
-  }));
+  // Journal article pages — use post date (exclude noindexed posts)
+  const journalEntries: MetadataRoute.Sitemap = JOURNAL_POSTS
+    .filter(post => !post.noindex)
+    .map(post => ({
+      url: `${SITE_URL}/journal/${post.slug}`,
+      lastModified: parseMonthDate(post.date) || SITE_LAUNCH,
+      changeFrequency: 'yearly' as const,
+      priority: 0.7,
+    }));
 
   // Story pages — use story date
   const storyEntries: MetadataRoute.Sitemap = [];

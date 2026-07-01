@@ -22,6 +22,7 @@ export default function Footer() {
           <li><Link href="/privacy" className="footer__link">Privacy</Link></li>
           <li><Link href="/cookies" className="footer__link">Cookies</Link></li>
           <li><Link href="/disclaimer" className="footer__link">Disclaimer</Link></li>
+          <li><Link href="/moderation" className="footer__link">Moderation Policy</Link></li>
           <li><Link href="/contact" className="footer__link">Contact</Link></li>
         </ul>
         <p className="footer__copy">&copy; {year} {SITE_NAME}. All letters belong to their authors.</p>

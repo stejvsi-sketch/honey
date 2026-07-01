@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { JOURNAL_POSTS } from '@/lib/journal-data';
-import { SITE_NAME, SITE_URL } from '@/lib/constants';
+import { SITE_NAME, SITE_URL, EDITOR_NAME } from '@/lib/constants';
 import JournalContent from '@/components/JournalContent';
 import RelatedPosts from '@/components/RelatedPosts';
 
@@ -31,6 +31,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
     title: post.title,
     description: post.excerpt,
     alternates: { canonical: canonicalUrl },
+    ...(post.noindex ? { robots: { index: false, follow: true } } : {}),
     openGraph: {
       type: 'article',
       title: post.title,
@@ -38,7 +39,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
       url: canonicalUrl,
       publishedTime: isoDate,
       modifiedTime: isoDate,
-      authors: [SITE_NAME],
+      authors: [EDITOR_NAME],
     },
   };
 }
@@ -60,7 +61,12 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
       '@type': 'BlogPosting',
       headline: post.title,
       description: post.excerpt,
-      author: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
+      author: {
+        '@type': 'Person',
+        name: EDITOR_NAME,
+        url: `${SITE_URL}/about`,
+        jobTitle: 'Founder & Editor',
+      },
       publisher: {
         '@type': 'Organization',
         name: SITE_NAME,
@@ -115,7 +121,18 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
             <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', lineHeight: 1.2, color: 'var(--text)' }}>
               {post.title}
             </h1>
+            <div style={{ marginTop: '16px', fontSize: '0.88rem', color: 'var(--text-muted)' }}>
+              By <Link href="/about" style={{ color: 'var(--text)', textDecoration: 'underline', textUnderlineOffset: '2px', textDecorationColor: 'var(--border-light)' }}>{EDITOR_NAME}</Link> · {SITE_NAME} Editorial
+            </div>
           </header>
+
+          <div style={{
+            marginBottom: '40px', padding: '16px 20px', background: 'rgba(255,255,255,0.35)',
+            borderRadius: 'var(--radius)', borderLeft: '3px solid var(--border-light)',
+            fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.6, fontStyle: 'italic',
+          }}>
+            This article reflects the editorial perspective of the {SITE_NAME} team. Where we reference research or external sources, we link to them where available.
+          </div>
 
           <JournalContent content={post.content} slug={post.slug} />
         </article>

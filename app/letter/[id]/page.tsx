@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { getMemoryById, getNameCountForSlug } from '@/lib/data';
 import { CARD_COLORS, SITE_NAME, SITE_URL } from '@/lib/constants';
 import { formatSubmittedName } from '@/lib/names';
+import ReportButton from '@/components/ReportButton';
 
 export const revalidate = 18000;
 
@@ -41,6 +42,9 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
       `things I never said to ${displayName}`,
     ],
     alternates: { canonical: canonicalUrl },
+    robots: hasAggregationPage
+      ? { index: false, follow: true }
+      : { index: true, follow: true },
     openGraph: {
       title: `Unsent Letters and Messages to ${displayName}`,
       description,
@@ -138,10 +142,14 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
       <div className="letter-single__meta">
         <p>{formattedDate} at {formattedTime}</p>
       </div>
-      <div style={{ marginTop: 32 }}>
-        <Link href="/letters" className="btn btn--outline" style={{ width: 'auto', display: 'inline-flex' }}>
-          Back to Letters
+      <div style={{ marginTop: 32, display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
+        <Link
+          href="/letters"
+          className="letter-single__back"
+        >
+          ← Back to Letters
         </Link>
+        <ReportButton letterUrl={letterUrl} />
       </div>
     </div>
   );

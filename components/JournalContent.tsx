@@ -32,9 +32,6 @@ function buildRules(currentSlug: string): Rule[] {
 
   // Pillar / cluster + conversion CTAs
   rules.push(
-    { match: 'unsent project alternative', href: '/journal/unsent-project-alternative' },
-    { match: 'websites similar to the unsent project', href: '/journal/websites-similar-to-the-unsent-project' },
-    { match: 'sites like the unsent project', href: '/journal/websites-similar-to-the-unsent-project' },
     { match: 'write a letter', href: '/write' },
   );
 

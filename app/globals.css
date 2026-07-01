@@ -458,6 +458,13 @@ a:hover { color: var(--accent-hover); }
   font-size: 0.85rem; color: var(--text-faint);
   font-family: var(--font-serif); font-style: italic;
 }
+.letter-single__back {
+  font-size: 0.85rem; color: var(--text-muted);
+  text-decoration: none; letter-spacing: 0.04em;
+  transition: color 0.2s ease;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.letter-single__back:hover { color: var(--text); }
 
 /* ===== HERO ===== */
 .hero {
@@ -480,6 +487,13 @@ a:hover { color: var(--accent-hover); }
   justify-content: center;
 }
 .hero__cta .btn { width: auto; }
+.home__link {
+  font-size: 0.9rem; color: var(--text-muted);
+  text-decoration: none; letter-spacing: 0.04em;
+  transition: color 0.2s ease;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.home__link:hover { color: var(--text); }
 
 /* ===== CONTENT PAGES ===== */
 .content { max-width: 680px; margin: 0 auto; padding: 48px 24px; }

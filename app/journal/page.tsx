@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { JOURNAL_POSTS } from '@/lib/journal-data';
-import { SITE_URL } from '@/lib/constants';
+import { SITE_URL, EDITOR_NAME } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title: 'Journal',
@@ -21,7 +21,7 @@ export default function JournalPage() {
         {JOURNAL_POSTS.map(post => (
           <article key={post.slug} style={{ borderBottom: '1px solid var(--border-light)', paddingBottom: '48px' }}>
             <div style={{ fontSize: '0.85rem', color: 'var(--text-light)', fontStyle: 'italic', marginBottom: '8px' }}>
-              {post.date}
+              {post.date} · By {EDITOR_NAME}
             </div>
             <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.6rem', marginBottom: '16px' }}>
               <Link href={`/journal/${post.slug}`} style={{ color: 'var(--text)', textDecoration: 'none' }}>
