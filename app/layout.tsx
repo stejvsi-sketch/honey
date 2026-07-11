@@ -5,6 +5,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import AnalyticsScript from '@/components/AnalyticsScript';
 import Script from 'next/script';
+import MonetagAd from '@/components/MonetagAd';
 import './globals.css';
 
 const lora = Lora({
@@ -80,6 +81,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         {/* Google Analytics — conditionally loaded */}
         <AnalyticsScript />
+        {/* Monetag Global Vignette Ad */}
+        <MonetagAd zone="11272125" type="vignette" />
       </body>
     </html>
   );

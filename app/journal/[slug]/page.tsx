@@ -5,6 +5,7 @@ import { JOURNAL_POSTS } from '@/lib/journal-data';
 import { SITE_NAME, SITE_URL, EDITOR_NAME } from '@/lib/constants';
 import JournalContent from '@/components/JournalContent';
 import RelatedPosts from '@/components/RelatedPosts';
+import MonetagAd from '@/components/MonetagAd';
 
 const MONTHS: Record<string, string> = {
   January: '01', February: '02', March: '03', April: '04',
@@ -136,6 +137,11 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
 
           <JournalContent content={post.content} slug={post.slug} />
         </article>
+
+        {/* Monetag In-Page Push for Journal Articles */}
+        <div style={{ display: 'flex', justifyContent: 'center', margin: '40px 0' }}>
+          <MonetagAd zone="11272142" type="in-page" />
+        </div>
 
         {post.faq && post.faq.length > 0 && (
           <section style={{ marginTop: '64px', paddingTop: '40px', borderTop: '1px solid var(--border-light)' }}>

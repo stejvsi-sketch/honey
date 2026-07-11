@@ -4,6 +4,7 @@ import { getHomeMemories } from '@/lib/data';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/constants';
 import HomeCardGrid from '@/components/cards/HomeCardGrid';
 import TrendingNames from '@/components/TrendingNames';
+import MonetagAd from '@/components/MonetagAd';
 
 export const revalidate = 18000;
 
@@ -47,6 +48,11 @@ export default async function HomePage() {
           <Link href="/letters" className="btn btn--outline">Read Letters</Link>
         </div>
       </section>
+
+      {/* Monetag In-Page Push for Home */}
+      <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0 40px' }}>
+        <MonetagAd zone="11272143" type="in-page" />
+      </div>
 
       {/* JSON-LD Structured Data */}
       <script

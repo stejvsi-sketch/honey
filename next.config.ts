@@ -39,11 +39,11 @@ const nextConfig: NextConfig = {
           key: 'Content-Security-Policy',
           value: [
             "default-src 'self'",
-            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com https://faves.grow.me https://*.grow.me https://cdn.prod.uidapi.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://fundingchoicesmessages.google.com",
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com https://faves.grow.me https://*.grow.me https://cdn.prod.uidapi.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://fundingchoicesmessages.google.com https://n6wxm.com https://*.n6wxm.com https://nap5k.com https://*.nap5k.com",
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
             "img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com https://*.grow.me https://pagead2.googlesyndication.com https://tpc.googlesyndication.com",
             "font-src 'self' data: https://fonts.gstatic.com",
-            "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://static.cloudflareinsights.com https://*.supabase.co https://*.upstash.io https://*.grow.me https://*.growplow.events https://*.uidapi.com https://fundingchoicesmessages.google.com https://*.adtrafficquality.google https://*.googlesyndication.com https://*.google.com",
+            "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://static.cloudflareinsights.com https://*.supabase.co https://*.upstash.io https://*.grow.me https://*.growplow.events https://*.uidapi.com https://fundingchoicesmessages.google.com https://*.adtrafficquality.google https://*.googlesyndication.com https://*.google.com https://n6wxm.com https://*.n6wxm.com https://nap5k.com https://*.nap5k.com",
             "frame-src 'self' https://*.grow.me https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net",
             "object-src 'none'",
             "base-uri 'self'",

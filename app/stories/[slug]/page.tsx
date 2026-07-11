@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { STORIES } from '@/lib/stories';
 import { SITE_URL } from '@/lib/constants';
+import MonetagAd from '@/components/MonetagAd';
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await props.params;
@@ -144,6 +145,11 @@ export default async function StoryPage(props: { params: Promise<{ slug: string 
             </li>
           ))}
         </ol>
+      </div>
+
+      {/* Monetag In-Page Push for Story Page */}
+      <div style={{ display: 'flex', justifyContent: 'center', margin: '40px 0' }}>
+        <MonetagAd zone="11272071" type="in-page" />
       </div>
     </div>
   );

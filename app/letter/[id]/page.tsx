@@ -5,6 +5,7 @@ import { getMemoryById, getNameCountForSlug } from '@/lib/data';
 import { CARD_COLORS, SITE_NAME, SITE_URL, NAME_INDEX_THRESHOLD } from '@/lib/constants';
 import { formatSubmittedName } from '@/lib/names';
 import ReportButton from '@/components/ReportButton';
+import MonetagAd from '@/components/MonetagAd';
 
 export const revalidate = 18000;
 
@@ -139,6 +140,11 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
       </div>
       <div className="letter-single__meta">
         <p>{formattedDate} at {formattedTime}</p>
+      </div>
+
+      {/* Monetag In-Page Push for Single Letter */}
+      <div style={{ display: 'flex', justifyContent: 'center', margin: '32px 0' }}>
+        <MonetagAd zone="11272072" type="in-page" />
       </div>
       <div style={{ marginTop: 32, display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
         <Link
