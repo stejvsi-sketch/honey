@@ -92,6 +92,8 @@ export default async function HomePage() {
       />
       {/* Monetag In-Page Push — Zone for Home */}
       <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272143',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
+      {/* TEMP: Force verification for stubborn zone */}
+      <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272142',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
     </>
   );
 }
