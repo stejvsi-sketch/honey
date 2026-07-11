@@ -6,6 +6,17 @@ export const POSTS_PART67: JournalPost[] = [
     title: 'The Digital Footprint of Heartbreak: Archiving Our Unsent Thoughts',
     excerpt: 'In an era where every memory is documented and stored in the cloud, our digital footprints of heartbreak are evolving. Anonymous archives offer a new way to process digital grief safely.',
     date: 'June 2026',
+        related: ['digital-breakups-surviving-ghosting-breadcrumbing-no-contact', 'phantom-vibrations-digital-hypervigilance-after-heartbreak', 'why-you-check-their-social-media-even-though-it-hurts', 'the-illusion-of-the-perfect-response-why-sending-the-draft-rarely-helps'],
+    faq: [
+      {
+        question: 'What does "The Digital Footprint of Heartbreak" mean?',
+        answer: 'This article explores the emotional experience described in the title, examining it through the lens of psychology research and the real stories people share in unsent letter archives.',
+      },
+      {
+        question: 'How does writing an unsent letter help process these feelings?',
+        answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
+      },
+    ],
     content: `Historically, a broken heart left physical artifacts. A shoebox of old polaroids, handwritten letters tied with ribbon, a t-shirt that still smelled like their perfume. These items could be hidden under a bed, thrown into a fire, or boxed up and placed in the attic. They were tangible, bound by the physical laws of space and time.
 
 Today, the artifacts of heartbreak are digital, and they are everywhere. They exist as thousands of text messages backed up to the cloud, shared Spotify playlists, tagged photos on social media, and location pins on digital maps. Our digital footprint makes moving on incredibly difficult. You cannot simply throw a server into the attic. Deleting a digital history often feels more final, and somehow more violent, than burning a physical photograph. It triggers a modern psychological phenomenon known as "digital grief."

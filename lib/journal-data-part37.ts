@@ -6,6 +6,17 @@ export const POSTS_PART37: JournalPost[] = [
     title: 'Do You Miss Them, or Do You Miss the Idea of Them? How to Tell the Difference',
     excerpt: 'The person you are mourning at 2 A.M. may not be the person who actually existed. Understanding the difference between missing someone and missing a projection can change everything about your recovery.',
     date: 'May 2026',
+        related: ['why-do-i-miss-my-ex-suddenly-psychology-of-emotional-triggers', 'still-in-love-with-ex-years-later-normal-psychology', 'how-to-stop-thinking-about-someone-you-love', 'why-we-romanticize-people-who-hurt-us'],
+    faq: [
+      {
+        question: 'How do you know if you miss them or just miss the idea of them?',
+        answer: 'If you miss specific, concrete details about the real person (their laugh, their habits, their flaws), you miss them. If you miss abstract feelings (being loved, having someone, not being alone), you miss the idea. Most people miss a combination of both.',
+      },
+      {
+        question: 'Why do I miss my ex when the relationship was bad?',
+        answer: 'You are likely missing the idealized version your brain constructed, not the real person. The fading affect bias softens painful memories faster than positive ones, leaving you with a highlight reel rather than the full picture.',
+      },
+    ],
     content: `Ask yourself a question, and be brutally honest with the answer. When you lie in bed and ache for them, when the longing is so sharp it feels surgical, who exactly are you missing? Are you missing the person who existed in your kitchen on an ordinary Wednesday, with morning breath and a bad mood and a tendency to leave cabinet doors open? Or are you missing a composite, a carefully assembled collection of their best moments, stitched together by your grieving brain into a person who never quite existed in that particular configuration?
 
 This is not a trick question, and it is not meant to diminish your pain. The pain is real regardless of the answer. But the answer matters enormously for your recovery, because missing a real person and missing an idealized projection of a person are two fundamentally different psychological experiences that require fundamentally different approaches to healing.

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { getMemoriesByName } from '@/lib/data';
 import NameArchive from '@/components/NameArchive';
 import RelatedNames from '@/components/RelatedNames';
-import { SITE_URL, NAME_PAGE_SIZE } from '@/lib/constants';
+import { SITE_URL, NAME_PAGE_SIZE, NAME_INDEX_THRESHOLD } from '@/lib/constants';
 import { formatSubmittedName } from '@/lib/names';
 
 export const revalidate = 18000;
@@ -12,7 +12,7 @@ export async function generateMetadata(props: { params: Promise<{ name: string }
   const { total, displayName: rawDisplayName } = await getMemoriesByName(name, 1, 1);
   const displayName = formatSubmittedName(rawDisplayName);
   const isRealName = displayName.replace(/\s/g, '').length >= 3;
-  const shouldIndex = isRealName && total >= 5;
+  const shouldIndex = isRealName && total >= NAME_INDEX_THRESHOLD;
   const canonicalUrl = `${SITE_URL}/to/${name}`;
 
   return {

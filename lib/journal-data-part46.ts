@@ -6,6 +6,17 @@ export const POSTS_PART46: JournalPost[] = [
     title: 'The Words I Never Said',
     excerpt: 'There is a graveyard inside every person, filled with the words they never said. The I love you that came too late. The apology swallowed by pride. The goodbye that never happened. This is about all of them.',
     date: 'May 2026',
+        related: ['the-2am-echo-missing-ex', 'psychology-unspoken-words-letters-never-sent', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
+    faq: [
+      {
+        question: 'What does "The Words I Never Said" mean?',
+        answer: 'This article explores the emotional experience described in the title, examining it through the lens of psychology research and the real stories people share in unsent letter archives.',
+      },
+      {
+        question: 'How does writing an unsent letter help process these feelings?',
+        answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
+      },
+    ],
     content: `You carry them everywhere. The words you never said. They sit in the back of your throat like a stone you swallowed years ago that never quite made it down. They surface at the worst possible times, in the shower, in traffic, in the middle of a conversation with someone new when your brain ambushes you with the ghost of a sentence you should have spoken to someone old. You rehearse them endlessly, these phantom phrases, polishing them until they gleam with the perfection that only imaginary conversations can achieve. But the moment has passed. The person has gone. And the words remain, unspoken and undelivered, rattling around inside you like coins in an empty jar.
 
 Everyone has them. Every single person walking around on this planet is carrying a collection of sentences that were never spoken aloud to the person they were meant for. Some of these words are small and forgettable. Others are enormous, the kind that could have redirected the entire trajectory of a life if they had been said at the right moment. The words I never said to you. The things I should have told her before she left. The confession I rehearsed a thousand times but never had the courage to deliver. We hoard these phrases like contraband, smuggling them through the years, unable to let them go because letting them go would mean admitting that the moment for them has truly, permanently, irreversibly passed.

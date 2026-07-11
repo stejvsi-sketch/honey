@@ -96,7 +96,7 @@ export default function AboutPage() {
           children: (
             <>
               <p>
-                <strong>{EDITOR_NAME}</strong> is the founder and editor of {SITE_NAME}. He reviews every
+                <strong><Link href="/author">{EDITOR_NAME}</Link></strong> is the founder and lead editor of {SITE_NAME}. He reviews every
                 letter submitted to the archive, oversees all journal and editorial content, and ensures
                 the site remains a safe, moderated space for anonymous expression.
               </p>

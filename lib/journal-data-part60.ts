@@ -6,6 +6,17 @@ export const POSTS_PART60: JournalPost[] = [
     title: 'Right Person, Wrong Time',
     excerpt: 'It is one of the most romanticized ideas in modern dating. But is "right person, wrong time" a tragic reality, or a comforting myth we use to soften the blow of rejection?',
     date: 'June 2026',
+        related: ['grieving-relationship-didnt-happen', 'grieving-an-almost-relationship-situationship-pain', 'the-weight-of-being-someones-secret', 'you-dont-find-the-same-person-twice'],
+    faq: [
+      {
+        question: 'Is right person wrong time a real thing?',
+        answer: 'It depends on the situation. Sometimes timing genuinely prevents a relationship from working — career moves, personal growth stages, or life circumstances. But often, "right person wrong time" is a comforting narrative that avoids the harder truth: the relationship was not working for reasons beyond timing.',
+      },
+      {
+        question: 'Should you wait for someone if the timing is wrong?',
+        answer: 'Generally, no. Waiting indefinitely for someone keeps you psychologically stuck in what researchers call an approach-avoidance conflict. If the relationship cannot work now, the healthiest path is to grieve it as a loss and remain open to what comes next.',
+      },
+    ],
     content: `There is a specific kind of heartbreak reserved for the relationship that almost was. The connection was undeniable. The chemistry was electric. You laughed at the same obscure references, you shared the same fundamental values, and the silence between you was comfortable rather than fraught. On paper, it was perfect. In reality, it fell apart. And when it did, one of you likely uttered the phrase that has become the universal epitaph for premature endings: "Right person, wrong time."
 
 It is a beautiful, tragic concept. It suggests that the love was pure and the compatibility was real, but the universe simply refused to align the logistics. It absolves both parties of blame. No one failed; the timing failed. The circumstances were too difficult. The distance was too great. The career demanded too much focus. The emotional baggage from a previous relationship was too heavy to unpack. "Right person, wrong time" allows you to walk away with the romance intact, preserving the idealized version of what could have been without having to do the messy, difficult work of actually making it happen.

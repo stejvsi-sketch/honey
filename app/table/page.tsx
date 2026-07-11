@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: 'The Table - Letters Laid Bare',
   description: 'Fifty recent unsent letters scattered across a table. Pick one up and read the words someone never got to say.',
   alternates: { canonical: `${SITE_URL}/table` },
+  robots: { index: false, follow: true },
   openGraph: {
     title: 'The Table',
     description: 'Fifty unsent letters scattered across a table, waiting to be read.',

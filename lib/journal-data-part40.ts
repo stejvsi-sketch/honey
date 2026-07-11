@@ -6,6 +6,17 @@ export const POSTS_PART40: JournalPost[] = [
     title: 'The Quiet Grief of Outgrowing a Friendship You Thought Would Last Forever',
     excerpt: 'Nobody writes songs about losing a best friend. There are no breakup playlists for the person who was your whole world at seventeen but barely a text thread at twenty seven. This grief deserves a name.',
     date: 'May 2026',
+        related: ['the-2am-echo-missing-ex', 'psychology-unspoken-words-letters-never-sent', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
+    faq: [
+      {
+        question: 'What does "The Quiet Grief of Outgrowing a Friendship You Thought Would Last Forever" mean?',
+        answer: 'This article explores the emotional experience described in the title, examining it through the lens of psychology research and the real stories people share in unsent letter archives.',
+      },
+      {
+        question: 'How does writing an unsent letter help process these feelings?',
+        answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
+      },
+    ],
     content: `There was no fight. There was no betrayal. There was no single, identifiable moment where it went wrong. One day you realized that the person who once knew you better than anyone alive had become someone you exchanged birthday texts with and nothing else, and the realization did not arrive with the dramatic intensity of a breakup. It arrived quietly, like discovering that a room you used to live in has been slowly emptied without your noticing, and now you are standing in it looking at bare walls and wondering when exactly the furniture was removed.
 
 The grief of outgrowing a friendship is one of the most underrecognized forms of loss in the psychological literature, in part because Western culture lacks a coherent framework for mourning relationships that did not end in conflict. When a friendship dissolves because of a fight, a betrayal, or a clear violation of trust, the loss at least has a narrative. Something happened. Someone did something wrong. There is a villain and a victim, and the story, however painful, can be told in a way that other people understand. But when a friendship simply fades, when two people who were once inseparable gradually become strangers through no fault of either party, the loss resists narrative entirely. Nothing happened. Nobody did anything wrong. The friendship just stopped being what it was, and there is no satisfying explanation for why.

@@ -6,6 +6,17 @@ export const POSTS_PART66: JournalPost[] = [
     title: 'The Psychology of Closure: Why We Don’t Need an Apology to Move On',
     excerpt: 'We often wait for an apology or an explanation to finally feel closure after a relationship ends. However, psychological research suggests that true closure comes from within, not from the person who hurt us.',
     date: 'June 2026',
+        related: ['psychology-unsent-text-messages', 'psychology-unspoken-words-letters-never-sent', 'understanding-limerence-heartbreak-digital-obsession', 'shadow-work-heartbreak-integrating-hidden-insecurities'],
+    faq: [
+      {
+        question: 'The Psychology of Closure: Why We Don\'t Need an Apology to Move On?',
+        answer: 'This article examines the psychology and emotional reality behind this question. It draws on attachment theory, neuroscience research, and the lived experience of people who have shared their unspoken words in anonymous archives.',
+      },
+      {
+        question: 'How does writing an unsent letter help process these feelings?',
+        answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
+      },
+    ],
     content: `When a relationship ends abruptly or painfully, the immediate instinct is to seek answers. We want to know why it happened, how they could do it, and, most importantly, we want an apology. We operate under the assumption that if the other person would just acknowledge their wrongdoing and validate our pain, we could finally find "closure" and move on with our lives. This desire for external validation often traps us in a cycle of waiting, preventing us from healing.
 
 Psychologists and relationship experts have increasingly begun to challenge this traditional view of closure. The harsh reality is that the apology you are waiting for may never come. And even if it does, it rarely provides the magical sense of peace you expect. 

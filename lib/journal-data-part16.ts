@@ -6,6 +6,17 @@ export const POSTS_PART16: JournalPost[] = [
     title: 'Healing Through Letters: Writing to Your Past, Present, and Future Self',
     excerpt: 'Discover the profound healing power of narrative therapy. Learn why writing to your past self and practicing self-compassionate writing is the ultimate key to rebuilding your identity after heartbreak.',
     date: 'May 2026',
+        related: ['grief-letter-writing-how-putting-heartbreak-on-paper-sets-you-free', 'writing-through-anger-vs-sadness-after-breakup', 'what-to-write-for-closure', 'does-writing-an-unsent-letter-actually-help-you-heal'],
+    faq: [
+      {
+        question: 'What does "Healing Through Letters" mean?',
+        answer: 'This article explores the emotional experience described in the title, examining it through the lens of psychology research and the real stories people share in unsent letter archives.',
+      },
+      {
+        question: 'How does writing an unsent letter help process these feelings?',
+        answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
+      },
+    ],
     content: `When navigating the devastating aftermath of a severe heartbreak, the vast majority of our mental and emotional energy is usually entirely directed outward. We obsessively analyze our ex-partner's motives, we frantically search for the exact reasons why the relationship failed, and we pour our grief into endless unsent messages addressed to the person who walked away. While this external processing is a completely normal and necessary phase of acute grief, true, sustainable healing eventually requires a profound shift in focus. To truly rebuild your identity and reclaim your peace, you must pivot your attention inward. The most powerful letters you will ever write during your recovery are not the ones addressed to your ex; they are the letters written directly to yourself. This is the profound, transformative power of narrative therapy.
 
 Narrative therapy is a highly effective psychological approach that centers on the fundamental belief that human beings are the authors of their own lives. We construct our identities based on the stories we tell ourselves about our past experiences. When a relationship ends in trauma or sudden betrayal, that core narrative is shattered. We suddenly view our past as a mistake, our present as a failure, and our future as bleak. This is where the specific technique of self-compassionate writing becomes absolutely vital. By actively writing to your past, present, and future selves, you are not just documenting your feelings; you are consciously rewriting your shattered narrative from the perspective of an empowered survivor rather than a helpless victim.

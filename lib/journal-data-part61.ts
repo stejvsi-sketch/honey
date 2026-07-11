@@ -6,6 +6,17 @@ export const POSTS_PART61: JournalPost[] = [
     title: 'How to Get Unblocked By Them',
     excerpt: 'Being blocked is a harsh, definitive boundary that often triggers panic and a desperate need to fix things. But attempting to circumvent a block usually achieves the exact opposite of what you want.',
     date: 'June 2026',
+        related: ['the-2am-echo-missing-ex', 'psychology-unspoken-words-letters-never-sent', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
+    faq: [
+      {
+        question: 'How to Get Unblocked By Them?',
+        answer: 'This article examines the psychology and emotional reality behind this question. It draws on attachment theory, neuroscience research, and the lived experience of people who have shared their unspoken words in anonymous archives.',
+      },
+      {
+        question: 'How does writing an unsent letter help process these feelings?',
+        answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
+      },
+    ],
     content: `You sent a text, and the bubble turned green. You opened their Instagram profile, and it said "User not found." You checked WhatsApp, and their profile picture was gone, the status suddenly invisible. The realization hits you with a cold, visceral shock: you have been blocked. In the digital age, being blocked is the ultimate door slam. It is a silent, immediate severance of access, and it almost always triggers a frantic, panicky response. The first thought is rarely acceptance; the first thought is almost universally, "How do I fix this? How do I get them to unblock me?"
 
 The internet is full of terrible advice on this subject. You will find articles suggesting you use a friend's phone to call them, create a fake social media account to DM them, send an email to their work address, or even show up at their house with a grand romantic gesture. These tactics are often framed as "fighting for the relationship" or "proving how much you care." Let's be absolutely clear: these are not romantic gestures. These are violations of a boundary. And understanding why the boundary was set in the first place is the only path forward.
@@ -18,7 +29,7 @@ So, how do you actually get unblocked? The answer is counterintuitive and incred
 
 The only effective response to being blocked is radical compliance. You must respect the block completely. You do not try to circumvent it. You do not ask mutual friends to pass along messages. You do not post vague, emotionally manipulative things on your own social media in the hope that word will get back to them. You accept the silence, and you step back.
 
-This is agonizing work. When you are cut off suddenly, your brain goes into withdrawal. You are biologically accustomed to receiving dopamine hits from their messages, their voice, their presence in your digital sphere. The block cuts off that supply instantly, leading to anxiety, obsessive thinking, and a desperate urge to re-establish contact just to soothe the panic. You have to recognize this panic for what it is: a chemical withdrawal, not a sign that you need to take immediate action.
+This is agonizing work. When you are cut off suddenly, your brain goes into withdrawal. You are biologically accustomed to receiving [dopamine](https://en.wikipedia.org/wiki/Dopamine) hits from their messages, their voice, their presence in your digital sphere. The block cuts off that supply instantly, leading to anxiety, obsessive thinking, and a desperate urge to re-establish contact just to soothe the panic. You have to recognize this panic for what it is: a chemical withdrawal, not a sign that you need to take immediate action.
 
 While you are respecting the block, you must shift your focus entirely away from them and onto yourself. This is the period where you have to do the heavy lifting of self-reflection. Why were you blocked? Was there a toxic dynamic? Did you refuse to accept a breakup and repeatedly cross their boundaries? Did an argument escalate out of control? You need to take honest, uncomfortable inventory of your own behavior. This is not about self-flagellation; it is about self-awareness. If you do not understand why the wall was built, you will never be safe enough for them to take it down.
 

@@ -6,9 +6,20 @@ export const POSTS_PART6: JournalPost[] = [
     title: 'The Psychology of Unspoken Words: Why We Write Letters We Never Send',
     excerpt: 'Why do we hold onto the things we never said? Explore the psychology behind writing love letters never sent, the Zeigarnik effect, and how to find closure without an apology.',
     date: 'May 2026',
+        related: ['psychology-unsent-text-messages', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on', 'understanding-limerence-heartbreak-digital-obsession', 'shadow-work-heartbreak-integrating-hidden-insecurities'],
+    faq: [
+      {
+        question: 'The Psychology of Unspoken Words: Why We Write Letters We Never Send?',
+        answer: 'This article examines the psychology and emotional reality behind this question. It draws on attachment theory, neuroscience research, and the lived experience of people who have shared their unspoken words in anonymous archives.',
+      },
+      {
+        question: 'How does writing an unsent letter help process these feelings?',
+        answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
+      },
+    ],
     content: `There is a specific kind of haunting that only comes from unspoken words. It is not the ghost of what happened that keeps us awake at two in the morning; it is the phantom of what could have been said. "Things I wish I said to you" is one of the most common themes in modern heartbreak, echoing across social media, poetry, and the deepest corners of our minds. But why do we cling so tightly to these unsent messages? What drives us to draft long, emotional texts in our notes app, only to delete them? The psychology behind writing love letters never sent reveals profound truths about human closure, grief, and the mechanisms we use to heal when an apology is permanently out of reach.
 
-At the core of our obsession with unspoken words is a psychological principle known as the Zeigarnik effect. First observed by psychologist Bluma Zeigarnik in the 1920s, this effect dictates that the human brain remembers uncompleted or interrupted tasks better than completed ones. A waiter remembers an unpaid bill perfectly but forgets the details the moment it is settled. The brain craves completion. It seeks a neat ending. When a relationship ends abruptly, or when someone we love disappears from our lives without a proper goodbye, our brain registers it as an "unfinished task." Those letters I never sent you are not just romantic ruminations; they are your brain desperately trying to close a loop that remains agonizingly open.
+At the core of our obsession with unspoken words is a psychological principle known as the Zeigarnik effect. First observed by psychologist Bluma Zeigarnik in the 1920s, this effect dictates that the human brain remembers uncompleted or interrupted tasks better than completed ones. A waiter remembers an unpaid bill perfectly but forgets the details the moment it is settled. The brain craves completion. It seeks a neat ending. When a relationship ends abruptly, or when someone we love disappears from our lives without a proper goodbye, our brain registers it as an "unfinished task." Those letters I never sent you are not just romantic [rumination](https://en.wikipedia.org/wiki/Rumination_(psychology))s; they are your brain desperately trying to close a loop that remains agonizingly open.
 
 This is why the lack of closure feels so physically and emotionally exhausting. You are caught in a mental loop, endlessly rehearsing conversations that will never happen. You imagine running into them at a coffee shop and finally delivering the perfect monologue—the one that will make them understand exactly how much they hurt you, or the one that will finally make them forgive you. The tragedy, of course, is that even if you were given the chance to deliver those unspoken words, the reality rarely matches the fantasy. The other person rarely responds exactly how you need them to. They might be defensive, indifferent, or simply unable to comprehend the depth of your feeling.
 

@@ -6,6 +6,17 @@ export const POSTS_PART17: JournalPost[] = [
     title: 'Red Flags and Green Flags: Setting Non-Negotiable Boundaries After Heartbreak',
     excerpt: 'Prepare to date again by learning the difference between red and green flags. Discover the concept of wildflowering and learn actionable scripts for setting boundaries in relationships.',
     date: 'May 2026',
+        related: ['releasing-romantic-regret', 'how-to-forgive-yourself-after-breakup-self-blame-guilt', 'emotional-sobriety-breaking-addiction-to-toxic-relationships', 'when-forgiveness-feels-impossible-and-you-do-it-anyway'],
+    faq: [
+      {
+        question: 'What does "Red Flags and Green Flags" mean?',
+        answer: 'This article explores the emotional experience described in the title, examining it through the lens of psychology research and the real stories people share in unsent letter archives.',
+      },
+      {
+        question: 'How does writing an unsent letter help process these feelings?',
+        answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
+      },
+    ],
     content: `The immediate, chaotic aftermath of a devastating breakup is usually entirely consumed by grief, deep reflection, and the arduous, exhausting task of simply surviving the day. However, as the intense, paralyzing pain eventually begins to slowly subside, a new, equally terrifying phase of emotional recovery inevitably begins: the daunting prospect of dating again. Stepping back into the chaotic romantic arena after your heart has been completely shattered requires an immense, almost unreasonable amount of courage. The landscape of modern romance is notoriously difficult to safely navigate, and the profound fear of repeating your past mistakes can be completely paralyzing. To safely re-enter this world without immediately compromising your hard-earned, fragile peace, you must fundamentally shift your focus from simply surviving your past heartbreak to actively and aggressively protecting your future. This proactive stance requires a masterclass in recognizing red flags, actively seeking out green flags, and establishing ironclad, non-negotiable boundaries from the very first interaction.
 
 Understanding the evolving lexicon of modern romance is the crucial first step in effectively protecting yourself. Recent, highly publicized Gen Z dating trends have dramatically reshaped exactly how we define and pursue genuine emotional connection. While older generations may have silently tolerated high levels of destructive ambiguity and dysfunction under the romanticized guise of "passion" or "fighting for love," the modern, educated dater is increasingly prioritizing mental health, emotional stability, and mutual respect. We are currently witnessing a powerful, societal shift away from toxic, co-dependent relationship dynamics and moving rapidly toward a culture of profound self-preservation and emotional intelligence. One of the most beautiful, empowering, and necessary concepts to emerge from this cultural shift is the psychological trend known as 'wildflowering'.

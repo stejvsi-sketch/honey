@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getMemoryById, getNameCountForSlug } from '@/lib/data';
-import { CARD_COLORS, SITE_NAME, SITE_URL } from '@/lib/constants';
+import { CARD_COLORS, SITE_NAME, SITE_URL, NAME_INDEX_THRESHOLD } from '@/lib/constants';
 import { formatSubmittedName } from '@/lib/names';
 import ReportButton from '@/components/ReportButton';
 
@@ -22,7 +22,7 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
   // and real name), point canonical to /to/{slug} to consolidate SEO signals.
   const nameCount = await getNameCountForSlug(memory.slug);
   const isRealName = memory.slug.replace(/-/g, '').length >= 3;
-  const hasAggregationPage = isRealName && nameCount >= 5;
+  const hasAggregationPage = isRealName && nameCount >= NAME_INDEX_THRESHOLD;
   const canonicalUrl = hasAggregationPage
     ? `${SITE_URL}/to/${memory.slug}`
     : letterUrl;
@@ -42,9 +42,7 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
       `things I never said to ${displayName}`,
     ],
     alternates: { canonical: canonicalUrl },
-    robots: hasAggregationPage
-      ? { index: false, follow: true }
-      : { index: true, follow: true },
+    robots: { index: false, follow: true },
     openGraph: {
       title: `Unsent Letters and Messages to ${displayName}`,
       description,

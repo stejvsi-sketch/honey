@@ -62,32 +62,32 @@ export default function FAQPage() {
       answer: 'Honey, If Only is a curated, aesthetically designed archive with strict moderation and a 25-word constraint. Unlike larger platforms that can feel overwhelming or unfiltered, every message here is reviewed by a human, presented on a textured card with intentional color coding, and treated as a genuine piece of emotional expression. We prioritize quality and emotional resonance over volume.',
     },
     {
-      question: 'How do I search for a name on an unsent message project?',
-      answer: 'On Honey, If Only, you can search for any name using the search bar on our Archive page. Simply type a first name and the archive will show you every anonymous unsent letter addressed to that name. Unlike some unsent project sites that crash or fail to load search results, our search works instantly across thousands of curated messages.',
+      question: 'How do I search for a name in an unsent message archive?',
+      answer: 'On Honey, If Only, you can search for any first name using the search bar on the Letters page or the Name Archive. Type a name and the archive will show every anonymous unsent letter addressed to it. Results load instantly across thousands of curated, human-reviewed messages.',
     },
     {
-      question: 'How do I submit a message to an unsent message project?',
-      answer: 'On Honey, If Only, tap the Write button in the navigation bar. Enter the first name of the person your message is for, write your unsent message in 25 words or less, choose a color that represents your emotion, and hit submit. Your message will be reviewed and published to the archive, typically within a few hours. No account or email is required.',
+      question: 'How do I submit a message to an unsent letter archive?',
+      answer: 'Tap the Write button in the navigation bar. Enter the first name of the person your message is for, write your unsent words in 25 words or less, choose a color that represents your emotion, and hit submit. Your message goes through a brief human review and is typically published within a few hours. No account or email is required.',
     },
     {
-      question: 'What is the unsent project and how does it work?',
-      answer: 'The unsent project concept is a digital archive where people submit anonymous messages to someone they never sent the words to in real life. You write a short unsent letter, address it to a first name, and it gets published anonymously for others to read. Honey, If Only is a modern, curated take on this concept with a strict 25-word limit, human moderation, and a premium aesthetic designed for genuine emotional expression rather than mass content.',
+      question: 'What is an unsent letter archive and how does it work?',
+      answer: 'An unsent letter archive is a digital space where people submit anonymous messages addressed to someone by first name. The messages are things you wanted to say but never did. Honey, If Only is a curated version of this concept with a strict 25-word limit, human moderation of every submission, and a design built around emotional honesty rather than volume.',
     },
     {
-      question: 'How long does an unsent project take to post my message?',
-      answer: 'On large, unmoderated unsent project sites, messages can take days or weeks to appear, or they may never post at all due to server overload and abandoned moderation queues. On Honey, If Only, submitted messages go through a brief human review and are typically published within a few hours. If your message does not appear, it may have been flagged by our safety filters for containing prohibited content.',
+      question: 'How long does it take for my unsent message to appear?',
+      answer: 'On Honey, If Only, submitted messages go through a brief human review and are typically published within a few hours. If your message has not appeared after 24 hours, it may have been flagged by our safety filters for containing prohibited content. You can reach out through our Contact page for help.',
     },
     {
-      question: 'Can you delete unsent project messages after submitting?',
-      answer: 'On most unsent message platforms, including Honey, If Only, messages cannot be edited or deleted after submission because the archive is fully anonymous and no user accounts are created. There is no way to verify who originally submitted a message. This is by design. The permanence encourages you to be intentional and certain about the words you choose before you submit them.',
+      question: 'Can I delete my message after submitting it?',
+      answer: 'Because submissions are fully anonymous and no user accounts exist, there is no way to verify who originally wrote a specific message. Messages cannot be edited or deleted by the submitter. This permanence is intentional. It encourages you to be certain of your words before you send them into the archive.',
     },
     {
-      question: 'What do the unsent project colors mean?',
-      answer: 'On Honey, If Only, every unsent letter is tagged with a specific color that represents the emotion behind the message. Blush Coral represents passion and urgency. Faded Denim represents quiet, everyday melancholy. Sage Whisper represents acceptance and renewal. Ocean Mist represents deep sadness and distance. Honey Gold represents warmth and nostalgia. You can read the full guide on our Color Meanings page.',
+      question: 'What do the letter colors mean?',
+      answer: 'Every letter on Honey, If Only is tagged with a color that represents the emotion behind the message. Blush Coral represents passion and urgency. Faded Denim represents quiet, everyday melancholy. Sage Whisper represents acceptance and renewal. Ocean Mist represents deep sadness and distance. Honey Gold represents warmth and nostalgia. You can read the full guide on our Color Meanings page.',
     },
     {
-      question: 'What are some unsent project similar sites or alternatives?',
-      answer: 'If you are looking for an unsent project alternative, Honey, If Only is a modern, curated archive for anonymous unsent letters, messages, and unspoken words. Unlike the original unsent project, Honey, If Only uses a strict 25-word constraint that forces emotional distillation, active human moderation that filters spam and hate speech, and a premium aesthetic that treats every message with dignity. It is widely considered the best alternative for people who want a focused, high-quality emotional archive.',
+      question: 'Are there other sites like Honey, If Only?',
+      answer: 'There are several platforms for anonymous unsent letters, each with a different approach. Honey, If Only stands out for its strict 25-word constraint that forces emotional distillation, active human moderation of every submission, and a premium design that treats each message with care. If you value quality and sincerity over volume, this is the archive built for that.',
     },
   ];
 
@@ -229,65 +229,65 @@ export default function FAQPage() {
             ),
           },
           {
-            title: 'How do I search for a name on an unsent message project?',
+            title: 'How do I search for a name in an unsent message archive?',
             eyebrow: 'Searching',
             children: (
               <p>
-                On Honey, If Only, you can search for any name using the search bar on our <Link href="/letters">Archive page</Link>. Simply type a first name and the archive will show you every anonymous unsent letter addressed to that name. Unlike some unsent project sites that crash or fail to load search results, our search works instantly across thousands of curated messages.
+                On Honey, If Only, you can search for any first name using the search bar on our <Link href="/letters">Letters page</Link> or the <Link href="/archive">Name Archive</Link>. Type a name and the archive will show every anonymous unsent letter addressed to it. Results load instantly across thousands of curated, human-reviewed messages.
               </p>
             ),
           },
           {
-            title: 'How do I submit a message to an unsent message project?',
+            title: 'How do I submit a message to an unsent letter archive?',
             eyebrow: 'Submitting',
             children: (
               <p>
-                On Honey, If Only, tap the <Link href="/write">Write</Link> button in the navigation bar. Enter the first name of the person your message is for, write your unsent message in 25 words or less, choose a color that represents your emotion, and hit submit. Your message will be reviewed and published to the archive, typically within a few hours. No account or email is required.
+                Tap the <Link href="/write">Write</Link> button in the navigation bar. Enter the first name of the person your message is for, write your unsent words in 25 words or less, choose a color that represents your emotion, and hit submit. Your message goes through a brief human review and is typically published within a few hours. No account or email is required.
               </p>
             ),
           },
           {
-            title: 'What is the unsent project and how does it work?',
+            title: 'What is an unsent letter archive and how does it work?',
             eyebrow: 'About',
             children: (
               <p>
-                The unsent project concept is a digital archive where people submit anonymous messages to someone they never sent the words to in real life. You write a short unsent letter, address it to a first name, and it gets published anonymously for others to read. Honey, If Only is a modern, curated take on this concept with a strict 25-word limit, human moderation, and a premium aesthetic designed for genuine emotional expression rather than mass content.
+                An unsent letter archive is a digital space where people submit anonymous messages addressed to someone by first name. The messages are things you wanted to say but never did. Honey, If Only is a curated version of this concept with a strict 25-word limit, human moderation of every submission, and a design built around emotional honesty rather than volume. Learn more on our <Link href="/about">About page</Link>.
               </p>
             ),
           },
           {
-            title: 'How long does an unsent project take to post my message?',
+            title: 'How long does it take for my unsent message to appear?',
             eyebrow: 'Troubleshooting',
             children: (
               <p>
-                On large, unmoderated unsent project sites, messages can take days or weeks to appear, or they may never post at all due to server overload and abandoned moderation queues. On Honey, If Only, submitted messages go through a brief human review and are typically published within a few hours. If your message does not appear, it may have been flagged by our safety filters for containing prohibited content.
+                On Honey, If Only, submitted messages go through a brief human review and are typically published within a few hours. If your message has not appeared after 24 hours, it may have been flagged by our safety filters for containing prohibited content. You can reach out through our <Link href="/contact">Contact page</Link> for help.
               </p>
             ),
           },
           {
-            title: 'Can you delete unsent project messages after submitting?',
+            title: 'Can I delete my message after submitting it?',
             eyebrow: 'Moderation',
             children: (
               <p>
-                On most unsent message platforms, including Honey, If Only, messages cannot be edited or deleted after submission because the archive is fully anonymous and no user accounts are created. There is no way to verify who originally submitted a message. This is by design. The permanence encourages you to be intentional and certain about the words you choose before you submit them.
+                Because submissions are fully anonymous and no user accounts exist, there is no way to verify who originally wrote a specific message. Messages cannot be edited or deleted by the submitter. This permanence is intentional. It encourages you to be certain of your words before you send them into the archive.
               </p>
             ),
           },
           {
-            title: 'What do the unsent project colors mean?',
+            title: 'What do the letter colors mean?',
             eyebrow: 'Submitting',
             children: (
               <p>
-                On Honey, If Only, every unsent letter is tagged with a specific color that represents the emotion behind the message. Blush Coral represents passion and urgency. Faded Denim represents quiet, everyday melancholy. Sage Whisper represents acceptance and renewal. Ocean Mist represents deep sadness and distance. Honey Gold represents warmth and nostalgia. You can read the full guide on our <Link href="/colors">Color Meanings</Link> page.
+                Every letter on Honey, If Only is tagged with a color that represents the emotion behind the message. Blush Coral represents passion and urgency. Faded Denim represents quiet, everyday melancholy. Sage Whisper represents acceptance and renewal. Ocean Mist represents deep sadness and distance. Honey Gold represents warmth and nostalgia. You can read the full guide on our <Link href="/colors">Color Meanings</Link> page.
               </p>
             ),
           },
           {
-            title: 'What are some unsent project similar sites or alternatives?',
+            title: 'Are there other sites like Honey, If Only?',
             eyebrow: 'About',
             children: (
               <p>
-                If you are looking for an unsent project alternative, Honey, If Only is a modern, curated archive for anonymous unsent letters, messages, and unspoken words. Unlike the original unsent project, Honey, If Only uses a strict 25-word constraint that forces emotional distillation, active human moderation that filters spam and hate speech, and a premium aesthetic that treats every message with dignity. You can learn more on our <Link href="/about">About page</Link>.
+                There are several platforms for anonymous unsent letters, each with a different approach. Honey, If Only stands out for its strict 25-word constraint that forces emotional distillation, active human moderation of every submission, and a premium design that treats each message with care. If you value quality and sincerity over volume, this is the archive built for that. Learn more on our <Link href="/about">About page</Link>.
               </p>
             ),
           },

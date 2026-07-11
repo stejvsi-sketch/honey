@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { SITE_URL } from '@/lib/constants';
+import { SITE_URL, NAME_INDEX_THRESHOLD } from '@/lib/constants';
 import { JOURNAL_POSTS } from '@/lib/journal-data';
 import { STORIES } from '@/lib/stories';
 import { UNSENT_TOTAL_PAGES } from '@/lib/unsent-data';
@@ -32,7 +32,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/colors', changeFrequency: 'monthly' as const, priority: 0.6 },
     { path: '/collections', changeFrequency: 'weekly' as const, priority: 0.7 },
     { path: '/unsent', changeFrequency: 'monthly' as const, priority: 0.6 },
-    { path: '/table', changeFrequency: 'daily' as const, priority: 0.6 },
   ];
 
   const staticEntries: MetadataRoute.Sitemap = staticPages.map(({ path, changeFrequency, priority }) => ({
@@ -72,7 +71,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       // Indexable name pages -> /to/[name] pages. Keep this aligned with app/to/[name]/page.tsx.
       const nameStats = await getNameStats();
       const indexableNameSlugs = nameStats
-        .filter(stat => stat.slug.replace(/-/g, '').length >= 3 && stat.count >= 5)
+        .filter(stat => stat.slug.replace(/-/g, '').length >= 3 && stat.count >= NAME_INDEX_THRESHOLD)
         .map(stat => stat.slug);
 
       dynamicEntries.push(

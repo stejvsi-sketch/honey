@@ -162,6 +162,13 @@ export default function SubmitForm() {
       <p className="form__hint" style={{ textAlign: 'center', marginTop: 12 }}>
         All letters are reviewed before appearing. Only first names allowed.
       </p>
+      <p style={{ textAlign: 'center', marginTop: 24, fontSize: '0.78rem', color: 'var(--text-light)', lineHeight: 1.6 }}>
+        If you or someone you know is in crisis, please reach out:{' '}
+        <a href="https://988lifeline.org" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', textDecoration: 'underline' }}>988 Suicide &amp; Crisis Lifeline</a>{' '}
+        (call or text 988) or{' '}
+        <a href="https://www.crisistextline.org" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', textDecoration: 'underline' }}>Crisis Text Line</a>{' '}
+        (text HOME to 741741).
+      </p>
     </form>
   );
 }

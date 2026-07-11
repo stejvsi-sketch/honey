@@ -6,6 +6,17 @@ export const POSTS_PART65: JournalPost[] = [
     title: 'Letters Never Sent: Why We Write Notes With Names That We Never Deliver',
     excerpt: 'The tradition of writing letters never sent is centuries old. But why do we feel the overwhelming urge to write notes to people, attach their specific names, and then deliberately ensure they never read them?',
     date: 'June 2026',
+        related: ['the-2am-echo-missing-ex', 'psychology-unspoken-words-letters-never-sent', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
+    faq: [
+      {
+        question: 'Why do people write letters they never send?',
+        answer: 'Writing unsent letters externalizes emotional pain. Research by Dr. James Pennebaker shows that putting feelings into words reduces their neurological intensity, even if the words are never delivered.',
+      },
+      {
+        question: 'What makes an unsent letter different from journaling?',
+        answer: 'An unsent letter is addressed to a specific person, which engages the brain in a simulated dialogue rather than self-reflection. The specificity of directing words toward someone activates different emotional processing than writing to yourself.',
+      },
+    ],
     content: `If you were to open the hidden notes app of almost any adult navigating the complexities of modern relationships, you would find them: the drafts. Some are long, sprawling paragraphs detailing years of accumulated resentment. Some are just three words typed at 3 AM. Some are addressed to ex-lovers, some to estranged parents, some to former best friends, and some to people who have passed away. These are the letters never sent. They are the ghosts of conversations that will never happen in reality, preserved perfectly in digital amber.
 
 But what is the psychology behind this phenomenon? Why do we spend so much emotional energy drafting notes to people, specifically addressing them by name, when we have absolutely no intention of ever pressing send?
@@ -16,7 +27,7 @@ Writing letters never sent is a psychological hack. It is a way to artificially 
 
 And the inclusion of the name is crucial. Notes with names carry a completely different emotional weight than generic diary entries. If you write, "I am so angry that I was treated poorly," you are journaling about your own emotional state. But if you write, "David, I am so angry that you treated me poorly," you are engaging in a simulated dialogue. You are directing the energy outward. It is the specificity of the name that gives the unsent letter its therapeutic power. It allows you to speak directly to the source of the pain without enduring the vulnerability or the potential backlash of a real-world interaction.
 
-This is why the concept of the unsent project and similar archives resonated so deeply with millions of people. It took the private, isolated act of writing letters never sent and turned it into a collective, shared experience. It validated the fact that everyone is walking around carrying notes to people that they cannot deliver.
+This is why the concept of unsent letter archives resonated so deeply with millions of people. It took the private, isolated act of writing letters never sent and turned it into a collective, shared experience. It validated the fact that everyone is walking around carrying notes to people that they cannot deliver.
 
 But what happens when you finish writing the letter? If the goal is not to deliver it, what is the proper way to dispose of it?
 

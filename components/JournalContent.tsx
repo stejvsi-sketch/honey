@@ -91,19 +91,57 @@ function linkify(text: string, ctx: Ctx): ReactNode[] {
   ];
 }
 
-/** Render *italics* / **bold** and apply auto-linking within plain runs. */
+const externalLinkStyle = {
+  color: 'var(--text)',
+  textDecoration: 'underline',
+  textUnderlineOffset: '2px',
+  textDecorationColor: 'var(--border-light)',
+} as const;
+
+/**
+ * Extract markdown links [text](url) first, then process remaining text
+ * for *italics*, **bold**, and auto-linking.
+ */
 function renderInline(text: string, ctx: Ctx): ReactNode[] {
-  const parts = text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g);
+  // Split on markdown links: [text](url)
+  const parts = text.split(/(\[[^\]]+\]\([^)]+\))/g);
   const out: ReactNode[] = [];
 
   for (const part of parts) {
     if (!part) continue;
-    if (part.length > 4 && part.startsWith('**') && part.endsWith('**')) {
-      out.push(<strong key={`b${ctx.key.i++}`}>{linkify(part.slice(2, -2), ctx)}</strong>);
-    } else if (part.length > 2 && part.startsWith('*') && part.endsWith('*')) {
-      out.push(<em key={`i${ctx.key.i++}`}>{linkify(part.slice(1, -1), ctx)}</em>);
-    } else {
-      out.push(...linkify(part, ctx));
+
+    // Check if this part is a markdown link
+    const linkMatch = /^\[([^\]]+)\]\(([^)]+)\)$/.exec(part);
+    if (linkMatch) {
+      const [, linkText, linkUrl] = linkMatch;
+      const isExternal = linkUrl.startsWith('http://') || linkUrl.startsWith('https://');
+      if (isExternal) {
+        out.push(
+          <a key={`ext${ctx.key.i++}`} href={linkUrl} target="_blank" rel="noopener noreferrer" style={externalLinkStyle}>
+            {linkText}
+          </a>
+        );
+      } else {
+        out.push(
+          <Link key={`ml${ctx.key.i++}`} href={linkUrl} style={linkStyle}>
+            {linkText}
+          </Link>
+        );
+      }
+      continue;
+    }
+
+    // Process bold/italic/auto-links on non-link text
+    const inlineParts = part.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g);
+    for (const ip of inlineParts) {
+      if (!ip) continue;
+      if (ip.length > 4 && ip.startsWith('**') && ip.endsWith('**')) {
+        out.push(<strong key={`b${ctx.key.i++}`}>{linkify(ip.slice(2, -2), ctx)}</strong>);
+      } else if (ip.length > 2 && ip.startsWith('*') && ip.endsWith('*')) {
+        out.push(<em key={`i${ctx.key.i++}`}>{linkify(ip.slice(1, -1), ctx)}</em>);
+      } else {
+        out.push(...linkify(ip, ctx));
+      }
     }
   }
 

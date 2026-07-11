@@ -13,6 +13,7 @@ export const MAX_SUBMITS_PER_DAY = 6;
 export const MAX_NAME_LENGTH = 30;
 export const MAX_MESSAGE_LENGTH = 250; // generous char limit, word limit is enforced
 export const NAME_PAGE_SIZE = 10; // letters per page on /to/[name] — shared between server and client
+export const NAME_INDEX_THRESHOLD = 8; // minimum letters required for a /to/[name] page to be indexed
 
 export const CARD_COLORS = [
   { id: 'parchment', name: 'Parchment', hex: '#f5e6d0' },

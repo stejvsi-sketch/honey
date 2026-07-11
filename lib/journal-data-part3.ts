@@ -7,6 +7,17 @@ export const POSTS_PART3: JournalPost[] = [
     title: 'To My First Love: The Ghosts We Never Quite Shake',
     excerpt: 'The deep neurological imprinting of first love. Exploring the nostalgia of innocence and the unsent letters we write to the ghosts of our past.',
     date: 'May 2026',
+        related: ['the-2am-echo-missing-ex', 'psychology-unspoken-words-letters-never-sent', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
+    faq: [
+      {
+        question: 'Why do people never forget their first love?',
+        answer: 'First love creates the strongest neurological imprint because the brain is encountering romantic neurochemicals (dopamine, oxytocin, serotonin) at peak novelty. The amygdala and hippocampus encode these memories with maximum emotional weight because there is no prior reference point.',
+      },
+      {
+        question: 'Is it normal to still think about your first love years later?',
+        answer: 'Yes. Research shows that first love memories are stored with extraordinary vividness and persist throughout life. This is not sentimentality — it is neuroscience. The original emotional baseline against which all future romance is compared never fully fades.',
+      },
+    ],
     content: `First love leaves a deep neurological imprint that no subsequent relationship can fully overwrite. It is not a matter of willpower or maturity or how happy you are in your current life. It is a matter of brain chemistry. The first time you fall in love, your brain is encountering a cocktail of neurochemicals, dopamine, oxytocin, serotonin, norepinephrine, at an intensity and with a novelty that will never be replicated. Every subsequent love will be experienced through the lens of that first one, and the original remains the emotional baseline against which all future romance is unconsciously compared.
 
 This is not sentimentality. This is neuroscience. The amygdala and hippocampus, the brain's primary centers for emotional memory, store first love memories with extraordinary vividness and persistence because of the sheer intensity of feeling romantic love for the very first time. When you were fifteen or seventeen or twenty and someone looked at you with genuine adoration for the first time, your brain lit up in a way it had never lit up before. Every sensation was amplified. Every moment felt monumental. The first kiss, the first fight, the first time they said "I love you," all of it was encoded with the maximum possible emotional weight because your brain had no prior reference point for comparison.
@@ -32,6 +43,17 @@ They were your first, but they were not your forever. That is not a tragedy. Tha
     title: 'The Weight of the Unsaid: A Guide to the Unsent Letter Technique',
     excerpt: 'A practical guide to overcoming emotional paralysis. What to write in a letter for closure when you have entirely too much to say.',
     date: 'May 2026',
+        related: ['grief-letter-writing-how-putting-heartbreak-on-paper-sets-you-free', 'healing-through-letters-writing-to-past-present-future-self', 'writing-through-anger-vs-sadness-after-breakup', 'does-writing-an-unsent-letter-actually-help-you-heal'],
+    faq: [
+      {
+        question: 'What does "The Weight of the Unsaid" mean?',
+        answer: 'This article explores the emotional experience described in the title, examining it through the lens of psychology research and the real stories people share in unsent letter archives.',
+      },
+      {
+        question: 'How does writing an unsent letter help process these feelings?',
+        answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
+      },
+    ],
     content: `The paradox of having entirely too much to say often results in an inability to form a single coherent sentence. You sit down to write, and the blank page stares back at you with a weight that feels physically oppressive. Every word you put down seems inadequate. Every sentence feels like a lie by omission, because for every thing you include, there are fifty things you are leaving out. How do you compress years of love, anger, grief, regret, and confusion into a single message? How do you decide which of the thousand things you need to say is the one thing you should say? The enormity of the task paralyzes you, and so you say nothing, and the saying of nothing becomes another weight added to the pile.
 
 Emotional paralysis is real, and it is one of the most common barriers to healing from heartbreak, grief, estrangement, or any other form of unresolved emotional pain. The feelings are not absent. If anything, they are too present, too intense, too contradictory. You are angry and sad at the same time. You miss them and you resent them in the same breath. You want to forgive them and you want them to know exactly how much they hurt you. These competing impulses create a kind of emotional gridlock where no single message feels honest enough to send because no single message can capture the full complexity of what you feel.

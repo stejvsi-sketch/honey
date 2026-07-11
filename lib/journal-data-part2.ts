@@ -7,6 +7,17 @@ export const POSTS_PART2: JournalPost[] = [
     title: 'The Phantom Ex: Grieving a Relationship That Never Happened',
     excerpt: 'Validating disenfranchised grief. How to navigate the profound pain of mourning a situationship and letting go of someone who doesn\'t want you.',
     date: 'May 2026',
+        related: ['right-person-wrong-time', 'grieving-an-almost-relationship-situationship-pain', 'the-weight-of-being-someones-secret', 'you-dont-find-the-same-person-twice'],
+    faq: [
+      {
+        question: 'Can you grieve a relationship that never happened?',
+        answer: 'Yes. Psychologists call this disenfranchised grief — mourning a loss that society does not recognize as legitimate. The pain of losing a situationship or almost-relationship is real, even if there was never an official label.',
+      },
+      {
+        question: 'Why does a situationship hurt as much as a real breakup?',
+        answer: 'Because the emotional investment was real. Your brain formed attachment bonds based on shared vulnerability and intimacy, regardless of whether the relationship had an official label. The neurochemistry of attachment does not require a title.',
+      },
+    ],
     content: `Disenfranchised grief is the kind of mourning that society tells you you are not entitled to feel. It is the profound, gut level pain of losing something that, according to everyone else, was never really yours to lose. You mourn a situationship, a talking stage, an almost relationship, a person who was never officially your partner, and the world responds with confusion or dismissal. "You were not even together," they say, as if the absence of a label somehow negates the presence of real, devastating heartbreak.
 
 But you were together, in every way that mattered emotionally. You shared late night conversations that went on for hours. You learned the rhythm of their texting, the sound of their laugh, the specific way they looked at you that made you feel like you were the only person in the room. You built an entire future in your head, complete with inside jokes and holiday plans and the eventual moment when all of this uncertainty would finally resolve into something solid and official and real. And then it ended, not with a dramatic breakup but with a slow, agonizing fade, a gradual withdrawal of attention that left you standing in the wreckage of a relationship that technically never existed.
@@ -32,9 +43,20 @@ Write to the person who was almost yours. Say the thing you never got to say, th
     title: 'The Typed and Deleted: Why We Fear Hitting Send',
     excerpt: 'The modern digital ritual of typing an emotionally charged paragraph and hitting backspace. The psychology of unsent text messages and mental rehearsal.',
     date: 'May 2026',
+        related: ['psychology-unspoken-words-letters-never-sent', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on', 'understanding-[limerence](https://en.wikipedia.org/wiki/Limerence)-heartbreak-digital-obsession', 'shadow-work-heartbreak-integrating-hidden-insecurities'],
+    faq: [
+      {
+        question: 'Why do people write text messages they never send?',
+        answer: 'Writing unsent messages serves as a pressure valve for emotional intensity. The act of composing the message provides cognitive processing benefits similar to journaling, while the decision not to send protects the writer from the vulnerability and potential rejection of actual communication.',
+      },
+      {
+        question: 'Is it healthy to write messages you never send?',
+        answer: 'Yes, when done as a form of emotional processing rather than avoidance. Expressive writing research shows that externalizing emotions through writing produces measurable psychological benefits, including reduced anxiety and improved emotional regulation.',
+      },
+    ],
     content: `We type massive, emotionally charged paragraphs into iMessage, stare at the blinking cursor, read it back to ourselves three times, and then hold backspace until every last character vanishes from the screen. We do this in bed at midnight. We do it during work meetings. We do it on the bus, in the bathroom, in the parking lot outside their apartment. We compose masterpieces of vulnerability and then destroy them, over and over, in a ritualistic cycle that has become one of the defining emotional behaviors of the digital age.
 
-The psychology behind this behavior is far more complex than simple cowardice. When you type a message and then delete it, you are engaged in a sophisticated cognitive process that involves risk assessment, emotional regulation, attachment theory, and what psychologists call mental rehearsal. Your brain is simultaneously experiencing the relief of expression and the terror of exposure, and the delete button serves as the emergency exit that allows you to experience the first without committing to the second.
+The psychology behind this behavior is far more complex than simple cowardice. When you type a message and then delete it, you are engaged in a sophisticated cognitive process that involves risk assessment, emotional regulation, [attachment theory](https://en.wikipedia.org/wiki/Attachment_theory), and what psychologists call mental rehearsal. Your brain is simultaneously experiencing the relief of expression and the terror of exposure, and the delete button serves as the emergency exit that allows you to experience the first without committing to the second.
 
 We crave expression. Humans are social creatures who are neurologically wired to communicate, especially about emotionally significant experiences. When something hurts, the instinct to tell someone, to be witnessed in your pain, is as fundamental as the instinct to eat or sleep. Suppressing that instinct has measurable negative effects on both mental and physical health. Studies have shown that chronic emotional suppression is associated with increased cortisol levels, weakened immune function, and heightened risk of cardiovascular disease. Your body literally suffers when you keep the important things inside.
 
@@ -59,6 +81,17 @@ Do not delete that paragraph this time. Do not hold backspace until the screen i
     title: 'Platonic Heartbreak: When Best Friends Become Strangers',
     excerpt: 'Society prepares us for romantic breakups, but offers no roadmap for missing a friend you no longer speak to and coping with unresolved grief.',
     date: 'May 2026',
+        related: ['the-2am-echo-missing-ex', 'psychology-unspoken-words-letters-never-sent', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
+    faq: [
+      {
+        question: 'What does "Platonic Heartbreak" mean?',
+        answer: 'This article explores the emotional experience described in the title, examining it through the lens of psychology research and the real stories people share in unsent letter archives.',
+      },
+      {
+        question: 'How does writing an unsent letter help process these feelings?',
+        answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
+      },
+    ],
     content: `Society prepares individuals for romantic breakups with an entire cultural infrastructure of support. There are songs about it, movies about it, books about it, therapists who specialize in it, and a universally understood social script that kicks in the moment someone says "we broke up." Friends rally. Ice cream is purchased. A mourning period is granted. But when a best friendship ends, there is no script, no playlist, no culturally sanctioned period of grieving. You just wake up one day and realize that the person who used to know everything about you does not even know your phone number anymore.
 
 The end of a close friendship is one of the most underrecognized forms of grief in contemporary culture, and the lack of recognition makes it exponentially harder to process. When you tell someone that your romantic partner left, they understand immediately. When you tell them that your best friend of ten years simply stopped returning your calls, they do not know what to say. The loss does not fit neatly into any of the categories that our culture has created for mourning, and so it exists in a kind of emotional no man's land where the grief is real but the support is nonexistent.

@@ -18,7 +18,7 @@ export default function JournalPage() {
       </div>
       
       <div style={{ display: 'flex', flexDirection: 'column', gap: '48px', marginTop: '48px' }}>
-        {JOURNAL_POSTS.map(post => (
+        {JOURNAL_POSTS.filter(post => !post.noindex).map(post => (
           <article key={post.slug} style={{ borderBottom: '1px solid var(--border-light)', paddingBottom: '48px' }}>
             <div style={{ fontSize: '0.85rem', color: 'var(--text-light)', fontStyle: 'italic', marginBottom: '8px' }}>
               {post.date} · By {EDITOR_NAME}

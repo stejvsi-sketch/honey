@@ -6,7 +6,7 @@ export const POSTS_PART49: JournalPost[] = [
     title: 'Why Is My Unsent Project Not Sending? Why Your Message Is Not Posting and What to Do Instead',
     excerpt: 'Your unsent project message is not posting. The page spins, the submission vanishes, and you have no idea why. Here is what is actually happening and the best unsent project alternative that works.',
     date: 'June 2026',
-    related: ['unsent-project-alternative', 'is-the-unsent-project-down-where-to-submit', 'does-the-unsent-project-actually-work', 'websites-similar-to-the-unsent-project'],
+    related: ['unsent-project-alternative', 'the-history-of-unsent-letters-from-lincoln-to-the-internet', 'does-writing-an-unsent-letter-actually-help-you-heal', 'websites-similar-to-the-unsent-project'],
     faq: [
       {
         question: 'Why is my Unsent Project message not posting?',

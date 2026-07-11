@@ -74,6 +74,18 @@ export default function ContactPage() {
             </p>
           ),
         },
+        {
+          title: 'Who you are contacting',
+          eyebrow: 'Accountability',
+          children: (
+            <p>
+              {SITE_NAME} is run by <strong>Tejasvi Sharma</strong>, who personally handles all support, removal,
+              and moderation requests. He is the same person who reviews every letter before it appears in the archive,
+              writes the journal articles, and oversees all editorial decisions. When you email the address above,
+              you are writing directly to the person responsible for the site.
+            </p>
+          ),
+        },
       ]}
       relatedLinks={[
         { href: '/about', label: 'How It Works', description: 'Understand submissions, moderation, and publication.' },

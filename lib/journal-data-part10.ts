@@ -6,9 +6,20 @@ export const POSTS_PART10: JournalPost[] = [
     title: 'Messages I Never Sent to Him: Healing Through Anonymous Letters',
     excerpt: 'Discover the power of reading anonymous love messages and writing unsent messages to an ex. Release the things you wish you could send and find true closure.',
     date: 'May 2026',
+        related: ['the-2am-echo-missing-ex', 'psychology-unspoken-words-letters-never-sent', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
+    faq: [
+      {
+        question: 'What does "Messages I Never Sent to Him" mean?',
+        answer: 'This article explores the emotional experience described in the title, examining it through the lens of psychology research and the real stories people share in unsent letter archives.',
+      },
+      {
+        question: 'How does writing an unsent letter help process these feelings?',
+        answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
+      },
+    ],
     content: `There is a folder in almost everyone's phone that serves as a digital graveyard for the heart. It is the notes app, the draft folder, the place where we type out the "messages I never sent to him" or the "things I wish I told her before she left." These digital purgatories are filled with words that carry too much weight to be spoken aloud but demand to be written down. We write them in the middle of the night, tears blurring the screen, driven by the agonizing realization that the relationship is over, but the conversation is not. 
 
-When you lose someone you love, the silence they leave behind is deafening. The desire to reach out is almost a physical ache. You constantly think about the messages you wish you could send—the desperate apologies, the angry accusations, or simply the heartbreaking admission that you miss them. But sending those texts rarely brings the relief you are looking for. It breaks the no-contact rule, reopens old wounds, and often results in a response that only deepens the pain. This is why platforms dedicated to emotional anonymous letters have become such vital tools for modern healing. 
+When you lose someone you love, the silence they leave behind is deafening. The desire to reach out is almost a physical ache. You constantly think about the messages you wish you could send—the desperate apologies, the angry accusations, or simply the heartbreaking admission that you miss them. But sending those texts rarely brings the relief you are looking for. It breaks the [no-contact rule](https://en.wikipedia.org/wiki/No_contact_rule), reopens old wounds, and often results in a response that only deepens the pain. This is why platforms dedicated to emotional anonymous letters have become such vital tools for modern healing. 
 
 Instead of texting your ex, thousands of people choose to write unsent messages to ex partners and leave them in anonymous digital archives. There is an incredible power in taking the letters you never send to someone you love and releasing them into the void. When you write anonymous breakup messages on a platform like Honey If Only, you are performing an act of radical emotional release. You are taking the chaotic, looping thoughts that keep you awake at night and forcing them into a tangible structure. You are no longer holding the pain; the archive is holding it for you.
 

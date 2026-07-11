@@ -6,6 +6,17 @@ export const POSTS_PART68: JournalPost[] = [
     title: 'Writing as a Tool for Grief: How Unsent Letters Help Process Loss',
     excerpt: 'Grief is notoriously difficult to navigate because it has no fixed timeline. Explore how the therapeutic practice of writing unsent letters provides a structured outlet for complex feelings of loss.',
     date: 'June 2026',
+        related: ['grieving-the-dead-unsaid-words', 'finding-closure-without-apology', 'grief-of-the-living-mourning-someone-still-alive', 'stages-of-grief-after-breakup-denial-anger-bargaining-acceptance'],
+    faq: [
+      {
+        question: 'Writing as a Tool for Grief: How Unsent Letters Help Process Loss?',
+        answer: 'This article examines the psychology and emotional reality behind this question. It draws on attachment theory, neuroscience research, and the lived experience of people who have shared their unspoken words in anonymous archives.',
+      },
+      {
+        question: 'How does writing an unsent letter help process these feelings?',
+        answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
+      },
+    ],
     content: `When we talk about unsent letters, we often frame them in the context of romantic heartbreak or unresolved conflict with the living. But one of the most profound and historically significant uses of the unsent letter is in the processing of grief and the loss of a loved one. 
 
 Grief is a uniquely isolating experience. When someone passes away, the world around you continues to spin at its normal frantic pace, but your internal world has stopped entirely. The most painful aspect of losing someone is not just their absence, but the sudden accumulation of things you can no longer say to them. You see a movie they would have loved, you hit a milestone they would have celebrated, or you simply want to tell them about your Tuesday. The impulse to share does not die with the person.

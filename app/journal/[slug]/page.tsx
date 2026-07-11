@@ -122,7 +122,7 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
               {post.title}
             </h1>
             <div style={{ marginTop: '16px', fontSize: '0.88rem', color: 'var(--text-muted)' }}>
-              By <Link href="/about" style={{ color: 'var(--text)', textDecoration: 'underline', textUnderlineOffset: '2px', textDecorationColor: 'var(--border-light)' }}>{EDITOR_NAME}</Link> · {SITE_NAME} Editorial
+              By <Link href="/author" style={{ color: 'var(--text)', textDecoration: 'underline', textUnderlineOffset: '2px', textDecorationColor: 'var(--border-light)' }}>{EDITOR_NAME}</Link> · {SITE_NAME} Editorial
             </div>
           </header>
 
@@ -131,7 +131,7 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
             borderRadius: 'var(--radius)', borderLeft: '3px solid var(--border-light)',
             fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.6, fontStyle: 'italic',
           }}>
-            This article reflects the editorial perspective of the {SITE_NAME} team. Where we reference research or external sources, we link to them where available.
+            This article reflects the editorial perspective of the {SITE_NAME} team. It draws on publicly available research and commonly discussed psychological concepts. It is not clinical advice. If you need support, please contact a qualified professional.
           </div>
 
           <JournalContent content={post.content} slug={post.slug} />
