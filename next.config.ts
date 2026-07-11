@@ -43,7 +43,7 @@ const nextConfig: NextConfig = {
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
             "img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com https://*.grow.me https://pagead2.googlesyndication.com https://tpc.googlesyndication.com",
             "font-src 'self' data: https://fonts.gstatic.com",
-            "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://static.cloudflareinsights.com https://*.supabase.co https://*.upstash.io https://*.grow.me https://*.growplow.events https://*.uidapi.com",
+            "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://static.cloudflareinsights.com https://*.supabase.co https://*.upstash.io https://*.grow.me https://*.growplow.events https://*.uidapi.com https://fundingchoicesmessages.google.com https://*.adtrafficquality.google https://*.googlesyndication.com https://*.google.com",
             "frame-src 'self' https://*.grow.me https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net",
             "object-src 'none'",
             "base-uri 'self'",
