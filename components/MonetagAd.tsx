@@ -8,6 +8,20 @@ export default function MonetagAd({ zone, type = 'in-page' }: { zone: string; ty
   useEffect(() => {
     if (isLoaded.current) return;
     
+    // CUSTOM VIGNETTE CAPPING: Max 1 per 30 minutes
+    if (type === 'vignette') {
+      try {
+        const now = Date.now();
+        const lastShown = localStorage.getItem('monetag_vignette_last_shown');
+        if (lastShown && now - parseInt(lastShown, 10) < 30 * 60 * 1000) {
+          return; // Skip loading the vignette if it hasn't been 30 minutes
+        }
+        localStorage.setItem('monetag_vignette_last_shown', now.toString());
+      } catch (e) {
+        // Ignore localStorage errors (e.g., incognito mode)
+      }
+    }
+
     // Check if a script for this zone already exists
     const scriptId = `monetag-${zone}`;
     if (document.getElementById(scriptId)) {
