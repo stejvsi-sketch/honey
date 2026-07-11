@@ -90,27 +90,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       );
 
       // Individual letters -> /letter/[id] pages
-      // Only include letters for names that DON'T have an indexed aggregation page.
-      // Letters for names with ≥5 count already have canonical → /to/{slug},
-      // so including them in the sitemap would be redundant.
-      const { data: letters } = await supabase
-        .from('memories')
-        .select('id, created_at, slug')
-        .order('created_at', { ascending: false })
-        .limit(50000);
-
-      if (letters) {
-        dynamicEntries.push(
-          ...letters
-            .filter(letter => !indexableSlugs.has(letter.slug))
-            .map(letter => ({
-              url: `${SITE_URL}/letter/${letter.id}`,
-              lastModified: new Date(letter.created_at),
-              changeFrequency: 'yearly' as const,
-              priority: 0.5,
-            }))
-        );
-      }
+      // These are all unconditionally noindexed to prevent thin content penalties,
+      // so we explicitly exclude them from the sitemap.
     } catch (e) {
       console.error('Sitemap dynamic entries error:', e);
     }
