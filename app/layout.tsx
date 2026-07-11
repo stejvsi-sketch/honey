@@ -5,7 +5,6 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import AnalyticsScript from '@/components/AnalyticsScript';
 import Script from 'next/script';
-import MonetagAd from '@/components/MonetagAd';
 import './globals.css';
 
 const lora = Lora({
@@ -63,6 +62,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Preconnect to Grow (Mediavine) origin */}
         <link rel="preconnect" href="https://faves.grow.me" crossOrigin="anonymous" />
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4151123662328725" crossOrigin="anonymous"></script>
+        {/* Monetag Raw Tag - Placed exactly as requested by the provider */}
+        <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272125',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
       </head>
       <body>
         <Navigation />
@@ -81,8 +82,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         {/* Google Analytics — conditionally loaded */}
         <AnalyticsScript />
-        {/* Monetag Global Vignette Ad */}
-        <MonetagAd zone="11272125" type="vignette" />
       </body>
     </html>
   );
