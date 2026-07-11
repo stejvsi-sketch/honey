@@ -20,5 +20,11 @@ export const metadata: Metadata = {
 export default async function TablePage() {
   const memories = await getTableMemories(50);
 
-  return <TableView memories={memories} />;
+  return (
+    <>
+      <TableView memories={memories} />
+      {/* Monetag In-Page Push */}
+      <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272143',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
+    </>
+  );
 }

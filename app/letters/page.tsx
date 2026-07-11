@@ -93,6 +93,8 @@ export default async function LettersPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <LettersArchive initialMemories={initialMemories} initialTotal={initialTotal} />
+      {/* Monetag In-Page Push */}
+      <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272070',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
     </div>
   );
 }

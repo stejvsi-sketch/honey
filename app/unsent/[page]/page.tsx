@@ -83,6 +83,8 @@ export default async function UnsentPaginatedPage({ params }: PageProps) {
           }),
         }}
       />
+      {/* Monetag In-Page Push */}
+      <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272070',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
     </>
   );
 }

@@ -79,6 +79,8 @@ export default async function ColorPage({ params }: Props) {
       </div>
 
       <ColorArchive colorId={color} colorName={meaning.name} initialTotal={total} initialMemories={initialMemories} />
+      {/* Monetag In-Page Push */}
+      <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272070',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
     </div>
   );
 }

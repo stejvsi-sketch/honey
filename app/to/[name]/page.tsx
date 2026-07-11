@@ -116,6 +116,8 @@ export default async function NamePage(props: {
 
 
       <RelatedNames currentName={displayName} currentSlug={name} />
+      {/* Monetag In-Page Push */}
+      <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272077',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
     </div>
   );
 }
