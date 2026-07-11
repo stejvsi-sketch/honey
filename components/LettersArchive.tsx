@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import VirtualizedCardGrid from '@/components/cards/VirtualizedCardGrid';
 import type { Memory } from '@/lib/types';
-import MonetagAd from '@/components/MonetagAd';
+
 
 function deduplicateMemories(memories: Memory[]): Memory[] {
   const seen = new Set<string>();
@@ -242,9 +242,7 @@ export default function LettersArchive({
         )}
       </form>
 
-      <div style={{ display: 'flex', justifyContent: 'center', margin: '16px 0 32px' }}>
-        <MonetagAd zone="11272070" type="in-page" />
-      </div>
+
 
       <VirtualizedCardGrid memories={memories} />
 

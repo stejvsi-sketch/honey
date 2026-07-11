@@ -62,16 +62,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Preconnect to Grow (Mediavine) origin */}
         <link rel="preconnect" href="https://faves.grow.me" crossOrigin="anonymous" />
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4151123662328725" crossOrigin="anonymous"></script>
-        {/* Monetag Raw Tag - Vignette (Executes globally) */}
+        {/* Monetag Vignette Banner */}
         <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272125',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
-        
-        {/* Monetag Verification Tags - These are placed here purely so Monetag's static verification bot can scrape them from the homepage HTML. They use type="text/plain" so they do not execute globally and spam the user. The real executions happen on specific pages. */}
-        <script type="text/plain" dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272143',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
-        <script type="text/plain" dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272142',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
-        <script type="text/plain" dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272077',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
-        <script type="text/plain" dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272072',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
-        <script type="text/plain" dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272071',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
-        <script type="text/plain" dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272070',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
+        {/* Monetag In-Page Push tags */}
+        <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272143',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
+        <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272142',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
+        <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272077',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
+        <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272072',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
+        <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272071',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
+        <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272070',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
       </head>
       <body>
         <Navigation />

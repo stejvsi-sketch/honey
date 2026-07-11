@@ -4,7 +4,7 @@ import NameArchive from '@/components/NameArchive';
 import RelatedNames from '@/components/RelatedNames';
 import { SITE_URL, NAME_PAGE_SIZE, NAME_INDEX_THRESHOLD } from '@/lib/constants';
 import { formatSubmittedName } from '@/lib/names';
-import MonetagAd from '@/components/MonetagAd';
+
 
 export const revalidate = 18000;
 
@@ -113,10 +113,7 @@ export default async function NamePage(props: {
       </div>
       <NameArchive key={name} nameSlug={name} displayName={displayName} initialTotal={total} initialMemories={initialMemories} />
 
-      {/* Monetag In-Page Push for Name Archive */}
-      <div style={{ display: 'flex', justifyContent: 'center', margin: '40px 0' }}>
-        <MonetagAd zone="11272077" type="in-page" />
-      </div>
+
 
       <RelatedNames currentName={displayName} currentSlug={name} />
     </div>

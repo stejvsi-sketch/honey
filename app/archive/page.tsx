@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { getNameStats } from '@/lib/data';
 import { SITE_URL } from '@/lib/constants';
 import ArchiveSearch from '@/components/ArchiveSearch';
-import MonetagAd from '@/components/MonetagAd';
+
 
 export const revalidate = 18000;
 
@@ -29,10 +29,7 @@ export default async function ArchiveDirectoryPage() {
 
       <ArchiveSearch stats={stats} />
 
-      {/* Monetag In-Page Push for Archive Page */}
-      <div style={{ display: 'flex', justifyContent: 'center', margin: '40px 0' }}>
-        <MonetagAd zone="11272070" type="in-page" />
-      </div>
+
     </div>
   );
 }
