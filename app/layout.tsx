@@ -64,8 +64,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4151123662328725" crossOrigin="anonymous"></script>
         {/* Monetag Vignette Banner — fires globally, has built-in frequency capping */}
         <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272125',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
-        {/* Monetag Push Notifications — browser-native opt-in, no visual clutter */}
-        <script src="https://5gvci.com/act/files/tag.min.js?z=11273770" data-cfasync="false" async></script>
       </head>
       <body>
         <Navigation />
