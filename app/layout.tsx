@@ -64,8 +64,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4151123662328725" crossOrigin="anonymous"></script>
         {/* Monetag Vignette Banner — fires globally, has built-in frequency capping */}
         <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272125',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
-        {/* Monetag In-Page Push — smart frequency capping: 3 pageview gate, 90s cooldown, max 3/session */}
-        <script dangerouslySetInnerHTML={{ __html: `(function(){var k='_ad',v=parseInt(sessionStorage.getItem(k+'v')||'0')+1,p=parseInt(sessionStorage.getItem(k+'p')||'0'),t=parseInt(sessionStorage.getItem(k+'t')||'0');sessionStorage.setItem(k+'v',v);if(v>=3&&p<3&&Date.now()-t>90000){setTimeout(function(){var s=document.createElement('script');s.dataset.zone='11272143';s.src='https://nap5k.com/tag.min.js';document.body.appendChild(s);sessionStorage.setItem(k+'p',p+1);sessionStorage.setItem(k+'t',Date.now())},2000)}})()` }} />
+        {/* Monetag In-Page Push — frequency capping configured in Monetag dashboard */}
+        <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272143',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
       </head>
       <body>
         <Navigation />
