@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Script from 'next/script';
 import { JOURNAL_POSTS } from '@/lib/journal-data';
 import { SITE_NAME, SITE_URL, EDITOR_NAME } from '@/lib/constants';
 import JournalContent from '@/components/JournalContent';
@@ -173,7 +174,7 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
         </div>
       </div>
       {/* Monetag In-Page Push */}
-      <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272142',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
+      <Script id="monetag-push-journal" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272142',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
     </>
   );
 }

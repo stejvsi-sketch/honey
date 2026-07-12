@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Script from 'next/script';
 import { SITE_URL } from '@/lib/constants';
 import { COLLECTIONS } from '@/lib/collections-data';
 import { getMemoriesByCollection } from '@/lib/data';
@@ -73,7 +74,7 @@ export default async function CollectionPage({ params }: Props) {
 
       <CollectionArchive themeSlug={slug} themeName={collection.title} initialTotal={total} initialMemories={initialMemories} />
       {/* Monetag In-Page Push */}
-      <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272077',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
+      <Script id="monetag-push-collection" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272077',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
     </div>
   );
 }

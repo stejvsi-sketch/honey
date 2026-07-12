@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { SITE_URL } from '@/lib/constants';
 import { getTableMemories } from '@/lib/data';
 import TableView from '@/components/TableView';
@@ -24,7 +25,7 @@ export default async function TablePage() {
     <>
       <TableView memories={memories} />
       {/* Monetag In-Page Push */}
-      <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272143',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
+      <Script id="monetag-push-table" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272143',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
     </>
   );
 }

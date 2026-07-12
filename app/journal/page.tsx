@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Script from 'next/script';
 import { JOURNAL_POSTS } from '@/lib/journal-data';
 import { SITE_URL, EDITOR_NAME } from '@/lib/constants';
 
@@ -62,7 +63,7 @@ export default function JournalPage() {
         </div>
       </div>
       {/* Monetag In-Page Push (Zone 11272142 also here for verification) */}
-      <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272142',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
+      <Script id="monetag-push-journal-idx" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272142',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
     </div>
   );
 }

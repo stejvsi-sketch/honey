@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { getMemoriesByName } from '@/lib/data';
 import NameArchive from '@/components/NameArchive';
 import RelatedNames from '@/components/RelatedNames';
@@ -117,7 +118,7 @@ export default async function NamePage(props: {
 
       <RelatedNames currentName={displayName} currentSlug={name} />
       {/* Monetag In-Page Push */}
-      <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272077',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
+      <Script id="monetag-push-toname" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272077',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
     </div>
   );
 }

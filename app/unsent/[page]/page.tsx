@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Script from 'next/script';
 import { SITE_NAME, SITE_URL } from '@/lib/constants';
 import { UNSENT_MEMORIES, UNSENT_PER_PAGE, UNSENT_TOTAL_PAGES } from '@/lib/unsent-data';
 import UnsentArchive from '@/components/UnsentArchive';
@@ -84,7 +85,7 @@ export default async function UnsentPaginatedPage({ params }: PageProps) {
         }}
       />
       {/* Monetag In-Page Push */}
-      <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272070',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
+      <Script id="monetag-push-unsent" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272070',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
     </>
   );
 }
