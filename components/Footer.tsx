@@ -25,7 +25,10 @@ export default function Footer() {
           <li><Link href="/moderation" className="footer__link">Moderation Policy</Link></li>
           <li><Link href="/contact" className="footer__link">Contact</Link></li>
         </ul>
-        <p className="footer__copy">&copy; {year} {SITE_NAME}. Founded by <Link href="/author" className="footer__link" style={{textDecoration: 'underline'}}>Tejasvi Sharma</Link>. All letters belong to their authors.</p>
+        <p className="footer__copy">
+          &copy; {year} {SITE_NAME}. Founded by <Link href="/author" className="footer__author">Tejasvi Sharma</Link>.
+          <span className="footer__copy-break">All letters belong to their authors.</span>
+        </p>
       </div>
     </footer>
   );

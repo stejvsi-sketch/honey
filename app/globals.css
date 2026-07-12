@@ -422,16 +422,29 @@ a:hover { color: var(--accent-hover); }
 }
 .footer__link:hover { color: var(--text-muted); }
 .footer__copy {
-  font-size: 0.75rem; color: #5c554d;
-  font-style: italic;
+  font-size: 0.7rem; 
+  color: rgba(92, 85, 77, 0.7);
+  line-height: 1.6;
 }
-
-
+.footer__author {
+  color: #5c554d;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color var(--transition);
+}
+.footer__author:hover {
+  color: var(--accent);
+}
+.footer__copy-break {
+  margin-left: 4px;
+}
 @media (max-width: 640px) {
   .footer { padding: 48px 24px 40px; margin-top: 64px; }
   .footer__links { flex-direction: column; gap: 16px; align-items: center; }
   .footer__brand { margin-bottom: 32px; font-size: 1.3rem; }
   .footer__link { font-size: 0.8rem; letter-spacing: 0.08em; }
+  .footer__copy { font-size: 0.65rem; }
+  .footer__copy-break { display: block; margin-left: 0; margin-top: 4px; }
 }
 
 /* ===== INDIVIDUAL LETTER PAGE ===== */
