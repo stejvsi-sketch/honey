@@ -1,60 +1,110 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 
 /**
- * SmartAdController — Intelligent In-Page Push ad manager
+ * AdFrequencyGuard — DOM-level frequency control for Monetag In-Page Push
  * 
+ * The exact Monetag script stays in <head> (required for verification).
+ * This component watches the DOM and REMOVES push notification elements 
+ * if the user hasn't earned them yet.
+ *
  * Rules:
- * - Only fires AFTER the user has viewed 3+ pages (they're engaged, won't bounce)
- * - 90-second cooldown between push injections (no re-spawning on every navigation)  
- * - Max 3 pushes per session (stops spamming after that)
- * - Never fires on /write page (conversion page)
- * - Uses sessionStorage for tracking within the current visit
+ *  - First 2 pageviews: no push notifications (let user engage first)
+ *  - Max 2 push notifications per session
+ *  - 2-minute cooldown between notifications
+ *  - Never on /write page
  */
 
-const ZONE_ID = '11272143';
-const MIN_PAGEVIEWS = 3;      // Only show after 3 pages visited
-const COOLDOWN_MS = 90_000;   // 90 seconds between pushes
-const MAX_PER_SESSION = 3;    // Max 3 pushes per session
+const MIN_VIEWS = 2;
+const MAX_PUSHES = 2;
+const COOLDOWN_MS = 120_000; // 2 minutes
 
-export default function SmartAdController() {
-  const pathname = usePathname();
-  const lastPushTime = useRef<number>(0);
+function shouldAllowPush(): boolean {
+  const views = parseInt(sessionStorage.getItem('_pg') || '0', 10);
+  const pushes = parseInt(sessionStorage.getItem('_pp') || '0', 10);
+  const lastTime = parseInt(sessionStorage.getItem('_pt') || '0', 10);
 
+  if (views < MIN_VIEWS) return false;
+  if (pushes >= MAX_PUSHES) return false;
+  if (Date.now() - lastTime < COOLDOWN_MS) return false;
+
+  return true;
+}
+
+function recordPushShown() {
+  const pushes = parseInt(sessionStorage.getItem('_pp') || '0', 10);
+  sessionStorage.setItem('_pp', String(pushes + 1));
+  sessionStorage.setItem('_pt', String(Date.now()));
+}
+
+function isPushNotification(el: Element): boolean {
+  if (!(el instanceof HTMLElement)) return false;
+  const style = el.style;
+  // Monetag push notifications are fixed-position overlays with very high z-index
+  if (style.position === 'fixed' && parseInt(style.zIndex || '0') > 9000) return true;
+  // Also check computed style for elements without inline styles
+  try {
+    const computed = window.getComputedStyle(el);
+    if (computed.position === 'fixed' && parseInt(computed.zIndex || '0') > 9000) {
+      // Exclude our own site elements (nav, footer, etc.)
+      if (el.closest('nav') || el.closest('footer') || el.closest('header')) return false;
+      if (el.id && ['navigation', 'footer', 'cookie'].some(k => el.id.toLowerCase().includes(k))) return false;
+      return true;
+    }
+  } catch { /* ignore */ }
+  return false;
+}
+
+export default function AdFrequencyGuard() {
   useEffect(() => {
-    // Never show ads on the write/conversion page
-    if (pathname === '/write') return;
+    // Track pageview
+    const views = parseInt(sessionStorage.getItem('_pg') || '0', 10) + 1;
+    sessionStorage.setItem('_pg', String(views));
 
-    // Track pageviews
-    const views = parseInt(sessionStorage.getItem('ad_views') || '0', 10) + 1;
-    sessionStorage.setItem('ad_views', String(views));
+    // Skip on /write
+    if (window.location.pathname === '/write') {
+      // On write page, remove ALL push notifications
+      const observer = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+          for (const node of mutation.addedNodes) {
+            if (node instanceof HTMLElement && isPushNotification(node)) {
+              node.remove();
+            }
+          }
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+      return () => observer.disconnect();
+    }
 
-    // Check if user is engaged enough
-    if (views < MIN_PAGEVIEWS) return;
+    let pushAllowed = shouldAllowPush();
+    let pushRecorded = false;
 
-    // Check session push limit
-    const pushCount = parseInt(sessionStorage.getItem('ad_pushes') || '0', 10);
-    if (pushCount >= MAX_PER_SESSION) return;
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+          if (node instanceof HTMLElement && isPushNotification(node)) {
+            if (!pushAllowed) {
+              // Remove it — user hasn't earned it yet
+              node.remove();
+            } else if (!pushRecorded) {
+              // First push this navigation — allow it and record
+              recordPushShown();
+              pushRecorded = true;
+              pushAllowed = false; // No more this navigation
+            } else {
+              // Already showed one this navigation — remove extras
+              node.remove();
+            }
+          }
+        }
+      }
+    });
 
-    // Check cooldown
-    const now = Date.now();
-    if (now - lastPushTime.current < COOLDOWN_MS) return;
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, []);
 
-    // All checks passed — inject the push ad after a short delay
-    const timer = setTimeout(() => {
-      const s = document.createElement('script');
-      s.dataset.zone = ZONE_ID;
-      s.src = 'https://nap5k.com/tag.min.js';
-      document.body.appendChild(s);
-
-      lastPushTime.current = Date.now();
-      sessionStorage.setItem('ad_pushes', String(pushCount + 1));
-    }, 2000); // 2-second delay after page settles
-
-    return () => clearTimeout(timer);
-  }, [pathname]);
-
-  return null; // No UI — this is a logic-only component
+  return null;
 }
