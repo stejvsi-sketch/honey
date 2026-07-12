@@ -38,31 +38,16 @@ const nextConfig: NextConfig = {
         {
           key: 'Content-Security-Policy',
           value: [
-            // ─── PERMISSIVE CSP (Monetag active) ───
-            // Monetag/PropellerAds rotates CDN domains constantly (nap5k, jhnwr, flerapart,
-            // tzegilo, aichouphaugn, etc.) making strict whitelisting impossible.
-            // Using https: wildcard for ad-related directives.
-            "default-src 'self' https:",
-            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:",
+            "default-src 'self'",
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com https://faves.grow.me https://*.grow.me https://cdn.prod.uidapi.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://fundingchoicesmessages.google.com",
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-            "img-src 'self' data: https:",
+            "img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com https://*.grow.me https://pagead2.googlesyndication.com https://tpc.googlesyndication.com",
             "font-src 'self' data: https://fonts.gstatic.com",
-            "connect-src 'self' https:",
-            "frame-src 'self' https:",
+            "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://static.cloudflareinsights.com https://*.supabase.co https://*.upstash.io https://*.grow.me https://*.growplow.events https://*.uidapi.com https://fundingchoicesmessages.google.com",
+            "frame-src 'self' https://*.grow.me https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://www.google.com",
             "object-src 'none'",
             "base-uri 'self'",
             "form-action 'self'",
-            // ─── STRICT CSP (uncomment when Monetag is removed) ───
-            // "default-src 'self'",
-            // "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com https://faves.grow.me https://*.grow.me https://cdn.prod.uidapi.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://fundingchoicesmessages.google.com",
-            // "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-            // "img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com https://*.grow.me https://pagead2.googlesyndication.com https://tpc.googlesyndication.com",
-            // "font-src 'self' data: https://fonts.gstatic.com",
-            // "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://static.cloudflareinsights.com https://*.supabase.co https://*.upstash.io https://*.grow.me https://*.growplow.events https://*.uidapi.com https://fundingchoicesmessages.google.com",
-            // "frame-src 'self' https://*.grow.me https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://www.google.com",
-            // "object-src 'none'",
-            // "base-uri 'self'",
-            // "form-action 'self'",
           ].join('; '),
         },
       ],
