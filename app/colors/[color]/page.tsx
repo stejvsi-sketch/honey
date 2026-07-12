@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import Script from 'next/script';
 import { SITE_URL } from '@/lib/constants';
 import { COLOR_MEANINGS } from '@/lib/color-meanings';
 import type { CardColorId } from '@/lib/constants';
@@ -80,8 +79,7 @@ export default async function ColorPage({ params }: Props) {
       </div>
 
       <ColorArchive colorId={color} colorName={meaning.name} initialTotal={total} initialMemories={initialMemories} />
-      {/* Monetag In-Page Push */}
-      <Script id="monetag-push-colors" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272070',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
+
     </div>
   );
 }

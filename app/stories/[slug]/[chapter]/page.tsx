@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import Script from 'next/script';
 import { STORIES } from '@/lib/stories';
 import { SITE_URL } from '@/lib/constants';
 
@@ -244,8 +243,7 @@ export default async function ChapterPage(
           </div>
         </div>
       )}
-      {/* Monetag In-Page Push */}
-      <Script id="monetag-push-chapter" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272071',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
+
     </div>
   );
 }

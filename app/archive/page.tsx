@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import { getNameStats } from '@/lib/data';
 import { SITE_URL } from '@/lib/constants';
 import ArchiveSearch from '@/components/ArchiveSearch';
@@ -29,8 +28,7 @@ export default async function ArchiveDirectoryPage() {
       </div>
 
       <ArchiveSearch stats={stats} />
-      {/* Monetag In-Page Push */}
-      <Script id="monetag-push-archive" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272070',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
+
     </div>
   );
 }

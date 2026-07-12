@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import Script from 'next/script';
 import { getMemoryById, getNameCountForSlug } from '@/lib/data';
 import { CARD_COLORS, SITE_NAME, SITE_URL, NAME_INDEX_THRESHOLD } from '@/lib/constants';
 import { formatSubmittedName } from '@/lib/names';
@@ -153,8 +152,7 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
         </Link>
         <ReportButton letterUrl={letterUrl} />
       </div>
-      {/* Monetag In-Page Push */}
-      <Script id="monetag-push-letter" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272072',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
+
     </div>
   );
 }
