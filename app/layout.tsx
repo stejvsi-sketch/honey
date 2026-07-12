@@ -4,6 +4,7 @@ import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from '@/lib/constants';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import AnalyticsScript from '@/components/AnalyticsScript';
+import SmartAdController from '@/components/SmartAdController';
 import Script from 'next/script';
 import './globals.css';
 
@@ -64,13 +65,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4151123662328725" crossOrigin="anonymous"></script>
         {/* Monetag Vignette Banner — fires globally, has built-in frequency capping */}
         <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272125',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
-        {/* Monetag In-Page Push — single zone, fires globally */}
-        <script dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11272143',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
       </head>
       <body>
         <Navigation />
         <main>{children}</main>
         <Footer />
+        <SmartAdController />
         {/* Grow by Mediavine initializer — injected via next/script (afterInteractive) so it
             runs after hydration. The snippet inserts a script before the first <script> tag,
             which reorders <head> and breaks hydration if rendered inline by React. */}
