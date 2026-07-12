@@ -1804,3 +1804,18 @@ a:hover { color: var(--accent-hover); }
     gap: 14px;
   }
 }
+
+/* ─── Monetag Ad Position Override ─── 
+   Force In-Page Push notifications to the LEFT side.
+   Monetag uses obfuscated dynamic classes, so we target by structure:
+   any fixed-position direct body child with high z-index that isn't our app.
+   Remove this section when Monetag is removed. */
+body > div:not(#__next):not([data-nextjs-scroll-focus-boundary]) {
+  right: auto !important;
+  left: 10px !important;
+}
+
+body > div:not(#__next) > div[style*="position"] {
+  right: auto !important;
+  left: 10px !important;
+}
