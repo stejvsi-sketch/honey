@@ -425,37 +425,7 @@ a:hover { color: var(--accent-hover); }
   font-size: 0.75rem; color: #5c554d;
   font-style: italic;
 }
-.footer__sponsored {
-  margin: 24px 0;
-  padding-top: 20px;
-  border-top: 1px solid rgba(92, 85, 77, 0.12);
-}
-.footer__sponsored-label {
-  display: block;
-  font-size: 0.6rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: rgba(92, 85, 77, 0.4);
-  margin-bottom: 8px;
-}
-.footer__sponsored-links {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-.footer__sponsored-link {
-  font-size: 0.7rem;
-  color: #7a6f64;
-  letter-spacing: 0.03em;
-  text-decoration: none;
-  transition: color var(--transition);
-  font-style: italic;
-}
-.footer__sponsored-link:hover {
-  color: var(--accent);
-  text-decoration: underline;
-}
+
 
 @media (max-width: 640px) {
   .footer { padding: 48px 24px 40px; margin-top: 64px; }

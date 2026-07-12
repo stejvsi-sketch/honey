@@ -25,14 +25,6 @@ export default function Footer() {
           <li><Link href="/moderation" className="footer__link">Moderation Policy</Link></li>
           <li><Link href="/contact" className="footer__link">Contact</Link></li>
         </ul>
-        {/* Monetag Direct Links — styled as subtle sponsored content */}
-        <div className="footer__sponsored">
-          <span className="footer__sponsored-label">Sponsored</span>
-          <div className="footer__sponsored-links">
-            <a href="https://omg10.com/4/11273775" target="_blank" rel="noopener noreferrer sponsored" className="footer__sponsored-link">Explore Something New</a>
-            <a href="https://omg10.com/4/11273776" target="_blank" rel="noopener noreferrer sponsored" className="footer__sponsored-link">Discover Today</a>
-          </div>
-        </div>
         <p className="footer__copy">&copy; {year} {SITE_NAME}. Founded by <Link href="/author" className="footer__link" style={{textDecoration: 'underline'}}>Tejasvi Sharma</Link>. All letters belong to their authors.</p>
       </div>
     </footer>
