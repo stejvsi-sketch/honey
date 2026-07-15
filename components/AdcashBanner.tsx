@@ -27,7 +27,7 @@ export default function AdcashBanner() {
           // inside the parent div so runBanner can find parentElement.
           const script = document.createElement('script');
           script.type = 'text/javascript';
-          script.textContent = `aclib.runBanner({ zoneId: '11721690' });`;
+          script.textContent = `aclib.runBanner({ zoneId: '11722342' });`;
           el.appendChild(script);
         }
       },
