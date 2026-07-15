@@ -63,6 +63,12 @@ const nextConfig: NextConfig = {
             // STRICT (no Adcash): "frame-src 'self' https://*.grow.me https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://www.google.com",
             "frame-src 'self' https:",
 
+            // STRICT (no Adcash): "worker-src 'self'"
+            "worker-src 'self' blob: https:",
+
+            // STRICT (no Adcash): "media-src 'self'"
+            "media-src 'self' https:",
+
             "object-src 'none'",
             "base-uri 'self'",
             "form-action 'self'",
