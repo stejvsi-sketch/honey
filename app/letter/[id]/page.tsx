@@ -5,6 +5,7 @@ import { getMemoryById, getNameCountForSlug } from '@/lib/data';
 import { CARD_COLORS, SITE_NAME, SITE_URL, NAME_INDEX_THRESHOLD } from '@/lib/constants';
 import { formatSubmittedName } from '@/lib/names';
 import ReportButton from '@/components/ReportButton';
+import AdcashBanner from '@/components/AdcashBanner';
 
 
 export const revalidate = 18000;
@@ -142,6 +143,7 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
         <p>{formattedDate} at {formattedTime}</p>
       </div>
 
+      <AdcashBanner />
 
       <div style={{ marginTop: 32, display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
         <Link

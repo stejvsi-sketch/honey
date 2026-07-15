@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
+import AdcashBanner from '@/components/AdcashBanner';
 import type { UnsentMemory } from '@/lib/unsent-data';
 
 interface UnsentArchiveProps {
@@ -246,8 +247,11 @@ export default function UnsentArchive({ memories, currentPage, totalPages }: Uns
           </div>
 
           <div className="unsent-archive__list">
-            {memories.map(memory => (
-              <MemoryCard key={memory.id} memory={memory} />
+            {memories.map((memory, i) => (
+              <React.Fragment key={memory.id}>
+                <MemoryCard memory={memory} />
+                {(i + 1) % 10 === 0 && i < memories.length - 1 && <AdcashBanner />}
+              </React.Fragment>
             ))}
           </div>
 
@@ -275,8 +279,11 @@ export default function UnsentArchive({ memories, currentPage, totalPages }: Uns
                 </button>
               </div>
             ) : (
-              visibleSearchResults.map(memory => (
-                <MemoryCard key={memory.id} memory={memory} />
+              visibleSearchResults.map((memory, i) => (
+                <React.Fragment key={memory.id}>
+                  <MemoryCard memory={memory} />
+                  {(i + 1) % 10 === 0 && i < visibleSearchResults.length - 1 && <AdcashBanner />}
+                </React.Fragment>
               ))
             )}
           </div>
