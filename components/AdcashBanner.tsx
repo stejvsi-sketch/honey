@@ -1,36 +1,34 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 /**
- * Adcash 300×250 Display Banner — lazy-loaded via IntersectionObserver.
- * Renders inside its parent div; aclib.runBanner() targets the container.
- * Only loads when the slot scrolls into view (200px margin).
+ * Adcash 300×250 Display Banner.
+ *
+ * Adcash's runBanner() finds the ad container via the calling script's
+ * parentElement, so we must inject a real <script> tag inside the div
+ * rather than calling aclib.runBanner() from a React effect.
  */
 export default function AdcashBanner() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [loaded, setLoaded] = useState(false);
+  const injected = useRef(false);
 
   useEffect(() => {
     const el = containerRef.current;
-    if (!el || loaded) return;
+    if (!el || injected.current) return;
+    injected.current = true;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           observer.disconnect();
 
-          // Wait for aclib to be available, then run banner
-          const tryRun = () => {
-            if (typeof window !== 'undefined' && (window as any).aclib) {
-              (window as any).aclib.runBanner({ zoneId: '11721690' });
-            } else {
-              // aclib not loaded yet — retry in 500ms
-              setTimeout(tryRun, 500);
-            }
-          };
-          tryRun();
-          setLoaded(true);
+          // Inject the script exactly as Adcash docs specify —
+          // inside the parent div so runBanner can find parentElement.
+          const script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.textContent = `aclib.runBanner({ zoneId: '11721690' });`;
+          el.appendChild(script);
         }
       },
       { rootMargin: '200px' },
@@ -38,7 +36,7 @@ export default function AdcashBanner() {
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [loaded]);
+  }, []);
 
   return (
     <aside
