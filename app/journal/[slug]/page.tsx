@@ -5,6 +5,7 @@ import { JOURNAL_POSTS } from '@/lib/journal-data';
 import { SITE_NAME, SITE_URL, EDITOR_NAME } from '@/lib/constants';
 import JournalContent from '@/components/JournalContent';
 import RelatedPosts from '@/components/RelatedPosts';
+import AdcashBanner from '@/components/AdcashBanner';
 
 
 const MONTHS: Record<string, string> = {
@@ -139,7 +140,7 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
           <JournalContent content={post.content} slug={post.slug} />
         </article>
 
-
+        <AdcashBanner />
 
         {post.faq && post.faq.length > 0 && (
           <section style={{ marginTop: '64px', paddingTop: '40px', borderTop: '1px solid var(--border-light)' }}>

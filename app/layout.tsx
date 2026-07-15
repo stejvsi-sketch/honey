@@ -61,6 +61,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preload" href="/textures/rough-paper.webp" as="image" type="image/webp" fetchPriority="high" crossOrigin="anonymous" />
         {/* Preconnect to Grow (Mediavine) origin */}
         <link rel="preconnect" href="https://faves.grow.me" crossOrigin="anonymous" />
+        {/* Adcash library — required for Autotag + Display ads */}
+        <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4151123662328725" crossOrigin="anonymous"></script>
       </head>
       <body>

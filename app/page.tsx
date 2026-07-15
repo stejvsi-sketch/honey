@@ -4,6 +4,7 @@ import { getHomeMemories } from '@/lib/data';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/constants';
 import HomeCardGrid from '@/components/cards/HomeCardGrid';
 import TrendingNames from '@/components/TrendingNames';
+import AdcashBanner from '@/components/AdcashBanner';
 
 
 export const revalidate = 18000;
@@ -37,6 +38,8 @@ export default async function HomePage() {
         </div>
         <TrendingNames />
       </section>
+
+      <AdcashBanner />
 
       <section className="hero">
         <h2 className="hero__title">The words you couldn&apos;t say.</h2>
