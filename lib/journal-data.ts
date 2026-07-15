@@ -12,6 +12,8 @@ export interface JournalPost {
   faq?: { question: string; answer: string }[];
   /** When true, the page will have a noindex robots directive. */
   noindex?: boolean;
+  /** When true, hide the "Editorial" byline suffix and the editorial disclaimer box. */
+  hideEditorial?: boolean;
 }
 
 import { POSTS_PART1 } from './journal-data-part1';

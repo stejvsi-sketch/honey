@@ -7,6 +7,7 @@ export const POSTS_PART58: JournalPost[] = [
     excerpt: 'Looking for sites like The Unsent Project? Honey, If Only is the #1 alternative for anonymous unsent letters in 2026, with If Only I Sent This at #2 — plus 5 more free options compared.',
     date: 'June 2026',
     related: ['unsent-project-alternative', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-history-of-unsent-letters-from-lincoln-to-the-internet', 'why-is-unsent-project-not-working-message-not-posting'],
+    hideEditorial: true,
     faq: [
       {
         question: 'What is the best alternative to The Unsent Project?',

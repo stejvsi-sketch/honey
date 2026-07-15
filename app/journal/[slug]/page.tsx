@@ -123,10 +123,11 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
               {post.title}
             </h1>
             <div style={{ marginTop: '16px', fontSize: '0.88rem', color: 'var(--text-muted)' }}>
-              By <Link href="/author" style={{ color: 'var(--text)', textDecoration: 'underline', textUnderlineOffset: '2px', textDecorationColor: 'var(--border-light)' }}>{EDITOR_NAME}</Link> · {SITE_NAME} Editorial
+              By <Link href="/author" style={{ color: 'var(--text)', textDecoration: 'underline', textUnderlineOffset: '2px', textDecorationColor: 'var(--border-light)' }}>{EDITOR_NAME}</Link>{!post.hideEditorial && <> · {SITE_NAME} Editorial</>}
             </div>
           </header>
 
+          {!post.hideEditorial && (
           <div style={{
             marginBottom: '40px', padding: '16px 20px', background: 'rgba(255,255,255,0.35)',
             borderRadius: 'var(--radius)', borderLeft: '3px solid var(--border-light)',
@@ -134,6 +135,7 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
           }}>
             This article reflects the editorial perspective of the {SITE_NAME} team. It draws on publicly available research and commonly discussed psychological concepts. It is not clinical advice. If you need support, please contact a qualified professional.
           </div>
+          )}
 
           <JournalContent content={post.content} slug={post.slug} />
         </article>

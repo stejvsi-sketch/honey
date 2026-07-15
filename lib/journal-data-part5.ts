@@ -7,6 +7,7 @@ export const POSTS_PART5: JournalPost[] = [
     excerpt: 'Looking for the unsent project alternative or sites like the unsent project? Honey If Only is the best unsent letter website for anonymous messages, love letters never sent, and unspoken words.',
     date: 'June 2026',
     related: ['websites-similar-to-the-unsent-project', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-history-of-unsent-letters-from-lincoln-to-the-internet', 'why-is-unsent-project-not-working-message-not-posting'],
+    hideEditorial: true,
     faq: [
       {
         question: 'What is the best Unsent Project alternative?',

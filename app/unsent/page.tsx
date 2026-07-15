@@ -5,7 +5,7 @@ import UnsentArchive from '@/components/UnsentArchive';
 
 const PAGE_TITLE = `The Unsent Archive | Formerly If Only I Sent This`;
 const PAGE_DESCRIPTION =
-  '1,441 unsent messages preserved from the "If Only I Sent This" archive, now merged into Honey, If Only. Moderated confessions, unspoken words, and letters that were never delivered.';
+  '1,439 unsent messages preserved from the "If Only I Sent This" archive, now merged into Honey, If Only. Moderated confessions, unspoken words, and letters that were never delivered.';
 
 export const metadata: Metadata = {
   title: PAGE_TITLE,
