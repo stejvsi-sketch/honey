@@ -97,9 +97,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  // Journal article pages — use post date (exclude noindexed posts)
+  // Journal article pages — use post date
   const journalEntries: MetadataRoute.Sitemap = JOURNAL_POSTS
-    .filter(post => !post.noindex)
     .map(post => ({
       url: `${SITE_URL}/journal/${post.slug}`,
       lastModified: parseMonthDate(post.date) || SITE_LAUNCH,
