@@ -80,6 +80,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         {/* Google Analytics — conditionally loaded */}
         <AnalyticsScript />
+        {/* Adcash Autotag — zone brcdxmg8qf */}
+        <Script
+          id="adcash-autotag"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `aclib.runAutoTag({ zoneId: 'brcdxmg8qf' });`,
+          }}
+        />
       </body>
     </html>
   );
