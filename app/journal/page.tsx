@@ -3,7 +3,6 @@ import React from 'react';
 import Link from 'next/link';
 import { JOURNAL_POSTS } from '@/lib/journal-data';
 import { SITE_URL, EDITOR_NAME } from '@/lib/constants';
-import AdcashBanner from '@/components/AdcashBanner';
 
 export const metadata: Metadata = {
   title: 'Journal',
@@ -41,7 +40,6 @@ export default function JournalPage() {
                 Read More
               </Link>
             </article>
-            {(i + 1) % 5 === 0 && i < JOURNAL_POSTS.length - 1 && <AdcashBanner />}
           </React.Fragment>
         ))}
       </div>

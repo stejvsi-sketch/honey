@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import VirtualizedCardGrid from '@/components/cards/VirtualizedCardGrid';
-import AdcashBanner from '@/components/AdcashBanner';
 import type { Memory } from '@/lib/types';
 
 
@@ -243,8 +242,6 @@ export default function LettersArchive({
         )}
       </form>
 
-      <AdcashBanner />
-
       <VirtualizedCardGrid memories={memories} />
 
       {!initialLoad && memories.length === 0 && (
@@ -277,14 +274,11 @@ export default function LettersArchive({
       )}
 
       {!hasMore && memories.length > 0 && !loading && (
-        <>
-          <div style={{ textAlign: 'center', padding: '40px 0 20px' }}>
-            <p style={{ color: 'var(--text-faint)', fontStyle: 'italic', fontSize: '0.85rem' }}>
-              You&apos;ve reached the end.
-            </p>
-          </div>
-          <AdcashBanner />
-        </>
+        <div style={{ textAlign: 'center', padding: '40px 0 20px' }}>
+          <p style={{ color: 'var(--text-faint)', fontStyle: 'italic', fontSize: '0.85rem' }}>
+            You&apos;ve reached the end.
+          </p>
+        </div>
       )}
     </>
   );

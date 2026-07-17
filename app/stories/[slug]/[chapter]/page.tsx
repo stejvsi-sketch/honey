@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { STORIES } from '@/lib/stories';
 import { SITE_URL } from '@/lib/constants';
-import AdcashBanner from '@/components/AdcashBanner';
 
 export async function generateMetadata(
   props: { params: Promise<{ slug: string; chapter: string }> }
@@ -146,8 +145,6 @@ export default async function ChapterPage(
           {chapter.content}
         </div>
       </article>
-
-      <AdcashBanner />
 
       <nav style={{
         display: 'flex',
