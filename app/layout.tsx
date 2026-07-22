@@ -61,6 +61,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preload" href="/textures/rough-paper.webp" as="image" type="image/webp" fetchPriority="high" crossOrigin="anonymous" />
         {/* Preconnect to Grow (Mediavine) origin */}
         <link rel="preconnect" href="https://faves.grow.me" crossOrigin="anonymous" />
+        {/* Google Funding Choices CMP for GDPR consent (EEA/UK/Switzerland) */}
+        <script async src="https://fundingchoicesmessages.google.com/i/pub-4151123662328725?ers=1"></script>
+        <script dangerouslySetInnerHTML={{ __html: `(function(){function s(){if(!window.frames['googlefcPresent']){if(document.body){var i=document.createElement('iframe');i.style='width:0;height:0;border:none;z-index:-1000;left:-1000px;top:-1000px;';i.style.display='none';i.name='googlefcPresent';document.body.appendChild(i);}else{setTimeout(s,0);}}}s();})();` }} />
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4151123662328725" crossOrigin="anonymous"></script>
       </head>
       <body>

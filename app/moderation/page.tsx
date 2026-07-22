@@ -105,7 +105,7 @@ export default function ModerationPage() {
             <p>
               Advertisements are never displayed on pages containing unreviewed or pending content.
               Ads appear only on pages where all visible content has been reviewed and approved by
-              {' '}{EDITOR_NAME} or the editorial team. We follow Google AdSense program policies
+              {' '}{EDITOR_NAME}. We follow Google AdSense program policies
               and do not serve ads on legal pages, the submission form, or any content flagged for review.
             </p>
           ),
@@ -121,8 +121,27 @@ export default function ModerationPage() {
             </p>
           ),
         },
+        {
+          title: 'Correction policy',
+          eyebrow: 'Errors in journal content',
+          children: (
+            <>
+              <p>
+                If you find a factual error in any journal article, email{' '}
+                <a href="mailto:ifonlyisentthis@gmail.com">ifonlyisentthis@gmail.com</a> with the article URL
+                and the specific error. Corrections are made within 48 hours. A correction note is added to the
+                bottom of the article explaining what was changed and when.
+              </p>
+              <p>
+                For more detail on how articles are written and reviewed, see the{' '}
+                <Link href="/methodology">Methodology</Link> page.
+              </p>
+            </>
+          ),
+        },
       ]}
       relatedLinks={[
+        { href: '/methodology', label: 'Methodology', description: 'How letters are screened, articles are written, and decisions are made.' },
         { href: '/about', label: 'How It Works', description: 'The full process from submission to publication.' },
         { href: '/privacy', label: 'Privacy Policy', description: 'How we handle data, cookies, and advertising.' },
         { href: '/terms', label: 'Terms', description: 'The rules for using the site and submitting letters.' },

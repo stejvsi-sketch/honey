@@ -12,6 +12,12 @@ export interface JournalPost {
   faq?: { question: string; answer: string }[];
   /** When true, hide the "Editorial" byline suffix and the editorial disclaimer box. */
   hideEditorial?: boolean;
+  /** Author byline. Defaults to EDITOR_NAME when not set. */
+  author?: string;
+  /** Reviewer name. Only set if genuinely reviewed by someone other than the author. */
+  reviewer?: string;
+  /** Last reviewed date (e.g. "July 2026"). Only set after a genuine editorial re-review. */
+  lastReviewed?: string;
 }
 
 import { POSTS_PART1 } from './journal-data-part1';

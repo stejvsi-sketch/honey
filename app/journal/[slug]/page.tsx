@@ -28,6 +28,8 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   const canonicalUrl = `${SITE_URL}/journal/${post.slug}`;
   const isoDate = journalDateToISO(post.date);
 
+  const authorName = post.author || EDITOR_NAME;
+
   return {
     title: post.title,
     description: post.excerpt,
@@ -39,7 +41,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
       url: canonicalUrl,
       publishedTime: isoDate,
       modifiedTime: isoDate,
-      authors: [EDITOR_NAME],
+      authors: [authorName],
     },
   };
 }
@@ -56,6 +58,8 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
   const isoDate = journalDateToISO(post.date);
   const canonicalUrl = `${SITE_URL}/journal/${post.slug}`;
 
+  const authorName = post.author || EDITOR_NAME;
+
   const graph: Record<string, unknown>[] = [
     {
       '@type': 'BlogPosting',
@@ -63,9 +67,8 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
       description: post.excerpt,
       author: {
         '@type': 'Person',
-        name: EDITOR_NAME,
-        url: `${SITE_URL}/about`,
-        jobTitle: 'Founder & Editor',
+        name: authorName,
+        url: `${SITE_URL}/author`,
       },
       publisher: {
         '@type': 'Organization',
@@ -122,8 +125,15 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
               {post.title}
             </h1>
             <div style={{ marginTop: '16px', fontSize: '0.88rem', color: 'var(--text-muted)' }}>
-              By <Link href="/author" style={{ color: 'var(--text)', textDecoration: 'underline', textUnderlineOffset: '2px', textDecorationColor: 'var(--border-light)' }}>{EDITOR_NAME}</Link>{!post.hideEditorial && <> · {SITE_NAME} Editorial</>}
+              By <Link href="/author" style={{ color: 'var(--text)', textDecoration: 'underline', textUnderlineOffset: '2px', textDecorationColor: 'var(--border-light)' }}>{authorName}</Link>
+              {post.reviewer && <> · Reviewed by {post.reviewer}</>}
+              {!post.hideEditorial && <> · Research informed essay</>}
             </div>
+            {post.lastReviewed && (
+              <div style={{ marginTop: '8px', fontSize: '0.8rem', color: 'var(--text-light)' }}>
+                Last reviewed: {post.lastReviewed}
+              </div>
+            )}
           </header>
 
           {!post.hideEditorial && (
@@ -132,7 +142,7 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
             borderRadius: 'var(--radius)', borderLeft: '3px solid var(--border-light)',
             fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.6, fontStyle: 'italic',
           }}>
-            This article reflects the editorial perspective of the {SITE_NAME} team. It draws on publicly available research and commonly discussed psychological concepts. It is not clinical advice. If you need support, please contact a qualified professional.
+            This article is written by the site&apos;s founder based on publicly available research and commonly discussed psychological concepts.{post.reviewer ? ` It was reviewed by ${post.reviewer}.` : ' It has not been reviewed by a licensed mental health professional.'} It is not clinical advice. If you need support, please contact a qualified professional.
           </div>
           )}
 

@@ -19,6 +19,7 @@ const MORE_LINKS = [
   { href: '/archive', label: 'Name Archive' },
   { href: '/colors', label: 'Colors' },
   { href: '/collections', label: 'Collections' },
+  { href: '/methodology', label: 'Methodology' },
   { href: '/faq', label: 'FAQ' },
   { href: '/terms', label: 'Terms' },
   { href: '/privacy', label: 'Privacy' },

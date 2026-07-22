@@ -87,9 +87,11 @@ export default function CookiesPage() {
           title: 'Regional consent',
           children: (
             <p>
-              For visitors in regions where consent is legally required, we aim to request consent before using eligible
-              non-essential cookies or personalized advertising features. For traffic in the EEA, the UK, and
-              Switzerland, a certified consent management platform may be used to collect and manage consent.
+              For visitors in the European Economic Area, the United Kingdom, and Switzerland, we use Google
+              Funding Choices, a Google certified Consent Management Platform, to collect consent before serving
+              personalized advertisements or setting non-essential cookies. The consent dialog appears
+              automatically for users in those regions. You can update your choices at any time through the
+              consent prompt or by clearing your browser cookies.
             </p>
           ),
         },
