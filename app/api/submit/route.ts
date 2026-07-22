@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: firstError }, { status: 400 });
     }
 
-    const { name, message, color_id } = parsed.data;
+    const { name, message, color_id, from_name } = parsed.data;
     const fingerprint_hash: string | undefined = typeof body.fingerprint_hash === 'string' ? body.fingerprint_hash : undefined;
 
     // Sanitize inputs
@@ -76,6 +76,15 @@ export async function POST(request: NextRequest) {
     const messageCheck = checkProfanity(cleanMessage);
     if (!messageCheck.passed) {
       return NextResponse.json({ error: messageCheck.reason }, { status: 400 });
+    }
+
+    // Sanitize and check from_name (only if provided)
+    const cleanFromName = from_name ? sanitizeText(from_name) : null;
+    if (cleanFromName) {
+      const fromNameCheck = checkProfanity(cleanFromName);
+      if (!fromNameCheck.passed) {
+        return NextResponse.json({ error: fromNameCheck.reason }, { status: 400 });
+      }
     }
 
     // Get IP and rate limit
@@ -184,6 +193,7 @@ export async function POST(request: NextRequest) {
         message: cleanMessage,
         color_id,
         slug,
+        from_name: cleanFromName || null,
         ip_hash: ipHash,
         fingerprint_hash: fingerprint_hash || null,
         country,

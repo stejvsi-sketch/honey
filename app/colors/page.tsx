@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${SITE_URL}/colors`,
   },
+  robots: { index: false, follow: true },
 };
 
 export default function ColorsIndexPage() {

@@ -23,6 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: `${SITE_URL}/colors/${color}`,
     },
+    robots: { index: false, follow: true },
   };
 }
 

@@ -6,6 +6,7 @@ export interface Memory {
   created_at: string;
   slug: string;
   pinned_until?: string | null;
+  from_name?: string | null;
 }
 
 export interface Submission {
@@ -18,6 +19,7 @@ export interface Submission {
   country: string;
   user_uuid: string;
   created_at: string;
+  from_name?: string | null;
 }
 
 export interface JournalPost {

@@ -5,11 +5,13 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 interface Submission {
   id: string; name: string; message: string; color_id: string;
   status: string; ip_hash: string; country: string; user_uuid: string; created_at: string;
+  from_name?: string | null;
 }
 
 interface MemoryItem {
   id: string; name: string; message: string; color_id: string;
   created_at: string; pinned_until: string | null;
+  from_name?: string | null;
 }
 
 interface BannedUser {
@@ -450,7 +452,7 @@ export default function AdminDashboard({ secret }: { secret: string }) {
                     />
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.2rem', marginBottom: '8px', color: C.text, fontWeight: 500 }}>
-                        To {sub.name}
+                        To {sub.name}{sub.from_name ? <span style={{ fontWeight: 400, color: C.textFaint, fontSize: '0.9rem' }}> — From {sub.from_name}</span> : null}
                       </div>
                       <div style={{ color: C.textMuted, fontSize: '1rem', lineHeight: 1.6, marginBottom: '12px', wordBreak: 'break-word' }}>
                         &ldquo;{sub.message}&rdquo;
@@ -501,7 +503,7 @@ export default function AdminDashboard({ secret }: { secret: string }) {
                     />
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.2rem', marginBottom: '8px', color: C.text, fontWeight: 500 }}>
-                        {isPinActive(mem) && '📌 '}To {mem.name}
+                        {isPinActive(mem) && '📌 '}To {mem.name}{mem.from_name ? <span style={{ fontWeight: 400, color: C.textFaint, fontSize: '0.9rem' }}> — From {mem.from_name}</span> : null}
                       </div>
                       <div style={{ color: C.textMuted, fontSize: '1rem', lineHeight: 1.6, marginBottom: '12px', wordBreak: 'break-word' }}>
                         &ldquo;{mem.message}&rdquo;

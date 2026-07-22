@@ -35,6 +35,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title,
     description,
     alternates: links,
+    robots: { index: false, follow: true },
     openGraph: {
       title,
       description,

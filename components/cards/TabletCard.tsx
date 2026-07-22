@@ -42,6 +42,9 @@ export default function TabletCard({ memory }: { memory: Memory }) {
           style={{ textDecoration: 'none', color: 'inherit' }}>
           <span>{memory.message}</span>
         </Link>
+        {memory.from_name && (
+          <span className="memory-card__from">— {memory.from_name}</span>
+        )}
       </div>
     </div>
   );

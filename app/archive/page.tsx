@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: 'Name Archive',
   description: 'Browse the complete A-Z directory of all anonymous unsent letters by name. Find the letters addressed to someone you know.',
   alternates: { canonical: `${SITE_URL}/archive` },
+  robots: { index: false, follow: true },
   openGraph: {
     title: 'Name Archive',
     description: 'Browse the complete A-Z directory of anonymous unsent letters by name.',

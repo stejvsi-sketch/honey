@@ -22,6 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: `${SITE_URL}/collections/${slug}`,
     },
+    robots: { index: false, follow: true },
   };
 }
 

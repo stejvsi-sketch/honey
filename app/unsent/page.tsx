@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
   alternates: { canonical: `${SITE_URL}/unsent` },
+  robots: { index: false, follow: true },
   openGraph: {
     title: PAGE_TITLE,
     description: PAGE_DESCRIPTION,

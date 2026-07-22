@@ -24,6 +24,13 @@ export const submitMemorySchema = z.object({
       return words.every(w => w.length <= 20);
     }, 'Each word must be 20 characters or less'),
   color_id: z.enum(validColorIds),
+  from_name: z
+    .string()
+    .trim()
+    .max(MAX_NAME_LENGTH, `Name must be ${MAX_NAME_LENGTH} characters or less`)
+    .regex(/^[a-zA-Z\s'-]*$/, 'Name can only contain letters, spaces, hyphens, and apostrophes')
+    .optional()
+    .transform(val => (val && val.length > 0 ? val : undefined)),
 });
 
 export type SubmitMemoryInput = z.infer<typeof submitMemorySchema>;

@@ -135,6 +135,9 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
               To {displayName}
             </Link>
             <div className="memory-card__message"><span>{memory.message}</span></div>
+            {memory.from_name && (
+              <span className="memory-card__from">— {memory.from_name}</span>
+            )}
           </div>
         </div>
       </div>

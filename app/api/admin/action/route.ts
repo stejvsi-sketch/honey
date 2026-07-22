@@ -93,6 +93,7 @@ export async function POST(request: NextRequest) {
         message: submission.message,
         color_id: submission.color_id,
         slug: submission.slug,
+        from_name: submission.from_name || null,
         created_at: submission.created_at,
       });
       if (insertErr) return NextResponse.json({ error: insertErr.message }, { status: 500 });

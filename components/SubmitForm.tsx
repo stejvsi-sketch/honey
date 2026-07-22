@@ -6,6 +6,7 @@ import { getBrowserFingerprint } from '@/lib/fingerprint';
 
 export default function SubmitForm() {
   const [name, setName] = useState('');
+  const [fromName, setFromName] = useState('');
   const [message, setMessage] = useState('');
   const [colorId, setColorId] = useState<string>(CARD_COLORS[0].id);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
@@ -50,6 +51,7 @@ export default function SubmitForm() {
       name: name.trim(),
       message: message.trim(),
       color_id: colorId,
+      from_name: fromName.trim() || undefined,
       idempotency_key: generateIdempotencyKey(),
       fingerprint_hash: fingerprintRef.current || undefined,
     };
@@ -58,6 +60,7 @@ export default function SubmitForm() {
     setStatus('success');
     setErrorMsg('');
     setName('');
+    setFromName('');
     setMessage('');
     setColorId(CARD_COLORS[0].id);
 
@@ -76,6 +79,7 @@ export default function SubmitForm() {
         setErrorMsg(data.error || 'Something went wrong. Please try again.');
         // Restore form data so user doesn't lose their message
         setName(submissionData.name);
+        setFromName(submissionData.from_name || '');
         setMessage(submissionData.message);
         setColorId(submissionData.color_id);
       }
@@ -85,6 +89,7 @@ export default function SubmitForm() {
       setStatus('error');
       setErrorMsg('Network error. Please check your connection and try again.');
       setName(submissionData.name);
+      setFromName(submissionData.from_name || '');
       setMessage(submissionData.message);
       setColorId(submissionData.color_id);
     } finally {
@@ -119,6 +124,16 @@ export default function SubmitForm() {
           maxLength={30} required autoComplete="off"
         />
         <p className="form__hint">Who is this letter for?</p>
+      </div>
+
+      <div className="form__group">
+        <label className="form__label" htmlFor="fromName">From <span style={{ fontWeight: 400, color: 'var(--text-light)', fontSize: '0.8em' }}>(optional)</span></label>
+        <input
+          id="fromName" className="form__input" type="text" value={fromName}
+          onChange={e => setFromName(e.target.value)} placeholder="Your name"
+          maxLength={30} autoComplete="off"
+        />
+        <p className="form__hint">Sign your letter, if you&apos;d like.</p>
       </div>
 
       <div className="form__group">

@@ -40,7 +40,7 @@ const getCachedHomeMemories = unstable_cache(
   async (limit: number) => {
     const supabase = getSupabaseClient();
     const { data, error } = await supabase
-      .from('memories').select('id, name, message, color_id, created_at, slug, pinned_until')
+      .from('memories').select('id, name, message, color_id, created_at, slug, pinned_until, from_name')
       .order('created_at', { ascending: false }).limit(limit);
     if (error) { console.error('Error fetching home memories:', error); return []; }
     return sortPinnedFirst(data as Memory[]);
@@ -57,7 +57,7 @@ const getCachedTableMemories = unstable_cache(
   async (limit: number) => {
     const supabase = getSupabaseClient();
     const { data, error } = await supabase
-      .from('memories').select('id, name, message, color_id, created_at, slug, pinned_until')
+      .from('memories').select('id, name, message, color_id, created_at, slug, pinned_until, from_name')
       .order('created_at', { ascending: false }).limit(limit);
     if (error) { console.error('Error fetching table memories:', error); return []; }
     return sortPinnedFirst(data as Memory[]);
@@ -75,7 +75,7 @@ const getCachedArchiveMemories = unstable_cache(
     const supabase = getSupabaseClient();
     const from = (page - 1) * limit;
     const [{ data, error }, { count, error: countError }] = await Promise.all([
-      supabase.from('memories').select('id, name, message, color_id, created_at, slug, pinned_until')
+      supabase.from('memories').select('id, name, message, color_id, created_at, slug, pinned_until, from_name')
         .order('created_at', { ascending: false }).range(from, from + limit - 1),
       supabase.from('memories').select('*', { count: 'exact', head: true }),
     ]);
@@ -94,7 +94,7 @@ const getCachedMemoryById = unstable_cache(
   async (id: string) => {
     const supabase = getSupabaseClient();
     const { data, error } = await supabase.from('memories')
-      .select('id, name, message, color_id, created_at, slug, pinned_until').eq('id', id).single();
+      .select('id, name, message, color_id, created_at, slug, pinned_until, from_name').eq('id', id).single();
     if (error) return null;
     return data as Memory;
   },
@@ -111,7 +111,7 @@ const getCachedMemoriesByName = unstable_cache(
     const supabase = getSupabaseClient();
     const from = (page - 1) * limit;
     const [{ data, error }, { count }] = await Promise.all([
-      supabase.from('memories').select('id, name, message, color_id, created_at, slug, pinned_until')
+      supabase.from('memories').select('id, name, message, color_id, created_at, slug, pinned_until, from_name')
         .eq('slug', nameSlug).order('created_at', { ascending: false }).range(from, from + limit - 1),
       supabase.from('memories').select('*', { count: 'exact', head: true }).eq('slug', nameSlug),
     ]);
@@ -159,7 +159,7 @@ const getCachedMemoriesByColor = unstable_cache(
     const supabase = getSupabaseClient();
     const from = (page - 1) * limit;
     const [{ data, error }, { count }] = await Promise.all([
-      supabase.from('memories').select('id, name, message, color_id, created_at, slug, pinned_until')
+      supabase.from('memories').select('id, name, message, color_id, created_at, slug, pinned_until, from_name')
         .eq('color_id', colorId).order('created_at', { ascending: false }).range(from, from + limit - 1),
       supabase.from('memories').select('*', { count: 'exact', head: true }).eq('color_id', colorId),
     ]);
@@ -183,7 +183,7 @@ const getCachedMemoriesByCollection = unstable_cache(
     const supabase = getSupabaseClient();
     const from = (page - 1) * limit;
     
-    let baseQuery = supabase.from('memories').select('id, name, message, color_id, created_at, slug, pinned_until');
+    let baseQuery = supabase.from('memories').select('id, name, message, color_id, created_at, slug, pinned_until, from_name');
     let countQuery = supabase.from('memories').select('*', { count: 'exact', head: true });
 
     if (collection.searchTerms.length > 0) {

@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   title: LETTERS_TITLE,
   description: LETTERS_DESCRIPTION,
   alternates: { canonical: `${SITE_URL}/letters` },
+  robots: { index: false, follow: true },
 };
 
 export default async function LettersPage() {
