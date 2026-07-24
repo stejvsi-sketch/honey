@@ -1932,6 +1932,7 @@ a:hover { color: var(--accent-hover); }
 .flip-card-container {
   perspective: 1000px;
   cursor: pointer;
+  width: 100%;
 }
 
 .flip-card-inner {
