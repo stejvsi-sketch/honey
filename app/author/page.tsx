@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import TrustPage from '@/components/TrustPage';
 import { SITE_NAME, SITE_URL, EDITOR_NAME } from '@/lib/constants';
 

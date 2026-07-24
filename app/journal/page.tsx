@@ -19,7 +19,7 @@ export default function JournalPage() {
       </div>
       
       <div style={{ display: 'flex', flexDirection: 'column', gap: '48px', marginTop: '48px' }}>
-        {JOURNAL_POSTS.map((post, i) => (
+        {JOURNAL_POSTS.map((post, _i) => (
           <React.Fragment key={post.slug}>
             <article style={{ borderBottom: '1px solid var(--border-light)', paddingBottom: '48px' }}>
               <div style={{ fontSize: '0.85rem', color: 'var(--text-light)', fontStyle: 'italic', marginBottom: '8px' }}>
