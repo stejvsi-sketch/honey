@@ -474,13 +474,24 @@ a:hover { color: var(--accent-hover); }
 .letter-single__card .memory-card__brand { font-size: 1rem; }
 .letter-single__card .memory-card__content { padding: 80px 34px 76px; }
 
-@media (max-width: 768px) {
-  .letter-single__card { max-width: 420px; }
-  .letter-single__card .memory-card { max-width: 420px; }
-  .letter-single__card .memory-card__name { font-size: 1.18rem; }
-  .letter-single__card .memory-card__message { font-size: 1.18rem; line-height: 1.7; }
+@media (max-width: 767px) {
+  .letter-single__card { max-width: 340px; }
+  .letter-single__card .memory-card {
+    max-width: 340px;
+    aspect-ratio: 420 / 520;
+    min-height: unset;
+  }
+  .letter-single__card .memory-card__name { font-size: 1.15rem; }
+  .letter-single__card .memory-card__message {
+    font-size: 1.12rem; line-height: 1.7;
+    max-height: 60%;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+  }
   .letter-single__card .memory-card__brand { font-size: 0.95rem; }
-  .letter-single__card .memory-card__content { padding: 76px 30px 72px; }
+  .letter-single__card .memory-card__content { padding: 12px 26px 68px; }
 }
 .letter-single__meta {
   text-align: center; margin-top: 24px;
