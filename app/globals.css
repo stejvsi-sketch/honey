@@ -1985,6 +1985,13 @@ a:hover { color: var(--accent-hover); }
   perspective: 1000px;
   cursor: pointer;
   width: 100%;
+  max-width: 420px;
+}
+
+@media (max-width: 767px) {
+  .flip-card-container {
+    max-width: 340px;
+  }
 }
 
 .flip-card-inner {
