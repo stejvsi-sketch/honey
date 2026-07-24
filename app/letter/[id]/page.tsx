@@ -5,6 +5,7 @@ import { getMemoryById, getNameCountForSlug } from '@/lib/data';
 import { CARD_COLORS, SITE_NAME, SITE_URL, NAME_INDEX_THRESHOLD } from '@/lib/constants';
 import { formatSubmittedName } from '@/lib/names';
 import ReportButton from '@/components/ReportButton';
+import LetterFlipCard from '@/components/cards/LetterFlipCard';
 
 
 export const revalidate = 18000;
@@ -122,24 +123,14 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
         <p className="page__subtitle">An anonymous unsent letter, message, and unspoken words to {displayName}.</p>
       </div>
       <div className="letter-single__card">
-        <div className="memory-card card-animate" style={{ margin: '0 auto' }}>
-          <div className="memory-card__bg">
-            <div className="memory-card__color" style={{ backgroundColor: hex }} />
-            <div className="memory-card__texture" />
-          </div>
-          <div className="memory-card__content">
-            <div className="memory-card__header">
-              <span className="memory-card__brand">{SITE_NAME.toLowerCase()}</span>
-            </div>
-            <Link href={`/to/${memory.slug}`} className="memory-card__name">
-              To {displayName}
-            </Link>
-            <div className="memory-card__message"><span>{memory.message}</span></div>
-            {memory.from_name && (
-              <span className="memory-card__from">— {memory.from_name}</span>
-            )}
-          </div>
-        </div>
+        <LetterFlipCard
+          hex={hex}
+          slug={memory.slug}
+          displayName={displayName}
+          message={memory.message}
+          fromName={memory.from_name}
+          wishReply={memory.wish_reply}
+        />
       </div>
       <div className="letter-single__meta">
         <p>{formattedDate} at {formattedTime}</p>

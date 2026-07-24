@@ -8,6 +8,7 @@ export default function SubmitForm() {
   const [name, setName] = useState('');
   const [fromName, setFromName] = useState('');
   const [message, setMessage] = useState('');
+  const [wishReply, setWishReply] = useState('');
   const [colorId, setColorId] = useState<string>(CARD_COLORS[0].id);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
@@ -52,6 +53,7 @@ export default function SubmitForm() {
       message: message.trim(),
       color_id: colorId,
       from_name: fromName.trim() || undefined,
+      wish_reply: wishReply.trim() || undefined,
       idempotency_key: generateIdempotencyKey(),
       fingerprint_hash: fingerprintRef.current || undefined,
     };
@@ -62,6 +64,7 @@ export default function SubmitForm() {
     setName('');
     setFromName('');
     setMessage('');
+    setWishReply('');
     setColorId(CARD_COLORS[0].id);
 
     // Fire the actual API call in the background
@@ -81,6 +84,7 @@ export default function SubmitForm() {
         setName(submissionData.name);
         setFromName(submissionData.from_name || '');
         setMessage(submissionData.message);
+        setWishReply(submissionData.wish_reply || '');
         setColorId(submissionData.color_id);
       }
       // If res.ok, user already sees success — nothing to do
@@ -91,6 +95,7 @@ export default function SubmitForm() {
       setName(submissionData.name);
       setFromName(submissionData.from_name || '');
       setMessage(submissionData.message);
+      setWishReply(submissionData.wish_reply || '');
       setColorId(submissionData.color_id);
     } finally {
       // Release the lock
@@ -150,6 +155,18 @@ export default function SubmitForm() {
         {hasLongWord && (
           <p className="form__error">Each word must be 20 characters or less.</p>
         )}
+      </div>
+
+      <div className="form__group">
+        <label className="form__label" htmlFor="wishReply">If only they&apos;d say... <span style={{ fontWeight: 400, color: 'var(--text-light)', fontSize: '0.8em' }}>(optional)</span></label>
+        <textarea
+          id="wishReply" className="form__textarea" value={wishReply}
+          onChange={e => setWishReply(e.target.value)}
+          placeholder="What you wish they'd say back..."
+          maxLength={250} autoComplete="off"
+          style={{ minHeight: '80px' }}
+        />
+        <p className="form__hint">Tap the card to see the other side. This is what you wish they&apos;d say.</p>
       </div>
 
       <div className="form__group">

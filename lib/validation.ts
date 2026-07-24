@@ -31,6 +31,12 @@ export const submitMemorySchema = z.object({
     .regex(/^[a-zA-Z\s'-]*$/, 'Name can only contain letters, spaces, hyphens, and apostrophes')
     .optional()
     .transform(val => (val && val.length > 0 ? val : undefined)),
+  wish_reply: z
+    .string()
+    .trim()
+    .max(MAX_MESSAGE_LENGTH, `Wish reply must be ${MAX_MESSAGE_LENGTH} characters or less`)
+    .optional()
+    .transform(val => (val && val.length > 0 ? val : undefined)),
 });
 
 export type SubmitMemoryInput = z.infer<typeof submitMemorySchema>;

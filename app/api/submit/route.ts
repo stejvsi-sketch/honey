@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: firstError }, { status: 400 });
     }
 
-    const { name, message, color_id, from_name } = parsed.data;
+    const { name, message, color_id, from_name, wish_reply } = parsed.data;
     const fingerprint_hash: string | undefined = typeof body.fingerprint_hash === 'string' ? body.fingerprint_hash : undefined;
 
     // Sanitize inputs
@@ -84,6 +84,15 @@ export async function POST(request: NextRequest) {
       const fromNameCheck = checkProfanity(cleanFromName);
       if (!fromNameCheck.passed) {
         return NextResponse.json({ error: fromNameCheck.reason }, { status: 400 });
+      }
+    }
+
+    // Sanitize and check wish_reply (only if provided)
+    const cleanWishReply = wish_reply ? sanitizeText(wish_reply) : null;
+    if (cleanWishReply) {
+      const wishReplyCheck = checkProfanity(cleanWishReply);
+      if (!wishReplyCheck.passed) {
+        return NextResponse.json({ error: wishReplyCheck.reason }, { status: 400 });
       }
     }
 
@@ -194,6 +203,7 @@ export async function POST(request: NextRequest) {
         color_id,
         slug,
         from_name: cleanFromName || null,
+        wish_reply: cleanWishReply || null,
         ip_hash: ipHash,
         fingerprint_hash: fingerprint_hash || null,
         country,

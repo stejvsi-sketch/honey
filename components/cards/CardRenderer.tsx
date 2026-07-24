@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
 import { CARD_COLORS, SITE_NAME } from '@/lib/constants';
 import { formatSubmittedName } from '@/lib/names';
 import type { Memory } from '@/lib/types';
@@ -10,6 +11,14 @@ function isPinned(memory: Memory): boolean {
   return new Date(memory.pinned_until) > new Date();
 }
 
+function FlipIcon() {
+  return (
+    <svg className="flip-hint__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+    </svg>
+  );
+}
+
 export default function CardRenderer({
   memory,
   animate = true,
@@ -17,13 +26,24 @@ export default function CardRenderer({
   memory: Memory;
   animate?: boolean;
 }) {
+  const [flipped, setFlipped] = useState(false);
   const color = CARD_COLORS.find(c => c.id === memory.color_id);
   const hex = color?.hex || '#f5e6d0';
   const pinned = isPinned(memory);
   const displayName = formatSubmittedName(memory.name);
+  const hasWishReply = !!memory.wish_reply;
 
-  return (
-    <div className={`memory-card${animate ? ' card-animate' : ''}`}>
+  function handleFlip(e: React.MouseEvent) {
+    if (!hasWishReply) return;
+    // Don't flip when clicking links
+    const target = e.target as HTMLElement;
+    if (target.closest('a')) return;
+    e.stopPropagation();
+    setFlipped(f => !f);
+  }
+
+  const cardContent = (
+    <>
       {pinned && (
         <div className="memory-card__pin" aria-label="Pinned letter">
           <svg width="22" height="32" viewBox="0 0 22 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -53,6 +73,59 @@ export default function CardRenderer({
         {memory.from_name && (
           <span className="memory-card__from">— {memory.from_name}</span>
         )}
+      </div>
+      {hasWishReply && (
+        <div className="flip-hint" aria-label="Tap to flip">
+          <FlipIcon /> flip
+        </div>
+      )}
+    </>
+  );
+
+  const backContent = hasWishReply ? (
+    <>
+      <div className="memory-card__bg">
+        <div className="memory-card__color" style={{ backgroundColor: hex }} />
+        <div className="memory-card__texture" />
+      </div>
+      <div className="memory-card__content">
+        <div className="memory-card__header">
+          <span className="memory-card__brand">{SITE_NAME.toLowerCase()}</span>
+        </div>
+        <span className="memory-card__wish-label">if only you&apos;d say...</span>
+        <div className="memory-card__message" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <span>{memory.wish_reply}</span>
+        </div>
+      </div>
+      <div className="flip-hint" aria-label="Tap to flip back">
+        <FlipIcon /> flip
+      </div>
+    </>
+  ) : null;
+
+  if (!hasWishReply) {
+    return (
+      <div className={`memory-card${animate ? ' card-animate' : ''}`}>
+        {cardContent}
+      </div>
+    );
+  }
+
+  return (
+    <div className="flip-card-container" onClick={handleFlip} role="button" tabIndex={0}
+      aria-label={flipped ? 'Showing wish reply, tap to flip back' : 'Tap to see wish reply'}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setFlipped(f => !f); } }}>
+      <div className={`flip-card-inner${flipped ? ' flip-card-inner--flipped' : ''}`}>
+        <div className="flip-card-front">
+          <div className={`memory-card${animate ? ' card-animate' : ''}`}>
+            {cardContent}
+          </div>
+        </div>
+        <div className="flip-card-back">
+          <div className={`memory-card${animate ? ' card-animate' : ''}`}>
+            {backContent}
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ export interface Memory {
   slug: string;
   pinned_until?: string | null;
   from_name?: string | null;
+  wish_reply?: string | null;
 }
 
 export interface Submission {
@@ -20,6 +21,7 @@ export interface Submission {
   user_uuid: string;
   created_at: string;
   from_name?: string | null;
+  wish_reply?: string | null;
 }
 
 export interface JournalPost {
