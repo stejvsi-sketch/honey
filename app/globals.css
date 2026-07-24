@@ -1855,14 +1855,32 @@ a:hover { color: var(--accent-hover); }
 }
 
 .burn-card-wrapper .memory-card {
-  transition: opacity 0.1s ease;
+  position: relative;
+  z-index: 2;
 }
 
-/* Canvas overlaid on card */
-.burn-canvas {
+/* Fire canvas — behind the card */
+.burn-canvas--fire {
   position: absolute; inset: 0;
   pointer-events: none;
-  z-index: 5;
+  z-index: 1;
+}
+
+/* Mask canvas — hidden, only used by JS */
+.burn-canvas--mask {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0;
+}
+
+.burn-status-text {
+  margin-top: 24px;
+  color: var(--text-light);
+  font-style: italic;
+  font-size: 0.9rem;
+  text-align: center;
+  animation: fade-up 0.5s ease-out;
 }
 
 /* Burn trigger button pulse */

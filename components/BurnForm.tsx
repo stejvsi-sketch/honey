@@ -5,13 +5,20 @@ import { MAX_WORDS } from '@/lib/constants';
 
 type BurnStage = 'writing' | 'card' | 'burning' | 'done';
 
+// --- Particle types ---
+interface FireParticle {
+  x: number; y: number; vx: number; vy: number;
+  life: number; maxLife: number; size: number;
+  type: 'fire' | 'ember' | 'smoke';
+}
+
 export default function BurnForm() {
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
   const [stage, setStage] = useState<BurnStage>('writing');
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const fireCanvasRef = useRef<HTMLCanvasElement>(null);
+  const maskCanvasRef = useRef<HTMLCanvasElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
-  const burnProgress = useRef(0);
   const animFrameRef = useRef<number>(0);
 
   const words = message.trim().split(/\s+/).filter(w => w.length > 0);
@@ -28,162 +35,255 @@ export default function BurnForm() {
     setStage('burning');
   }
 
-  // Canvas-based fire animation
   const runFireAnimation = useCallback(() => {
-    const canvas = canvasRef.current;
-    const card = cardRef.current;
-    if (!canvas || !card) return;
+    const fireEl = fireCanvasRef.current;
+    const maskEl = maskCanvasRef.current;
+    const cardEl = cardRef.current;
+    if (!fireEl || !maskEl || !cardEl) return;
+    // Non-null aliases for use inside animate() closure
+    const fireCanvas: HTMLCanvasElement = fireEl;
+    const maskCanvas: HTMLCanvasElement = maskEl;
+    const card: HTMLDivElement = cardEl;
 
     const rect = card.getBoundingClientRect();
-    canvas.width = rect.width;
-    canvas.height = rect.height;
-    canvas.style.width = rect.width + 'px';
-    canvas.style.height = rect.height + 'px';
+    const w = Math.round(rect.width);
+    const h = Math.round(rect.height);
 
-    const ctx = canvas.getContext('2d')!;
-    const w = canvas.width;
-    const h = canvas.height;
-
-    // Burn line particles
-    interface Particle {
-      x: number; y: number; vx: number; vy: number;
-      life: number; maxLife: number; size: number;
+    // Set both canvases
+    for (const c of [fireCanvas, maskCanvas]) {
+      c.width = w; c.height = h;
+      c.style.width = w + 'px'; c.style.height = h + 'px';
     }
-    const particles: Particle[] = [];
 
-    // Burn edge — jagged line that moves upward
-    const burnEdge: number[] = [];
-    const edgeCols = Math.ceil(w / 3);
-    for (let i = 0; i < edgeCols; i++) {
-      burnEdge.push(h + 10);
-    }
+    const fireCtx = fireCanvas.getContext('2d')!;
+    const maskCtx = maskCanvas.getContext('2d')!;
+
+    // Draw the card as an opaque white mask initially
+    maskCtx.fillStyle = '#fff';
+    maskCtx.fillRect(0, 0, w, h);
+
+    const particles: FireParticle[] = [];
+
+    // Burn edge — jagged line across the card width
+    const cols = Math.ceil(w / 2);
+    const burnEdge = new Float32Array(cols).fill(h + 20);
 
     let startTime = 0;
-    const totalDuration = 4200; // 4.2 seconds
+    const totalDuration = 4500;
+
+    function spawnParticles(burnY: number, elapsed: number) {
+      // Fire particles along burn edge
+      for (let i = 0; i < 4; i++) {
+        const col = Math.floor(Math.random() * cols);
+        const edgeY = burnEdge[col];
+        particles.push({
+          x: col * 2, y: edgeY - 2 - Math.random() * 6,
+          vx: (Math.random() - 0.5) * 1.5,
+          vy: -(1.5 + Math.random() * 3),
+          life: 0, maxLife: 20 + Math.random() * 25,
+          size: 3 + Math.random() * 5,
+          type: 'fire',
+        });
+      }
+
+      // Ember particles — small bright dots that fly up
+      if (Math.random() < 0.6) {
+        const col = Math.floor(Math.random() * cols);
+        particles.push({
+          x: col * 2, y: burnEdge[col],
+          vx: (Math.random() - 0.5) * 3,
+          vy: -(3 + Math.random() * 4),
+          life: 0, maxLife: 30 + Math.random() * 40,
+          size: 1 + Math.random() * 2.5,
+          type: 'ember',
+        });
+      }
+
+      // Smoke particles — grey, float up slowly, spread out
+      if (elapsed > 500 && Math.random() < 0.4) {
+        const col = Math.floor(Math.random() * cols);
+        particles.push({
+          x: col * 2, y: burnEdge[col] - 10 - Math.random() * 20,
+          vx: (Math.random() - 0.5) * 0.8,
+          vy: -(0.5 + Math.random() * 1.5),
+          life: 0, maxLife: 60 + Math.random() * 50,
+          size: 8 + Math.random() * 12,
+          type: 'smoke',
+        });
+      }
+    }
 
     function animate(timestamp: number) {
       if (!startTime) startTime = timestamp;
       const elapsed = timestamp - startTime;
       const progress = Math.min(elapsed / totalDuration, 1);
-      burnProgress.current = progress;
 
-      ctx.clearRect(0, 0, w, h);
+      // Target Y for burn edge
+      const targetY = h * (1 - progress * 1.2);
 
-      // Target Y for burn edge (moves from bottom to top)
-      const targetY = h * (1 - progress * 1.15);
-
-      // Move burn edge toward target with jaggedness
-      for (let i = 0; i < edgeCols; i++) {
-        const jag = Math.sin(i * 0.8 + elapsed * 0.005) * 12 + Math.random() * 8;
-        const target = targetY + jag;
-        burnEdge[i] += (target - burnEdge[i]) * 0.08;
+      // Move burn edge with organic jaggedness
+      for (let i = 0; i < cols; i++) {
+        const noise1 = Math.sin(i * 0.15 + elapsed * 0.003) * 15;
+        const noise2 = Math.sin(i * 0.4 + elapsed * 0.007) * 8;
+        const noise3 = Math.random() * 4;
+        const target = targetY + noise1 + noise2 + noise3;
+        burnEdge[i] += (target - burnEdge[i]) * 0.06;
       }
 
-      // Draw charred/burnt region (below burn edge = burnt away)
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(0, h + 5);
-      for (let i = 0; i < edgeCols; i++) {
-        ctx.lineTo(i * 3, burnEdge[i]);
+      // --- MASK: Cut away the burnt part ---
+      maskCtx.clearRect(0, 0, w, h);
+      maskCtx.fillStyle = '#fff';
+      maskCtx.fillRect(0, 0, w, h);
+
+      // Erase everything below the burn edge (burnt away)
+      maskCtx.globalCompositeOperation = 'destination-out';
+      maskCtx.beginPath();
+      maskCtx.moveTo(-5, h + 10);
+      for (let i = 0; i < cols; i++) {
+        maskCtx.lineTo(i * 2, burnEdge[i]);
       }
-      ctx.lineTo(w + 5, h + 5);
-      ctx.closePath();
+      maskCtx.lineTo(w + 5, h + 10);
+      maskCtx.closePath();
+      maskCtx.fill();
+      maskCtx.globalCompositeOperation = 'source-over';
 
-      // The "gone" part — black charred
-      ctx.fillStyle = 'rgba(20, 12, 5, 0.95)';
-      ctx.fill();
-      ctx.restore();
-
-      // Draw glowing ember edge
-      ctx.save();
-      for (let i = 0; i < edgeCols; i++) {
-        const x = i * 3;
+      // Draw charred edge (dark brown/black gradient along burn line)
+      for (let i = 0; i < cols; i++) {
+        const x = i * 2;
         const y = burnEdge[i];
-        const glowIntensity = 0.6 + Math.random() * 0.4;
 
-        // Ember glow
-        const gradient = ctx.createRadialGradient(x, y, 0, x, y, 8);
-        gradient.addColorStop(0, `rgba(255, 200, 50, ${glowIntensity})`);
-        gradient.addColorStop(0.4, `rgba(255, 100, 0, ${glowIntensity * 0.6})`);
-        gradient.addColorStop(1, 'transparent');
-        ctx.fillStyle = gradient;
-        ctx.fillRect(x - 8, y - 8, 16, 16);
-      }
-      ctx.restore();
-
-      // Spawn ember particles along the burn edge
-      if (progress < 0.95) {
-        for (let i = 0; i < 3; i++) {
-          const idx = Math.floor(Math.random() * edgeCols);
-          particles.push({
-            x: idx * 3,
-            y: burnEdge[idx] - Math.random() * 5,
-            vx: (Math.random() - 0.5) * 2,
-            vy: -(1 + Math.random() * 3),
-            life: 0,
-            maxLife: 40 + Math.random() * 40,
-            size: 1.5 + Math.random() * 3,
-          });
-        }
+        // Charred/scorched border above burn edge
+        const charGrad = maskCtx.createLinearGradient(x, y - 25, x, y);
+        charGrad.addColorStop(0, 'rgba(0,0,0,0)');
+        charGrad.addColorStop(0.5, 'rgba(40, 20, 5, 0.4)');
+        charGrad.addColorStop(0.8, 'rgba(20, 10, 0, 0.7)');
+        charGrad.addColorStop(1, 'rgba(0, 0, 0, 0.9)');
+        maskCtx.fillStyle = charGrad;
+        maskCtx.fillRect(x - 1, y - 25, 3, 26);
       }
 
-      // Draw & update particles
+      // Apply mask to card
+      card.style.mask = `url(#burn-mask)`;
+      card.style.webkitMask = `url(#burn-mask)`;
+      // Use canvas as mask via CSS
+      card.style.clipPath = 'none';
+
+      // Actually clip the card using the mask canvas as a CSS mask-image
+      const maskDataUrl = maskCanvas.toDataURL();
+      card.style.maskImage = `url(${maskDataUrl})`;
+      card.style.webkitMaskImage = `url(${maskDataUrl})`;
+      card.style.maskSize = '100% 100%';
+      card.style.webkitMaskSize = '100% 100%';
+
+      // --- FIRE CANVAS: Draw fire, embers, smoke ---
+      // Semi-transparent clear for fire trails
+      fireCtx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+      fireCtx.fillRect(0, 0, w, h);
+
+      // Spawn new particles
+      if (progress < 0.92) {
+        spawnParticles(targetY, elapsed);
+      }
+
+      // Draw glow along burn edge
+      fireCtx.save();
+      fireCtx.globalCompositeOperation = 'lighter';
+      for (let i = 0; i < cols; i += 2) {
+        const x = i * 2;
+        const y = burnEdge[i];
+        const flicker = 0.5 + Math.random() * 0.5;
+
+        const glow = fireCtx.createRadialGradient(x, y, 0, x, y, 12);
+        glow.addColorStop(0, `rgba(255, 220, 80, ${0.8 * flicker})`);
+        glow.addColorStop(0.3, `rgba(255, 140, 20, ${0.5 * flicker})`);
+        glow.addColorStop(0.6, `rgba(255, 60, 0, ${0.25 * flicker})`);
+        glow.addColorStop(1, 'rgba(255, 30, 0, 0)');
+        fireCtx.fillStyle = glow;
+        fireCtx.fillRect(x - 12, y - 12, 24, 24);
+      }
+      fireCtx.restore();
+
+      // Update and draw particles
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
+        p.life++;
+        const t = p.life / p.maxLife;
+
+        if (t >= 1) { particles.splice(i, 1); continue; }
+
+        // Wiggle (organic movement)
+        p.vx += Math.sin(p.life * 0.3 + p.x * 0.01) * 0.1;
         p.x += p.vx;
         p.y += p.vy;
-        p.vy -= 0.02; // float up faster
-        p.life++;
 
-        const lifeRatio = p.life / p.maxLife;
-        if (lifeRatio >= 1) {
-          particles.splice(i, 1);
-          continue;
+        if (p.type === 'fire') {
+          p.vy *= 0.97;
+          const alpha = (1 - t) * 0.9;
+          const r = 255;
+          const g = Math.floor(255 - t * 200);
+          const b = Math.floor(80 - t * 80);
+          const size = p.size * (1 - t * 0.3);
+
+          fireCtx.save();
+          fireCtx.globalCompositeOperation = 'lighter';
+          fireCtx.beginPath();
+          fireCtx.arc(p.x, p.y, size, 0, Math.PI * 2);
+          fireCtx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+          fireCtx.fill();
+          // Outer glow
+          fireCtx.beginPath();
+          fireCtx.arc(p.x, p.y, size * 2, 0, Math.PI * 2);
+          fireCtx.fillStyle = `rgba(255, 80, 0, ${alpha * 0.15})`;
+          fireCtx.fill();
+          fireCtx.restore();
+
+        } else if (p.type === 'ember') {
+          p.vy += 0.02; // slight gravity pull
+          const alpha = (1 - t);
+          const size = p.size * (1 - t * 0.5);
+          fireCtx.save();
+          fireCtx.globalCompositeOperation = 'lighter';
+          fireCtx.beginPath();
+          fireCtx.arc(p.x, p.y, size, 0, Math.PI * 2);
+          fireCtx.fillStyle = `rgba(255, 200, 50, ${alpha})`;
+          fireCtx.fill();
+          fireCtx.beginPath();
+          fireCtx.arc(p.x, p.y, size * 2.5, 0, Math.PI * 2);
+          fireCtx.fillStyle = `rgba(255, 100, 0, ${alpha * 0.2})`;
+          fireCtx.fill();
+          fireCtx.restore();
+
+        } else if (p.type === 'smoke') {
+          p.vy *= 0.99;
+          p.size += 0.15; // smoke expands
+          const alpha = (1 - t) * 0.25;
+          fireCtx.save();
+          fireCtx.globalCompositeOperation = 'source-over';
+          fireCtx.beginPath();
+          fireCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          fireCtx.fillStyle = `rgba(60, 50, 40, ${alpha})`;
+          fireCtx.fill();
+          fireCtx.restore();
         }
-
-        const alpha = 1 - lifeRatio;
-        const r = 255;
-        const g = Math.floor(200 - lifeRatio * 150);
-        const b = Math.floor(50 - lifeRatio * 50);
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size * (1 - lifeRatio * 0.5), 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
-        ctx.fill();
-
-        // Glow
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size * 2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${r}, ${g}, 0, ${alpha * 0.2})`;
-        ctx.fill();
       }
 
-      // Fade card behind the burnt area
-      if (card) {
-        const cardOpacity = Math.max(0, 1 - progress * 1.3);
-        card.style.opacity = String(cardOpacity);
-        // Darken as it burns
-        const sepia = Math.min(progress * 1.5, 1);
-        const brightness = Math.max(1 - progress * 0.6, 0.3);
-        card.style.filter = `sepia(${sepia}) brightness(${brightness})`;
-      }
+      // Card visual effects
+      const sepia = Math.min(progress * 0.8, 0.6);
+      const brightness = Math.max(1 - progress * 0.3, 0.6);
+      card.style.filter = `sepia(${sepia}) brightness(${brightness})`;
 
       if (progress < 1) {
         animFrameRef.current = requestAnimationFrame(animate);
       } else {
-        // Done — hide card fully
-        if (card) {
-          card.style.opacity = '0';
-        }
-        setTimeout(() => setStage('done'), 400);
+        card.style.opacity = '0';
+        card.style.maskImage = 'none';
+        card.style.webkitMaskImage = 'none';
+        setTimeout(() => setStage('done'), 300);
       }
     }
 
     animFrameRef.current = requestAnimationFrame(animate);
-
-    return () => {
-      if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
-    };
+    return () => { if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current); };
   }, []);
 
   useEffect(() => {
@@ -197,7 +297,12 @@ export default function BurnForm() {
     setName('');
     setMessage('');
     setStage('writing');
-    burnProgress.current = 0;
+    if (cardRef.current) {
+      cardRef.current.style.opacity = '1';
+      cardRef.current.style.filter = 'none';
+      cardRef.current.style.maskImage = 'none';
+      cardRef.current.style.webkitMaskImage = 'none';
+    }
   }
 
   if (stage === 'done') {
@@ -234,12 +339,10 @@ export default function BurnForm() {
               <div className="memory-card__message"><span>{message}</span></div>
             </div>
           </div>
-          {/* Canvas overlaid on the card for fire effect */}
-          <canvas
-            ref={canvasRef}
-            className="burn-canvas"
-            aria-hidden="true"
-          />
+          {/* Fire particles canvas — behind card */}
+          <canvas ref={fireCanvasRef} className="burn-canvas burn-canvas--fire" aria-hidden="true" />
+          {/* Mask canvas — hidden, used for masking */}
+          <canvas ref={maskCanvasRef} className="burn-canvas burn-canvas--mask" aria-hidden="true" />
         </div>
 
         {stage === 'card' && (
@@ -248,9 +351,7 @@ export default function BurnForm() {
           </button>
         )}
         {stage === 'burning' && (
-          <p style={{ marginTop: 24, color: 'var(--text-light)', fontStyle: 'italic', fontSize: '0.9rem', textAlign: 'center' }}>
-            Letting go...
-          </p>
+          <p className="burn-status-text">Letting go...</p>
         )}
       </div>
     );
