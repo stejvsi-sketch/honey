@@ -49,11 +49,19 @@ export default function BurnForm() {
     const w = Math.round(rect.width);
     const h = Math.round(rect.height);
 
-    // Set both canvases
-    for (const c of [fireCanvas, maskCanvas]) {
-      c.width = w; c.height = h;
-      c.style.width = w + 'px'; c.style.height = h + 'px';
-    }
+    // Fire canvas extends beyond the card (matches CSS offsets)
+    const fw = w + 40; // 20px each side
+    const fh = h + 40; // 30px top + 10px bottom
+    fireCanvas.width = fw; fireCanvas.height = fh;
+    fireCanvas.style.width = fw + 'px'; fireCanvas.style.height = fh + 'px';
+
+    // Mask canvas matches card exactly
+    maskCanvas.width = w; maskCanvas.height = h;
+    maskCanvas.style.width = w + 'px'; maskCanvas.style.height = h + 'px';
+
+    // Fire offset — particles drawn relative to card need this shift
+    const fireOffX = 20;
+    const fireOffY = 30;
 
     const fireCtx = fireCanvas.getContext('2d')!;
     const maskCtx = maskCanvas.getContext('2d')!;
@@ -176,29 +184,29 @@ export default function BurnForm() {
       card.style.webkitMaskSize = '100% 100%';
 
       // --- FIRE CANVAS: Draw fire, embers, smoke ---
-      // Clear fully each frame (transparent background)
-      fireCtx.clearRect(0, 0, w, h);
+      // Clear fully (transparent background, no black box)
+      fireCtx.clearRect(0, 0, fw, fh);
 
       // Spawn new particles
       if (progress < 0.92) {
         spawnParticles(targetY, elapsed);
       }
 
-      // Draw glow along burn edge
+      // Draw glow along burn edge (offset for fire canvas)
       fireCtx.save();
       fireCtx.globalCompositeOperation = 'lighter';
       for (let i = 0; i < cols; i += 2) {
-        const x = i * 2;
-        const y = burnEdge[i];
+        const x = i * 2 + fireOffX;
+        const y = burnEdge[i] + fireOffY;
         const flicker = 0.5 + Math.random() * 0.5;
 
-        const glow = fireCtx.createRadialGradient(x, y, 0, x, y, 12);
+        const glow = fireCtx.createRadialGradient(x, y, 0, x, y, 14);
         glow.addColorStop(0, `rgba(255, 220, 80, ${0.8 * flicker})`);
         glow.addColorStop(0.3, `rgba(255, 140, 20, ${0.5 * flicker})`);
         glow.addColorStop(0.6, `rgba(255, 60, 0, ${0.25 * flicker})`);
         glow.addColorStop(1, 'rgba(255, 30, 0, 0)');
         fireCtx.fillStyle = glow;
-        fireCtx.fillRect(x - 12, y - 12, 24, 24);
+        fireCtx.fillRect(x - 14, y - 14, 28, 28);
       }
       fireCtx.restore();
 
@@ -215,6 +223,10 @@ export default function BurnForm() {
         p.x += p.vx;
         p.y += p.vy;
 
+        // Offset for fire canvas coordinate system
+        const px = p.x + fireOffX;
+        const py = p.y + fireOffY;
+
         if (p.type === 'fire') {
           p.vy *= 0.97;
           const alpha = (1 - t) * 0.9;
@@ -226,12 +238,11 @@ export default function BurnForm() {
           fireCtx.save();
           fireCtx.globalCompositeOperation = 'lighter';
           fireCtx.beginPath();
-          fireCtx.arc(p.x, p.y, size, 0, Math.PI * 2);
+          fireCtx.arc(px, py, size, 0, Math.PI * 2);
           fireCtx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
           fireCtx.fill();
-          // Outer glow
           fireCtx.beginPath();
-          fireCtx.arc(p.x, p.y, size * 2, 0, Math.PI * 2);
+          fireCtx.arc(px, py, size * 2, 0, Math.PI * 2);
           fireCtx.fillStyle = `rgba(255, 80, 0, ${alpha * 0.15})`;
           fireCtx.fill();
           fireCtx.restore();
@@ -243,11 +254,11 @@ export default function BurnForm() {
           fireCtx.save();
           fireCtx.globalCompositeOperation = 'lighter';
           fireCtx.beginPath();
-          fireCtx.arc(p.x, p.y, size, 0, Math.PI * 2);
+          fireCtx.arc(px, py, size, 0, Math.PI * 2);
           fireCtx.fillStyle = `rgba(255, 200, 50, ${alpha})`;
           fireCtx.fill();
           fireCtx.beginPath();
-          fireCtx.arc(p.x, p.y, size * 2.5, 0, Math.PI * 2);
+          fireCtx.arc(px, py, size * 2.5, 0, Math.PI * 2);
           fireCtx.fillStyle = `rgba(255, 100, 0, ${alpha * 0.2})`;
           fireCtx.fill();
           fireCtx.restore();
@@ -259,7 +270,7 @@ export default function BurnForm() {
           fireCtx.save();
           fireCtx.globalCompositeOperation = 'source-over';
           fireCtx.beginPath();
-          fireCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          fireCtx.arc(px, py, p.size, 0, Math.PI * 2);
           fireCtx.fillStyle = `rgba(60, 50, 40, ${alpha})`;
           fireCtx.fill();
           fireCtx.restore();
@@ -346,7 +357,7 @@ export default function BurnForm() {
 
         {stage === 'card' && (
           <button className="btn burn-trigger" onClick={startBurning} style={{ marginTop: 32 }}>
-            🔥 Burn This Letter
+            let it burn
           </button>
         )}
         {stage === 'burning' && (
