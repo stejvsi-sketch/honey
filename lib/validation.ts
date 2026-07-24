@@ -35,6 +35,16 @@ export const submitMemorySchema = z.object({
     .string()
     .trim()
     .max(MAX_MESSAGE_LENGTH, `Wish reply must be ${MAX_MESSAGE_LENGTH} characters or less`)
+    .refine((val) => {
+      if (!val || val.length === 0) return true;
+      const wordCount = val.split(/\s+/).filter(w => w.length > 0).length;
+      return wordCount <= MAX_WORDS;
+    }, `Wish reply must be ${MAX_WORDS} words or less`)
+    .refine((val) => {
+      if (!val || val.length === 0) return true;
+      const words = val.split(/\s+/).filter(w => w.length > 0);
+      return words.every(w => w.length <= 20);
+    }, 'Each word must be 20 characters or less')
     .optional()
     .transform(val => (val && val.length > 0 ? val : undefined)),
 });

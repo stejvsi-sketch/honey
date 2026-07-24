@@ -465,14 +465,11 @@ a:hover { color: var(--accent-hover); }
   padding: 48px 24px; min-height: 60vh;
 }
 .letter-single__card { max-width: 480px; width: 100%; }
-.letter-single__card .memory-card { max-width: 480px; aspect-ratio: unset; min-height: 520px; }
+.letter-single__card .memory-card { max-width: 480px; }
 .letter-single__card .memory-card__name { font-size: 1.35rem; }
-.letter-single__card .memory-card__message {
-  font-size: 1.3rem; line-height: 1.75;
-  max-height: none; -webkit-line-clamp: unset; overflow: visible;
-}
+.letter-single__card .memory-card__message { font-size: 1.3rem; line-height: 1.75; }
 .letter-single__card .memory-card__brand { font-size: 1rem; }
-.letter-single__card .memory-card__content { padding: 80px 34px 76px; }
+.letter-single__card .memory-card__content { padding: 16px 34px 76px; }
 
 @media (max-width: 767px) {
   .letter-single__card { max-width: 340px; }
@@ -1858,68 +1855,14 @@ a:hover { color: var(--accent-hover); }
 }
 
 .burn-card-wrapper .memory-card {
-  transition: filter 0.6s ease, opacity 0.3s ease;
+  transition: opacity 0.1s ease;
 }
 
-.burn-card-wrapper--burning .memory-card {
-  animation: burn-card 3.5s ease-in forwards;
-}
-
-@keyframes burn-card {
-  0%   { filter: brightness(1) sepia(0); clip-path: inset(0 0 0 0); }
-  20%  { filter: brightness(1.05) sepia(0.2); clip-path: inset(0 0 0 0); }
-  40%  { filter: brightness(0.9) sepia(0.5) saturate(1.5); clip-path: inset(0 0 5% 0); }
-  60%  { filter: brightness(0.6) sepia(0.8) saturate(2); clip-path: inset(0 0 25% 0); }
-  80%  { filter: brightness(0.3) sepia(1) saturate(3); clip-path: inset(0 0 60% 0); opacity: 0.7; }
-  100% { filter: brightness(0) sepia(1); clip-path: inset(0 0 100% 0); opacity: 0; }
-}
-
-/* Fire glow overlay */
-.burn-fire-overlay {
-  position: absolute; left: 0; right: 0; bottom: 0;
-  height: 100%;
-  background: linear-gradient(
-    to top,
-    rgba(255, 80, 0, 0.9) 0%,
-    rgba(255, 160, 20, 0.7) 15%,
-    rgba(255, 200, 50, 0.4) 30%,
-    transparent 50%
-  );
-  animation: fire-rise 3.5s ease-in forwards;
-  pointer-events: none;
-  border-radius: 4px;
-  mix-blend-mode: screen;
-}
-
-@keyframes fire-rise {
-  0%   { clip-path: inset(100% 0 0 0); opacity: 1; }
-  30%  { clip-path: inset(70% 0 0 0); opacity: 1; }
-  60%  { clip-path: inset(30% 0 0 0); opacity: 0.9; }
-  85%  { clip-path: inset(0 0 0 0); opacity: 0.7; }
-  100% { clip-path: inset(0 0 0 0); opacity: 0; }
-}
-
-/* Ember particles */
-.burn-embers {
+/* Canvas overlaid on card */
+.burn-canvas {
   position: absolute; inset: 0;
-  pointer-events: none; z-index: 10;
-  overflow: visible;
-}
-
-.burn-ember {
-  position: absolute; bottom: 30%;
-  width: 4px; height: 4px;
-  background: radial-gradient(circle, #ff6a00 0%, #ff4500 60%, transparent 100%);
-  border-radius: 50%;
-  animation: ember-float 2s ease-out forwards;
-  opacity: 0;
-  box-shadow: 0 0 6px 2px rgba(255, 100, 0, 0.6);
-}
-
-@keyframes ember-float {
-  0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
-  15%  { opacity: 1; }
-  100% { transform: translateY(-180px) translateX(calc(-40px + 80px * var(--random, 0.5))) scale(0.3); opacity: 0; }
+  pointer-events: none;
+  z-index: 5;
 }
 
 /* Burn trigger button pulse */
@@ -1997,18 +1940,24 @@ a:hover { color: var(--accent-hover); }
 
 /* Flip hint icon */
 .flip-hint {
-  position: absolute; bottom: 12px; right: 16px;
-  z-index: 3;
+  position: absolute; bottom: 14px; right: 16px;
+  z-index: 5;
   display: flex; align-items: center; gap: 5px;
   font-family: var(--font-serif);
-  font-size: 0.7rem; font-style: italic;
-  color: rgba(20, 16, 12, 0.45);
-  mix-blend-mode: multiply;
-  transition: color 0.2s ease;
+  font-size: 0.75rem; font-style: italic;
+  color: rgba(20, 16, 12, 0.6);
+  background: rgba(255, 255, 255, 0.35);
+  padding: 3px 10px 3px 8px;
+  border-radius: 12px;
+  backdrop-filter: blur(2px);
+  transition: all 0.2s ease;
+  cursor: pointer;
 }
 
-.flip-card-container:hover .flip-hint {
-  color: rgba(20, 16, 12, 0.7);
+.flip-card-container:hover .flip-hint,
+.flip-hint:active {
+  color: rgba(20, 16, 12, 0.85);
+  background: rgba(255, 255, 255, 0.55);
 }
 
 .flip-hint__icon {

@@ -31,6 +31,8 @@ export default function SubmitForm() {
   const wordCount = words.length;
   const isOverLimit = wordCount > MAX_WORDS;
   const hasLongWord = words.some(w => w.length > 20);
+  const wishReplyWords = wishReply.trim().split(/\s+/).filter(w => w.length > 0);
+  const wishReplyOverLimit = wishReply.trim().length > 0 && wishReplyWords.length > MAX_WORDS;
 
   // Generate a unique idempotency key per submission attempt
   const generateIdempotencyKey = useCallback(() => {
@@ -166,6 +168,11 @@ export default function SubmitForm() {
           maxLength={250} autoComplete="off"
           style={{ minHeight: '80px' }}
         />
+        {wishReply.trim().length > 0 && (
+          <p className={`form__word-count ${wishReplyWords.length > MAX_WORDS ? 'form__word-count--over' : ''}`}>
+            {wishReplyWords.length} / {MAX_WORDS} words
+          </p>
+        )}
         <p className="form__hint">Tap the card to see the other side. This is what you wish they&apos;d say.</p>
       </div>
 
@@ -188,7 +195,7 @@ export default function SubmitForm() {
 
       {errorMsg && <p className="form__error">{errorMsg}</p>}
 
-      <button className="btn" type="submit" disabled={status === 'submitting' || isOverLimit || hasLongWord || !name.trim() || !message.trim()}>
+      <button className="btn" type="submit" disabled={status === 'submitting' || isOverLimit || hasLongWord || wishReplyOverLimit || !name.trim() || !message.trim()}>
         {status === 'submitting' ? 'Sending...' : 'Send This Letter'}
       </button>
       <p className="form__hint" style={{ textAlign: 'center', marginTop: 12 }}>
