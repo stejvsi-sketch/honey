@@ -176,9 +176,8 @@ export default function BurnForm() {
       card.style.webkitMaskSize = '100% 100%';
 
       // --- FIRE CANVAS: Draw fire, embers, smoke ---
-      // Semi-transparent clear for fire trails
-      fireCtx.fillStyle = 'rgba(0, 0, 0, 0.15)';
-      fireCtx.fillRect(0, 0, w, h);
+      // Clear fully each frame (transparent background)
+      fireCtx.clearRect(0, 0, w, h);
 
       // Spawn new particles
       if (progress < 0.92) {
