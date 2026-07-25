@@ -6,12 +6,14 @@ interface Submission {
   id: string; name: string; message: string; color_id: string;
   status: string; ip_hash: string; country: string; user_uuid: string; created_at: string;
   from_name?: string | null;
+  wish_reply?: string | null;
 }
 
 interface MemoryItem {
   id: string; name: string; message: string; color_id: string;
   created_at: string; pinned_until: string | null;
   from_name?: string | null;
+  wish_reply?: string | null;
 }
 
 interface BannedUser {
@@ -457,6 +459,11 @@ export default function AdminDashboard({ secret }: { secret: string }) {
                       <div style={{ color: C.textMuted, fontSize: '1rem', lineHeight: 1.6, marginBottom: '12px', wordBreak: 'break-word' }}>
                         &ldquo;{sub.message}&rdquo;
                       </div>
+                      {sub.wish_reply && (
+                        <div style={{ color: C.accent, fontSize: '0.9rem', lineHeight: 1.5, marginBottom: '12px', wordBreak: 'break-word', fontStyle: 'italic', paddingLeft: '12px', borderLeft: `2px solid ${C.accentDim}` }}>
+                          ↩ &ldquo;{sub.wish_reply}&rdquo;
+                        </div>
+                      )}
                       <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '12px' }}>
                         <span style={{ background: 'rgba(255,255,255,0.06)', color: C.textFaint, padding: '3px 10px', borderRadius: '12px', fontSize: '0.75rem' }}>
                           {sub.color_id}
@@ -508,6 +515,11 @@ export default function AdminDashboard({ secret }: { secret: string }) {
                       <div style={{ color: C.textMuted, fontSize: '1rem', lineHeight: 1.6, marginBottom: '12px', wordBreak: 'break-word' }}>
                         &ldquo;{mem.message}&rdquo;
                       </div>
+                      {mem.wish_reply && (
+                        <div style={{ color: C.accent, fontSize: '0.9rem', lineHeight: 1.5, marginBottom: '12px', wordBreak: 'break-word', fontStyle: 'italic', paddingLeft: '12px', borderLeft: `2px solid ${C.accentDim}` }}>
+                          ↩ &ldquo;{mem.wish_reply}&rdquo;
+                        </div>
+                      )}
                       <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '12px' }}>
                         <span style={{ background: 'rgba(255,255,255,0.06)', color: C.textFaint, padding: '3px 10px', borderRadius: '12px', fontSize: '0.75rem' }}>
                           {mem.color_id}

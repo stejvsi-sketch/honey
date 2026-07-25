@@ -49,9 +49,9 @@ export default function BurnForm() {
     const w = Math.round(rect.width);
     const h = Math.round(rect.height);
 
-    // Fire canvas extends beyond the card (matches CSS offsets)
-    const fw = w + 40; // 20px each side
-    const fh = h + 40; // 30px top + 10px bottom
+    // Fire canvas extends well beyond the card so particles never clip at edges
+    const fw = w + 120; // 60px each side
+    const fh = h + 120; // 60px top + 60px bottom
     fireCanvas.width = fw; fireCanvas.height = fh;
     fireCanvas.style.width = fw + 'px'; fireCanvas.style.height = fh + 'px';
 
@@ -60,8 +60,8 @@ export default function BurnForm() {
     maskCanvas.style.width = w + 'px'; maskCanvas.style.height = h + 'px';
 
     // Fire offset — particles drawn relative to card need this shift
-    const fireOffX = 20;
-    const fireOffY = 30;
+    const fireOffX = 60;
+    const fireOffY = 60;
 
     const fireCtx = fireCanvas.getContext('2d')!;
     const maskCtx = maskCanvas.getContext('2d')!;

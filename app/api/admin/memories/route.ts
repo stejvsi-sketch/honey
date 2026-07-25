@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
   const [{ data, error }, { count }] = await Promise.all([
     supabase
       .from('memories')
-      .select('id, name, message, color_id, created_at, pinned_until')
+      .select('id, name, message, color_id, created_at, pinned_until, from_name, wish_reply')
       .order('created_at', { ascending: false })
       .range(from, from + limit - 1),
     supabase

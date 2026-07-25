@@ -1902,10 +1902,10 @@ a:hover { color: var(--accent-hover); }
   z-index: 2;
 }
 
-/* Fire canvas — extends beyond card */
+/* Fire canvas — extends well beyond card so fire spreads freely */
 .burn-canvas--fire {
   position: absolute;
-  top: -30px; left: -20px; right: -20px; bottom: -10px;
+  top: -60px; left: -60px; right: -60px; bottom: -60px;
   pointer-events: none;
   z-index: 3;
   background: transparent;
@@ -2019,23 +2019,18 @@ a:hover { color: var(--accent-hover); }
   transform: rotateY(180deg);
 }
 
-/* Flip hint — minimal italic text */
+/* Flip hint — minimal italic text outside card */
 .flip-hint {
-  position: absolute; bottom: 0; right: 0;
+  position: absolute; bottom: -24px; right: 4px;
   z-index: 5;
-  display: flex; align-items: center; justify-content: flex-end;
-  gap: 4px;
+  display: flex; align-items: center; gap: 4px;
   font-family: var(--font-serif);
   font-size: 0.7rem; font-style: italic;
   color: rgba(20, 16, 12, 0.35);
   letter-spacing: 0.05em;
   transition: all 0.3s ease;
   cursor: pointer;
-  padding: 16px 18px;
-  /* Larger touch target — covers bottom-right corner */
-  width: 50%;
-  height: 20%;
-  min-height: 44px;
+  padding: 6px 8px;
 }
 
 .flip-card-container:hover .flip-hint,
