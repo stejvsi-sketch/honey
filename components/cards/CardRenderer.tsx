@@ -13,8 +13,9 @@ function isPinned(memory: Memory): boolean {
 
 function FlipIcon() {
   return (
-    <svg className="flip-hint__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+    <svg className="flip-hint__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1">
+      <path d="M12 1H3a1 1 0 00-1 1v12a1 1 0 001 1h7l4-4V2a1 1 0 00-1-1z" />
+      <path d="M10 14v-4h4" />
     </svg>
   );
 }
@@ -76,7 +77,7 @@ export default function CardRenderer({
       </div>
       {hasWishReply && (
         <div className="flip-hint" aria-label="Tap to flip">
-          <FlipIcon /> flip
+          <FlipIcon /> turn over
         </div>
       )}
     </>
@@ -98,7 +99,7 @@ export default function CardRenderer({
         </div>
       </div>
       <div className="flip-hint" aria-label="Tap to flip back">
-        <FlipIcon /> flip
+        <FlipIcon /> turn over
       </div>
     </>
   ) : null;

@@ -470,6 +470,7 @@ a:hover { color: var(--accent-hover); }
 .letter-single__card .memory-card__message { font-size: 1.3rem; line-height: 1.75; }
 .letter-single__card .memory-card__brand { font-size: 1rem; }
 .letter-single__card .memory-card__content { padding: 16px 34px 76px; }
+.letter-single__card .memory-card__header { top: 20px; }
 
 @media (max-width: 767px) {
   .letter-single__card { max-width: 340px; }
@@ -478,17 +479,18 @@ a:hover { color: var(--accent-hover); }
     aspect-ratio: 420 / 520;
     min-height: unset;
   }
-  .letter-single__card .memory-card__name { font-size: 1.15rem; }
+  .letter-single__card .memory-card__name { font-size: 1.05rem; }
   .letter-single__card .memory-card__message {
-    font-size: 1.12rem; line-height: 1.7;
-    max-height: 60%;
-    -webkit-line-clamp: 7;
+    font-size: 1.05rem; line-height: 1.65;
+    max-height: 55%;
+    -webkit-line-clamp: 6;
     -webkit-box-orient: vertical;
     display: -webkit-box;
     overflow: hidden;
   }
-  .letter-single__card .memory-card__brand { font-size: 0.95rem; }
-  .letter-single__card .memory-card__content { padding: 12px 26px 68px; }
+  .letter-single__card .memory-card__brand { font-size: 0.85rem; }
+  .letter-single__card .memory-card__content { padding: 10px 22px 60px; }
+  .letter-single__card .memory-card__header { top: 16px; }
 }
 .letter-single__meta {
   text-align: center; margin-top: 24px;
@@ -1906,6 +1908,7 @@ a:hover { color: var(--accent-hover); }
   top: -30px; left: -20px; right: -20px; bottom: -10px;
   pointer-events: none;
   z-index: 3;
+  background: transparent;
 }
 
 /* Mask canvas — hidden, only used by JS */
@@ -2018,15 +2021,21 @@ a:hover { color: var(--accent-hover); }
 
 /* Flip hint — minimal italic text */
 .flip-hint {
-  position: absolute; bottom: 14px; right: 16px;
+  position: absolute; bottom: 0; right: 0;
   z-index: 5;
-  display: flex; align-items: center; gap: 4px;
+  display: flex; align-items: center; justify-content: flex-end;
+  gap: 4px;
   font-family: var(--font-serif);
   font-size: 0.7rem; font-style: italic;
   color: rgba(20, 16, 12, 0.35);
   letter-spacing: 0.05em;
   transition: all 0.3s ease;
   cursor: pointer;
+  padding: 16px 18px;
+  /* Larger touch target — covers bottom-right corner */
+  width: 50%;
+  height: 20%;
+  min-height: 44px;
 }
 
 .flip-card-container:hover .flip-hint,
