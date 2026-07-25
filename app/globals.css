@@ -2021,7 +2021,7 @@ a:hover { color: var(--accent-hover); }
 
 /* Flip hint — minimal italic text outside card */
 .flip-hint {
-  position: absolute; bottom: -4px; right: 4px;
+  position: absolute; bottom: 8px; right: 4px;
   z-index: 5;
   display: flex; align-items: center; gap: 4px;
   font-family: var(--font-serif);
