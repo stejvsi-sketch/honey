@@ -1995,6 +1995,9 @@ a:hover { color: var(--accent-hover); }
   .flip-card-container {
     max-width: 340px;
   }
+  .flip-hint {
+    bottom: -2px;
+  }
 }
 
 .flip-card-inner {
