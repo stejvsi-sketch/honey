@@ -1996,7 +1996,7 @@ a:hover { color: var(--accent-hover); }
     max-width: 340px;
   }
   .flip-hint {
-    bottom: -2px;
+    bottom: -8px;
   }
 }
 
