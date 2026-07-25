@@ -1995,10 +1995,6 @@ a:hover { color: var(--accent-hover); }
   .flip-card-container {
     max-width: 340px;
   }
-  .flip-hint {
-    bottom: -16px; /* Push further down on mobile to clear the torn edge */
-    right: 0px;
-  }
 }
 
 .flip-card-inner {
@@ -2027,7 +2023,7 @@ a:hover { color: var(--accent-hover); }
 .flip-hint {
   position: absolute; bottom: 8px; right: 4px;
   z-index: 5;
-  display: flex; align-items: center; gap: 8px; /* increased gap to prevent icon touching text */
+  display: flex; align-items: center; gap: 4px;
   font-family: var(--font-serif);
   font-size: 0.7rem; font-style: italic;
   color: rgba(20, 16, 12, 0.35);
