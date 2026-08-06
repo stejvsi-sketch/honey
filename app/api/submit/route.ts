@@ -3,7 +3,7 @@ import { submitMemorySchema, sanitizeText, hashIP, generateNameSlug, generateUUI
 import { checkProfanity } from '@/lib/profanity';
 import { getRatelimit } from '@/lib/redis';
 
-export const runtime = 'edge';
+
 
 // Generate a content fingerprint for dedup: hash of (ip_hash + name + message)
 async function generateContentHash(ipHash: string, name: string, message: string): Promise<string> {
@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
     // Validate with Zod
     const parsed = submitMemorySchema.safeParse(body);
     if (!parsed.success) {
-      const firstError = parsed.error.errors[0]?.message || 'Invalid input';
+      const firstError = parsed.error.issues[0]?.message || 'Invalid input';
       return NextResponse.json({ error: firstError }, { status: 400 });
     }
 
