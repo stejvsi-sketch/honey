@@ -7,7 +7,6 @@ export const POSTS_PART64: JournalPost[] = [
     excerpt: 'In the digital age, figuring out how to send anonymous text messages is easier than ever. But just because you can disguise your identity does not mean you should break a boundary. Here is a look at anonymous texting versus anonymous archiving.',
     date: 'August 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
         related: ['the-2am-echo-missing-ex', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
     faq: [
       {

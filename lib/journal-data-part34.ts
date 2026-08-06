@@ -7,7 +7,6 @@ export const POSTS_PART34: JournalPost[] = [
     excerpt: 'Heartbreak is not one emotion. Sometimes it burns, sometimes it drowns. The science of expressive writing shows that anger and sadness require different approaches, and getting the technique wrong can make things worse.',
     date: 'June 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
         related: ['grief-letter-writing-how-putting-heartbreak-on-paper-sets-you-free', 'what-to-write-for-closure', 'does-writing-an-unsent-letter-actually-help-you-heal'],
     faq: [
       {

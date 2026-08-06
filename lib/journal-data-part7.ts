@@ -7,7 +7,6 @@ export const POSTS_PART7: JournalPost[] = [
     excerpt: 'Why do we search for our names in unsent letter archives? Discover the psychology behind reading anonymous texts and the comfort of shared unspoken words.',
     date: 'May 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
         related: ['the-2am-echo-missing-ex', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
     faq: [
       {

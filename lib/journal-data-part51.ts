@@ -7,7 +7,6 @@ export const POSTS_PART51: JournalPost[] = [
     excerpt: 'You submitted something vulnerable and it vanished. Here is why unsent letter platforms lose messages and what a responsible archive owes you.',
     date: 'July 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
     related: ['navigating-the-unsent-messages-archive', 'why-we-search-for-our-names-in-unsent-letter-archives'],
     faq: [
       {

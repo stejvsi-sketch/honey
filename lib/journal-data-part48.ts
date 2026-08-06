@@ -7,7 +7,6 @@ export const POSTS_PART48: JournalPost[] = [
     excerpt: 'You cannot tell your mother. You cannot tell your best friend. You cannot tell the person it is actually about. But you can tell a stranger on the internet, and that is not weakness. That is how humans have always worked.',
     date: 'July 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
         related: ['the-2am-echo-missing-ex', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
     faq: [
       {

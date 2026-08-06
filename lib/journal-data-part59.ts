@@ -7,7 +7,6 @@ export const POSTS_PART59: JournalPost[] = [
     excerpt: 'The internet is filled with manifestation techniques promising to bring your ex back. But what does the psychology behind manifestation actually achieve, and what is the real cost of waiting?',
     date: 'August 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
         related: ['the-2am-echo-missing-ex', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
     faq: [
       {

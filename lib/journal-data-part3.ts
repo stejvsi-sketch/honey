@@ -64,6 +64,11 @@ They were your first, but they were not your forever. That is not a tragedy. Tha
         answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
       },
     ],
+    references: [
+      { label: 'Grief — Psychological Models of Bereavement. American Psychological Association.', url: 'https://en.wikipedia.org/wiki/Grief' },
+      { label: 'Bowlby, J. — Attachment and Loss (1969). Attachment Theory.', url: 'https://en.wikipedia.org/wiki/John_Bowlby' },
+      { label: 'Pennebaker, J.W. (1997). Writing About Emotional Experiences as a Therapeutic Process. Psychological Science.', url: 'https://doi.org/10.1111/j.1467-9280.1997.tb00403.x' },
+    ],
     content: `The paradox of having entirely too much to say often results in an inability to form a single coherent sentence. You sit down to write, and the blank page stares back at you with a weight that feels physically oppressive. Every word you put down seems inadequate. Every sentence feels like a lie by omission, because for every thing you include, there are fifty things you are leaving out. How do you compress years of love, anger, grief, regret, and confusion into a single message? How do you decide which of the thousand things you need to say is the one thing you should say? The enormity of the task paralyzes you, and so you say nothing, and the saying of nothing becomes another weight added to the pile.
 
 Emotional paralysis is real, and it is one of the most common barriers to healing from heartbreak, grief, estrangement, or any other form of unresolved emotional pain. The feelings are not absent. If anything, they are too present, too intense, too contradictory. You are angry and sad at the same time. You miss them and you resent them in the same breath. You want to forgive them and you want them to know exactly how much they hurt you. These competing impulses create a kind of emotional gridlock where no single message feels honest enough to send because no single message can capture the full complexity of what you feel.

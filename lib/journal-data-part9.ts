@@ -7,7 +7,6 @@ export const POSTS_PART9: JournalPost[] = [
     excerpt: 'Explore the definitive unsent messages website. Learn how to search unsent messages by name, understand color meanings, and submit anonymous messages online.',
     date: 'May 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
         related: ['the-2am-echo-missing-ex', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
     faq: [
       {

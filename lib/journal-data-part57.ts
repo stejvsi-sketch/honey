@@ -7,7 +7,6 @@ export const POSTS_PART57: JournalPost[] = [
     excerpt: 'You had the words ready, pressed submit, and nothing happened. Why submission failures on emotional platforms are not just technical bugs but interruptions of a healing process.',
     date: 'August 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
     related: ['why-unsent-letter-submissions-disappear', 'the-trust-contract-between-writers-and-archives', 'does-writing-an-unsent-letter-actually-help-you-heal', 'when-unsent-letter-archives-lose-your-words'],
     faq: [
       {

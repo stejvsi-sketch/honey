@@ -7,7 +7,6 @@ export const POSTS_PART62: JournalPost[] = [
     excerpt: 'When we reunite with an ex, we are usually looking for the person they used to be, and the relationship we used to have. But time changes us all, and the ghost of the past cannot survive in the present.',
     date: 'August 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
         related: ['right-person-wrong-time', 'grieving-relationship-didnt-happen', 'grieving-an-almost-relationship-situationship-pain', 'the-weight-of-being-someones-secret'],
     faq: [
       {

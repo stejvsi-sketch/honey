@@ -59,6 +59,9 @@ Write to the person who was almost yours. Say the thing you never got to say, th
         answer: 'Yes, when done as a form of emotional processing rather than avoidance. Expressive writing research shows that externalizing emotions through writing produces measurable psychological benefits, including reduced anxiety and improved emotional regulation.',
       },
     ],
+    references: [
+      { label: 'Bowlby, J. — Attachment Theory. Encyclopedia of Psychology.', url: 'https://en.wikipedia.org/wiki/Attachment_theory' },
+    ],
     content: `We type massive, emotionally charged paragraphs into iMessage, stare at the blinking cursor, read it back to ourselves three times, and then hold backspace until every last character vanishes from the screen. We do this in bed at midnight. We do it during work meetings. We do it on the bus, in the bathroom, in the parking lot outside their apartment. We compose masterpieces of vulnerability and then destroy them, over and over, in a ritualistic cycle that has become one of the defining emotional behaviors of the digital age.
 
 The psychology behind this behavior is far more complex than simple cowardice. When you type a message and then delete it, you are engaged in a sophisticated cognitive process that involves risk assessment, emotional regulation, [attachment theory](https://en.wikipedia.org/wiki/Attachment_theory), and what psychologists call mental rehearsal. Your brain is simultaneously experiencing the relief of expression and the terror of exposure, and the delete button serves as the emergency exit that allows you to experience the first without committing to the second.
@@ -96,6 +99,12 @@ Do not delete that paragraph this time. Do not hold backspace until the screen i
         question: 'How does writing an unsent letter help process these feelings?',
         answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
       },
+    ],
+    references: [
+      { label: 'Grief — Psychological Models of Bereavement. American Psychological Association.', url: 'https://en.wikipedia.org/wiki/Grief' },
+      { label: 'Bowlby, J. — Attachment and Loss (1969). Attachment Theory.', url: 'https://en.wikipedia.org/wiki/John_Bowlby' },
+      { label: 'Friendship — Social Psychology of Interpersonal Relationships.', url: 'https://en.wikipedia.org/wiki/Friendship' },
+      { label: 'Pennebaker, J.W. (1997). Writing About Emotional Experiences as a Therapeutic Process. Psychological Science.', url: 'https://doi.org/10.1111/j.1467-9280.1997.tb00403.x' },
     ],
     content: `Society prepares individuals for romantic breakups with an entire cultural infrastructure of support. There are songs about it, movies about it, books about it, therapists who specialize in it, and a universally understood social script that kicks in the moment someone says "we broke up." Friends rally. Ice cream is purchased. A mourning period is granted. But when a best friendship ends, there is no script, no playlist, no culturally sanctioned period of grieving. You just wake up one day and realize that the person who used to know everything about you does not even know your phone number anymore.
 

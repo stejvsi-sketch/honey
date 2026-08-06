@@ -7,7 +7,6 @@ export const POSTS_PART40: JournalPost[] = [
     excerpt: 'Nobody writes songs about losing a best friend. There are no breakup playlists for the person who was your whole world at seventeen but barely a text thread at twenty seven. This grief deserves a name.',
     date: 'July 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
         related: ['the-2am-echo-missing-ex', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
     faq: [
       {

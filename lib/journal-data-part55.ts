@@ -7,7 +7,6 @@ export const POSTS_PART55: JournalPost[] = [
     excerpt: 'When you submit an unsent letter, you enter an invisible contract with the platform. Here is what that contract should include and why most archives break it.',
     date: 'July 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
     related: ['when-unsent-letter-archives-lose-your-words', 'are-unsent-letters-online-real-or-fake', 'does-writing-an-unsent-letter-actually-help-you-heal'],
     faq: [
       {

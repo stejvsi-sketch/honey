@@ -7,7 +7,6 @@ export const POSTS_PART61: JournalPost[] = [
     excerpt: 'Being blocked is a harsh, definitive boundary that often triggers panic and a desperate need to fix things. But attempting to circumvent a block usually achieves the exact opposite of what you want.',
     date: 'August 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
         related: ['the-2am-echo-missing-ex', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
     faq: [
       {

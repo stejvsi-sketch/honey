@@ -75,6 +75,13 @@ The echo will fade eventually. Not tonight, maybe not tomorrow, but one night yo
         answer: 'The human brain has a strong need for narrative completion — the Zeigarnik effect shows that incomplete tasks and unresolved situations occupy more mental space than completed ones. Closure is about completing the narrative internally so your brain can release its grip on the relationship.',
       },
     ],
+    references: [
+      { label: 'Grief — Psychological Models of Bereavement. American Psychological Association.', url: 'https://en.wikipedia.org/wiki/Grief' },
+      { label: 'Expressive Writing — Pennebaker, J.W. & Beall, S.K. (1986). Confronting a Traumatic Event.', url: 'https://en.wikipedia.org/wiki/Expressive_writing' },
+      { label: 'Bowlby, J. — Attachment and Loss (1969). Attachment Theory.', url: 'https://en.wikipedia.org/wiki/John_Bowlby' },
+      { label: 'Friendship — Social Psychology of Interpersonal Relationships.', url: 'https://en.wikipedia.org/wiki/Friendship' },
+      { label: 'Pennebaker, J.W. (1997). Writing About Emotional Experiences as a Therapeutic Process. Psychological Science.', url: 'https://doi.org/10.1111/j.1467-9280.1997.tb00403.x' },
+    ],
     content: `Some conversations will simply never happen, and some apologies will never be offered. You can wait for years, holding your breath, rehearsing the perfect response to words that are never going to be spoken. You can check your phone every morning hoping that today is the day they finally acknowledge what they did. You can replay the argument in your head a thousand times, refining your points, perfecting your delivery, winning the debate that only exists in your imagination. But the apology is not coming. And the longer you wait for it, the longer you hand the power of your own healing over to the person who caused the harm.
 
 This is the cruel arithmetic of unresolved emotional pain. The person who hurt you has moved on, or at least they have moved away, and yet they continue to occupy a central position in your emotional life. They are not losing sleep over what happened. They are not rehearsing speeches in the shower. They may not even remember the specific incident that left such a deep scar on you. Meanwhile, you are carrying the weight of their silence every single day, waiting for a resolution that they have no intention of providing.
@@ -112,6 +119,15 @@ You do not need their permission to heal. You do not need their apology to find 
         question: 'Is it normal to feel guilty about things you never said to someone who died?',
         answer: 'Yes. Regret over unspoken words is one of the most common and persistent forms of complicated grief. Writing those words, even now, even to someone who cannot read them, helps externalize the guilt and begin the process of self-forgiveness.',
       },
+    ],
+    references: [
+      { label: 'Grief — Psychological Models of Bereavement. American Psychological Association.', url: 'https://en.wikipedia.org/wiki/Grief' },
+      { label: 'Expressive Writing — Pennebaker, J.W. & Beall, S.K. (1986). Confronting a Traumatic Event.', url: 'https://en.wikipedia.org/wiki/Expressive_writing' },
+      { label: 'Bowlby, J. — Attachment and Loss (1969). Attachment Theory.', url: 'https://en.wikipedia.org/wiki/John_Bowlby' },
+      { label: 'Friendship — Social Psychology of Interpersonal Relationships.', url: 'https://en.wikipedia.org/wiki/Friendship' },
+      { label: 'Kübler-Ross, E. — On Death and Dying (1969). The Five Stages of Grief.', url: 'https://en.wikipedia.org/wiki/Elisabeth_K%C3%BCbler-Ross' },
+      { label: 'Continuing Bonds — Klass, D. et al. (1996). Continuing Bonds: New Understandings of Grief.', url: 'https://en.wikipedia.org/wiki/Continuing_bonds' },
+      { label: 'Pennebaker, J.W. (1997). Writing About Emotional Experiences as a Therapeutic Process. Psychological Science.', url: 'https://doi.org/10.1111/j.1467-9280.1997.tb00403.x' },
     ],
     content: `The shock of an empty chair carries the painful illusion that there would always be more time. That is the cruelest trick of grief, the way it rewrites your understanding of time itself. Yesterday, there was a future full of conversations yet to be had, dinners yet to be shared, apologies yet to be offered, and jokes yet to be told. Today, there is only the past, and the past is full of holes where words should have been.
 

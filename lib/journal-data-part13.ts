@@ -7,7 +7,6 @@ export const POSTS_PART13: JournalPost[] = [
     excerpt: 'Explore the psychology of color and emotion in digital archives. Learn what colors mean in love, from the melancholy of blue to the unresolved passion of red, and how aesthetics help us heal.',
     date: 'May 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
         related: ['the-2am-echo-missing-ex', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
     faq: [
       {

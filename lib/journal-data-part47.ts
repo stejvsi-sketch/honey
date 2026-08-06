@@ -7,7 +7,6 @@ export const POSTS_PART47: JournalPost[] = [
     excerpt: 'Your therapist was right. Writing about your pain actually works. The neuroscience of grief letter writing and why keeping a heartbreak journal might be the most underrated healing tool that exists.',
     date: 'July 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
         related: ['writing-through-anger-vs-sadness-after-breakup', 'what-to-write-for-closure', 'does-writing-an-unsent-letter-actually-help-you-heal'],
     faq: [
       {

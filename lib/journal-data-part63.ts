@@ -7,7 +7,6 @@ export const POSTS_PART63: JournalPost[] = [
     excerpt: 'People have been writing letters they never sent for centuries. Here is the history of this practice and why the internet finally gave it the space it deserves.',
     date: 'August 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
     related: ['does-writing-an-unsent-letter-actually-help-you-heal', 'why-we-write-letters-we-never-send', 'when-the-submit-button-fails-at-the-worst-moment'],
     faq: [
       {

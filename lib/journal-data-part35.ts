@@ -7,7 +7,6 @@ export const POSTS_PART35: JournalPost[] = [
     excerpt: 'Being left is its own category of pain. You did not choose this. You would have stayed forever. The psychology of involuntary relationship dissolution and the particular grief of the one who was willing.',
     date: 'June 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
         related: ['the-2am-echo-missing-ex', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
     faq: [
       {

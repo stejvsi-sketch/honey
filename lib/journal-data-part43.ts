@@ -7,7 +7,6 @@ export const POSTS_PART43: JournalPost[] = [
     excerpt: 'They loved you behind closed doors and pretended not to know you in public. The psychological toll of being hidden by someone you love runs deeper than most people realize, and the wounds it leaves are specific.',
     date: 'July 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
         related: ['right-person-wrong-time', 'grieving-relationship-didnt-happen', 'grieving-an-almost-relationship-situationship-pain', 'you-dont-find-the-same-person-twice'],
     faq: [
       {

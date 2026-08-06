@@ -7,7 +7,6 @@ export const POSTS_PART38: JournalPost[] = [
     excerpt: 'The first birthday without them. The first Christmas morning alone. Calendar grief hits differently because you can see it coming and it still flattens you. Here is how to get through the dates that hurt.',
     date: 'June 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
         related: ['the-2am-echo-missing-ex', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
     faq: [
       {

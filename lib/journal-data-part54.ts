@@ -7,7 +7,6 @@ export const POSTS_PART54: JournalPost[] = [
     excerpt: 'Are the messages in unsent letter archives real or fabricated? An honest look at authenticity in anonymous submissions and why human moderation is the only real answer.',
     date: 'July 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
     related: ['why-we-write-letters-we-never-send', 'the-psychology-of-unsent-messages', 'does-writing-an-unsent-letter-actually-help-you-heal', 'why-unsent-letter-submissions-disappear'],
     faq: [
       {

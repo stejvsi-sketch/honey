@@ -7,7 +7,6 @@ export const POSTS_PART50: JournalPost[] = [
     excerpt: 'You typed your name into the search bar, hoping someone out there is still carrying you. Here is why that longing matters and what the search really means.',
     date: 'July 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
     related: ['navigating-the-unsent-messages-archive', 'searching-for-your-name-anonymous-love-letters', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
     faq: [
       {

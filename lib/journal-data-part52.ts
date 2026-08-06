@@ -7,7 +7,6 @@ export const POSTS_PART52: JournalPost[] = [
     excerpt: 'What happens when an unsent letter platform resets its archive or loses your submission? Why your words deserve permanence and how to find an archive built to last.',
     date: 'July 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
     related: ['why-unsent-letter-submissions-disappear', 'navigating-the-unsent-messages-archive'],
     faq: [
       {

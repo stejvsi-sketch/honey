@@ -7,7 +7,6 @@ export const POSTS_PART56: JournalPost[] = [
     excerpt: 'You searched for your name in an unsent letter archive and found nothing. Here is what that absence actually means, why it does not define your worth, and what to do next.',
     date: 'August 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
     related: ['why-we-search-for-our-names-in-unsent-letter-archives', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
     faq: [
       {

@@ -7,7 +7,6 @@ export const POSTS_PART60: JournalPost[] = [
     excerpt: 'It is one of the most romanticized ideas in modern dating. But is "right person, wrong time" a tragic reality, or a comforting myth we use to soften the blow of rejection?',
     date: 'August 2026',
     lastReviewed: 'August 2026',
-    hideEditorial: true,
         related: ['grieving-relationship-didnt-happen', 'grieving-an-almost-relationship-situationship-pain', 'the-weight-of-being-someones-secret', 'you-dont-find-the-same-person-twice'],
     faq: [
       {
