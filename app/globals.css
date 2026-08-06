@@ -2061,3 +2061,11 @@ a:hover { color: var(--accent-hover); }
   display: block;
   text-align: center;
 }
+
+/* Give the flip hint breathing room on mobile where the paper mask clips tighter */
+@media (max-width: 767px) {
+  .flip-hint {
+    bottom: 1px;
+    right: -2px;
+  }
+}

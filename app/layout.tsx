@@ -4,7 +4,6 @@ import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from '@/lib/constants';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import AnalyticsScript from '@/components/AnalyticsScript';
-import Script from 'next/script';
 import './globals.css';
 
 const lora = Lora({
@@ -59,8 +58,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         {/* Preload LCP-critical texture image (crossorigin matches the CSS mask fetch) */}
         <link rel="preload" href="/textures/rough-paper.webp" as="image" type="image/webp" fetchPriority="high" crossOrigin="anonymous" />
-        {/* Preconnect to Grow (Mediavine) origin */}
-        <link rel="preconnect" href="https://faves.grow.me" crossOrigin="anonymous" />
         {/* Google Funding Choices CMP for GDPR consent (EEA/UK/Switzerland) */}
         <script async src="https://fundingchoicesmessages.google.com/i/pub-4151123662328725?ers=1" suppressHydrationWarning></script>
         <script suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `(function(){function s(){if(!window.frames['googlefcPresent']){if(document.body){var i=document.createElement('iframe');i.style='width:0;height:0;border:none;z-index:-1000;left:-1000px;top:-1000px;';i.style.display='none';i.name='googlefcPresent';document.body.appendChild(i);}else{setTimeout(s,0);}}}s();})();` }} />
@@ -70,17 +67,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navigation />
         <main>{children}</main>
         <Footer />
-        {/* Grow by Mediavine initializer — injected via next/script (afterInteractive) so it
-            runs after hydration. The snippet inserts a script before the first <script> tag,
-            which reorders <head> and breaks hydration if rendered inline by React. */}
-        <Script
-          id="grow-initializer"
-          strategy="afterInteractive"
-          data-grow-initializer=""
-          dangerouslySetInnerHTML={{
-            __html: `!(function(){window.growMe||((window.growMe=function(e){window.growMe._.push(e);}),(window.growMe._=[]));var e=document.createElement("script");(e.type="text/javascript"),(e.src="https://faves.grow.me/main.js"),(e.defer=!0),e.setAttribute("data-grow-faves-site-id","U2l0ZTo2OGVmOGIwMy0wMTRjLTQwZmItODYwYi1lODI0MGI3OGM4NmI=");var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t);})();`,
-          }}
-        />
         {/* Google Analytics — conditionally loaded */}
         <AnalyticsScript />
       </body>
