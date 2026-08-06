@@ -19,6 +19,10 @@ export const POSTS_PART2: JournalPost[] = [
         answer: 'Because the emotional investment was real. Your brain formed attachment bonds based on shared vulnerability and intimacy, regardless of whether the relationship had an official label. The neurochemistry of attachment does not require a title.',
       },
     ],
+    references: [
+      { label: 'Grief — Psychological Models of Bereavement. American Psychological Association.', url: 'https://en.wikipedia.org/wiki/Grief' },
+      { label: 'Gaslighting — Stern, R. (2007). The Gaslight Effect.', url: 'https://en.wikipedia.org/wiki/Gaslighting' },
+    ],
     content: `Disenfranchised [grief](https://en.wikipedia.org/wiki/Grief) is the kind of mourning that society tells you you are not entitled to feel. It is the profound, gut level pain of losing something that, according to everyone else, was never really yours to lose. You mourn a situationship, a talking stage, an almost relationship, a person who was never officially your partner, and the world responds with confusion or dismissal. "You were not even together," they say, as if the absence of a label somehow negates the presence of real, devastating heartbreak.
 
 But you were together, in every way that mattered emotionally. You shared late night conversations that went on for hours. You learned the rhythm of their texting, the sound of their laugh, the specific way they looked at you that made you feel like you were the only person in the room. You built an entire future in your head, complete with inside jokes and holiday plans and the eventual moment when all of this uncertainty would finally resolve into something solid and official and real. And then it ended, not with a dramatic breakup but with a slow, agonizing fade, a gradual withdrawal of attention that left you standing in the wreckage of a relationship that technically never existed.

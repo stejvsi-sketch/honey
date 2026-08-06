@@ -19,6 +19,14 @@ export const POSTS_PART57: JournalPost[] = [
         answer: 'Do not interpret the failure as a sign that you should not write. Try again after a few minutes, try a different browser, or try a different platform. Your words exist and deserve a home.',
       },
     ],
+    references: [
+      { label: 'Approach–avoidance conflict. Wikipedia.', url: 'https://en.wikipedia.org/wiki/Approach%E2%80%93avoidance_conflict' },
+      { label: 'https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS', url: 'https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS' },
+      { label: 'https://www.nngroup.com/articles/error-message-guidelines/', url: 'https://www.nngroup.com/articles/error-message-guidelines/' },
+      { label: 'Browser Sessions and Cookie Persistence. Web Technology.', url: 'https://en.wikipedia.org/wiki/Session_%28computer_science%29' },
+      { label: 'Learned helplessness. Wikipedia.', url: 'https://en.wikipedia.org/wiki/Learned_helplessness' },
+      { label: 'Catharsis — Aristotle, Poetics. Emotional Purgation Theory.', url: 'https://en.wikipedia.org/wiki/Catharsis' },
+    ],
     content: `You had the words ready. Maybe you had been composing them in your head for days, or maybe they came to you suddenly at midnight, fully formed, urgent, demanding to be written. You went to an unsent letter platform, typed them out, chose your color, and pressed submit. And nothing happened. The page froze. Or it showed an error. Or it refreshed and your message was gone. The platform would not submit your message, and now you are sitting in front of your screen with a chest full of words and nowhere to put them.
 
 This is one of the most common complaints about unsent letter platforms, and it is one of the most damaging. Not just because it wastes your time, but because of the emotional context in which it occurs. You do not submit an unsent letter when you are feeling fine. You submit one when you are in pain. The decision to submit is itself a therapeutic milestone, what psychologists call an [approach behavior](https://en.wikipedia.org/wiki/Approach%E2%80%93avoidance_conflict) — a movement toward confronting the thing you have been avoiding. And when the platform fails at the moment of submission, it is not just a technical glitch. It is an interruption of a healing process.
@@ -29,7 +37,7 @@ Another common cause is client-side JavaScript errors. Most modern web platforms
 
 Form validation failures can also prevent submission without clear explanation. The platform may have undocumented rules about message length, character types, or content that your submission violates without your knowledge. [Jakob Nielsen's usability research](https://www.nngroup.com/articles/error-message-guidelines/) has consistently shown that error messages should be visible, specific, and constructive. On many platforms, validation failures produce no feedback at all.
 
-Session timeouts present another common issue. If you spent a long time composing your message, which is natural given the emotional weight of what you are writing, the [HTTP session](https://en.wikipedia.org/wiki/Session_(computer_science)) between your browser and the server may have expired. When you finally press submit, the server rejects the request because it no longer recognizes your connection.
+Session timeouts present another common issue. If you spent a long time composing your message, which is natural given the emotional weight of what you are writing, the [HTTP session](https://en.wikipedia.org/wiki/Session_%28computer_science%29)) between your browser and the server may have expired. When you finally press submit, the server rejects the request because it no longer recognizes your connection.
 
 The emotional toll of a failed submission is disproportionate to the technical severity of the failure. From an engineering perspective, a failed form submission is a minor bug. From a human perspective, it is a door slammed shut at the exact moment you decided to walk through it. You made yourself vulnerable. You organized your chaotic feelings into words. You steeled yourself to press the button. And the button did not work. The experience can reinforce the narrative that you are not supposed to say these things, that there is no place for them.
 

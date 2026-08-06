@@ -19,6 +19,11 @@ export const POSTS_PART69: JournalPost[] = [
         answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
       },
     ],
+    references: [
+      { label: 'Vindication — Need for Validation and Justice Motivation.', url: 'https://en.wikipedia.org/wiki/Vindication' },
+      { label: 'Defence Mechanisms — Vaillant, G.E. (1977). Adaptation to Life.', url: 'https://en.wikipedia.org/wiki/Defence_mechanism' },
+      { label: 'Emotional Self-Regulation — Gross, J.J. (1998). The Emerging Field of Emotion Regulation.', url: 'https://en.wikipedia.org/wiki/Emotional_self-regulation' },
+    ],
     content: `If you have ever been in the middle of a text-based argument, you know the feeling. Your heart rate is elevated, your thumbs are moving furiously, and you are convinced that if you can just articulate your point clearly enough, the other person will finally understand. You delete a sentence, rewrite it to sound more detached, add a poignant observation about their past behavior, and review it like a lawyer preparing a closing statement. 
 
 You are crafting the Perfect Response. 

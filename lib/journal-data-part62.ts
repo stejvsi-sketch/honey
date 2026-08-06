@@ -19,6 +19,12 @@ export const POSTS_PART62: JournalPost[] = [
         answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
       },
     ],
+    references: [
+      { label: 'Grief — Psychological Models of Bereavement. American Psychological Association.', url: 'https://en.wikipedia.org/wiki/Grief' },
+      { label: 'Euphoric Recall — Selective Memory Bias in Addiction and Relationships.', url: 'https://en.wikipedia.org/wiki/Euphoric_recall' },
+      { label: 'Mitchell, T.R. et al. (1997). Temporal Adjustments in the Evaluation of Events. Journal of Experimental Social Psychology.', url: 'https://en.wikipedia.org/wiki/Rosy_retrospection' },
+      { label: 'Perspective-Taking — Theory of Mind and Empathy Research.', url: 'https://en.wikipedia.org/wiki/Perspective-taking' },
+    ],
     content: `There is a profound, almost universal fantasy that occurs in the months and years following a painful breakup: the fantasy of the reunion. We imagine running into them at a coffee shop, or receiving a long, heartfelt email out of the blue. We imagine that the time apart has served as a crucible, burning away all the petty arguments, the immaturity, and the circumstantial issues that drove us apart. We imagine that we will look at each other, recognize the enduring spark, and seamlessly pick up exactly where we left off, only better this time. We believe that if we can just get them back, we will get the relationship back. 
 
 But there is a heartbreaking truth that anyone who has ever successfully reunited with an ex eventually discovers: you do not find the same person twice, even when it is the exact same person.

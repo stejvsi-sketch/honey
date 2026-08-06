@@ -19,6 +19,15 @@ export const POSTS_PART52: JournalPost[] = [
         answer: 'An unsent letter is an act of emotional release. Deleting it reverses the therapeutic benefit of externalizing the pain. The archive exists to hold your words permanently, not temporarily.',
       },
     ],
+    references: [
+      { label: 'Digital preservation. Wikipedia.', url: 'https://en.wikipedia.org/wiki/Digital_preservation' },
+      { label: 'https://archive.org', url: 'https://archive.org' },
+      { label: 'Digital dark age. Wikipedia.', url: 'https://en.wikipedia.org/wiki/Digital_dark_age' },
+      { label: 'Grief — Psychological Models of Bereavement. American Psychological Association.', url: 'https://en.wikipedia.org/wiki/Grief' },
+      { label: 'Brown, B. — Vulnerability and Emotional Exposure. University of Houston.', url: 'https://en.wikipedia.org/wiki/Vulnerability' },
+      { label: 'Pennebaker, J.W. — Expressive Writing Research. University of Texas at Austin.', url: 'https://en.wikipedia.org/wiki/James_Pennebaker' },
+      { label: 'Pennebaker, J.W. (1997). Writing About Emotional Experiences as a Therapeutic Process. Psychological Science, 8(3), 162–166.', url: 'https://doi.org/10.1111/j.1467-9280.1997.tb00403.x' },
+    ],
     content: `If you visited an unsent letter platform recently and noticed that messages you remember reading are gone, or that the archive seems smaller than it used to be, or that a search that once returned dozens of results now returns nothing, you are probably asking a question that many users ask: did the archive reset? Did they delete everything? Did my message simply disappear?
 
 The short answer is that unsent letter platforms do experience data loss, archive resets, and content purges, and it happens more often than users are led to believe. The long answer requires understanding the fragile infrastructure that most of these platforms are built on and the economic realities that govern their operation.

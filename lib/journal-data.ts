@@ -18,6 +18,8 @@ export interface JournalPost {
   reviewer?: string;
   /** Last reviewed date (e.g. "July 2026"). Only set after a genuine editorial re-review. */
   lastReviewed?: string;
+  /** Structured references section rendered at the bottom of the article. */
+  references?: { label: string; url: string }[];
 }
 
 import { POSTS_PART1 } from './journal-data-part1';

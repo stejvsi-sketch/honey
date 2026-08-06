@@ -19,13 +19,18 @@ export const POSTS_PART61: JournalPost[] = [
         answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
       },
     ],
+    references: [
+      { label: 'Closure — Need for Cognitive Closure. Kruglanski, A.W. (1989).', url: 'https://en.wikipedia.org/wiki/Closure_%28psychology%29' },
+      { label: 'Dopamine — Neurotransmitter and Reward System. National Institute of Mental Health.', url: 'https://en.wikipedia.org/wiki/Dopamine' },
+      { label: 'Rosenberg, M. (1965). Society and the Adolescent Self-Image. Self-Esteem Scale.', url: 'https://en.wikipedia.org/wiki/Self-esteem' },
+    ],
     content: `You sent a text, and the bubble turned green. You opened their Instagram profile, and it said "User not found." You checked WhatsApp, and their profile picture was gone, the status suddenly invisible. The realization hits you with a cold, visceral shock: you have been blocked. In the digital age, being blocked is the ultimate door slam. It is a silent, immediate severance of access, and it almost always triggers a frantic, panicky response. The first thought is rarely acceptance; the first thought is almost universally, "How do I fix this? How do I get them to unblock me?"
 
 The internet is full of terrible advice on this subject. You will find articles suggesting you use a friend's phone to call them, create a fake social media account to DM them, send an email to their work address, or even show up at their house with a grand romantic gesture. These tactics are often framed as "fighting for the relationship" or "proving how much you care." Let's be absolutely clear: these are not romantic gestures. These are violations of a boundary. And understanding why the boundary was set in the first place is the only path forward.
 
 When someone blocks you, they are sending a very clear, unambiguous message: they do not want to communicate with you right now. They feel overwhelmed, angry, hurt, or simply exhausted by the dynamic, and they have decided that removing your ability to contact them is necessary for their own peace of mind. A block is a digital wall. When you try to climb over that wall by using a burner number or a fake account, you are not proving your love. You are proving that your desire to speak is more important to you than their desire for space. You are demonstrating a fundamental lack of respect for their boundaries, which is likely one of the behaviors that led to the block in the first place.
 
-If your goal is to eventually repair the relationship, or even just achieve [closure](https://en.wikipedia.org/wiki/Closure_(psychology)) through a final conversation, violating a block is the worst possible strategy. It transforms you from an ex-partner they might eventually miss into a threat they need to avoid. It validates their decision to block you. Every time you bypass their block to send a message, you are resetting the clock on any potential healing. You are reminding them exactly why they needed to put the wall up.
+If your goal is to eventually repair the relationship, or even just achieve [closure](https://en.wikipedia.org/wiki/Closure_%28psychology%29)) through a final conversation, violating a block is the worst possible strategy. It transforms you from an ex-partner they might eventually miss into a threat they need to avoid. It validates their decision to block you. Every time you bypass their block to send a message, you are resetting the clock on any potential healing. You are reminding them exactly why they needed to put the wall up.
 
 So, how do you actually get unblocked? The answer is counterintuitive and incredibly difficult to execute: you do absolutely nothing.
 

@@ -19,6 +19,15 @@ export const POSTS_PART51: JournalPost[] = [
         answer: 'A well-built platform should give you immediate confirmation after submission. On Honey, If Only, every submission receives an instant acknowledgment, and every letter is reviewed by a human moderator before publication.',
       },
     ],
+    references: [
+      { label: 'Natural language processing. Wikipedia.', url: 'https://en.wikipedia.org/wiki/Natural_language_processing' },
+      { label: 'Idempotence. Wikipedia.', url: 'https://en.wikipedia.org/wiki/Idempotence' },
+      { label: 'Brown, B. — Vulnerability and Emotional Exposure. University of Houston.', url: 'https://en.wikipedia.org/wiki/Vulnerability' },
+      { label: 'Human–computer interaction. Wikipedia.', url: 'https://en.wikipedia.org/wiki/Human%E2%80%93computer_interaction' },
+      { label: 'https://www.nngroup.com/articles/ten-usability-heuristics/', url: 'https://www.nngroup.com/articles/ten-usability-heuristics/' },
+      { label: 'Pennebaker, J.W. — Expressive Writing Research. University of Texas at Austin.', url: 'https://en.wikipedia.org/wiki/James_Pennebaker' },
+      { label: 'Pennebaker, J.W. (1997). Writing About Emotional Experiences as a Therapeutic Process. Psychological Science, 8(3), 162–166.', url: 'https://doi.org/10.1111/j.1467-9280.1997.tb00403.x' },
+    ],
     content: `You wrote something honest. You sat with it. You revised it. You finally pressed submit. And then nothing. Your message never appeared. You refreshed the page. You searched for the name. You scrolled through hundreds of other submissions looking for your words, and they were not there. If you have ever experienced this on an unsent letter platform, you are not imagining things, and you are not alone. This is one of the most common frustrations reported by users of anonymous message archives, and it happens far more often than most people realize.
 
 There are several reasons why messages might not appear after submission, and understanding them requires a basic understanding of how these platforms work behind the scenes. The first and most common reason is moderation backlog. Any platform that accepts user-generated content at scale needs some form of moderation, whether automated, human, or a combination of both. When a platform receives thousands of submissions per day, the moderation queue can grow faster than the team can process it. Your message is not lost. It is sitting in a queue, waiting for someone or something to review it before it goes live. The problem is that most platforms do not communicate this clearly. From your perspective, you submitted something and it vanished.

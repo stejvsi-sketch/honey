@@ -19,11 +19,27 @@ export const POSTS_PART1: JournalPost[] = [
         answer: 'Yes. Nighttime rumination after a breakup is extremely common and well-documented in psychology. The quiet of night removes the cognitive load that normally suppresses painful memories during the day.',
       },
     ],
+    references: [
+      { label: 'Psychological Projection — Defense Mechanism. Freud, S.', url: 'https://en.wikipedia.org/wiki/Psychological_projection' },
+      { label: 'Zeigarnik, B. (1927). On Finished and Unfinished Tasks. Psychologische Forschung, 9, 1–85.', url: 'https://en.wikipedia.org/wiki/Zeigarnik_effect' },
+      { label: 'Closure — Need for Cognitive Closure. Kruglanski, A.W. (1989).', url: 'https://en.wikipedia.org/wiki/Closure_%28psychology%29' },
+      { label: 'Serotonin — Mood Regulation and Emotional Processing. National Institute of Mental Health.', url: 'https://en.wikipedia.org/wiki/Serotonin' },
+      { label: 'Prefrontal Cortex — Executive Function and Decision-Making. Dana Foundation.', url: 'https://en.wikipedia.org/wiki/Prefrontal_cortex' },
+      { label: 'Limbic System — Emotional Brain Structures. Encyclopedia Britannica.', url: 'https://en.wikipedia.org/wiki/Limbic_system' },
+      { label: 'Levine, P.A. — Somatic Experiencing: Trauma and the Body.', url: 'https://en.wikipedia.org/wiki/Somatic_experiencing' },
+      { label: 'Kross, E., et al. (2011). Social Rejection Shares Somatosensory Representations with Physical Pain. Proceedings of the National Academy of Sciences.', url: 'https://doi.org/10.1073/pnas.1102693108' },
+      { label: 'Social Rejection — Williams, K.D. (2007). Ostracism. Annual Review of Psychology.', url: 'https://en.wikipedia.org/wiki/Social_rejection' },
+      { label: 'Dopamine — Neurotransmitter and Reward System. National Institute of Mental Health.', url: 'https://en.wikipedia.org/wiki/Dopamine' },
+      { label: 'Oxytocin — Bonding Hormone and Social Attachment. National Institutes of Health.', url: 'https://en.wikipedia.org/wiki/Oxytocin' },
+      { label: 'Brown, B. — Vulnerability and Emotional Exposure. University of Houston.', url: 'https://en.wikipedia.org/wiki/Vulnerability' },
+      { label: 'Pennebaker, J.W. — Expressive Writing Research. University of Texas at Austin.', url: 'https://en.wikipedia.org/wiki/James_Pennebaker' },
+      { label: 'Pennebaker, J.W. (1997). Writing About Emotional Experiences as a Therapeutic Process. Psychological Science, 8(3), 162–166.', url: 'https://doi.org/10.1111/j.1467-9280.1997.tb00403.x' },
+    ],
     content: `There is a stark contrast between the noisy distractions of daytime and the deafening silence of the night. During the day, you have meetings, emails, errands, phone calls, and friends who keep the memories at bay. You stay busy. You stay distracted. You tell yourself that you are fine, that you have moved on, that it does not hurt anymore. But then the sun goes down, the world falls asleep, and you are left alone with the one person you have been trying to avoid all day: yourself.
 
 At 2 A.M., there is nowhere to hide. The bedroom ceiling becomes a [projection](https://en.wikipedia.org/wiki/Psychological_projection) screen for every memory you have tried to bury. You remember their laugh, the way they said your name, and the last conversation you had before everything fell apart. The silence is not empty. It is full. It is overflowing with the echoes of a love that no longer exists anywhere except inside your head.
 
-The psychological phenomenon known as the [Zeigarnik effect](https://en.wikipedia.org/wiki/Zeigarnik_effect) explains why this happens with such brutal precision. Your brain is wired to obsess over unfinished business. A completed task fades from your working memory relatively quickly, but an interrupted one lingers and loops and demands resolution. The relationship ended, but the narrative did not. There was no final chapter, no satisfying conclusion, no moment where both of you sat down and said everything that needed to be said. This lack of [closure](https://en.wikipedia.org/wiki/Closure_(psychology)) creates a cognitive itch that your mind scratches relentlessly, especially when there is nothing else competing for your attention.
+The psychological phenomenon known as the [Zeigarnik effect](https://en.wikipedia.org/wiki/Zeigarnik_effect) explains why this happens with such brutal precision. Your brain is wired to obsess over unfinished business. A completed task fades from your working memory relatively quickly, but an interrupted one lingers and loops and demands resolution. The relationship ended, but the narrative did not. There was no final chapter, no satisfying conclusion, no moment where both of you sat down and said everything that needed to be said. This lack of [closure](https://en.wikipedia.org/wiki/Closure_%28psychology%29)) creates a cognitive itch that your mind scratches relentlessly, especially when there is nothing else competing for your attention.
 
 Late at night, your circadian rhythms shift in a way that makes this even worse. Cortisol levels drop, [serotonin](https://en.wikipedia.org/wiki/Serotonin) production slows, and the [prefrontal cortex](https://en.wikipedia.org/wiki/Prefrontal_cortex), the rational part of your brain that keeps your emotions in check during the day, essentially clocks out for the night. What remains is the [limbic system](https://en.wikipedia.org/wiki/Limbic_system), the ancient emotional engine that does not care about logic or pride or the fact that they were not good for you. The limbic system only knows that it misses them, and it will remind you of that fact with merciless intensity.
 

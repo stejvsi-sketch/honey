@@ -19,6 +19,12 @@ export const POSTS_PART43: JournalPost[] = [
         answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
       },
     ],
+    references: [
+      { label: 'Cortisol — Stress Hormone and HPA Axis. Endocrine Society.', url: 'https://en.wikipedia.org/wiki/Cortisol' },
+      { label: 'Festinger, L. (1957). A Theory of Cognitive Dissonance. Stanford University Press.', url: 'https://en.wikipedia.org/wiki/Cognitive_dissonance' },
+      { label: 'Denial — Defense Mechanism. Freud, A. — The Ego and the Mechanisms of Defence (1936).', url: 'https://en.wikipedia.org/wiki/Denial' },
+      { label: 'Gaslighting — Stern, R. (2007). The Gaslight Effect.', url: 'https://en.wikipedia.org/wiki/Gaslighting' },
+    ],
     content: `You know the specific architecture of this pain. It is not the absence of love. Love was there, or something that felt indistinguishable from it, when the two of you were alone. It was in the way they looked at you when nobody else was watching, in the things they said in the dark, in the tenderness that appeared only when the door was closed and the world was locked out. The love was real. That is what makes this so difficult. If there had been no love, you could categorize them as dishonest and yourself as deceived and the story would be clean. But there was love, or something very close to it, and it existed exclusively in private, and the moment a third person entered the equation, you became someone they barely knew.
 
 Being someone's secret is a particular form of emotional injury that produces damage in areas that other forms of heartbreak do not typically reach. It attacks your sense of worth at the most fundamental level because the message it transmits is not "I do not love you" but something far more corrosive: "I love you, but I am ashamed of that love." The person is not rejecting you. They are accepting you privately while rejecting you publicly, and the gap between those two experiences creates a psychological fracture that is uniquely destabilizing.

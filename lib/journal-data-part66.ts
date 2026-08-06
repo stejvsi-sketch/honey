@@ -18,7 +18,11 @@ export const POSTS_PART66: JournalPost[] = [
         answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
       },
     ],
-    content: `When a relationship ends abruptly or painfully, the immediate instinct is to seek answers. We want to know why it happened, how they could do it, and, most importantly, we want an apology. We operate under the assumption that if the other person would just acknowledge their wrongdoing and validate our pain, we could finally find "[closure](https://en.wikipedia.org/wiki/Closure_(psychology))" and move on with our lives. This desire for external validation often traps us in a cycle of waiting, preventing us from healing.
+    references: [
+      { label: 'Closure — Need for Cognitive Closure. Kruglanski, A.W. (1989).', url: 'https://en.wikipedia.org/wiki/Closure_%28psychology%29' },
+      { label: 'Grief — Psychological Models of Bereavement. American Psychological Association.', url: 'https://en.wikipedia.org/wiki/Grief' },
+    ],
+    content: `When a relationship ends abruptly or painfully, the immediate instinct is to seek answers. We want to know why it happened, how they could do it, and, most importantly, we want an apology. We operate under the assumption that if the other person would just acknowledge their wrongdoing and validate our pain, we could finally find "[closure](https://en.wikipedia.org/wiki/Closure_%28psychology%29))" and move on with our lives. This desire for external validation often traps us in a cycle of waiting, preventing us from healing.
 
 Psychologists and relationship experts have increasingly begun to challenge this traditional view of closure. The harsh reality is that the apology you are waiting for may never come. And even if it does, it rarely provides the magical sense of peace you expect. 
 

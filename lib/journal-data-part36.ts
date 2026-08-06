@@ -18,6 +18,13 @@ export const POSTS_PART36: JournalPost[] = [
         answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
       },
     ],
+    references: [
+      { label: 'Levine, P.A. — Somatic Experiencing: Trauma and the Body.', url: 'https://en.wikipedia.org/wiki/Somatic_experiencing' },
+      { label: 'Hippocampus. Wikipedia.', url: 'https://en.wikipedia.org/wiki/Hippocampus' },
+      { label: 'Amygdala — Fear Processing and Emotional Memory. Annual Review of Neuroscience.', url: 'https://en.wikipedia.org/wiki/Amygdala' },
+      { label: 'Prefrontal Cortex — Executive Function and Decision-Making. Dana Foundation.', url: 'https://en.wikipedia.org/wiki/Prefrontal_cortex' },
+      { label: 'Grief — Psychological Models of Bereavement. American Psychological Association.', url: 'https://en.wikipedia.org/wiki/Grief' },
+    ],
     content: `You are fine. You have been fine for weeks. The crying has stopped. The obsessive checking of their social media has tapered off. You have had a good conversation with a friend about something other than the breakup, and you went to sleep at a reasonable hour, and you woke up without the first conscious thought of the day being about them. Progress. Healing. The worst is behind you. And then you walk past someone on the street who is wearing their cologne, and your legs stop working. Not metaphorically. Your knees buckle slightly, your stride catches, and for a fraction of a second your body responds as if it has been physically struck. The rational part of your brain, the part that has been so diligently processing the loss for weeks, has no idea what just happened. But your body knows exactly what just happened. Your body remembers things your mind has been actively trying to forget, and it remembers them with a specificity and an intensity that conscious memory cannot match.
 
 This phenomenon is not mystical and it is not imagined. It is a well documented neurological process called [somatic](https://en.wikipedia.org/wiki/Somatic_experiencing) memory, sometimes referred to as body memory or implicit memory, and it represents one of the most challenging aspects of emotional recovery because it operates entirely outside the reach of the cognitive tools that most people rely on for healing.

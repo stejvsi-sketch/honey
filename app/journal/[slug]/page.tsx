@@ -149,6 +149,41 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
           <JournalContent content={post.content} slug={post.slug} />
         </article>
 
+        {post.references && post.references.length > 0 && (
+          <section style={{ marginTop: '48px', paddingTop: '32px', borderTop: '1px solid var(--border-light)' }}>
+            <h2 style={{
+              fontFamily: 'var(--font-serif)', fontSize: '1.25rem', marginBottom: '20px',
+              color: 'var(--text)', letterSpacing: '0.01em',
+            }}>
+              Sources &amp; References
+            </h2>
+            <div style={{
+              padding: '20px 24px', background: 'rgba(255,255,255,0.3)',
+              borderRadius: 'var(--radius)', borderLeft: '3px solid var(--border-light)',
+            }}>
+              <ol style={{
+                margin: 0, paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '10px',
+              }}>
+                {post.references.map((ref, i) => (
+                  <li key={i} style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
+                    <a
+                      href={ref.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        color: 'var(--text)', textDecoration: 'underline',
+                        textUnderlineOffset: '2px', textDecorationColor: 'var(--border-light)',
+                      }}
+                    >
+                      {ref.label}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </section>
+        )}
+
         {post.faq && post.faq.length > 0 && (
           <section style={{ marginTop: '64px', paddingTop: '40px', borderTop: '1px solid var(--border-light)' }}>
             <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', marginBottom: '28px', color: 'var(--text)' }}>

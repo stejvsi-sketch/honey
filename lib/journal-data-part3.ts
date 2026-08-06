@@ -19,6 +19,15 @@ export const POSTS_PART3: JournalPost[] = [
         answer: 'Yes. Research shows that first love memories are stored with extraordinary vividness and persist throughout life. This is not sentimentality — it is neuroscience. The original emotional baseline against which all future romance is compared never fully fades.',
       },
     ],
+    references: [
+      { label: 'Dopamine — Neurotransmitter and Reward System. National Institute of Mental Health.', url: 'https://en.wikipedia.org/wiki/Dopamine' },
+      { label: 'Oxytocin — Bonding Hormone and Social Attachment. National Institutes of Health.', url: 'https://en.wikipedia.org/wiki/Oxytocin' },
+      { label: 'Serotonin — Mood Regulation and Emotional Processing. National Institute of Mental Health.', url: 'https://en.wikipedia.org/wiki/Serotonin' },
+      { label: 'Amygdala — Fear Processing and Emotional Memory. Annual Review of Neuroscience.', url: 'https://en.wikipedia.org/wiki/Amygdala' },
+      { label: 'Levine, P.A. — Somatic Experiencing: Trauma and the Body.', url: 'https://en.wikipedia.org/wiki/Somatic_experiencing' },
+      { label: 'Nostalgia — Sedikides, C., et al. (2008). Nostalgia: Past, Present, and Future. Current Directions in Psychological Science.', url: 'https://en.wikipedia.org/wiki/Nostalgia' },
+      { label: 'Brown, B. — Vulnerability and Emotional Exposure. University of Houston.', url: 'https://en.wikipedia.org/wiki/Vulnerability' },
+    ],
     content: `First love leaves a deep neurological imprint that no subsequent relationship can fully overwrite. It is not a matter of willpower or maturity or how happy you are in your current life. It is a matter of brain chemistry. The first time you fall in love, your brain is encountering a cocktail of neurochemicals, [dopamine](https://en.wikipedia.org/wiki/Dopamine), [oxytocin](https://en.wikipedia.org/wiki/Oxytocin), [serotonin](https://en.wikipedia.org/wiki/Serotonin), norepinephrine, at an intensity and with a novelty that will never be replicated. Every subsequent love will be experienced through the lens of that first one, and the original remains the emotional baseline against which all future romance is unconsciously compared.
 
 This is not sentimentality. This is neuroscience. The [amygdala](https://en.wikipedia.org/wiki/Amygdala) and hippocampus, the brain's primary centers for emotional memory, store first love memories with extraordinary vividness and persistence because of the sheer intensity of feeling romantic love for the very first time. When you were fifteen or seventeen or twenty and someone looked at you with genuine adoration for the first time, your brain lit up in a way it had never lit up before. Every sensation was amplified. Every moment felt monumental. The first kiss, the first fight, the first time they said "I love you," all of it was encoded with the maximum possible emotional weight because your brain had no prior reference point for comparison.

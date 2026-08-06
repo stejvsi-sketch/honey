@@ -18,6 +18,13 @@ export const POSTS_PART33: JournalPost[] = [
         answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
       },
     ],
+    references: [
+      { label: 'Amygdala — Fear Processing and Emotional Memory. Annual Review of Neuroscience.', url: 'https://en.wikipedia.org/wiki/Amygdala' },
+      { label: 'Prefrontal Cortex — Executive Function and Decision-Making. Dana Foundation.', url: 'https://en.wikipedia.org/wiki/Prefrontal_cortex' },
+      { label: 'Foa, E.B. & Kozak, M.J. (1986). Emotional Processing of Fear. Psychological Bulletin.', url: 'https://en.wikipedia.org/wiki/Emotional_processing_theory' },
+      { label: 'Dopamine — Neurotransmitter and Reward System. National Institute of Mental Health.', url: 'https://en.wikipedia.org/wiki/Dopamine' },
+      { label: 'Oxytocin — Bonding Hormone and Social Attachment. National Institutes of Health.', url: 'https://en.wikipedia.org/wiki/Oxytocin' },
+    ],
     content: `It comes on in the grocery store. Some unremarkable Tuesday, you are reaching for a box of cereal, thinking about nothing important, and the first three notes of that song float through the overhead speakers. Before your conscious mind has even identified what you are hearing, your body has already reacted. Your stomach drops. Your throat tightens. Your vision narrows slightly and the fluorescent lights above the cereal aisle seem to dim and soften, and for a disorienting half second you are not here at all. You are in their car with the windows down. You are on their couch with your feet in their lap. You are in that exact moment, that specific fragment of a life you no longer live, and the emotional specificity of it is so vivid and so total that it takes your breath away. Then the moment passes, you remember where you are, and the rest of your grocery run is ruined.
 
 Music does something to the grieving brain that almost nothing else can do. It bypasses every defense you have built. Months of therapy, journaling, distraction, self talk, rational reframing: all of it can be undone by a chord progression that your [amygdala](https://en.wikipedia.org/wiki/Amygdala) recognizes before your [prefrontal cortex](https://en.wikipedia.org/wiki/Prefrontal_cortex) even clocks what is playing. The reason for this is deeply embedded in the neurobiology of how the brain stores and retrieves emotional memories, and understanding it will not make the experience less painful, but it might make it feel less insane.

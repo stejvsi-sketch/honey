@@ -23,6 +23,19 @@ export const POSTS_PART63: JournalPost[] = [
         answer: 'The act of writing externalizes internal pain. It takes the abstract agony and turns it into concrete words that can be observed, processed, and eventually released. Dr. James Pennebaker\u0027s research shows this produces measurable improvements in both psychological and physical health.',
       },
     ],
+    references: [
+      { label: 'Abraham Lincoln. Wikipedia.', url: 'https://en.wikipedia.org/wiki/Abraham_Lincoln' },
+      { label: 'https://www.nytimes.com/2014/03/23/opinion/sunday/the-lost-art-of-the-unsent-angry-letter.html', url: 'https://www.nytimes.com/2014/03/23/opinion/sunday/the-lost-art-of-the-unsent-angry-letter.html' },
+      { label: 'Mark Twain. Wikipedia.', url: 'https://en.wikipedia.org/wiki/Mark_Twain' },
+      { label: 'Letter to His Father. Wikipedia.', url: 'https://en.wikipedia.org/wiki/Letter_to_His_Father' },
+      { label: 'Virginia Woolf. Wikipedia.', url: 'https://en.wikipedia.org/wiki/Virginia_Woolf' },
+      { label: 'Cognitive reappraisal. Wikipedia.', url: 'https://en.wikipedia.org/wiki/Cognitive_reappraisal' },
+      { label: 'https://www.scn.ucla.edu/', url: 'https://www.scn.ucla.edu/' },
+      { label: 'Amygdala — Fear Processing and Emotional Memory. Annual Review of Neuroscience.', url: 'https://en.wikipedia.org/wiki/Amygdala' },
+      { label: 'Pennebaker, J.W. — Expressive Writing Research. University of Texas at Austin.', url: 'https://en.wikipedia.org/wiki/James_Pennebaker' },
+      { label: 'Pennebaker, J.W. (1997). Writing About Emotional Experiences as a Therapeutic Process. Psychological Science, 8(3), 162–166.', url: 'https://doi.org/10.1111/j.1467-9280.1997.tb00403.x' },
+      { label: 'Self-disclosure. Wikipedia.', url: 'https://en.wikipedia.org/wiki/Self-disclosure' },
+    ],
     content: `People have been writing letters they never sent since the invention of paper. The practice predates the internet, social media, and even the postal service. It is one of the oldest forms of emotional self-regulation that human beings have developed, and the fact that we are still doing it on digital platforms in 2026 is a testament to how deeply this behavior is wired into us.
 
 The most famous practitioner of unsent letters was [Abraham Lincoln](https://en.wikipedia.org/wiki/Abraham_Lincoln). During the Civil War, Lincoln wrote what he called "hot letters" to generals and officials who had made decisions he violently disagreed with. He would write the letter in the heat of his anger, expressing exactly what he thought of the person and their incompetence, and then he would place the letter in a drawer without sending it. Several of these letters were found after his assassination, still folded, some marked ["never sent, never signed."](https://www.nytimes.com/2014/03/23/opinion/sunday/the-lost-art-of-the-unsent-angry-letter.html) Lincoln understood intuitively what psychology would later confirm: the act of writing is itself the release. Sending is optional.

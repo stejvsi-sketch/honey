@@ -19,6 +19,11 @@ export const POSTS_PART64: JournalPost[] = [
         answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
       },
     ],
+    references: [
+      { label: 'No Contact Rule — Relationship Recovery and Emotional Detachment.', url: 'https://en.wikipedia.org/wiki/No_contact_rule' },
+      { label: 'Brown, B. — Vulnerability and Emotional Exposure. University of Houston.', url: 'https://en.wikipedia.org/wiki/Vulnerability' },
+      { label: 'Closure — Need for Cognitive Closure. Kruglanski, A.W. (1989).', url: 'https://en.wikipedia.org/wiki/Closure_%28psychology%29' },
+    ],
     content: `It is 2 AM. You are lying awake, replaying a conversation from three years ago in your head. The urge to reach out to them is suffocating, but you know you cannot send a text from your own number. Maybe they blocked you. Maybe you promised yourself you would maintain [no contact](https://en.wikipedia.org/wiki/No_contact_rule). Maybe you are terrified of rejection and just want them to know you are still thinking about them without the [vulnerability](https://en.wikipedia.org/wiki/Vulnerability) of attaching your name. And so, the inevitable search begins: how to send an anonymous message. 
 
 In the modern digital landscape, figuring out how to send anonymous text messages is incredibly easy. A quick Google search will reveal dozens of apps, burner number services, and spoofing websites designed specifically to allow you to text someone without revealing your true phone number. You can generate a temporary VoIP number, send a paragraph of intense emotional confession, and delete the app before they even have a chance to reply. The technology exists, and it is accessible to anyone with a smartphone and a Wi-Fi connection.
@@ -27,7 +32,7 @@ But the question you need to ask yourself is not "how to send an anonymous messa
 
 When you send an anonymous text directly to someone's personal device, you are fundamentally violating a boundary. If you have been blocked, circumventing that block with a burner number is not a romantic gesture; it is a form of digital stalking. It tells the recipient that your desire to speak overrides their right to privacy and peace. Even if you haven't been blocked, dropping an anonymous emotional bomb into someone's text inbox is a deeply unfair action. It forces them to consume your feelings while denying them the context of who is speaking and the ability to properly respond.
 
-Think about how it feels to receive an anonymous text. It is rarely a positive experience. It induces paranoia. Who is this? Why are they hiding? Is it a prank? Is it a scam? Is it an ex? When you send an anonymous message, you are not delivering [closure](https://en.wikipedia.org/wiki/Closure_(psychology)); you are delivering anxiety. You are taking your own internal chaos and exporting it directly into their pocket. 
+Think about how it feels to receive an anonymous text. It is rarely a positive experience. It induces paranoia. Who is this? Why are they hiding? Is it a prank? Is it a scam? Is it an ex? When you send an anonymous message, you are not delivering [closure](https://en.wikipedia.org/wiki/Closure_%28psychology%29)); you are delivering anxiety. You are taking your own internal chaos and exporting it directly into their pocket. 
 
 There is a massive psychological difference between targeting someone directly with an anonymous text, and releasing your feelings into a public, anonymous space. This is the crucial distinction that many people miss when they are consumed by heartbreak.
 
