@@ -68,7 +68,6 @@ import { POSTS_PART45 } from './journal-data-part45';
 import { POSTS_PART46 } from './journal-data-part46';
 import { POSTS_PART47 } from './journal-data-part47';
 import { POSTS_PART48 } from './journal-data-part48';
-import { POSTS_PART49 } from './journal-data-part49';
 import { POSTS_PART50 } from './journal-data-part50';
 import { POSTS_PART51 } from './journal-data-part51';
 import { POSTS_PART52 } from './journal-data-part52';
@@ -139,7 +138,6 @@ export const JOURNAL_POSTS: JournalPost[] = [
   ...POSTS_PART46,
   ...POSTS_PART47,
   ...POSTS_PART48,
-  ...POSTS_PART49,
   ...POSTS_PART50,
   ...POSTS_PART51,
   ...POSTS_PART52,
