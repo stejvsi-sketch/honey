@@ -5,7 +5,9 @@ export const POSTS_PART57: JournalPost[] = [
     slug: 'when-the-submit-button-fails-at-the-worst-moment',
     title: 'When the Submit Button Fails at the Worst Moment — The Emotional Cost of Technical Failures',
     excerpt: 'You had the words ready, pressed submit, and nothing happened. Why submission failures on emotional platforms are not just technical bugs but interruptions of a healing process.',
-    date: 'June 2026',
+    date: 'August 2026',
+    lastReviewed: 'August 2026',
+    hideEditorial: true,
     related: ['why-unsent-letter-submissions-disappear', 'the-trust-contract-between-writers-and-archives', 'does-writing-an-unsent-letter-actually-help-you-heal', 'when-unsent-letter-archives-lose-your-words'],
     faq: [
       {
@@ -33,7 +35,7 @@ The emotional toll of a failed submission is disproportionate to the technical s
 
 Research on [learned helplessness](https://en.wikipedia.org/wiki/Learned_helplessness), first documented by psychologist Martin Seligman, shows that repeated experiences of ineffective action can lead people to stop trying even when the obstacles are removed. A few failed submissions can convince a person that writing their unsent words is pointless, not because the act itself is pointless but because the technology taught them to expect failure. This is a real psychological cost imposed by unreliable platforms.
 
-That narrative is wrong. There is a place for your words. The failure was not the universe telling you to stay silent. It was a broken website doing what broken websites do. If a platform will not submit your message, do not interpret that failure as a sign that you should not write it. Do not let a broken form rob you of the catharsis you were seeking. Your words exist. They are real. They deserve a home. Find a platform that will receive them with the reliability and respect they deserve.
+That narrative is wrong. There is a place for your words. The failure was not the universe telling you to stay silent. It was a broken website doing what broken websites do. If a platform will not submit your message, do not interpret that failure as a sign that you should not write it. Do not let a broken form rob you of the [catharsis](https://en.wikipedia.org/wiki/Catharsis) you were seeking. Your words exist. They are real. They deserve a home. Find a platform that will receive them with the reliability and respect they deserve.
 
 The twenty five word limit also contributes to submission reliability in a practical way. Short messages are faster to transmit, less likely to be affected by network interruptions, and easier for the server to process. Combined with clear error handling, immediate confirmation, and automatic retry logic, it means that when you press submit, your words actually go where you sent them.`
   }

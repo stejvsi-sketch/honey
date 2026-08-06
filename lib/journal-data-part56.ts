@@ -5,8 +5,10 @@ export const POSTS_PART56: JournalPost[] = [
     slug: 'what-it-means-when-your-name-is-not-in-any-archive',
     title: 'Your Name Is Not in Any Unsent Letter Archive — Here Is What That Means',
     excerpt: 'You searched for your name in an unsent letter archive and found nothing. Here is what that absence actually means, why it does not define your worth, and what to do next.',
-    date: 'June 2026',
-    related: ['why-we-search-for-our-names-in-unsent-letter-archives', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on', 'psychology-unspoken-words-letters-never-sent', 'missing-them-vs-missing-the-idea-of-them'],
+    date: 'August 2026',
+    lastReviewed: 'August 2026',
+    hideEditorial: true,
+    related: ['why-we-search-for-our-names-in-unsent-letter-archives', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
     faq: [
       {
         question: 'What does it mean if my name is not in an unsent letter archive?',
@@ -23,7 +25,7 @@ That absence feels like a verdict. It feels like proof that you were easy to get
 
 But that interpretation is wrong, and understanding why requires examining how your brain processes absence in the first place. Psychologists who study [confirmation bias](https://en.wikipedia.org/wiki/Confirmation_bias) have long documented our tendency to interpret ambiguous evidence in ways that confirm what we already fear. If you are already afraid that you did not matter, your brain will latch onto any piece of evidence, including the absence of evidence, as proof of that fear. An empty search result becomes a verdict because you were already expecting one.
 
-The first and most obvious reason your name might not appear is statistical. Not everyone who carries unsent words chooses to submit them to a public platform. In fact, the vast majority of people carrying unspoken truths never submit them anywhere. They process their grief through conversations with friends, through therapy, through private journaling, through long walks and sleepless nights and songs played on repeat. Research on [coping strategies](https://en.wikipedia.org/wiki/Coping_(psychology)) identifies dozens of distinct mechanisms people use to process emotional pain, and writing in a public archive is only one of them. The absence of your name from a specific archive does not mean no one is thinking about you. It means no one has typed your name into that particular website's submission form. Those are wildly different things.
+The first and most obvious reason your name might not appear is statistical. Not everyone who carries unsent words chooses to submit them to a public platform. In fact, the vast majority of people carrying unspoken truths never submit them anywhere. They process their [grief](https://en.wikipedia.org/wiki/Grief) through conversations with friends, through therapy, through private journaling, through long walks and sleepless nights and songs played on repeat. Research on [coping strategies](https://en.wikipedia.org/wiki/Coping_(psychology)) identifies dozens of distinct mechanisms people use to process emotional pain, and writing in a public archive is only one of them. The absence of your name from a specific archive does not mean no one is thinking about you. It means no one has typed your name into that particular website's submission form. Those are wildly different things.
 
 The second reason is the fragmentation of the genre itself. There are dozens of unsent letter platforms, message archives, and anonymous confession sites across the internet. Someone who wanted to write an unsent message to you might have submitted it to a completely different platform. They might have posted it on a Reddit throwaway account. They might have typed it into a notes app and never shared it with anyone. They might have written it on paper and burned it. The fact that your name does not appear in one specific archive is not meaningful in the way your anxious brain insists it is.
 

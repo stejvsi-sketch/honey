@@ -5,8 +5,10 @@ export const POSTS_PART52: JournalPost[] = [
     slug: 'when-unsent-letter-archives-lose-your-words',
     title: 'When Unsent Letter Archives Lose Your Words — Why Permanence Matters',
     excerpt: 'What happens when an unsent letter platform resets its archive or loses your submission? Why your words deserve permanence and how to find an archive built to last.',
-    date: 'June 2026',
-    related: ['why-unsent-letter-submissions-disappear', 'the-digital-footprint-of-heartbreak-archiving-our-unsent-thoughts', 'psychology-unspoken-words-letters-never-sent', 'navigating-the-unsent-messages-archive'],
+    date: 'July 2026',
+    lastReviewed: 'August 2026',
+    hideEditorial: true,
+    related: ['why-unsent-letter-submissions-disappear', 'navigating-the-unsent-messages-archive'],
     faq: [
       {
         question: 'Do unsent letter archives reset or delete messages?',
@@ -27,9 +29,9 @@ Database resets happen for several reasons. Sometimes the database itself become
 
 This pattern is well documented in the field of [digital preservation](https://en.wikipedia.org/wiki/Digital_preservation). The Library of Congress and organizations like the [Internet Archive](https://archive.org) have spent decades warning about the fragility of digital content. Websites that seem permanent are often running on infrastructure that can disappear overnight. Vint Cerf, one of the engineers who helped build the internet, coined the term ["digital dark age"](https://en.wikipedia.org/wiki/Digital_dark_age) to describe the risk of losing vast amounts of cultural and personal data as formats change and platforms shut down.
 
-For the users who submitted to these platforms, a reset is devastating. You wrote something that you could not say to anyone in your life. You pressed submit and felt the weight lift, just slightly, because you had externalized your pain. You gave it a home outside of your own head. And then the home was demolished. Your words were deleted not by choice but by neglect. The grief you processed through that submission comes rushing back, compounded by the new grief of having your vulnerability discarded.
+For the users who submitted to these platforms, a reset is devastating. You wrote something that you could not say to anyone in your life. You pressed submit and felt the weight lift, just slightly, because you had externalized your pain. You gave it a home outside of your own head. And then the home was demolished. Your words were deleted not by choice but by neglect. The [grief](https://en.wikipedia.org/wiki/Grief) you processed through that submission comes rushing back, compounded by the new grief of having your [vulnerability](https://en.wikipedia.org/wiki/Vulnerability) discarded.
 
-The impermanence of digital platforms is a problem that extends far beyond the unsent letter genre, but it is particularly painful in this context because of the nature of the content. An unsent letter is not a tweet or a comment or a product review. It is an act of emotional release. Research by [Dr. James Pennebaker](https://liberalarts.utexas.edu/psychology/faculty/pennebak) shows that the therapeutic benefit of expressive writing depends partly on the sense that the writing has been externalized, that it exists somewhere outside your own head. When that externalized record is destroyed, it can undermine the psychological benefit of having written it in the first place.
+Research by [Dr. James Pennebaker](https://en.wikipedia.org/wiki/James_Pennebaker) at the University of Texas at Austin has [consistently shown](https://doi.org/10.1111/j.1467-9280.1997.tb00403.x) that writing about difficult emotions for even fifteen minutes produces measurable improvements in mental and physical health.
 
 This problem informed every architectural decision we made when building Honey, If Only. We built the platform with permanence as a core design principle. The archive is not a side project running on a budget server. It is a carefully maintained system with redundant backups, robust data integrity checks, and a long term commitment to preserving every submission that passes moderation.
 

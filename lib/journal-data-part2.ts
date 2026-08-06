@@ -7,6 +7,7 @@ export const POSTS_PART2: JournalPost[] = [
     title: 'The Phantom Ex: Grieving a Relationship That Never Happened',
     excerpt: 'Validating disenfranchised grief. How to navigate the profound pain of mourning a situationship and letting go of someone who doesn\'t want you.',
     date: 'May 2026',
+    lastReviewed: 'August 2026',
         related: ['right-person-wrong-time', 'grieving-an-almost-relationship-situationship-pain', 'the-weight-of-being-someones-secret', 'you-dont-find-the-same-person-twice'],
     faq: [
       {
@@ -18,7 +19,7 @@ export const POSTS_PART2: JournalPost[] = [
         answer: 'Because the emotional investment was real. Your brain formed attachment bonds based on shared vulnerability and intimacy, regardless of whether the relationship had an official label. The neurochemistry of attachment does not require a title.',
       },
     ],
-    content: `Disenfranchised grief is the kind of mourning that society tells you you are not entitled to feel. It is the profound, gut level pain of losing something that, according to everyone else, was never really yours to lose. You mourn a situationship, a talking stage, an almost relationship, a person who was never officially your partner, and the world responds with confusion or dismissal. "You were not even together," they say, as if the absence of a label somehow negates the presence of real, devastating heartbreak.
+    content: `Disenfranchised [grief](https://en.wikipedia.org/wiki/Grief) is the kind of mourning that society tells you you are not entitled to feel. It is the profound, gut level pain of losing something that, according to everyone else, was never really yours to lose. You mourn a situationship, a talking stage, an almost relationship, a person who was never officially your partner, and the world responds with confusion or dismissal. "You were not even together," they say, as if the absence of a label somehow negates the presence of real, devastating heartbreak.
 
 But you were together, in every way that mattered emotionally. You shared late night conversations that went on for hours. You learned the rhythm of their texting, the sound of their laugh, the specific way they looked at you that made you feel like you were the only person in the room. You built an entire future in your head, complete with inside jokes and holiday plans and the eventual moment when all of this uncertainty would finally resolve into something solid and official and real. And then it ended, not with a dramatic breakup but with a slow, agonizing fade, a gradual withdrawal of attention that left you standing in the wreckage of a relationship that technically never existed.
 
@@ -28,7 +29,7 @@ Psychologist Kenneth Doka coined the term disenfranchised grief to describe exac
 
 Mourning a projected potential future is often just as devastating as mourning a lived reality, sometimes more so. When a long relationship ends, you grieve specific memories and shared experiences. When a situationship ends, you grieve possibilities, the hypothetical future that felt so real inside your head. You are not just losing a person. You are losing an entire version of your life that you had already begun to inhabit emotionally. The apartment you imagined sharing, the trips you planned to take, the way you pictured them meeting your family. None of it was real, and yet all of it felt real, and the gap between those two things is where the most acute pain lives.
 
-There is also the particular agony of losing someone who chose not to choose you. In a conventional breakup, both parties usually acknowledge that something existed and that it has ended. In a situationship, you are often denied even that basic recognition. The other person may insist that there was nothing to end, that you were reading too much into things, that they never promised you anything. This gaslighting, whether intentional or not, makes it nearly impossible to process the loss because it undermines the foundation of your own emotional reality. You start questioning whether your feelings were valid, whether the connection was real, whether you imagined the whole thing.
+There is also the particular agony of losing someone who chose not to choose you. In a conventional breakup, both parties usually acknowledge that something existed and that it has ended. In a situationship, you are often denied even that basic recognition. The other person may insist that there was nothing to end, that you were reading too much into things, that they never promised you anything. This [gaslighting](https://en.wikipedia.org/wiki/Gaslighting), whether intentional or not, makes it nearly impossible to process the loss because it undermines the foundation of your own emotional reality. You start questioning whether your feelings were valid, whether the connection was real, whether you imagined the whole thing.
 
 You did not imagine it. The connection was real. Your feelings are valid. And you are allowed to grieve this loss fully and openly, regardless of what anyone else thinks about the legitimacy of what you lost.
 
@@ -43,7 +44,7 @@ Write to the person who was almost yours. Say the thing you never got to say, th
     title: 'The Typed and Deleted: Why We Fear Hitting Send',
     excerpt: 'The modern digital ritual of typing an emotionally charged paragraph and hitting backspace. The psychology of unsent text messages and mental rehearsal.',
     date: 'May 2026',
-        related: ['psychology-unspoken-words-letters-never-sent', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on', 'understanding-[limerence](https://en.wikipedia.org/wiki/Limerence)-heartbreak-digital-obsession', 'shadow-work-heartbreak-integrating-hidden-insecurities'],
+        related: ['the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on', 'shadow-work-heartbreak-integrating-hidden-insecurities'],
     faq: [
       {
         question: 'Why do people write text messages they never send?',
@@ -81,7 +82,7 @@ Do not delete that paragraph this time. Do not hold backspace until the screen i
     title: 'Platonic Heartbreak: When Best Friends Become Strangers',
     excerpt: 'Society prepares us for romantic breakups, but offers no roadmap for missing a friend you no longer speak to and coping with unresolved grief.',
     date: 'May 2026',
-        related: ['the-2am-echo-missing-ex', 'psychology-unspoken-words-letters-never-sent', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
+        related: ['the-2am-echo-missing-ex', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
     faq: [
       {
         question: 'What does "Platonic Heartbreak" mean?',

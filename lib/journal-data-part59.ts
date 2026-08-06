@@ -5,8 +5,10 @@ export const POSTS_PART59: JournalPost[] = [
     slug: 'how-to-manifest-them-back',
     title: 'How to Manifest Them Back',
     excerpt: 'The internet is filled with manifestation techniques promising to bring your ex back. But what does the psychology behind manifestation actually achieve, and what is the real cost of waiting?',
-    date: 'June 2026',
-        related: ['the-2am-echo-missing-ex', 'psychology-unspoken-words-letters-never-sent', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
+    date: 'August 2026',
+    lastReviewed: 'August 2026',
+    hideEditorial: true,
+        related: ['the-2am-echo-missing-ex', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
     faq: [
       {
         question: 'How to Manifest Them Back?',
@@ -17,7 +19,7 @@ export const POSTS_PART59: JournalPost[] = [
         answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
       },
     ],
-    content: `If you have experienced a devastating breakup recently, your social media algorithms have probably figured it out. You might be scrolling through your feed late at night, trying to numb the pain of a quiet room, when you start seeing them: the manifestation videos. A calming voice tells you that if you use the 369 method, or write their name under your pillow, or listen to specific frequencies while visualizing their return, they will text you. They will come back. They will realize their mistake. The promise is intoxicating. When you are drowning in grief, someone handing you a perceived lifeline of control feels like salvation. But before you spend another night whispering their name into a glass of water, we need to have a serious, compassionate conversation about how to manifest them back—and what that process is actually doing to you.
+    content: `If you have experienced a devastating breakup recently, your social media algorithms have probably figured it out. You might be scrolling through your feed late at night, trying to numb the pain of a quiet room, when you start seeing them: the [manifestation](https://en.wikipedia.org/wiki/Law_of_attraction_(New_Thought)) videos. A calming voice tells you that if you use the 369 method, or write their name under your pillow, or listen to specific frequencies while visualizing their return, they will text you. They will come back. They will realize their mistake. The promise is intoxicating. When you are drowning in [grief](https://en.wikipedia.org/wiki/Grief), someone handing you a perceived lifeline of control feels like salvation. But before you spend another night whispering their name into a glass of water, we need to have a serious, compassionate conversation about how to manifest them back—and what that process is actually doing to you.
 
 The appeal of manifestation in the aftermath of a breakup is rooted in a fundamental human need: the illusion of control. Grief is terrifying precisely because it is an experience of profound powerlessness. Someone you love has made a unilateral decision to remove themselves from your life, and there is nothing you can do to override their autonomy. Manifestation steps into this void of control and offers a comforting lie: you are not powerless. It suggests that if you just align your thoughts correctly, if you just vibrate at the right frequency, you can bend their free will to match your desires. It transforms the agonizing waiting period into active work. You are no longer a passive victim of heartbreak; you are a spiritual architect rebuilding the relationship from the ether.
 
@@ -33,7 +35,7 @@ So, if manifestation is psychologically harmful and ethically questionable when 
 
 Instead of trying to manifest them back, try manifesting your own recovery.
 
-What does it look like to manifest healing? It looks like taking the intense energy you are currently directing toward a person who left, and turning it inward. It involves visualizing yourself feeling whole again. It means waking up and setting the intention to get through the day with grace and self-compassion. It means focusing on the qualities you want in a future relationship—respect, communication, mutual effort—rather than the specific person who failed to provide them. 
+What does it look like to manifest healing? It looks like taking the intense energy you are currently directing toward a person who left, and turning it inward. It involves visualizing yourself feeling whole again. It means waking up and setting the intention to get through the day with grace and [self-compassion](https://en.wikipedia.org/wiki/Self-compassion). It means focusing on the qualities you want in a future relationship—respect, communication, mutual effort—rather than the specific person who failed to provide them. 
 
 When you shift your manifestation practice from "I want them back" to "I want to feel peace," you reclaim your actual power. You stop waiting for someone else to change their mind and start changing your own reality. You begin to align your actions with your well-being. You go to therapy. You reconnect with friends. You rediscover hobbies that were sidelined during the relationship. You start vibrating at the frequency of someone who knows their worth, rather than someone who is begging for scraps of attention from the universe.
 

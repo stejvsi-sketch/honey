@@ -5,8 +5,10 @@ export const POSTS_PART63: JournalPost[] = [
     slug: 'the-history-of-unsent-letters-from-lincoln-to-the-internet',
     title: 'The History of Unsent Letters — From Lincoln\u0027s Hot Letters to the Digital Archive',
     excerpt: 'People have been writing letters they never sent for centuries. Here is the history of this practice and why the internet finally gave it the space it deserves.',
-    date: 'June 2026',
-    related: ['does-writing-an-unsent-letter-actually-help-you-heal', 'psychology-unspoken-words-letters-never-sent', 'why-we-write-letters-we-never-send', 'when-the-submit-button-fails-at-the-worst-moment'],
+    date: 'August 2026',
+    lastReviewed: 'August 2026',
+    hideEditorial: true,
+    related: ['does-writing-an-unsent-letter-actually-help-you-heal', 'why-we-write-letters-we-never-send', 'when-the-submit-button-fails-at-the-worst-moment'],
     faq: [
       {
         question: 'Did Abraham Lincoln really write unsent letters?',
@@ -31,9 +33,9 @@ The literary tradition is full of unsent letters that became famous only after t
 
 [Virginia Woolf](https://en.wikipedia.org/wiki/Virginia_Woolf) wrote letters to Vita Sackville-West that she never sent, working through feelings of jealousy and desire that she could not articulate in person. Emily Dickinson composed hundreds of letters and poems that were never intended for their recipients, using the act of composition as a private emotional ritual.
 
-The psychological mechanism behind all of these examples is the same. When you write a letter to someone, even if you never send it, you are engaging in a process that psychologists call [cognitive reappraisal](https://en.wikipedia.org/wiki/Cognitive_reappraisal). You are taking raw, unstructured emotion and converting it into organized language. This conversion is not trivial. Neuroscience research, including work by [Dr. Matthew Lieberman at UCLA](https://www.scn.ucla.edu/), has shown that the act of labeling an emotion — giving it words — actually reduces its neurological intensity. The amygdala, the brain's threat center, shows decreased activation when an emotion is named. Writing is not just expressive. It is regulatory.
+The psychological mechanism behind all of these examples is the same. When you write a letter to someone, even if you never send it, you are engaging in a process that psychologists call [cognitive reappraisal](https://en.wikipedia.org/wiki/Cognitive_reappraisal). You are taking raw, unstructured emotion and converting it into organized language. This conversion is not trivial. Neuroscience research, including work by [Dr. Matthew Lieberman at UCLA](https://www.scn.ucla.edu/), has shown that the act of labeling an emotion — giving it words — actually reduces its neurological intensity. The [amygdala](https://en.wikipedia.org/wiki/Amygdala), the brain's threat center, shows decreased activation when an emotion is named. Writing is not just expressive. It is regulatory.
 
-[Dr. James Pennebaker's research](https://psycnet.apa.org/record/1997-36935-008) at the University of Texas formalized this insight in the 1980s. His studies showed that writing about emotional experiences for as little as fifteen to twenty minutes a day, over three to four days, produced measurable improvements in physical and psychological health. Participants who engaged in expressive writing showed fewer doctor visits, improved immune function, reduced symptoms of depression, and better academic and professional performance. The effect was not limited to any particular kind of emotional experience. It worked for grief, trauma, anger, shame, and regret.
+Research by [Dr. James Pennebaker](https://en.wikipedia.org/wiki/James_Pennebaker) at the University of Texas at Austin has [consistently shown](https://doi.org/10.1111/j.1467-9280.1997.tb00403.x) that writing about difficult emotions for even fifteen minutes produces measurable improvements in mental and physical health.
 
 The internet changed the unsent letter from a private ritual into a shared one. The first digital unsent letter platforms appeared in the early 2010s, giving people a way to externalize their unsent words and know that someone, somewhere, might read them. This added a dimension that Lincoln and Kafka never had: the possibility of being witnessed. Anonymous, yes, but witnessed nonetheless. Your letter existed not just in a drawer but in a searchable, browsable space where other people could encounter it and recognize their own pain in your words.
 

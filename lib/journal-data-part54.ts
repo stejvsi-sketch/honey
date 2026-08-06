@@ -5,7 +5,9 @@ export const POSTS_PART54: JournalPost[] = [
     slug: 'are-unsent-letters-online-real-or-fake',
     title: 'Are Unsent Letters Online Real or Fake? How Moderation Determines Authenticity',
     excerpt: 'Are the messages in unsent letter archives real or fabricated? An honest look at authenticity in anonymous submissions and why human moderation is the only real answer.',
-    date: 'June 2026',
+    date: 'July 2026',
+    lastReviewed: 'August 2026',
+    hideEditorial: true,
     related: ['why-we-write-letters-we-never-send', 'the-psychology-of-unsent-messages', 'does-writing-an-unsent-letter-actually-help-you-heal', 'why-unsent-letter-submissions-disappear'],
     faq: [
       {
@@ -21,7 +23,7 @@ export const POSTS_PART54: JournalPost[] = [
         answer: 'Large language models can produce text that mimics emotional writing at the surface level, but real grief is specific and messy. Human moderators develop sensitivity to the patterns that distinguish genuine emotional writing from synthetic writing.',
       },
     ],
-    content: `The first time you scroll through an unsent letter archive, a question forms almost immediately: are these real? Did a real person actually write this, or is this fabricated, generated, or submitted as a joke? The question haunts the experience because the answer determines everything. If the messages are real, you are witnessing something extraordinary — a vast, anonymous outpouring of genuine human vulnerability. If they are fake, you are reading fiction dressed up as confession, and the emotional impact collapses entirely.
+    content: `The first time you scroll through an unsent letter archive, a question forms almost immediately: are these real? Did a real person actually write this, or is this fabricated, generated, or submitted as a joke? The question haunts the experience because the answer determines everything. If the messages are real, you are witnessing something extraordinary — a vast, anonymous outpouring of genuine human [vulnerability](https://en.wikipedia.org/wiki/Vulnerability). If they are fake, you are reading fiction dressed up as confession, and the emotional impact collapses entirely.
 
 The honest answer is that on most unsent letter platforms, especially those that grew quickly without strong moderation, the archive contains a mixture of both. Some messages are devastatingly real. You can feel the weight of them through the screen. They are specific in ways that fiction rarely is. They reference the color of a shirt someone was wearing on a particular Tuesday, or the exact words spoken in a fight that happened three years ago. That level of specificity is the fingerprint of genuine memory. No one fabricates those details.
 
@@ -31,7 +33,7 @@ The ratio of real to fake varies wildly depending on the platform, and it change
 
 This is not a trivial problem. It undermines the therapeutic value of the platform for everyone involved. For readers, encountering fake or joke submissions in the middle of genuine confessions breaks the emotional trust that the platform depends on. Research on [parasocial relationships](https://en.wikipedia.org/wiki/Parasocial_interaction) and emotional media engagement shows that the perception of authenticity is central to whether emotional content produces genuine emotional responses in the audience. For writers, submitting to a platform full of fake messages devalues their own submission. You wrote something that cost you emotionally, and your message now sits alongside jokes and spam.
 
-The solution to the real-or-fake problem is moderation, and specifically human moderation. Automated filters can catch spam and profanity, but they cannot evaluate sincerity. They cannot distinguish between a genuine expression of grief and a performative imitation of one. That judgment requires a human being who reads thousands of submissions and develops an intuition for what is real.
+The solution to the real-or-fake problem is moderation, and specifically human moderation. Automated filters can catch spam and profanity, but they cannot evaluate sincerity. They cannot distinguish between a genuine expression of [grief](https://en.wikipedia.org/wiki/Grief) and a performative imitation of one. That judgment requires a human being who reads thousands of submissions and develops an intuition for what is real.
 
 At Honey, If Only, every single submission is reviewed by a human moderator before it appears in the archive. This is not scalable in the way that venture capitalists like. It does not allow for exponential growth. But it is the only way to guarantee authenticity, and authenticity is the only thing that makes an unsent letter archive worth visiting.
 

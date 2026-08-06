@@ -5,8 +5,10 @@ export const POSTS_PART61: JournalPost[] = [
     slug: 'how-to-get-unblocked-by-them',
     title: 'How to Get Unblocked By Them',
     excerpt: 'Being blocked is a harsh, definitive boundary that often triggers panic and a desperate need to fix things. But attempting to circumvent a block usually achieves the exact opposite of what you want.',
-    date: 'June 2026',
-        related: ['the-2am-echo-missing-ex', 'psychology-unspoken-words-letters-never-sent', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
+    date: 'August 2026',
+    lastReviewed: 'August 2026',
+    hideEditorial: true,
+        related: ['the-2am-echo-missing-ex', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on'],
     faq: [
       {
         question: 'How to Get Unblocked By Them?',
@@ -23,7 +25,7 @@ The internet is full of terrible advice on this subject. You will find articles 
 
 When someone blocks you, they are sending a very clear, unambiguous message: they do not want to communicate with you right now. They feel overwhelmed, angry, hurt, or simply exhausted by the dynamic, and they have decided that removing your ability to contact them is necessary for their own peace of mind. A block is a digital wall. When you try to climb over that wall by using a burner number or a fake account, you are not proving your love. You are proving that your desire to speak is more important to you than their desire for space. You are demonstrating a fundamental lack of respect for their boundaries, which is likely one of the behaviors that led to the block in the first place.
 
-If your goal is to eventually repair the relationship, or even just achieve closure through a final conversation, violating a block is the worst possible strategy. It transforms you from an ex-partner they might eventually miss into a threat they need to avoid. It validates their decision to block you. Every time you bypass their block to send a message, you are resetting the clock on any potential healing. You are reminding them exactly why they needed to put the wall up.
+If your goal is to eventually repair the relationship, or even just achieve [closure](https://en.wikipedia.org/wiki/Closure_(psychology)) through a final conversation, violating a block is the worst possible strategy. It transforms you from an ex-partner they might eventually miss into a threat they need to avoid. It validates their decision to block you. Every time you bypass their block to send a message, you are resetting the clock on any potential healing. You are reminding them exactly why they needed to put the wall up.
 
 So, how do you actually get unblocked? The answer is counterintuitive and incredibly difficult to execute: you do absolutely nothing.
 
@@ -39,7 +41,7 @@ By maintaining absolute silence and respecting their boundary during the period 
 
 But there is a catch, and it is a significant one: you cannot use "respecting the block" as a covert strategy to get them back. If you are sitting on your hands for three months, vibrating with anxiety, just waiting for the day the WhatsApp profile picture reappears so you can immediately send a "hey," you have not actually grown. You have just been holding your breath.
 
-The true goal of the no-contact period following a block is not to manipulate them into unblocking you. The true goal is to reach a place where you no longer care whether they unblock you or not. The goal is to rebuild your life, your self-esteem, and your emotional stability to the point where their digital presence is no longer required for your happiness. You have to grieve the relationship as if the block is permanent. You have to assume you will never speak to them again, and figure out how to be okay with that reality.
+The true goal of the no-contact period following a block is not to manipulate them into unblocking you. The true goal is to reach a place where you no longer care whether they unblock you or not. The goal is to rebuild your life, your [self-esteem](https://en.wikipedia.org/wiki/Self-esteem), and your emotional stability to the point where their digital presence is no longer required for your happiness. You have to grieve the relationship as if the block is permanent. You have to assume you will never speak to them again, and figure out how to be okay with that reality.
 
 Ironically, it is usually only when you reach this state of genuine detachment that the unblock happens. When you have truly moved on, when you are no longer energetically pulling at them, they often sense the shift and feel safe enough to lower the wall. But by the time they do, the unblock will no longer feel like a life-saving event. It will just be a notification on a screen.
 

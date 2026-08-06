@@ -5,8 +5,9 @@ export const POSTS_PART53: JournalPost[] = [
     slug: 'does-writing-an-unsent-letter-actually-help-you-heal',
     title: 'Does Writing an Unsent Letter Actually Help You Heal?',
     excerpt: 'Does submitting an unsent letter to a public archive actually help you process grief? An honest look at the psychology of expressive writing and what makes it work.',
-    date: 'June 2026',
-    related: ['why-we-write-letters-we-never-send', 'the-psychology-of-unsent-messages', 'how-to-write-an-unsent-letter', 'psychology-unspoken-words-letters-never-sent'],
+    date: 'July 2026',
+    lastReviewed: 'August 2026',
+    related: ['why-we-write-letters-we-never-send', 'the-psychology-of-unsent-messages', 'how-to-write-an-unsent-letter'],
     faq: [
       {
         question: 'Does writing an unsent letter actually help you heal?',
@@ -21,7 +22,7 @@ export const POSTS_PART53: JournalPost[] = [
         answer: 'Dr. James Pennebaker\u0027s research at the University of Texas showed that writing about emotional experiences produces measurable improvements in both psychological and physical health, including reduced symptoms of depression and anxiety and improved immune function.',
       },
     ],
-    content: `The question of whether writing an unsent letter actually works is really two questions disguised as one. The first is practical: can you submit a message to an archive and have it appear? The second, and far more interesting question, is psychological: does the act of writing and submitting an unsent letter to a public archive actually do anything for you emotionally? Does it help you process grief, release attachment, or move forward? Or is it just a digital placebo, a ritual that feels meaningful in the moment but changes nothing?
+    content: `The question of whether writing an unsent letter actually works is really two questions disguised as one. The first is practical: can you submit a message to an archive and have it appear? The second, and far more interesting question, is psychological: does the act of writing and submitting an unsent letter to a public archive actually do anything for you emotionally? Does it help you process [grief](https://en.wikipedia.org/wiki/Grief), release attachment, or move forward? Or is it just a digital placebo, a ritual that feels meaningful in the moment but changes nothing?
 
 The psychological question is the one worth exploring in depth. The answer, according to both psychological research and the lived experience of millions of users, is a qualified yes. But the qualification matters enormously, because the benefit depends almost entirely on the conditions under which the act takes place.
 
@@ -35,10 +36,10 @@ This is the insight that shaped the design of Honey, If Only. The twenty five wo
 
 The public nature of the submission adds another layer of therapeutic benefit. When you write in a private journal, you are processing your emotions in isolation. When you submit to a public archive, even anonymously, you are performing an act of connection. You are saying, implicitly, that your experience is not so shameful or unusual that it needs to be hidden. Research on [self-disclosure](https://en.wikipedia.org/wiki/Self-disclosure) shows that sharing vulnerable experiences, even anonymously, reduces the shame associated with them and helps normalize the emotional experience.
 
-However, not all platforms facilitate this equally well. A platform cluttered with spam, joke submissions, and low-effort content undermines the sense of emotional safety that makes vulnerability possible. The environment matters. The curation matters. A platform that treats every submission with care creates a different psychological experience than one that treats submissions as disposable content.
+However, not all platforms facilitate this equally well. A platform cluttered with spam, joke submissions, and low-effort content undermines the sense of emotional safety that makes [vulnerability](https://en.wikipedia.org/wiki/Vulnerability) possible. The environment matters. The curation matters. A platform that treats every submission with care creates a different psychological experience than one that treats submissions as disposable content.
 
 The moderation model also matters. A platform with no moderation becomes a free-for-all. A platform with purely automated moderation misses nuance. A platform with human moderation, while more resource-intensive, sends an implicit message to every submitter: a real person read what you wrote. That implicit validation is itself a form of therapeutic support.
 
-So does writing an unsent letter actually help? The concept works. The science supports it. Writing unsent letters and submitting them to a public archive can genuinely help people process grief, release attachment, and find closure. But the specific implementation matters enormously. The word limit, the moderation approach, the aesthetic environment, the sense of permanence — these are not cosmetic choices. They are therapeutic design decisions that determine whether the experience delivers real benefit or just the appearance of it.`
+So does writing an unsent letter actually help? The concept works. The science supports it. Writing unsent letters and submitting them to a public archive can genuinely help people process grief, release attachment, and find [closure](https://en.wikipedia.org/wiki/Closure_(psychology)). But the specific implementation matters enormously. The word limit, the moderation approach, the aesthetic environment, the sense of permanence — these are not cosmetic choices. They are therapeutic design decisions that determine whether the experience delivers real benefit or just the appearance of it.`
   }
 ];

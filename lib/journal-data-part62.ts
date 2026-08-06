@@ -5,7 +5,9 @@ export const POSTS_PART62: JournalPost[] = [
     slug: 'you-dont-find-the-same-person-twice',
     title: "You Don't Find the Same Person Twice, Even in the Same Person",
     excerpt: 'When we reunite with an ex, we are usually looking for the person they used to be, and the relationship we used to have. But time changes us all, and the ghost of the past cannot survive in the present.',
-    date: 'June 2026',
+    date: 'August 2026',
+    lastReviewed: 'August 2026',
+    hideEditorial: true,
         related: ['right-person-wrong-time', 'grieving-relationship-didnt-happen', 'grieving-an-almost-relationship-situationship-pain', 'the-weight-of-being-someones-secret'],
     faq: [
       {
@@ -21,11 +23,11 @@ export const POSTS_PART62: JournalPost[] = [
 
 But there is a heartbreaking truth that anyone who has ever successfully reunited with an ex eventually discovers: you do not find the same person twice, even when it is the exact same person.
 
-To understand why reunions are so often disappointing, we have to understand the nature of memory. When a relationship ends, our brains do not file away an objective, documentary-style recording of the experience. Instead, through the lens of grief and distance, we engage in a process called "euphoric recall." We edit out the mundane Tuesday nights where we sat in silence, staring at our phones. We edit out the anxiety of waiting for a text that took too long. We edit out the subtle, chronic incompatibilities that slowly eroded our patience. We distill the relationship down to a highlight reel of inside jokes, passionate reconciliations, and the profound feeling of being understood.
+To understand why reunions are so often disappointing, we have to understand the nature of memory. When a relationship ends, our brains do not file away an objective, documentary-style recording of the experience. Instead, through the lens of [grief](https://en.wikipedia.org/wiki/Grief) and distance, we engage in a process called "[euphoric recall](https://en.wikipedia.org/wiki/Euphoric_recall)." We edit out the mundane Tuesday nights where we sat in silence, staring at our phones. We edit out the anxiety of waiting for a text that took too long. We edit out the subtle, chronic incompatibilities that slowly eroded our patience. We distill the relationship down to a [highlight reel](https://en.wikipedia.org/wiki/Rosy_retrospection) of inside jokes, passionate reconciliations, and the profound feeling of being understood.
 
 When we crave our ex, we are not craving the flawed, complicated human being who actually existed. We are craving the edited, idealized version of them that lives only in our memory. We are craving the feeling of a specific era of our lives that they happen to represent.
 
-And here is the crucial complication: while you have been spending months or years polishing this idealized memory of them, they have been busy living. They have had new experiences, suffered new heartbreaks, learned new lessons, and formed new habits. Their brain chemistry has literally changed. Their perspectives have shifted. The person you broke up with does not exist anymore. They have been replaced by a new, slightly different version of themselves.
+And here is the crucial complication: while you have been spending months or years polishing this idealized memory of them, they have been busy living. They have had new experiences, suffered new heartbreaks, learned new lessons, and formed new habits. Their brain chemistry has literally changed. Their [perspective](https://en.wikipedia.org/wiki/Perspective-taking)s have shifted. The person you broke up with does not exist anymore. They have been replaced by a new, slightly different version of themselves.
 
 And, importantly, so have you. The trauma of the breakup, the process of healing, the new people you have met, and the self-discovery you have undertaken have irrevocably altered who you are. You are not the same person who dated them. You cannot step into the same river twice.
 

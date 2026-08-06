@@ -5,8 +5,10 @@ export const POSTS_PART55: JournalPost[] = [
     slug: 'the-trust-contract-between-writers-and-archives',
     title: 'The Trust Contract Between Vulnerable Writers and the Archives That Hold Their Words',
     excerpt: 'When you submit an unsent letter, you enter an invisible contract with the platform. Here is what that contract should include and why most archives break it.',
-    date: 'June 2026',
-    related: ['when-unsent-letter-archives-lose-your-words', 'are-unsent-letters-online-real-or-fake', 'does-writing-an-unsent-letter-actually-help-you-heal', 'the-digital-footprint-of-heartbreak-archiving-our-unsent-thoughts'],
+    date: 'July 2026',
+    lastReviewed: 'August 2026',
+    hideEditorial: true,
+    related: ['when-unsent-letter-archives-lose-your-words', 'are-unsent-letters-online-real-or-fake', 'does-writing-an-unsent-letter-actually-help-you-heal'],
     faq: [
       {
         question: 'What do unsent letter platforms owe their writers?',
@@ -21,11 +23,11 @@ export const POSTS_PART55: JournalPost[] = [
 
 The experience of submitting something emotionally vulnerable and having it silently disappear is uniquely painful because it mirrors the very dynamic that drove you to the platform in the first place. You had words you could not say to someone. You found a place that promised to hold those words for you. And then that place discarded them without explanation, just as the person you were writing to never heard them. In psychology, this kind of experience is called [retraumatization](https://en.wikipedia.org/wiki/Retraumatization) — when a new experience echoes the pattern of an original wound closely enough to reactivate the pain.
 
-This is why the concept of a trust contract matters so much in the context of unsent letter archives. The term comes from the broader field of [psychological contracts](https://en.wikipedia.org/wiki/Psychological_contract), which describes the unwritten expectations that exist between two parties in a relationship. When you submit an unsent letter to a platform, you are entering into an unspoken agreement. You provide your vulnerability. The platform provides acknowledgment, preservation, and care. Neither side signs anything, but the expectations are real and the consequences of violating them are psychologically significant.
+This is why the concept of a trust contract matters so much in the context of unsent letter archives. The term comes from the broader field of [psychological contracts](https://en.wikipedia.org/wiki/Psychological_contract), which describes the unwritten expectations that exist between two parties in a relationship. When you submit an unsent letter to a platform, you are entering into an unspoken agreement. You provide your [vulnerability](https://en.wikipedia.org/wiki/Vulnerability). The platform provides acknowledgment, preservation, and care. Neither side signs anything, but the expectations are real and the consequences of violating them are psychologically significant.
 
 Most platforms violate this contract without realizing it. The violation is not malicious. It happens through neglect, through scaling beyond capacity, through automated systems that filter genuine emotional expression as if it were spam. But the impact on the writer is the same regardless of the cause. When your words vanish into silence, the message you receive is: your pain was not important enough to preserve.
 
-The practical reasons behind disappeared submissions are well understood. Volume overwhelms moderation queues. Automated content filters use [keyword matching and pattern recognition](https://en.wikipedia.org/wiki/Content_moderation) that produce false positives, flagging heartfelt messages about grief and loss because they contain words associated with self-harm or violence. Database operations fail silently during peak traffic. Platforms built by individual developers as passion projects gradually fall into disrepair as the developer's attention shifts elsewhere. The front end continues accepting submissions while the back end silently fails.
+The practical reasons behind disappeared submissions are well understood. Volume overwhelms moderation queues. Automated content filters use [keyword matching and pattern recognition](https://en.wikipedia.org/wiki/Content_moderation) that produce false positives, flagging heartfelt messages about [grief](https://en.wikipedia.org/wiki/Grief) and loss because they contain words associated with self-harm or violence. Database operations fail silently during peak traffic. Platforms built by individual developers as passion projects gradually fall into disrepair as the developer's attention shifts elsewhere. The front end continues accepting submissions while the back end silently fails.
 
 But understanding the technical reasons does not address the emotional injury. The emotional impact of a lost submission goes beyond simple frustration because of the unique nature of what was submitted. An unsent letter is not a comment on a news article or a review of a product. It is a piece of distilled emotional truth that required courage to externalize. The writer chose to trust a platform with something fragile, and the platform responded with silence.
 

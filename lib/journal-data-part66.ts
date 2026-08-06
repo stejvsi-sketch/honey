@@ -5,8 +5,9 @@ export const POSTS_PART66: JournalPost[] = [
     slug: 'the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on',
     title: 'The Psychology of Closure: Why We Don’t Need an Apology to Move On',
     excerpt: 'We often wait for an apology or an explanation to finally feel closure after a relationship ends. However, psychological research suggests that true closure comes from within, not from the person who hurt us.',
-    date: 'June 2026',
-        related: ['psychology-unsent-text-messages', 'psychology-unspoken-words-letters-never-sent', 'understanding-limerence-heartbreak-digital-obsession', 'shadow-work-heartbreak-integrating-hidden-insecurities'],
+    date: 'August 2026',
+    lastReviewed: 'August 2026',
+        related: ['psychology-unsent-text-messages'],
     faq: [
       {
         question: 'The Psychology of Closure: Why We Don\'t Need an Apology to Move On?',
@@ -17,7 +18,7 @@ export const POSTS_PART66: JournalPost[] = [
         answer: 'Expressive writing research by Dr. James Pennebaker at the University of Texas shows that putting emotional experiences into words produces measurable improvements in both psychological and physical health. The constraint of 25 words forces you to identify the single core truth, which is where most of the therapeutic benefit comes from.',
       },
     ],
-    content: `When a relationship ends abruptly or painfully, the immediate instinct is to seek answers. We want to know why it happened, how they could do it, and, most importantly, we want an apology. We operate under the assumption that if the other person would just acknowledge their wrongdoing and validate our pain, we could finally find "closure" and move on with our lives. This desire for external validation often traps us in a cycle of waiting, preventing us from healing.
+    content: `When a relationship ends abruptly or painfully, the immediate instinct is to seek answers. We want to know why it happened, how they could do it, and, most importantly, we want an apology. We operate under the assumption that if the other person would just acknowledge their wrongdoing and validate our pain, we could finally find "[closure](https://en.wikipedia.org/wiki/Closure_(psychology))" and move on with our lives. This desire for external validation often traps us in a cycle of waiting, preventing us from healing.
 
 Psychologists and relationship experts have increasingly begun to challenge this traditional view of closure. The harsh reality is that the apology you are waiting for may never come. And even if it does, it rarely provides the magical sense of peace you expect. 
 
@@ -29,7 +30,7 @@ Therapeutic practices emphasize the importance of self-validation. You do not ne
 
 This is where the power of the unsent letter becomes profoundly evident. Writing a letter that you never intend to send is a mechanism for taking back control of your narrative. When you write an unsent message, you are not asking for a response. You are not waiting for an apology. You are simply stating your truth. You are acknowledging your pain and externalizing it. 
 
-By writing down everything you wish you could say, you satisfy the brain's need to organize the chaotic emotions of the breakup. You give yourself the opportunity to express the anger and grief without the risk of an unfulfilling or combative response from the other person. You become the author of your own closure.
+By writing down everything you wish you could say, you satisfy the brain's need to organize the chaotic emotions of the breakup. You give yourself the opportunity to express the anger and [grief](https://en.wikipedia.org/wiki/Grief) without the risk of an unfulfilling or combative response from the other person. You become the author of your own closure.
 
 Moving on does not mean forgetting, and it does not necessarily mean forgiving. It means accepting that the chapter has ended, regardless of how messy the final pages were. It involves shifting your focus away from what they owe you, and toward what you owe yourself: peace, growth, and the willingness to step forward into the ambiguity of the future. 
 
