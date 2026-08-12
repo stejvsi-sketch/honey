@@ -38,6 +38,13 @@ export default function WritePageClient() {
           write &amp; burn
         </button>
       </div>
+      <div className="cross-promo">
+        <p className="cross-promo__text">This space is for unsent letters and memories.</p>
+        <p className="cross-promo__text">For the worst things said to you:</p>
+        <a href="https://www.theworstsaid.com/" target="_blank" rel="noopener noreferrer" className="cross-promo__link">
+          theworstsaid.com ↗
+        </a>
+      </div>
     </div>
   );
 }

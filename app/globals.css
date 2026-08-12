@@ -2069,3 +2069,34 @@ a:hover { color: var(--accent-hover); }
     right: -2px;
   }
 }
+
+/* ===== CROSS PROMO ===== */
+.cross-promo {
+  text-align: center;
+  margin-top: 64px;
+}
+.cross-promo__text {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 4px;
+}
+.cross-promo__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+  padding: 10px 24px;
+  border-radius: 100px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: all var(--transition);
+  font-family: var(--font-sans);
+  background: rgba(0, 0, 0, 0.05);
+}
+.cross-promo__link:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--text);
+}
