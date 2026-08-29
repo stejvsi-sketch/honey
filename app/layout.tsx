@@ -64,6 +64,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4151123662328725" crossOrigin="anonymous" suppressHydrationWarning></script>
       </head>
       <body>
+        {/* BidVertiser ownership verification */}
+        <span dangerouslySetInnerHTML={{ __html: '<!-- Bidvertiser2106767 -->' }} />
         <Navigation />
         <main>{children}</main>
         <Footer />
