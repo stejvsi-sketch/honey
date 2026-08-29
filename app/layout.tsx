@@ -65,7 +65,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         {/* BidVertiser ownership verification */}
-        <span dangerouslySetInnerHTML={{ __html: '<!-- Bidvertiser2106767 -->' }} />
+        <noscript dangerouslySetInnerHTML={{ __html: '<!-- Bidvertiser2106767 -->' }} />
         <Navigation />
         <main>{children}</main>
         <Footer />
