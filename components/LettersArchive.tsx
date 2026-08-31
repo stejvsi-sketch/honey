@@ -1,8 +1,8 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import VirtualizedCardGrid from '@/components/cards/VirtualizedCardGrid';
+import CardRenderer from '@/components/cards/CardRenderer';
 import BidVertiserAd from '@/components/BidVertiserAd';
 import type { Memory } from '@/lib/types';
 
@@ -243,12 +243,21 @@ export default function LettersArchive({
         )}
       </form>
 
-      <VirtualizedCardGrid memories={memories} />
-
-      {/* In-feed ad after initial batch of cards */}
-      {memories.length >= 6 && (
-        <BidVertiserAd rows={1} imageWidth={250} placement="archive-mid" variant="infeed" />
-      )}
+      <div className="card-grid">
+        {memories.map((memory, i) => (
+          <Fragment key={memory.id}>
+            <CardRenderer memory={memory} animate={false} />
+            {(i + 1) % 6 === 0 && i < memories.length - 1 && (
+              <BidVertiserAd
+                rows={1}
+                imageWidth={250}
+                placement={`archive-${i}`}
+                variant="infeed"
+              />
+            )}
+          </Fragment>
+        ))}
+      </div>
 
       {!initialLoad && memories.length === 0 && (
         <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginTop: 48, fontStyle: 'italic' }}>
@@ -279,7 +288,7 @@ export default function LettersArchive({
         </div>
       )}
 
-      {!hasMore && memories.length > 0 && !loading && (
+      {!hasMore && memories.length > 0 && !loading && total > 0 && (
         <>
           <BidVertiserAd rows={1} imageWidth={250} placement="archive-end" variant="infeed" />
           <div style={{ textAlign: 'center', padding: '40px 0 20px' }}>
