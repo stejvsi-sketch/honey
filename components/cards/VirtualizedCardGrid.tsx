@@ -13,7 +13,7 @@ const STATIC_RENDER_CAP = 30;
 // Insert an ad after every AD_INTERVAL cards
 const AD_INTERVAL = 6;
 // Fixed pixel height reserved for each ad slot
-const AD_SLOT_HEIGHT = 220;
+const AD_SLOT_HEIGHT = 380;
 
 const subscribeNoop = () => () => {};
 
