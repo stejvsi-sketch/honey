@@ -19,7 +19,7 @@ export default function HomeCardGrid({ memories }: { memories: Memory[] }) {
             <BidVertiserAd
               key="ad-infeed-home"
               rows={1}
-              imageWidth={350}
+              imageWidth={250}
               placement="home-infeed"
               variant="infeed"
             />

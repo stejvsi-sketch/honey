@@ -248,7 +248,7 @@ export default function VirtualizedCardGrid({
         <BidVertiserAd
           key={`ad-archive-${globalIndex}`}
           rows={1}
-          imageWidth={350}
+          imageWidth={250}
           placement={`archive-${globalIndex}`}
           variant="infeed"
         />

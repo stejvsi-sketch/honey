@@ -2138,6 +2138,11 @@ a:hover { color: var(--accent-hover); }
   padding: 12px 16px;
   border-radius: var(--radius);
   background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+.ad-container__content img {
+  max-width: 100% !important;
+  height: auto !important;
 }
 
 /* In-feed ad: spans full grid width between card rows */
