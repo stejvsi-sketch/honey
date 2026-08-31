@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import type { CSSProperties } from 'react';
 import CardRenderer from '@/components/cards/CardRenderer';
-import BidVertiserAd from '@/components/BidVertiserAd';
 import type { Memory } from '@/lib/types';
 
 const CARD_RATIO = 520 / 420;
@@ -12,11 +11,6 @@ const DEFAULT_OVERSCAN_ROWS = 3;
 // (before hydration), so the layout is correct on every device with no flash of
 // squished/overlapping cards. The virtualizer takes over after mount for long lists.
 const STATIC_RENDER_CAP = 30;
-
-// Show an in-feed ad after every N cards (tuned per breakpoint)
-const AD_INTERVAL = 6;
-// Estimated ad container height (label + content + padding)
-const AD_ROW_HEIGHT = 200;
 
 // Stable no-op subscribe for useSyncExternalStore (the mount flag never changes).
 const subscribeNoop = () => () => {};
@@ -59,24 +53,6 @@ function sameMetrics(a: GridMetrics, b: GridMetrics): boolean {
   );
 }
 
-/**
- * Builds a mixed list of cards and ad slots.
- * An ad is inserted after every AD_INTERVAL cards.
- */
-type GridItem = { type: 'card'; memory: Memory } | { type: 'ad'; index: number };
-
-function buildGridItems(memories: Memory[]): GridItem[] {
-  const items: GridItem[] = [];
-  let adIndex = 0;
-  for (let i = 0; i < memories.length; i++) {
-    items.push({ type: 'card', memory: memories[i] });
-    if ((i + 1) % AD_INTERVAL === 0 && i < memories.length - 1) {
-      items.push({ type: 'ad', index: adIndex++ });
-    }
-  }
-  return items;
-}
-
 export default function VirtualizedCardGrid({
   memories,
   overscanRows = DEFAULT_OVERSCAN_ROWS,
@@ -103,10 +79,6 @@ export default function VirtualizedCardGrid({
 
     const nextMetrics = getGridMetrics(node.clientWidth);
     const rowCount = Math.ceil(memories.length / nextMetrics.columns);
-    // Account for ad rows inserted between card rows
-    const adRows = Math.floor(memories.length / AD_INTERVAL);
-    const totalLogicalRows = rowCount + adRows;
-
     const rect = node.getBoundingClientRect();
     const gridTopInViewport = rect.top;
     const viewportTopInGrid = -gridTopInViewport;
@@ -116,7 +88,7 @@ export default function VirtualizedCardGrid({
       Math.floor(viewportTopInGrid / nextMetrics.rowPitch) - overscanRows
     );
     const endRow = Math.min(
-      totalLogicalRows,
+      rowCount,
       Math.max(startRow + 1, Math.ceil(viewportBottomInGrid / nextMetrics.rowPitch) + overscanRows)
     );
 
@@ -178,29 +150,10 @@ export default function VirtualizedCardGrid({
     ? rowCount * metrics.cardHeight + Math.max(0, rowCount - 1) * metrics.gap
     : 0;
 
-  // Calculate total height including ad rows
-  const cardsPerAdBlock = AD_INTERVAL;
-  const cardRowsPerBlock = Math.ceil(cardsPerAdBlock / metrics.columns);
-  const adBlockCount = Math.floor(memories.length / AD_INTERVAL);
-  const extraAdHeight = adBlockCount * (AD_ROW_HEIGHT + metrics.gap);
-
   const visibleMemories = useMemo(
     () => memories.slice(startIndex, endIndex),
     [memories, startIndex, endIndex]
   );
-
-  // Determine which ad slots should appear in the visible range
-  const visibleAds = useMemo(() => {
-    const ads: { adIndex: number; afterCardIndex: number }[] = [];
-    for (let i = 0; i < adBlockCount; i++) {
-      const afterCardIndex = (i + 1) * AD_INTERVAL - 1;
-      const afterRow = Math.floor(afterCardIndex / metrics.columns);
-      if (afterRow >= startRow && afterRow <= endRow) {
-        ads.push({ adIndex: i, afterCardIndex });
-      }
-    }
-    return ads;
-  }, [adBlockCount, metrics.columns, startRow, endRow]);
 
   const gridStyle: CSSProperties = {
     position: 'absolute',
@@ -216,54 +169,25 @@ export default function VirtualizedCardGrid({
   // SSR / first paint / no-JS: a plain responsive grid whose columns come from CSS
   // media queries, so it lays out correctly on every device with zero shift.
   if (!mounted) {
-    const ssrItems = memories.slice(0, STATIC_RENDER_CAP);
     return (
       <div className="card-grid">
-        {ssrItems.map((memory, i) => (
+        {memories.slice(0, STATIC_RENDER_CAP).map(memory => (
           <CardRenderer key={memory.id} memory={memory} animate={false} />
         ))}
       </div>
     );
   }
 
-  // Build the visible items with ads injected between card rows
-  const renderItems: React.ReactNode[] = [];
-  let adInsertedAfterRows = new Set<number>();
-  visibleAds.forEach(({ adIndex, afterCardIndex }) => {
-    adInsertedAfterRows.add(Math.floor(afterCardIndex / metrics.columns));
-  });
-
-  visibleMemories.forEach((memory, i) => {
-    const globalIndex = startIndex + i;
-    renderItems.push(
-      <CardRenderer key={memory.id} memory={memory} animate={false} />
-    );
-
-    // Check if we need to insert an ad after this card's row
-    const currentRow = Math.floor(globalIndex / metrics.columns);
-    const isLastInRow = (globalIndex + 1) % metrics.columns === 0 || globalIndex === memories.length - 1;
-
-    if (isLastInRow && (globalIndex + 1) % AD_INTERVAL === 0 && globalIndex < memories.length - 1) {
-      renderItems.push(
-        <BidVertiserAd
-          key={`ad-archive-${globalIndex}`}
-          rows={1}
-          imageWidth={250}
-          placement={`archive-${globalIndex}`}
-          variant="infeed"
-        />
-      );
-    }
-  });
-
   return (
     <div
       ref={containerRef}
       className="virtual-card-grid"
-      style={{ height: totalHeight + extraAdHeight }}
+      style={{ height: totalHeight }}
     >
       <div className="card-grid virtual-card-grid__items" style={gridStyle}>
-        {renderItems}
+        {visibleMemories.map(memory => (
+          <CardRenderer key={memory.id} memory={memory} animate={false} />
+        ))}
       </div>
     </div>
   );
