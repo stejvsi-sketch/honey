@@ -2144,6 +2144,16 @@ a:hover { color: var(--accent-hover); }
   max-width: 100% !important;
   height: auto !important;
 }
+/* Force-center BidVertiser's internally rendered widget */
+.ad-container__content div,
+.ad-container__content table,
+.ad-container__content a {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.ad-container__content td {
+  text-align: center !important;
+}
 
 /* In-feed ad: spans full grid width between card rows */
 .ad-container--infeed {
