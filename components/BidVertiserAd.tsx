@@ -15,8 +15,8 @@ interface BidVertiserAdProps {
 
 /**
  * BidVertiser Native Ad component.
- * Renders a native ad widget inside a premium-styled container with
- * a subtle "Advertisement" label matching the site's design language.
+ * Only shows the container (label + dividers) AFTER an ad actually loads.
+ * Uses MutationObserver to detect when BidVertiser injects ad content.
  */
 export default function BidVertiserAd({
   rows,
@@ -28,7 +28,7 @@ export default function BidVertiserAd({
 }: BidVertiserAdProps) {
   const adRef = useRef<HTMLDivElement>(null);
   const loaded = useRef(false);
-  const [adLoaded, setAdLoaded] = useState(false);
+  const [adFilled, setAdFilled] = useState(false);
 
   useEffect(() => {
     if (loaded.current || !adRef.current) return;
@@ -38,6 +38,19 @@ export default function BidVertiserAd({
     const cb = Date.now();
     const widgetId = `ntv_2106767_${placement}_${cb}`;
     container.id = widgetId;
+
+    // Watch for BidVertiser injecting ad content (iframes, images, links)
+    const observer = new MutationObserver(() => {
+      const hasContent =
+        container.querySelector('iframe') ||
+        container.querySelector('img') ||
+        container.querySelector('a[href]');
+      if (hasContent) {
+        setAdFilled(true);
+        observer.disconnect();
+      }
+    });
+    observer.observe(container, { childList: true, subtree: true });
 
     const params: Record<string, string | number> = {
       bvwidgetid: widgetId,
@@ -60,16 +73,19 @@ export default function BidVertiserAd({
     s.src = `https://cdn.hyperpromote.com/bidvertiser/tags/active/bdvws.js?${qs}`;
     container.appendChild(s);
 
-    // Mark loaded after a short delay to fade in
-    const timer = setTimeout(() => setAdLoaded(true), 800);
-    return () => clearTimeout(timer);
+    // Cleanup: disconnect observer after 10s if nothing loaded
+    const timeout = setTimeout(() => observer.disconnect(), 10000);
+    return () => {
+      clearTimeout(timeout);
+      observer.disconnect();
+    };
   }, [rows, cols, imageWidth, mobileCols, placement]);
 
   const className = [
     'ad-container',
     variant === 'infeed' && 'ad-container--infeed',
     variant === 'letter' && 'ad-container--letter',
-    adLoaded && 'ad-container--loaded',
+    adFilled && 'ad-container--loaded',
   ].filter(Boolean).join(' ');
 
   return (
