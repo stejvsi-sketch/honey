@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import VirtualizedCardGrid from '@/components/cards/VirtualizedCardGrid';
+import BidVertiserAd from '@/components/BidVertiserAd';
 import type { Memory } from '@/lib/types';
 
 
@@ -244,6 +245,11 @@ export default function LettersArchive({
 
       <VirtualizedCardGrid memories={memories} />
 
+      {/* In-feed ad after initial batch of cards */}
+      {memories.length >= 6 && (
+        <BidVertiserAd rows={1} imageWidth={250} placement="archive-mid" variant="infeed" />
+      )}
+
       {!initialLoad && memories.length === 0 && (
         <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginTop: 48, fontStyle: 'italic' }}>
           {search ? (
@@ -274,11 +280,14 @@ export default function LettersArchive({
       )}
 
       {!hasMore && memories.length > 0 && !loading && (
-        <div style={{ textAlign: 'center', padding: '40px 0 20px' }}>
-          <p style={{ color: 'var(--text-faint)', fontStyle: 'italic', fontSize: '0.85rem' }}>
-            You&apos;ve reached the end.
-          </p>
-        </div>
+        <>
+          <BidVertiserAd rows={1} imageWidth={250} placement="archive-end" variant="infeed" />
+          <div style={{ textAlign: 'center', padding: '40px 0 20px' }}>
+            <p style={{ color: 'var(--text-faint)', fontStyle: 'italic', fontSize: '0.85rem' }}>
+              You&apos;ve reached the end.
+            </p>
+          </div>
+        </>
       )}
     </>
   );

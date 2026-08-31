@@ -3,25 +3,23 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import type { CSSProperties } from 'react';
 import CardRenderer from '@/components/cards/CardRenderer';
-import BidVertiserAd from '@/components/BidVertiserAd';
 import type { Memory } from '@/lib/types';
 
 const CARD_RATIO = 520 / 420;
 const DEFAULT_OVERSCAN_ROWS = 3;
+// Cards rendered as a plain, CSS-responsive grid for SSR and the first paint
+// (before hydration), so the layout is correct on every device with no flash of
+// squished/overlapping cards. The virtualizer takes over after mount for long lists.
 const STATIC_RENDER_CAP = 30;
 
-// Insert an ad after every AD_INTERVAL cards
-const AD_INTERVAL = 6;
-// Fixed pixel height reserved for each ad slot
-const AD_SLOT_HEIGHT = 380;
-
+// Stable no-op subscribe for useSyncExternalStore (the mount flag never changes).
 const subscribeNoop = () => () => {};
 
 interface GridMetrics {
   columns: number;
   gap: number;
   cardHeight: number;
-  rowPitch: number;    // cardHeight + gap
+  rowPitch: number;
 }
 
 interface VisibleRange {
@@ -30,14 +28,20 @@ interface VisibleRange {
 }
 
 function getGridMetrics(containerWidth: number): GridMetrics {
-  const vw = window.innerWidth;
-  const columns = vw <= 640 ? 1 : vw <= 1024 ? 2 : 3;
-  const gap = vw <= 640 ? 24 : vw <= 1024 ? 32 : 40;
-  const cardMaxW = vw <= 767 ? 340 : vw <= 1023 ? 320 : 420;
-  const colW = Math.max(0, (containerWidth - gap * (columns - 1)) / columns);
-  const cardW = Math.min(colW, cardMaxW);
-  const cardHeight = cardW * CARD_RATIO;
-  return { columns, gap, cardHeight, rowPitch: cardHeight + gap };
+  const viewportWidth = window.innerWidth;
+  const columns = viewportWidth <= 640 ? 1 : viewportWidth <= 1024 ? 2 : 3;
+  const gap = viewportWidth <= 640 ? 24 : viewportWidth <= 1024 ? 32 : 40;
+  const cardMaxWidth = viewportWidth <= 767 ? 340 : viewportWidth <= 1023 ? 320 : 420;
+  const columnWidth = Math.max(0, (containerWidth - gap * (columns - 1)) / columns);
+  const cardWidth = Math.min(columnWidth, cardMaxWidth);
+  const cardHeight = cardWidth * CARD_RATIO;
+
+  return {
+    columns,
+    gap,
+    cardHeight,
+    rowPitch: cardHeight + gap,
+  };
 }
 
 function sameMetrics(a: GridMetrics, b: GridMetrics): boolean {
@@ -49,15 +53,6 @@ function sameMetrics(a: GridMetrics, b: GridMetrics): boolean {
   );
 }
 
-/**
- * Returns the absolute Y position for a card row, accounting for ad slots above.
- * Ad slots are inserted every `crpb` (cardRowsPerBlock) card rows.
- */
-function getRowY(row: number, m: GridMetrics, crpb: number, maxAds: number): number {
-  const ads = Math.min(Math.floor(row / crpb), maxAds);
-  return row * m.rowPitch + ads * (AD_SLOT_HEIGHT + m.gap);
-}
-
 export default function VirtualizedCardGrid({
   memories,
   overscanRows = DEFAULT_OVERSCAN_ROWS,
@@ -67,164 +62,120 @@ export default function VirtualizedCardGrid({
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<number | null>(null);
+  // `mounted` is false during SSR and the first hydration render (so the static
+  // grid matches the server), then true on the client — without setState-in-effect.
   const mounted = useSyncExternalStore(subscribeNoop, () => true, () => false);
-
   const [metrics, setMetrics] = useState<GridMetrics>({
-    columns: 3, gap: 40, cardHeight: 520, rowPitch: 560,
+    columns: 3,
+    gap: 40,
+    cardHeight: 520,
+    rowPitch: 560,
   });
   const [range, setRange] = useState<VisibleRange>({ startRow: 0, endRow: 4 });
 
-  const rowCount = Math.ceil(memories.length / metrics.columns);
-  const crpb = Math.ceil(AD_INTERVAL / metrics.columns);       // card rows per ad-block
-  const totalAds = memories.length >= AD_INTERVAL
-    ? Math.floor(memories.length / AD_INTERVAL) : 0;
-
-  // --- visible-range update ---
   const updateVisibleRange = useCallback(() => {
     const node = containerRef.current;
     if (!node) return;
 
-    const m = getGridMetrics(node.clientWidth);
-    const rc = Math.ceil(memories.length / m.columns);
-    const c = Math.ceil(AD_INTERVAL / m.columns);
-    const ta = memories.length >= AD_INTERVAL ? Math.floor(memories.length / AD_INTERVAL) : 0;
-
+    const nextMetrics = getGridMetrics(node.clientWidth);
+    const rowCount = Math.ceil(memories.length / nextMetrics.columns);
     const rect = node.getBoundingClientRect();
-    const vpTop = -rect.top;
-    const vpBot = vpTop + window.innerHeight;
-
-    // Find first visible row
-    let sr = 0;
-    for (let r = 0; r < rc; r++) {
-      if (getRowY(r + 1, m, c, ta) > vpTop) { sr = r; break; }
-    }
-    sr = Math.max(0, sr - overscanRows);
-
-    // Find last visible row
-    let er = rc;
-    for (let r = sr; r < rc; r++) {
-      if (getRowY(r, m, c, ta) > vpBot) { er = r; break; }
-    }
-    er = Math.min(rc, er + overscanRows);
-
-    setMetrics(prev => sameMetrics(prev, m) ? prev : m);
-    setRange(prev =>
-      prev.startRow === sr && prev.endRow === er ? prev : { startRow: sr, endRow: er }
+    const gridTopInViewport = rect.top;
+    const viewportTopInGrid = -gridTopInViewport;
+    const viewportBottomInGrid = viewportTopInGrid + window.innerHeight;
+    const startRow = Math.max(
+      0,
+      Math.floor(viewportTopInGrid / nextMetrics.rowPitch) - overscanRows
     );
+    const endRow = Math.min(
+      rowCount,
+      Math.max(startRow + 1, Math.ceil(viewportBottomInGrid / nextMetrics.rowPitch) + overscanRows)
+    );
+
+    setMetrics(prev => sameMetrics(prev, nextMetrics) ? prev : nextMetrics);
+    setRange(prev => (
+      prev.startRow === startRow && prev.endRow === endRow
+        ? prev
+        : { startRow, endRow }
+    ));
   }, [memories.length, overscanRows]);
 
   const scheduleUpdate = useCallback(() => {
     if (frameRef.current !== null) return;
-    frameRef.current = requestAnimationFrame(() => {
+
+    frameRef.current = window.requestAnimationFrame(() => {
       frameRef.current = null;
       updateVisibleRange();
     });
   }, [updateVisibleRange]);
 
-  useLayoutEffect(() => { if (mounted) updateVisibleRange(); }, [mounted, updateVisibleRange]);
+  // Render the static SSR grid first, then switch to the virtualizer after mount.
+  useLayoutEffect(() => {
+    if (!mounted) return;
+    updateVisibleRange();
+  }, [mounted, updateVisibleRange]);
 
   useEffect(() => {
     if (!mounted) return;
     const node = containerRef.current;
     if (!node) return;
-    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(scheduleUpdate) : null;
-    ro?.observe(node);
+
+    const resizeObserver = typeof ResizeObserver === 'undefined'
+      ? null
+      : new ResizeObserver(scheduleUpdate);
+
+    resizeObserver?.observe(node);
     window.addEventListener('scroll', scheduleUpdate, { passive: true });
     window.addEventListener('resize', scheduleUpdate);
     scheduleUpdate();
+
     return () => {
-      ro?.disconnect();
+      resizeObserver?.disconnect();
       window.removeEventListener('scroll', scheduleUpdate);
       window.removeEventListener('resize', scheduleUpdate);
-      if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
+      if (frameRef.current !== null) {
+        window.cancelAnimationFrame(frameRef.current);
+        frameRef.current = null;
+      }
     };
   }, [mounted, scheduleUpdate]);
 
-  // --- total height ---
-  const lastRow = Math.max(0, rowCount - 1);
-  const totalHeight = rowCount > 0
-    ? getRowY(lastRow, metrics, crpb, totalAds) + metrics.cardHeight
-    : 0;
-
-  // --- clipped visible range ---
+  const rowCount = Math.ceil(memories.length / metrics.columns);
   const startRow = Math.min(range.startRow, Math.max(0, rowCount - 1));
   const endRow = Math.min(Math.max(range.endRow, startRow + 1), rowCount);
+  const startIndex = startRow * metrics.columns;
+  const endIndex = Math.min(memories.length, endRow * metrics.columns);
+  const topOffset = startRow * metrics.rowPitch;
+  const totalHeight = rowCount > 0
+    ? rowCount * metrics.cardHeight + Math.max(0, rowCount - 1) * metrics.gap
+    : 0;
 
-  // --- SSR / first paint ---
+  const visibleMemories = useMemo(
+    () => memories.slice(startIndex, endIndex),
+    [memories, startIndex, endIndex]
+  );
+
+  const gridStyle: CSSProperties = {
+    position: 'absolute',
+    top: topOffset,
+    left: 0,
+    right: 0,
+    display: 'grid',
+    gridTemplateColumns: `repeat(${metrics.columns}, minmax(0, 1fr))`,
+    gap: metrics.gap,
+    justifyItems: 'center',
+  };
+
+  // SSR / first paint / no-JS: a plain responsive grid whose columns come from CSS
+  // media queries, so it lays out correctly on every device with zero shift.
   if (!mounted) {
     return (
       <div className="card-grid">
-        {memories.slice(0, STATIC_RENDER_CAP).map(m => (
-          <CardRenderer key={m.id} memory={m} animate={false} />
+        {memories.slice(0, STATIC_RENDER_CAP).map(memory => (
+          <CardRenderer key={memory.id} memory={memory} animate={false} />
         ))}
       </div>
     );
-  }
-
-  // --- Build render chunks: split cards at ad boundaries ---
-  const firstSec = Math.floor(startRow / crpb);
-  const lastSec = Math.floor(Math.max(0, endRow - 1) / crpb);
-  const chunks: React.ReactNode[] = [];
-
-  for (let sec = firstSec; sec <= lastSec; sec++) {
-    // Card rows in this section
-    const secFirst = sec * crpb;
-    const secLast = Math.min((sec + 1) * crpb, rowCount);
-
-    // Clip to visible range
-    const visFirst = Math.max(secFirst, startRow);
-    const visLast = Math.min(secLast, endRow);
-    if (visFirst >= visLast) continue;
-
-    // Slice memories for this chunk
-    const si = visFirst * metrics.columns;
-    const ei = Math.min(memories.length, visLast * metrics.columns);
-    const chunk = memories.slice(si, ei);
-    if (chunk.length === 0) continue;
-
-    const chunkY = getRowY(visFirst, metrics, crpb, totalAds);
-    const style: CSSProperties = {
-      position: 'absolute',
-      top: chunkY,
-      left: 0,
-      right: 0,
-      display: 'grid',
-      gridTemplateColumns: `repeat(${metrics.columns}, minmax(0, 1fr))`,
-      gap: metrics.gap,
-      justifyItems: 'center',
-    };
-
-    chunks.push(
-      <div key={`sec-${sec}`} className="card-grid virtual-card-grid__items" style={style}>
-        {chunk.map(m => <CardRenderer key={m.id} memory={m} animate={false} />)}
-      </div>
-    );
-
-    // Ad after this section (if within total ad count)
-    if (sec < totalAds) {
-      const adY = getRowY(secLast - 1, metrics, crpb, totalAds)
-        + metrics.cardHeight + metrics.gap;
-
-      chunks.push(
-        <div
-          key={`ad-${sec}`}
-          style={{
-            position: 'absolute',
-            top: adY,
-            left: 0,
-            right: 0,
-            height: AD_SLOT_HEIGHT,
-          }}
-        >
-          <BidVertiserAd
-            rows={1}
-            imageWidth={250}
-            placement={`archive-${sec}`}
-            variant="infeed"
-          />
-        </div>
-      );
-    }
   }
 
   return (
@@ -233,7 +184,11 @@ export default function VirtualizedCardGrid({
       className="virtual-card-grid"
       style={{ height: totalHeight }}
     >
-      {chunks}
+      <div className="card-grid virtual-card-grid__items" style={gridStyle}>
+        {visibleMemories.map(memory => (
+          <CardRenderer key={memory.id} memory={memory} animate={false} />
+        ))}
+      </div>
     </div>
   );
 }
