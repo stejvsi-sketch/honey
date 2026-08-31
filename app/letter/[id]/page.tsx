@@ -148,7 +148,7 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
       </div>
 
       {/* BidVertiser Native Ad — below letter content */}
-      <BidVertiserAd rows={2} imageWidth={250} placement="letter-below" />
+      <BidVertiserAd rows={2} imageWidth={250} placement="letter-below" variant="letter" />
 
     </div>
   );

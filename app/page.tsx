@@ -4,7 +4,6 @@ import { getHomeMemories } from '@/lib/data';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/constants';
 import HomeCardGrid from '@/components/cards/HomeCardGrid';
 import TrendingNames from '@/components/TrendingNames';
-import BidVertiserAd from '@/components/BidVertiserAd';
 
 
 export const revalidate = 18000;
@@ -38,9 +37,6 @@ export default async function HomePage() {
         </div>
         <TrendingNames />
       </section>
-
-      {/* BidVertiser Native Ad — in-feed between sections */}
-      <BidVertiserAd rows={1} imageWidth={200} placement="home-infeed" />
 
       <section className="hero">
         <h2 className="hero__title">The words you couldn&apos;t say.</h2>

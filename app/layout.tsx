@@ -4,7 +4,6 @@ import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from '@/lib/constants';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import AnalyticsScript from '@/components/AnalyticsScript';
-import BidVertiserAd from '@/components/BidVertiserAd';
 import './globals.css';
 
 const lora = Lora({
@@ -69,8 +68,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <span dangerouslySetInnerHTML={{ __html: '<!-- Bidvertiser2106767 -->' }} />
         <Navigation />
         <main>{children}</main>
-        {/* BidVertiser Native Ad — above footer, all pages */}
-        <BidVertiserAd rows={3} imageWidth={200} placement="above-footer" />
         <Footer />
         {/* Google Analytics — conditionally loaded */}
         <AnalyticsScript />

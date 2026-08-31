@@ -9,12 +9,14 @@ interface BidVertiserAdProps {
   mobileCols?: number;
   /** Unique suffix to prevent DOM id collisions when multiple ads are on one page */
   placement: string;
+  /** Optional CSS variant: 'infeed' for card grid inserts, 'letter' for letter pages */
+  variant?: 'infeed' | 'letter';
 }
 
 /**
  * BidVertiser Native Ad component.
- * Renders a native ad widget with the specified configuration.
- * Each instance must have a unique `placement` string.
+ * Renders a native ad widget inside a premium-styled container with
+ * a subtle "Advertisement" label matching the site's design language.
  */
 export default function BidVertiserAd({
   rows,
@@ -22,15 +24,16 @@ export default function BidVertiserAd({
   imageWidth,
   mobileCols = 1,
   placement,
+  variant,
 }: BidVertiserAdProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const adRef = useRef<HTMLDivElement>(null);
   const loaded = useRef(false);
 
   useEffect(() => {
-    if (loaded.current || !containerRef.current) return;
+    if (loaded.current || !adRef.current) return;
     loaded.current = true;
 
-    const container = containerRef.current;
+    const container = adRef.current;
     const cb = Date.now();
     const widgetId = `ntv_2106767_${placement}_${cb}`;
     container.id = widgetId;
@@ -57,16 +60,16 @@ export default function BidVertiserAd({
     container.appendChild(s);
   }, [rows, cols, imageWidth, mobileCols, placement]);
 
+  const className = [
+    'ad-container',
+    variant === 'infeed' && 'ad-container--infeed',
+    variant === 'letter' && 'ad-container--letter',
+  ].filter(Boolean).join(' ');
+
   return (
-    <div
-      ref={containerRef}
-      className="bidvertiser-ad"
-      style={{
-        width: '100%',
-        maxWidth: '720px',
-        margin: '0 auto',
-        padding: '24px 0',
-      }}
-    />
+    <aside className={className} aria-label="Advertisement">
+      <span className="ad-container__label">Advertisement</span>
+      <div ref={adRef} className="ad-container__content" />
+    </aside>
   );
 }

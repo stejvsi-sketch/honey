@@ -2100,3 +2100,52 @@ a:hover { color: var(--accent-hover); }
   background: rgba(0, 0, 0, 0.1);
   color: var(--text);
 }
+
+/* ===== AD CONTAINER ===== */
+.ad-container {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+}
+.ad-container__label {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 8px;
+  opacity: 0.6;
+}
+.ad-container__content {
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* In-feed ad: spans full grid width */
+.ad-container--infeed {
+  max-width: 100%;
+  grid-column: 1 / -1;
+  padding: 24px 0;
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+}
+.ad-container--infeed .ad-container__content {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* Letter page ad: tighter spacing */
+.ad-container--letter {
+  margin-top: 40px;
+}
+
+@media (max-width: 640px) {
+  .ad-container { max-width: 100%; }
+  .ad-container__content { padding: 12px; }
+  .ad-container--infeed { padding: 16px 0; }
+}
