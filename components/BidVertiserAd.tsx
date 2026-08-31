@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface BidVertiserAdProps {
   rows: number;
@@ -28,6 +28,7 @@ export default function BidVertiserAd({
 }: BidVertiserAdProps) {
   const adRef = useRef<HTMLDivElement>(null);
   const loaded = useRef(false);
+  const [adLoaded, setAdLoaded] = useState(false);
 
   useEffect(() => {
     if (loaded.current || !adRef.current) return;
@@ -58,18 +59,25 @@ export default function BidVertiserAd({
     s.async = true;
     s.src = `https://cdn.hyperpromote.com/bidvertiser/tags/active/bdvws.js?${qs}`;
     container.appendChild(s);
+
+    // Mark loaded after a short delay to fade in
+    const timer = setTimeout(() => setAdLoaded(true), 800);
+    return () => clearTimeout(timer);
   }, [rows, cols, imageWidth, mobileCols, placement]);
 
   const className = [
     'ad-container',
     variant === 'infeed' && 'ad-container--infeed',
     variant === 'letter' && 'ad-container--letter',
+    adLoaded && 'ad-container--loaded',
   ].filter(Boolean).join(' ');
 
   return (
     <aside className={className} aria-label="Advertisement">
-      <span className="ad-container__label">Advertisement</span>
+      <div className="ad-container__divider" />
+      <span className="ad-container__label">— Advertisement —</span>
       <div ref={adRef} className="ad-container__content" />
+      <div className="ad-container__divider" />
     </aside>
   );
 }
