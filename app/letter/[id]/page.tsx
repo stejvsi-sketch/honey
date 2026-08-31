@@ -6,6 +6,7 @@ import { CARD_COLORS, SITE_NAME, SITE_URL, NAME_INDEX_THRESHOLD } from '@/lib/co
 import { formatSubmittedName } from '@/lib/names';
 import ReportButton from '@/components/ReportButton';
 import LetterFlipCard from '@/components/cards/LetterFlipCard';
+import BidVertiserAd from '@/components/BidVertiserAd';
 
 
 export const revalidate = 18000;
@@ -145,6 +146,9 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
         </Link>
         <ReportButton letterUrl={letterUrl} />
       </div>
+
+      {/* BidVertiser Native Ad — below letter content */}
+      <BidVertiserAd rows={2} imageWidth={250} placement="letter-below" />
 
     </div>
   );
