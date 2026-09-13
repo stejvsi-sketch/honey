@@ -1,9 +1,8 @@
 'use client';
 
-import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import CardRenderer from '@/components/cards/CardRenderer';
-import BidVertiserAd from '@/components/BidVertiserAd';
+import VirtualizedCardGrid from '@/components/cards/VirtualizedCardGrid';
 import type { Memory } from '@/lib/types';
 
 
@@ -243,21 +242,25 @@ export default function LettersArchive({
         )}
       </form>
 
-      <div className="card-grid">
-        {memories.map((memory, i) => (
-          <Fragment key={memory.id}>
-            <CardRenderer memory={memory} animate={false} />
-            {(i + 1) % 6 === 0 && i < memories.length - 1 && (
-              <BidVertiserAd
-                rows={1}
-                imageWidth={250}
-                placement={`archive-${i}`}
-                variant="infeed"
-              />
-            )}
-          </Fragment>
-        ))}
-      </div>
+      {/* 
+        NOTE FOR FUTURE AD INTEGRATION (e.g. Monumetric): 
+        If you need to inject in-feed ads between rows of cards on this page, DO NOT use 
+        VirtualizedCardGrid. The absolute positioning and math used by the virtualizer 
+        will break if ads of different heights are injected into the grid, causing cards 
+        to overlap.
+        
+        Instead, revert this section to a simple CSS grid like this:
+        
+        <div className="card-grid">
+          {memories.map((memory, i) => (
+            <Fragment key={memory.id}>
+              <CardRenderer memory={memory} animate={false} />
+              {(i + 1) % 6 === 0 && <YourAdComponent />}
+            </Fragment>
+          ))}
+        </div>
+      */}
+      <VirtualizedCardGrid memories={memories} />
 
       {!initialLoad && memories.length === 0 && (
         <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginTop: 48, fontStyle: 'italic' }}>
@@ -289,14 +292,11 @@ export default function LettersArchive({
       )}
 
       {!hasMore && memories.length > 0 && !loading && total > 0 && (
-        <>
-          <BidVertiserAd rows={1} imageWidth={250} placement="archive-end" variant="infeed" />
-          <div style={{ textAlign: 'center', padding: '40px 0 20px' }}>
-            <p style={{ color: 'var(--text-faint)', fontStyle: 'italic', fontSize: '0.85rem' }}>
-              You&apos;ve reached the end.
-            </p>
-          </div>
-        </>
+        <div style={{ textAlign: 'center', padding: '40px 0 20px' }}>
+          <p style={{ color: 'var(--text-faint)', fontStyle: 'italic', fontSize: '0.85rem' }}>
+            You&apos;ve reached the end.
+          </p>
+        </div>
       )}
     </>
   );

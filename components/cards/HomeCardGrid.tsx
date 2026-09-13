@@ -1,5 +1,4 @@
 import CardRenderer from '@/components/cards/CardRenderer';
-import BidVertiserAd from '@/components/BidVertiserAd';
 import type { Memory } from '@/lib/types';
 
 // Server component: renders up to 12 recent cards directly in the server HTML.
@@ -11,20 +10,8 @@ export default function HomeCardGrid({ memories }: { memories: Memory[] }) {
 
   return (
     <div className="card-grid card-grid--home">
-      {cards.map((memory, i) => (
-        <>
-          <CardRenderer key={memory.id} memory={memory} />
-          {/* In-feed ad after the 3rd card */}
-          {i === 2 && (
-            <BidVertiserAd
-              key="ad-infeed-home"
-              rows={1}
-              imageWidth={250}
-              placement="home-infeed"
-              variant="infeed"
-            />
-          )}
-        </>
+      {cards.map((memory) => (
+        <CardRenderer key={memory.id} memory={memory} />
       ))}
     </div>
   );
