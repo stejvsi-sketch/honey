@@ -312,6 +312,10 @@ a:hover { color: var(--accent-hover); }
   .memory-card .memory-card__name { font-size: 1.3rem; }
   .memory-card .memory-card__message { font-size: 1.25rem; }
 }
+/* Hide brand on tablet — too cramped, keep on desktop & mobile */
+@media (min-width: 641px) and (max-width: 1023px) {
+  .memory-card__header { display: none; }
+}
 @media (max-width: 767px) {
   .memory-card { max-width: 340px; }
   .memory-card .memory-card__content { padding: 12px 26px 68px; }
@@ -2028,7 +2032,7 @@ a:hover { color: var(--accent-hover); }
 
 /* Flip hint — minimal italic text outside card */
 .flip-hint {
-  position: absolute; bottom: -28px; right: 4px;
+  position: absolute; bottom: 8px; right: 4px;
   z-index: 5;
   display: flex; align-items: center; gap: 4px;
   font-family: var(--font-serif);
