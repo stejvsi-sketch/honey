@@ -163,6 +163,7 @@ a:hover { color: var(--accent-hover); }
   display: grid; gap: 40px;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
+  align-items: start;
 }
 .card-grid--home { grid-template-columns: repeat(3, 1fr); }
 
@@ -472,6 +473,11 @@ a:hover { color: var(--accent-hover); }
 .letter-single__card .memory-card__brand { font-size: 1rem; }
 .letter-single__card .memory-card__content { padding: 16px 34px 76px; }
 .letter-single__card .memory-card__header { top: 20px; }
+
+@media (max-width: 1023px) {
+  .letter-single__card .memory-card__name { font-size: 1.35rem; }
+  .letter-single__card .memory-card__message { font-size: 1.3rem; }
+}
 
 @media (max-width: 767px) {
   .letter-single__card { max-width: 340px; }
