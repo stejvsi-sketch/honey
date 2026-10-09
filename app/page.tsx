@@ -27,7 +27,6 @@ export default async function HomePage() {
       <section className="page">
         <div className="page__header">
           <h1 className="page__title" style={{ fontSize: '1.5rem' }}>Recent Letters</h1>
-          <p className="page__subtitle">The things we carry but never say out loud.</p>
         </div>
         <HomeCardGrid memories={memories} />
         <div style={{ textAlign: 'center', marginTop: 40 }}>

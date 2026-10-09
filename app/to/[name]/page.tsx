@@ -70,12 +70,14 @@ export default async function NamePage(props: {
           "@type": "ListItem",
           "position": i + 1,
           "item": {
-            "@type": "SocialMediaPosting",
+            "@type": "CreativeWork",
             "url": `${SITE_URL}/letter/${memory.id}`,
             "name": `Unsent Letter to ${displayName}`,
             "text": memory.message,
+            "genre": "unsent letter",
+            "inLanguage": "en",
             "datePublished": memory.created_at,
-            "author": { "@type": "Person", "name": "Anonymous contributor" },
+            "author": { "@type": "Person", "name": "Anonymous" },
             "about": { "@type": "Person", "name": displayName, "url": canonicalUrl }
           }
         }))
