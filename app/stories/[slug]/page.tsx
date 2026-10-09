@@ -146,17 +146,6 @@ export default async function StoryPage(props: { params: Promise<{ slug: string 
           ))}
         </ol>
       </div>
-
-      {/* Internal links */}
-      <div style={{ marginTop: '40px', textAlign: 'center' }}>
-        <h3 style={{ fontSize: '1rem', marginBottom: '12px', color: 'var(--text-secondary)' }}>Explore More</h3>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center' }}>
-          <Link href="/stories" style={{ padding: '6px 14px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>All Stories</Link>
-          <Link href="/journal" style={{ padding: '6px 14px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Journal</Link>
-          <Link href="/collections" style={{ padding: '6px 14px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Collections</Link>
-          <Link href="/write" style={{ padding: '6px 14px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Write a Letter</Link>
-        </div>
-      </div>
     </div>
   );
 }

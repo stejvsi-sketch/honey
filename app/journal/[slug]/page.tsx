@@ -215,18 +215,6 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
             Write a Letter
           </Link>
         </div>
-
-        {/* Internal links to related sections */}
-        <div style={{ marginTop: '40px', textAlign: 'center' }}>
-          <h3 style={{ fontSize: '1rem', marginBottom: '12px', color: 'var(--text-secondary)' }}>Keep Reading</h3>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center' }}>
-            <Link href="/collections" style={{ padding: '6px 14px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Collections</Link>
-            <Link href="/stories" style={{ padding: '6px 14px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Stories</Link>
-            <Link href="/letters" style={{ padding: '6px 14px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Letters</Link>
-            <Link href="/burn" style={{ padding: '6px 14px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Write & Burn</Link>
-            <Link href="/archive" style={{ padding: '6px 14px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Name Archive</Link>
-          </div>
-        </div>
       </div>
 
 

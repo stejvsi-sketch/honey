@@ -148,16 +148,6 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
         <ReportButton letterUrl={letterUrl} />
       </div>
 
-      {/* Contextual links */}
-      <div style={{ marginTop: '40px', textAlign: 'center' }}>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center' }}>
-          <Link href={recipientUrl} style={{ padding: '6px 14px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>All letters to {displayName}</Link>
-          <Link href="/write" style={{ padding: '6px 14px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Write a Letter</Link>
-          <Link href="/collections" style={{ padding: '6px 14px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Collections</Link>
-          <Link href="/burn" style={{ padding: '6px 14px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Write & Burn</Link>
-        </div>
-      </div>
-
     </div>
   );
 }
