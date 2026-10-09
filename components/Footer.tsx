@@ -17,6 +17,7 @@ export default function Footer() {
           <li><Link href="/archive" className="footer__link">Name Archive</Link></li>
           <li><Link href="/colors" className="footer__link">Colors</Link></li>
           <li><Link href="/collections" className="footer__link">Collections</Link></li>
+          <li><Link href="/burn" className="footer__link">Write & Burn</Link></li>
           <li><Link href="/faq" className="footer__link">FAQ</Link></li>
           <li><Link href="/terms" className="footer__link">Terms</Link></li>
           <li><Link href="/privacy" className="footer__link">Privacy</Link></li>

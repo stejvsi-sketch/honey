@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { SITE_URL } from '@/lib/constants';
 import BurnForm from '@/components/BurnForm';
 
@@ -23,6 +24,19 @@ export default function BurnPage() {
         </p>
       </div>
       <BurnForm />
+
+      {/* Internal links */}
+      <div style={{ marginTop: '48px', textAlign: 'center' }}>
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '12px' }}>
+          Want your words to last? Submit them to the archive instead.
+        </p>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center' }}>
+          <Link href="/write" style={{ padding: '6px 14px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Write a Letter</Link>
+          <Link href="/collections" style={{ padding: '6px 14px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Collections</Link>
+          <Link href="/letters" style={{ padding: '6px 14px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Read Letters</Link>
+          <Link href="/journal" style={{ padding: '6px 14px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Journal</Link>
+        </div>
+      </div>
     </div>
   );
 }

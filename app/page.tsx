@@ -48,7 +48,20 @@ export default async function HomePage() {
         </div>
       </section>
 
-
+      {/* Explore — contextual internal links for SEO and discovery */}
+      <section style={{ textAlign: 'center', padding: '40px 20px 20px' }}>
+        <h2 style={{ fontSize: '1.1rem', marginBottom: '16px', color: 'var(--text-secondary)' }}>Explore</h2>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', justifyContent: 'center', maxWidth: '600px', margin: '0 auto' }}>
+          <Link href="/collections" style={{ padding: '8px 16px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Collections</Link>
+          <Link href="/journal" style={{ padding: '8px 16px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Journal</Link>
+          <Link href="/stories" style={{ padding: '8px 16px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Stories</Link>
+          <Link href="/burn" style={{ padding: '8px 16px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Write & Burn</Link>
+          <Link href="/archive" style={{ padding: '8px 16px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Name Archive</Link>
+          <Link href="/colors" style={{ padding: '8px 16px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Colors</Link>
+          <Link href="/about" style={{ padding: '8px 16px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>How It Works</Link>
+          <Link href="/faq" style={{ padding: '8px 16px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>FAQ</Link>
+        </div>
+      </section>
 
       {/* JSON-LD Structured Data */}
       <script
