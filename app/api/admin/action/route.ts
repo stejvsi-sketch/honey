@@ -108,7 +108,7 @@ export async function POST(request: NextRequest) {
     }
     case 'ban': {
       // Add to banned_users with BOTH ip_hash and fingerprint_hash
-      const banData: Record<string, string> = {
+      const banData: { ip_hash: string; country: string; reason: string; fingerprint_hash?: string; user_uuid?: string } = {
         ip_hash: submission.ip_hash,
         country: submission.country || 'Unknown',
         reason: 'Banned by admin',
@@ -122,7 +122,7 @@ export async function POST(request: NextRequest) {
         banData.user_uuid = submission.user_uuid;
       }
 
-      await supabase.from('banned_users').upsert(banData, { onConflict: 'ip_hash' });
+      await supabase.from('banned_users').upsert(banData as any, { onConflict: 'ip_hash' });
 
       // ── Bulk-reject: delete ALL pending submissions from the same person ──
       // Strategy: use fingerprint as primary identifier (per-browser, safe for

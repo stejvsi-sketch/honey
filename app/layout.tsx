@@ -62,6 +62,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script async src="https://fundingchoicesmessages.google.com/i/pub-4151123662328725?ers=1" suppressHydrationWarning></script>
         <script suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `(function(){function s(){if(!window.frames['googlefcPresent']){if(document.body){var i=document.createElement('iframe');i.style='width:0;height:0;border:none;z-index:-1000;left:-1000px;top:-1000px;';i.style.display='none';i.name='googlefcPresent';document.body.appendChild(i);}else{setTimeout(s,0);}}}s();})();` }} />
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4151123662328725" crossOrigin="anonymous" suppressHydrationWarning></script>
+        {/* Monetag Vignette Ad (zone 11992335) */}
+        <script suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11992335',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
       </head>
       <body>
         {/* BidVertiser ownership verification */}

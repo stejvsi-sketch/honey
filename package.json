@@ -9,27 +9,27 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.112.1",
-    "@upstash/ratelimit": "^2.0.8",
-    "@upstash/redis": "^1.38.2",
-    "dotenv": "^17.4.2",
-    "next": "16.3.0",
-    "react": "19.2.8",
-    "react-dom": "19.2.8",
-    "sharp": "^0.35.3",
+    "@supabase/supabase-js": "^2.117.3",
+    "@upstash/ratelimit": "^2.2.0",
+    "@upstash/redis": "^1.39.0",
+    "dotenv": "^18.0.7",
+    "next": "16.4.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "sharp": "^0.35.5",
     "supabase-js": "^0.0.1-security",
-    "zod": "^4.4.3"
+    "zod": "^4.6.5"
   },
   "devDependencies": {
-    "@types/node": "^22.20.1",
+    "@types/node": "^26.6.4",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^10.8.0",
-    "eslint-config-next": "16.3.0",
-    "typescript": "^5"
+    "eslint": "^10.12.0",
+    "eslint-config-next": "16.4.0",
+    "typescript": "^7"
   },
   "overrides": {
-    "postcss": "^8.5.10"
+    "postcss": "^8.5.29"
   },
   "browserslist": [
     "chrome >= 109",
