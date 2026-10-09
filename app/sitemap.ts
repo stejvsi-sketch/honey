@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next';
 import { SITE_URL, NAME_INDEX_THRESHOLD } from '@/lib/constants';
 import { JOURNAL_POSTS } from '@/lib/journal-data';
 import { STORIES } from '@/lib/stories';
+import { COLLECTIONS } from '@/lib/collections-data';
 
 // Helper: parse a "Month YYYY" date string into a Date (1st of the month)
 function parseMonthDate(dateStr: string): Date | undefined {
@@ -15,7 +16,7 @@ const SITE_LAUNCH = new Date('2026-05-15');
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Only include pages that are indexed by Google.
-  // Pages with noindex,follow (letters, archive, unsent, colors, collections)
+  // Pages with noindex,follow (letters, archive, unsent, colors)
   // are intentionally excluded — they are kept for visitors but not for search.
   const staticPages = [
     { path: '', changeFrequency: 'daily' as const, priority: 1 },
@@ -32,6 +33,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/methodology', changeFrequency: 'monthly' as const, priority: 0.6 },
     { path: '/burn', changeFrequency: 'monthly' as const, priority: 0.7 },
     { path: '/author', changeFrequency: 'monthly' as const, priority: 0.5 },
+    { path: '/collections', changeFrequency: 'weekly' as const, priority: 0.7 },
   ];
 
   const staticEntries: MetadataRoute.Sitemap = staticPages.map(({ path, changeFrequency, priority }) => ({
@@ -97,5 +99,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  return [...staticEntries, ...dynamicEntries, ...journalEntries, ...storyEntries];
+  // Collection pages — keyword-based curated archives
+  const collectionEntries: MetadataRoute.Sitemap = COLLECTIONS.map(collection => ({
+    url: `${SITE_URL}/collections/${collection.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
+
+  return [...staticEntries, ...dynamicEntries, ...journalEntries, ...storyEntries, ...collectionEntries];
 }
