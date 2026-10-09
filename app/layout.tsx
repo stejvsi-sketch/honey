@@ -64,6 +64,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4151123662328725" crossOrigin="anonymous" suppressHydrationWarning></script>
         {/* Monetag Vignette Ad (zone 11992335) */}
         <script suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11992335',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
+        {/* Monetag Popunder Ad (zone 11992527) */}
+        <script suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `(function(s){s.dataset.zone='11992527',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))` }} />
       </head>
       <body>
         {/* BidVertiser ownership verification */}
