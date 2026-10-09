@@ -45,6 +45,12 @@ export const metadata: Metadata = {
   },
   twitter: { card: 'summary_large_image', title: SITE_NAME, description: SITE_DESCRIPTION },
   robots: { index: true, follow: true },
+  alternates: {
+    languages: {
+      'en': SITE_URL,
+      'x-default': SITE_URL,
+    },
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -56,6 +62,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <head>
+        {/* Hreflang — tell Google this site is English, rank globally */}
+        <link rel="alternate" hrefLang="en" href="https://www.honeyifonly.com" />
+        <link rel="alternate" hrefLang="x-default" href="https://www.honeyifonly.com" />
         {/* Preload LCP-critical texture image (crossorigin matches the CSS mask fetch) */}
         <link rel="preload" href="/textures/rough-paper.webp" as="image" type="image/webp" fetchPriority="high" crossOrigin="anonymous" />
         {/* Google Funding Choices CMP for GDPR consent (EEA/UK/Switzerland) */}

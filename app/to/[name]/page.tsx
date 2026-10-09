@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { getMemoriesByName } from '@/lib/data';
 import NameArchive from '@/components/NameArchive';
 import RelatedNames from '@/components/RelatedNames';
 import { SITE_URL, NAME_PAGE_SIZE, NAME_INDEX_THRESHOLD } from '@/lib/constants';
 import { formatSubmittedName } from '@/lib/names';
+import { COLLECTIONS } from '@/lib/collections-data';
 
 
 export const revalidate = 18000;
@@ -118,6 +120,30 @@ export default async function NamePage(props: {
 
 
       <RelatedNames currentName={displayName} currentSlug={name} />
+
+      {/* Internal links to related collections — SEO cross-linking */}
+      <div style={{ marginTop: '48px', textAlign: 'center' }}>
+        <h2 style={{ fontSize: '1.1rem', marginBottom: '16px', color: 'var(--text-secondary)' }}>Explore Collections</h2>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center' }}>
+          {COLLECTIONS.slice(0, 12).map(collection => (
+            <Link
+              key={collection.slug}
+              href={`/collections/${collection.slug}`}
+              style={{
+                padding: '6px 14px',
+                borderRadius: '20px',
+                border: '1px solid var(--border-color)',
+                color: 'var(--text-secondary)',
+                textDecoration: 'none',
+                fontSize: '0.85rem',
+                transition: 'all 0.2s',
+              }}
+            >
+              {collection.shortTitle}
+            </Link>
+          ))}
+        </div>
+      </div>
 
     </div>
   );

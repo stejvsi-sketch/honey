@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import { SITE_URL, SITE_NAME } from '@/lib/constants';
 import { COLLECTIONS } from '@/lib/collections-data';
 import { getMemoriesByCollection } from '@/lib/data';
@@ -118,6 +119,56 @@ export default async function CollectionPage({ params }: Props) {
       </div>
 
       <CollectionArchive themeSlug={slug} themeName={collection.title} initialTotal={total} initialMemories={initialMemories} />
+
+      {/* Internal links to name pages — SEO cross-linking */}
+      <div style={{ marginTop: '48px', textAlign: 'center' }}>
+        <h2 style={{ fontSize: '1.1rem', marginBottom: '16px', color: 'var(--text-secondary)' }}>Browse by Name</h2>
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '16px' }}>
+          Explore unsent letters addressed to specific names.
+        </p>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center' }}>
+          {['alex', 'sarah', 'david', 'emily', 'michael', 'jessica', 'james', 'ashley', 'daniel', 'samantha'].map(name => (
+            <Link
+              key={name}
+              href={`/to/${name}`}
+              style={{
+                padding: '6px 14px',
+                borderRadius: '20px',
+                border: '1px solid var(--border-color)',
+                color: 'var(--text-secondary)',
+                textDecoration: 'none',
+                fontSize: '0.85rem',
+                textTransform: 'capitalize',
+              }}
+            >
+              {name}
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Cross-links to other collections */}
+      <div style={{ marginTop: '32px', textAlign: 'center' }}>
+        <h2 style={{ fontSize: '1.1rem', marginBottom: '16px', color: 'var(--text-secondary)' }}>More Collections</h2>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center' }}>
+          {COLLECTIONS.filter(c => c.slug !== slug).slice(0, 10).map(c => (
+            <Link
+              key={c.slug}
+              href={`/collections/${c.slug}`}
+              style={{
+                padding: '6px 14px',
+                borderRadius: '20px',
+                border: '1px solid var(--border-color)',
+                color: 'var(--text-secondary)',
+                textDecoration: 'none',
+                fontSize: '0.85rem',
+              }}
+            >
+              {c.shortTitle}
+            </Link>
+          ))}
+        </div>
+      </div>
 
     </div>
   );
