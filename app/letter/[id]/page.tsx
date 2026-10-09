@@ -76,15 +76,17 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
   });
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'SocialMediaPosting',
+    '@type': 'CreativeWork',
     url: letterUrl,
     name: `Unsent Letters and Messages to ${displayName}`,
     headline: `Unsent Letters and Messages to ${displayName}`,
+    genre: 'unsent letter',
+    inLanguage: 'en',
     datePublished: memory.created_at,
     text: memory.message,
     author: {
       '@type': 'Person',
-      name: 'Anonymous contributor',
+      name: 'Anonymous',
     },
     about: {
       '@type': 'Person',
