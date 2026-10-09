@@ -163,7 +163,6 @@ a:hover { color: var(--accent-hover); }
   display: grid; gap: 40px;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
-  align-items: start;
 }
 .card-grid--home { grid-template-columns: repeat(3, 1fr); }
 
@@ -184,7 +183,7 @@ a:hover { color: var(--accent-hover); }
 }
 
 @media (max-width: 1024px) {
-  .card-grid, .card-grid--home { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  .card-grid, .card-grid--home { grid-template-columns: repeat(2, 1fr); gap: 32px; align-items: start; }
 }
 
 @media (max-width: 640px) {
@@ -318,7 +317,7 @@ a:hover { color: var(--accent-hover); }
   .memory-card .memory-card__content { padding: 12px 26px 68px; }
   .memory-card .memory-card__name { font-size: 1.2rem; }
   .memory-card .memory-card__message { font-size: 1.18rem; line-height: 1.7; }
-  .memory-card .memory-card__brand::after { margin: 14px auto 0; }
+  .memory-card .memory-card__brand::after { margin: 6px auto 6px; }
 }
 
 /* ===== FORM ===== */
@@ -474,11 +473,6 @@ a:hover { color: var(--accent-hover); }
 .letter-single__card .memory-card__content { padding: 16px 34px 76px; }
 .letter-single__card .memory-card__header { top: 20px; }
 
-@media (max-width: 1023px) {
-  .letter-single__card .memory-card__name { font-size: 1.35rem; }
-  .letter-single__card .memory-card__message { font-size: 1.3rem; }
-}
-
 @media (max-width: 767px) {
   .letter-single__card { max-width: 340px; }
   .letter-single__card .memory-card {
@@ -496,7 +490,7 @@ a:hover { color: var(--accent-hover); }
     overflow: hidden;
   }
   .letter-single__card .memory-card__brand { font-size: 0.85rem; }
-  .letter-single__card .memory-card__brand::after { margin: 14px auto 0; }
+  .letter-single__card .memory-card__brand::after { margin: 6px auto 6px; }
   .letter-single__card .memory-card__content { padding: 10px 22px 60px; }
   .letter-single__card .memory-card__header { top: 16px; }
 }
