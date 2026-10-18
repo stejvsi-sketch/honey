@@ -60,7 +60,13 @@ export default function CardRenderer({
     setFlipped(f => !f);
   }
 
-  // Only override the texture grain, NEVER the mask (mask = card shape = always rough-paper from CSS)
+  // Every texture has the exact same alpha silhouette as rough-paper,
+  // so use it for both mask (shape) and grain overlay — matching the original
+  const maskStyle = useDefault ? undefined : {
+    WebkitMaskImage: `url('${textureUrl}')`,
+    maskImage: `url('${textureUrl}')`,
+  } as React.CSSProperties;
+
   const textureStyle = useDefault ? undefined : {
     backgroundImage: `url('${textureUrl}')`,
   } as React.CSSProperties;
@@ -79,7 +85,7 @@ export default function CardRenderer({
           </svg>
         </div>
       )}
-      <div className="memory-card__bg">
+      <div className="memory-card__bg" style={maskStyle}>
         <div className="memory-card__color" style={{ backgroundColor: hex }} />
         <div className="memory-card__texture" style={textureStyle} />
       </div>
@@ -109,7 +115,7 @@ export default function CardRenderer({
 
   const backContent = hasWishReply ? (
     <>
-      <div className="memory-card__bg">
+      <div className="memory-card__bg" style={maskStyle}>
         <div className="memory-card__color" style={{ backgroundColor: hex }} />
         <div className="memory-card__texture" style={textureStyle} />
       </div>

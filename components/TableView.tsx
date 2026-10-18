@@ -96,6 +96,11 @@ function TableCard({
 
 
   // Only override texture grain, never the mask (mask = card shape from CSS)
+  const maskStyle = useDefault ? undefined : {
+    WebkitMaskImage: `url('${textureUrl}')`,
+    maskImage: `url('${textureUrl}')`,
+  } as React.CSSProperties;
+
   const textureStyle = useDefault ? undefined : {
     backgroundImage: `url('${textureUrl}')`,
   } as React.CSSProperties;
@@ -112,7 +117,7 @@ function TableCard({
       } as React.CSSProperties}
       onClick={() => onLift(memory.id)}
     >
-      <div className="table-card__bg">
+      <div className="table-card__bg" style={maskStyle}>
         <div className="table-card__color" style={{ backgroundColor: hex }} />
         <div className="table-card__texture" style={textureStyle} />
       </div>

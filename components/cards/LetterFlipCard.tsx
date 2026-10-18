@@ -43,6 +43,11 @@ export default function LetterFlipCard({ hex, slug, displayName, message, fromNa
   const useDefault = isDefaultTexture(textureId);
 
 
+  const maskStyle = useDefault ? undefined : {
+    WebkitMaskImage: `url('${textureUrl}')`,
+    maskImage: `url('${textureUrl}')`,
+  } as React.CSSProperties;
+
   const textureStyle = useDefault ? undefined : {
     backgroundImage: `url('${textureUrl}')`,
   } as React.CSSProperties;
@@ -58,7 +63,7 @@ export default function LetterFlipCard({ hex, slug, displayName, message, fromNa
 
   const front = (
     <div className={cardClass} style={{ margin: '0 auto' }}>
-      <div className="memory-card__bg">
+      <div className="memory-card__bg" style={maskStyle}>
         <div className="memory-card__color" style={{ backgroundColor: hex }} />
         <div className="memory-card__texture" style={textureStyle} />
       </div>
@@ -88,7 +93,7 @@ export default function LetterFlipCard({ hex, slug, displayName, message, fromNa
 
   const back = (
     <div className={cardClass} style={{ margin: '0 auto' }}>
-      <div className="memory-card__bg">
+      <div className="memory-card__bg" style={maskStyle}>
         <div className="memory-card__color" style={{ backgroundColor: hex }} />
         <div className="memory-card__texture" style={textureStyle} />
       </div>

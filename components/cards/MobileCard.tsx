@@ -30,6 +30,11 @@ export default function MobileCard({ memory }: { memory: Memory }) {
   const useDefault = isDefaultTexture(memory.texture_id);
 
 
+  const maskStyle = useDefault ? undefined : {
+    WebkitMaskImage: `url('${textureUrl}')`,
+    maskImage: `url('${textureUrl}')`,
+  } as React.CSSProperties;
+
   const textureStyle = useDefault ? undefined : {
     backgroundImage: `url('${textureUrl}')`,
   } as React.CSSProperties;
@@ -46,7 +51,7 @@ export default function MobileCard({ memory }: { memory: Memory }) {
           </svg>
         </div>
       )}
-      <div className="memory-card__bg">
+      <div className="memory-card__bg" style={maskStyle}>
         <div className="memory-card__color" style={{ backgroundColor: hex }} />
         <div className="memory-card__texture" style={textureStyle} />
       </div>

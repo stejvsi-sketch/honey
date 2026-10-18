@@ -1,23 +1,22 @@
 /**
- * Re-convert texture PNGs → 800×800 webp, FLATTENED onto white.
+ * Match each texture to the original rough-paper.webp silhouette.
  *
- * Why flatten? The source PNGs are paper cutouts with transparent backgrounds.
- * The card mask is always rough-paper.webp (defines the torn-paper shape).
- * The texture grain overlay uses mix-blend-mode: multiply, so:
- *   white × any color = that color (invisible)
- *   texture grain × card color = textured result
- *
- * Flattening removes ALL transparency → the texture fills every pixel of the
- * 800×800 canvas → no gaps inside the mask shape.
+ * Strategy:
+ * 1. Extract the alpha channel from rough-paper.webp (the paper shape)
+ * 2. For each new texture, resize to 800×800 (fill, no gaps)
+ * 3. Stamp the original's alpha channel onto the new texture
+ * 4. Result: every texture has IDENTICAL shape/edges as the original
  */
 
 import sharp from 'sharp';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const srcDir = path.join(__dirname, '..', 'new');
 const outDir = path.join(__dirname, '..', 'public', 'textures');
+const originalPath = path.join(outDir, 'rough-paper.webp');
 
 const TEXTURES = [
   { src: '—Pngtree—aged torn paper stack with_24277239.png', out: 'aged-torn-stack.webp' },
@@ -31,21 +30,58 @@ const TEXTURES = [
 ];
 
 async function convert() {
+  // Step 1: Extract alpha channel from original rough-paper.webp as a greyscale buffer
+  const originalMeta = await sharp(originalPath).metadata();
+  console.log(`Original: ${originalMeta.width}×${originalMeta.height}, ${originalMeta.channels}ch`);
+
+  // Get the raw RGBA pixels of the original
+  const { data: originalRaw, info: originalInfo } = await sharp(originalPath)
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+
+  const W = originalInfo.width;   // 800
+  const H = originalInfo.height;  // 800
+
+  // Extract just the alpha channel into a single-channel greyscale buffer
+  const alphaBuffer = Buffer.alloc(W * H);
+  for (let i = 0; i < W * H; i++) {
+    alphaBuffer[i] = originalRaw[i * 4 + 3]; // 4th byte = alpha
+  }
+
+  console.log(`Extracted alpha mask: ${W}×${H}\n`);
+
+  // Step 2: Process each texture
   for (const { src, out } of TEXTURES) {
     const inputPath = path.join(srcDir, src);
-    const outputPath = path.join(outDir, out);
 
-    await sharp(inputPath)
-      .resize(800, 800, { fit: 'cover', position: 'centre' })
-      .flatten({ background: { r: 255, g: 255, b: 255 } })  // Kill all transparency
+    // Resize source to 800×800, flatten onto white (fill all transparent areas),
+    // then get raw RGB pixels
+    const { data: textureRaw } = await sharp(inputPath)
+      .resize(W, H, { fit: 'cover', position: 'centre' })
+      .flatten({ background: { r: 255, g: 255, b: 255 } })
+      .removeAlpha()
+      .ensureAlpha()  // Add back a full-opaque alpha channel
+      .raw()
+      .toBuffer({ resolveWithObject: true });
+
+    // Step 3: Replace the alpha channel with the original's alpha
+    for (let i = 0; i < W * H; i++) {
+      textureRaw[i * 4 + 3] = alphaBuffer[i];
+    }
+
+    // Step 4: Write out as RGBA webp
+    const outputPath = path.join(outDir, out);
+    await sharp(textureRaw, { raw: { width: W, height: H, channels: 4 } })
       .webp({ quality: 85, effort: 6 })
       .toFile(outputPath);
 
-    const stats = await sharp(outputPath).metadata();
-    const fileSizeKB = Math.round((await import('fs')).statSync(outputPath).size / 1024);
-    console.log(`✓ ${out} → ${stats.width}×${stats.height} ${stats.format} ${stats.channels}ch ${fileSizeKB}KB`);
+    const fileSizeKB = Math.round(fs.statSync(outputPath).size / 1024);
+    const meta = await sharp(outputPath).metadata();
+    console.log(`✓ ${out} → ${meta.width}×${meta.height} ${meta.channels}ch ${fileSizeKB}KB`);
   }
-  console.log('\nDone — all textures flattened onto white.');
+
+  console.log('\nDone — all textures now have identical silhouette as rough-paper.webp');
 }
 
 convert().catch(console.error);
