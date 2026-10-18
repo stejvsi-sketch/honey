@@ -132,6 +132,7 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
           message={memory.message}
           fromName={memory.from_name}
           wishReply={memory.wish_reply}
+          textureId={memory.texture_id}
         />
       </div>
       <div className="letter-single__meta">

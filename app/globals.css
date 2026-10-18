@@ -378,6 +378,93 @@ a:hover { color: var(--accent-hover); }
   transform: translate(-50%, -58%) rotate(45deg);
 }
 
+/* Texture picker — two large swatches (Original + Shuffle) */
+.texture-picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.texture-swatch {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  overflow: hidden;
+  background: var(--bg-cold);
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.texture-swatch:hover {
+  transform: scale(1.03);
+  border-color: var(--text-muted);
+}
+.texture-swatch--selected {
+  border-color: var(--text);
+  box-shadow: 0 0 0 2px var(--text);
+}
+.texture-swatch__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 6px;
+  pointer-events: none;
+}
+.texture-swatch--shuffle {
+  position: relative;
+}
+.texture-swatch__shuffle-icon {
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.04);
+  transition: background var(--transition), color var(--transition);
+}
+.texture-swatch--shuffle:hover .texture-swatch__shuffle-icon {
+  background: rgba(0,0,0,0.08);
+  color: var(--text);
+}
+.texture-swatch__label {
+  position: absolute;
+  bottom: 6px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: 0.72rem;
+  font-style: italic;
+  color: var(--text-light);
+  letter-spacing: 0.03em;
+  pointer-events: none;
+  background: linear-gradient(transparent, rgba(218,215,209,0.85) 40%);
+  padding: 8px 4px 2px;
+}
+/* Shuffle animation — subtle pulse while cycling */
+.texture-swatch--shuffling {
+  animation: shuffle-pulse 0.15s ease-in-out infinite alternate;
+}
+@keyframes shuffle-pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.04); }
+}
+.texture-swatch--shuffling .texture-swatch__img {
+  animation: shuffle-fade 0.12s ease-in-out infinite alternate;
+}
+@keyframes shuffle-fade {
+  from { opacity: 0.7; }
+  to { opacity: 1; }
+}
+
 /* Submit button */
 .btn {
   display: inline-flex; align-items: center; justify-content: center;

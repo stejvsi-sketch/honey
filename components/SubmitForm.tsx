@@ -1,8 +1,14 @@
 'use client';
 
 import { useState, useRef, useCallback, useEffect } from 'react';
-import { CARD_COLORS, MAX_WORDS } from '@/lib/constants';
+import { CARD_COLORS, CARD_TEXTURES, DEFAULT_TEXTURE_ID, MAX_WORDS } from '@/lib/constants';
 import { getBrowserFingerprint } from '@/lib/fingerprint';
+
+// Get a random texture ID from the non-default textures (indices 1–8)
+function getRandomTextureId(): string {
+  const nonDefault = CARD_TEXTURES.filter(t => t.id !== DEFAULT_TEXTURE_ID);
+  return nonDefault[Math.floor(Math.random() * nonDefault.length)].id;
+}
 
 export default function SubmitForm() {
   const [name, setName] = useState('');
@@ -10,6 +16,8 @@ export default function SubmitForm() {
   const [message, setMessage] = useState('');
   const [wishReply, setWishReply] = useState('');
   const [colorId, setColorId] = useState<string>(CARD_COLORS[0].id);
+  const [textureId, setTextureId] = useState<string>(DEFAULT_TEXTURE_ID);
+  const [isShuffling, setIsShuffling] = useState(false);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -17,6 +25,7 @@ export default function SubmitForm() {
   // (rapid clicks, slow network, re-renders, etc.)
   const submitLockRef = useRef(false);
   const fingerprintRef = useRef<string>('');
+  const shuffleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Generate browser fingerprint on mount (async, non-blocking)
   useEffect(() => {
@@ -39,6 +48,41 @@ export default function SubmitForm() {
     return crypto.randomUUID();
   }, []);
 
+  // Animate the shuffle — cycle through textures rapidly then land on a random one
+  function handleShuffle() {
+    if (isShuffling) return;
+    setIsShuffling(true);
+
+    const nonDefault = CARD_TEXTURES.filter(t => t.id !== DEFAULT_TEXTURE_ID);
+    let step = 0;
+    const totalSteps = 8 + Math.floor(Math.random() * 4); // 8–11 visual ticks
+    const finalId = getRandomTextureId();
+
+    function tick() {
+      if (step < totalSteps - 1) {
+        // Visual cycling: pick a random texture each tick
+        setTextureId(nonDefault[Math.floor(Math.random() * nonDefault.length)].id);
+        step++;
+        // Accelerating delay: starts fast (60ms), ends slower (180ms)
+        const delay = 60 + (step / totalSteps) * 120;
+        shuffleTimerRef.current = setTimeout(tick, delay);
+      } else {
+        // Final: land on the actual selection
+        setTextureId(finalId);
+        setIsShuffling(false);
+      }
+    }
+
+    tick();
+  }
+
+  // Cleanup shuffle timer on unmount
+  useEffect(() => {
+    return () => {
+      if (shuffleTimerRef.current) clearTimeout(shuffleTimerRef.current);
+    };
+  }, []);
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
@@ -54,6 +98,7 @@ export default function SubmitForm() {
       name: name.trim(),
       message: message.trim(),
       color_id: colorId,
+      texture_id: textureId !== DEFAULT_TEXTURE_ID ? textureId : undefined,
       from_name: fromName.trim() || undefined,
       wish_reply: wishReply.trim() || undefined,
       idempotency_key: generateIdempotencyKey(),
@@ -68,6 +113,7 @@ export default function SubmitForm() {
     setMessage('');
     setWishReply('');
     setColorId(CARD_COLORS[0].id);
+    setTextureId(DEFAULT_TEXTURE_ID);
 
     // Fire the actual API call in the background
     try {
@@ -88,6 +134,7 @@ export default function SubmitForm() {
         setMessage(submissionData.message);
         setWishReply(submissionData.wish_reply || '');
         setColorId(submissionData.color_id);
+        setTextureId(submissionData.texture_id || DEFAULT_TEXTURE_ID);
       }
       // If res.ok, user already sees success — nothing to do
     } catch {
@@ -99,6 +146,7 @@ export default function SubmitForm() {
       setMessage(submissionData.message);
       setWishReply(submissionData.wish_reply || '');
       setColorId(submissionData.color_id);
+      setTextureId(submissionData.texture_id || DEFAULT_TEXTURE_ID);
     } finally {
       // Release the lock
       submitLockRef.current = false;
@@ -120,6 +168,8 @@ export default function SubmitForm() {
       </div>
     );
   }
+
+  const selectedTexture = CARD_TEXTURES.find(t => t.id === textureId);
 
   return (
     <form className="form" onSubmit={handleSubmit}>
@@ -191,6 +241,65 @@ export default function SubmitForm() {
             />
           ))}
         </div>
+      </div>
+
+      <div className="form__group">
+        <label className="form__label">Choose paper texture</label>
+        <div className="texture-picker">
+          {/* Default original texture */}
+          <button
+            type="button"
+            className={`texture-swatch ${textureId === DEFAULT_TEXTURE_ID ? 'texture-swatch--selected' : ''}`}
+            onClick={() => setTextureId(DEFAULT_TEXTURE_ID)}
+            title="Original"
+            aria-label="Select Original paper texture"
+            aria-pressed={textureId === DEFAULT_TEXTURE_ID}
+          >
+            <img
+              src={`/textures/${CARD_TEXTURES[0].file}`}
+              alt="Original"
+              className="texture-swatch__img"
+              loading="lazy"
+            />
+          </button>
+
+          {/* Random shuffle button */}
+          <button
+            type="button"
+            className={`texture-swatch texture-swatch--shuffle ${textureId !== DEFAULT_TEXTURE_ID ? 'texture-swatch--selected' : ''} ${isShuffling ? 'texture-swatch--shuffling' : ''}`}
+            onClick={handleShuffle}
+            title={isShuffling ? 'Shuffling...' : (selectedTexture && textureId !== DEFAULT_TEXTURE_ID ? selectedTexture.name : 'Random Shuffle')}
+            aria-label="Randomly select a paper texture"
+            disabled={isShuffling}
+          >
+            {textureId !== DEFAULT_TEXTURE_ID ? (
+              <img
+                src={`/textures/${selectedTexture?.file || CARD_TEXTURES[0].file}`}
+                alt={selectedTexture?.name || 'Random'}
+                className="texture-swatch__img"
+                loading="lazy"
+              />
+            ) : (
+              <span className="texture-swatch__shuffle-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="16 3 21 3 21 8" />
+                  <line x1="4" y1="20" x2="21" y2="3" />
+                  <polyline points="21 16 21 21 16 21" />
+                  <line x1="15" y1="15" x2="21" y2="21" />
+                  <line x1="4" y1="4" x2="9" y2="9" />
+                </svg>
+              </span>
+            )}
+            <span className="texture-swatch__label">
+              {isShuffling ? '...' : (textureId !== DEFAULT_TEXTURE_ID ? 'reshuffle' : 'shuffle')}
+            </span>
+          </button>
+        </div>
+        <p className="form__hint">
+          {textureId === DEFAULT_TEXTURE_ID
+            ? 'Classic paper, or tap shuffle for a surprise.'
+            : `Selected: ${selectedTexture?.name || 'Custom'}. Tap shuffle again to change.`}
+        </p>
       </div>
 
       {errorMsg && <p className="form__error">{errorMsg}</p>}

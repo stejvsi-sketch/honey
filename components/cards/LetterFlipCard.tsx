@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { SITE_NAME } from '@/lib/constants';
+import { CARD_TEXTURES, DEFAULT_TEXTURE_ID, SITE_NAME } from '@/lib/constants';
 
 function FlipIcon() {
   return (
@@ -13,6 +13,14 @@ function FlipIcon() {
   );
 }
 
+function getTextureUrl(textureId?: string | null): string {
+  const texture = textureId
+    ? CARD_TEXTURES.find(t => t.id === textureId)
+    : undefined;
+  const file = texture?.file || CARD_TEXTURES.find(t => t.id === DEFAULT_TEXTURE_ID)!.file;
+  return `/textures/${file}`;
+}
+
 interface LetterFlipCardProps {
   hex: string;
   slug: string;
@@ -20,11 +28,22 @@ interface LetterFlipCardProps {
   message: string;
   fromName?: string | null;
   wishReply?: string | null;
+  textureId?: string | null;
 }
 
-export default function LetterFlipCard({ hex, slug, displayName, message, fromName, wishReply }: LetterFlipCardProps) {
+export default function LetterFlipCard({ hex, slug, displayName, message, fromName, wishReply, textureId }: LetterFlipCardProps) {
   const [flipped, setFlipped] = useState(false);
   const hasWishReply = !!wishReply;
+  const textureUrl = getTextureUrl(textureId);
+
+  const maskStyle = {
+    WebkitMaskImage: `url('${textureUrl}')`,
+    maskImage: `url('${textureUrl}')`,
+  } as React.CSSProperties;
+
+  const textureStyle = {
+    backgroundImage: `url('${textureUrl}')`,
+  } as React.CSSProperties;
 
   function handleFlip(e: React.MouseEvent) {
     if (!hasWishReply) return;
@@ -35,9 +54,9 @@ export default function LetterFlipCard({ hex, slug, displayName, message, fromNa
 
   const front = (
     <div className="memory-card card-animate" style={{ margin: '0 auto' }}>
-      <div className="memory-card__bg">
+      <div className="memory-card__bg" style={maskStyle}>
         <div className="memory-card__color" style={{ backgroundColor: hex }} />
-        <div className="memory-card__texture" />
+        <div className="memory-card__texture" style={textureStyle} />
       </div>
       <div className="memory-card__content">
         <div className="memory-card__header">
@@ -65,9 +84,9 @@ export default function LetterFlipCard({ hex, slug, displayName, message, fromNa
 
   const back = (
     <div className="memory-card card-animate" style={{ margin: '0 auto' }}>
-      <div className="memory-card__bg">
+      <div className="memory-card__bg" style={maskStyle}>
         <div className="memory-card__color" style={{ backgroundColor: hex }} />
-        <div className="memory-card__texture" />
+        <div className="memory-card__texture" style={textureStyle} />
       </div>
       <div className="memory-card__content">
         <div className="memory-card__header">
