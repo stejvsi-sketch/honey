@@ -92,13 +92,11 @@ function TableCard({
   const hex = color?.hex || '#f5e6d0';
   const displayName = formatSubmittedName(memory.name);
   const textureUrl = getTextureUrl(memory.texture_id);
+  const useDefault = !memory.texture_id || memory.texture_id === DEFAULT_TEXTURE_ID;
 
-  const maskStyle = {
-    WebkitMaskImage: `url('${textureUrl}')`,
-    maskImage: `url('${textureUrl}')`,
-  } as React.CSSProperties;
 
-  const textureStyle = {
+  // Only override texture grain, never the mask (mask = card shape from CSS)
+  const textureStyle = useDefault ? undefined : {
     backgroundImage: `url('${textureUrl}')`,
   } as React.CSSProperties;
 
@@ -114,10 +112,11 @@ function TableCard({
       } as React.CSSProperties}
       onClick={() => onLift(memory.id)}
     >
-      <div className="table-card__bg" style={maskStyle}>
+      <div className="table-card__bg">
         <div className="table-card__color" style={{ backgroundColor: hex }} />
         <div className="table-card__texture" style={textureStyle} />
       </div>
+
       <div className="table-card__content">
         <div className="table-card__header">
           <span className="table-card__brand">{SITE_NAME.toLowerCase()}</span>

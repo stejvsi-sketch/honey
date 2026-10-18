@@ -16,24 +16,26 @@ function getTextureUrl(textureId?: string | null): string {
   return `/textures/${file}`;
 }
 
+function isDefaultTexture(textureId?: string | null): boolean {
+  return !textureId || textureId === DEFAULT_TEXTURE_ID;
+}
+
+
 export default function TabletCard({ memory }: { memory: Memory }) {
   const color = CARD_COLORS.find(c => c.id === memory.color_id);
   const hex = color?.hex || '#f5e6d0';
   const pinned = isPinned(memory);
   const displayName = formatSubmittedName(memory.name);
   const textureUrl = getTextureUrl(memory.texture_id);
+  const useDefault = isDefaultTexture(memory.texture_id);
 
-  const maskStyle = {
-    WebkitMaskImage: `url('${textureUrl}')`,
-    maskImage: `url('${textureUrl}')`,
-  } as React.CSSProperties;
 
-  const textureStyle = {
+  const textureStyle = useDefault ? undefined : {
     backgroundImage: `url('${textureUrl}')`,
   } as React.CSSProperties;
 
   return (
-    <div className="memory-card memory-card--tablet card-animate" style={{ maxWidth: 320 }}>
+    <div className={`memory-card memory-card--tablet card-animate`} style={{ maxWidth: 320 }}>
       {pinned && (
         <div className="memory-card__pin" aria-label="Pinned letter">
           <svg width="18" height="26" viewBox="0 0 22 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -44,10 +46,11 @@ export default function TabletCard({ memory }: { memory: Memory }) {
           </svg>
         </div>
       )}
-      <div className="memory-card__bg" style={maskStyle}>
+      <div className="memory-card__bg">
         <div className="memory-card__color" style={{ backgroundColor: hex }} />
         <div className="memory-card__texture" style={textureStyle} />
       </div>
+
       <div className="memory-card__content">
         <div className="memory-card__header">
           <span className="memory-card__brand">{SITE_NAME.toLowerCase()}</span>

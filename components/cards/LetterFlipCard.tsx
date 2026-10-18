@@ -21,6 +21,11 @@ function getTextureUrl(textureId?: string | null): string {
   return `/textures/${file}`;
 }
 
+function isDefaultTexture(textureId?: string | null): boolean {
+  return !textureId || textureId === DEFAULT_TEXTURE_ID;
+}
+
+
 interface LetterFlipCardProps {
   hex: string;
   slug: string;
@@ -35,15 +40,14 @@ export default function LetterFlipCard({ hex, slug, displayName, message, fromNa
   const [flipped, setFlipped] = useState(false);
   const hasWishReply = !!wishReply;
   const textureUrl = getTextureUrl(textureId);
+  const useDefault = isDefaultTexture(textureId);
 
-  const maskStyle = {
-    WebkitMaskImage: `url('${textureUrl}')`,
-    maskImage: `url('${textureUrl}')`,
-  } as React.CSSProperties;
 
-  const textureStyle = {
+  const textureStyle = useDefault ? undefined : {
     backgroundImage: `url('${textureUrl}')`,
   } as React.CSSProperties;
+
+  const cardClass = `memory-card card-animate`;
 
   function handleFlip(e: React.MouseEvent) {
     if (!hasWishReply) return;
@@ -53,8 +57,8 @@ export default function LetterFlipCard({ hex, slug, displayName, message, fromNa
   }
 
   const front = (
-    <div className="memory-card card-animate" style={{ margin: '0 auto' }}>
-      <div className="memory-card__bg" style={maskStyle}>
+    <div className={cardClass} style={{ margin: '0 auto' }}>
+      <div className="memory-card__bg">
         <div className="memory-card__color" style={{ backgroundColor: hex }} />
         <div className="memory-card__texture" style={textureStyle} />
       </div>
@@ -83,8 +87,8 @@ export default function LetterFlipCard({ hex, slug, displayName, message, fromNa
   }
 
   const back = (
-    <div className="memory-card card-animate" style={{ margin: '0 auto' }}>
-      <div className="memory-card__bg" style={maskStyle}>
+    <div className={cardClass} style={{ margin: '0 auto' }}>
+      <div className="memory-card__bg">
         <div className="memory-card__color" style={{ backgroundColor: hex }} />
         <div className="memory-card__texture" style={textureStyle} />
       </div>
