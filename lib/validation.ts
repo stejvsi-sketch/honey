@@ -1,8 +1,7 @@
 import { z } from 'zod';
-import { CARD_COLORS, CARD_TEXTURES, MAX_WORDS, MAX_NAME_LENGTH, MAX_MESSAGE_LENGTH } from './constants';
+import { CARD_COLORS, MAX_WORDS, MAX_NAME_LENGTH, MAX_MESSAGE_LENGTH } from './constants';
 
 const validColorIds = CARD_COLORS.map(c => c.id) as [string, ...string[]];
-const validTextureIds = CARD_TEXTURES.map(t => t.id) as [string, ...string[]];
 
 export const submitMemorySchema = z.object({
   name: z
@@ -25,7 +24,6 @@ export const submitMemorySchema = z.object({
       return words.every(w => w.length <= 20);
     }, 'Each word must be 20 characters or less'),
   color_id: z.enum(validColorIds),
-  texture_id: z.enum(validTextureIds).optional().transform(val => val || undefined),
   from_name: z
     .string()
     .trim()

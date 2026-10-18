@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: firstError }, { status: 400 });
     }
 
-    const { name, message, color_id, texture_id, from_name, wish_reply } = parsed.data;
+    const { name, message, color_id, from_name, wish_reply } = parsed.data;
     const fingerprint_hash: string | undefined = typeof body.fingerprint_hash === 'string' ? body.fingerprint_hash : undefined;
 
     // Sanitize inputs
@@ -201,7 +201,6 @@ export async function POST(request: NextRequest) {
         name: cleanName,
         message: cleanMessage,
         color_id,
-        texture_id: texture_id || null,
         slug,
         from_name: cleanFromName || null,
         wish_reply: cleanWishReply || null,

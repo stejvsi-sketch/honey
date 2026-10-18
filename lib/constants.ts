@@ -30,21 +30,6 @@ export const CARD_COLORS = [
 
 export type CardColorId = typeof CARD_COLORS[number]['id'];
 
-export const CARD_TEXTURES = [
-  { id: 'rough-paper', name: 'Original', file: 'rough-paper.webp' },
-  { id: 'distressed-lined', name: 'Distressed Lined', file: 'distressed-lined.webp' },
-  { id: 'vintage-torn-pieces', name: 'Vintage Torn', file: 'vintage-torn-pieces.webp' },
-  { id: 'rough-rice-paper', name: 'Rice Paper', file: 'rough-rice-paper.webp' },
-  { id: 'rough-vintage-frame', name: 'Vintage Frame', file: 'rough-vintage-frame.webp' },
-  { id: 'torn-green-rough', name: 'Torn Green', file: 'torn-green-rough.webp' },
-  { id: 'vintage-scrapbook', name: 'Scrapbook', file: 'vintage-scrapbook.webp' },
-  { id: 'worn-aged-paring', name: 'Worn Aged', file: 'worn-aged-paring.webp' },
-] as const;
-
-export type CardTextureId = typeof CARD_TEXTURES[number]['id'];
-
-export const DEFAULT_TEXTURE_ID: CardTextureId = 'rough-paper';
-
 // Hard-banned words (submission rejected entirely)
 export const HARD_BANNED_WORDS = [
   // Pornography / explicit sexual

@@ -92,7 +92,6 @@ export async function POST(request: NextRequest) {
         name: submission.name,
         message: submission.message,
         color_id: submission.color_id,
-        texture_id: submission.texture_id || null,
         slug: submission.slug,
         from_name: submission.from_name || null,
         wish_reply: submission.wish_reply || null,

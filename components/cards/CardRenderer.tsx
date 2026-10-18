@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { CARD_COLORS, CARD_TEXTURES, DEFAULT_TEXTURE_ID, SITE_NAME } from '@/lib/constants';
+import { CARD_COLORS, SITE_NAME } from '@/lib/constants';
 import { formatSubmittedName } from '@/lib/names';
 import type { Memory } from '@/lib/types';
 
@@ -20,21 +20,6 @@ function FlipIcon() {
   );
 }
 
-function getTextureUrl(textureId?: string | null): string {
-  const texture = textureId
-    ? CARD_TEXTURES.find(t => t.id === textureId)
-    : undefined;
-  const file = texture?.file || CARD_TEXTURES.find(t => t.id === DEFAULT_TEXTURE_ID)!.file;
-  return `/textures/${file}`;
-}
-
-/** Whether the texture is the default (no inline override needed for grain) */
-function isDefaultTexture(textureId?: string | null): boolean {
-  return !textureId || textureId === DEFAULT_TEXTURE_ID;
-}
-
-
-
 export default function CardRenderer({
   memory,
   animate = true,
@@ -48,29 +33,15 @@ export default function CardRenderer({
   const pinned = isPinned(memory);
   const displayName = formatSubmittedName(memory.name);
   const hasWishReply = !!memory.wish_reply;
-  const textureUrl = getTextureUrl(memory.texture_id);
-  const useDefault = isDefaultTexture(memory.texture_id);
-
 
   function handleFlip(e: React.MouseEvent) {
     if (!hasWishReply) return;
+    // Don't flip when clicking links
     const target = e.target as HTMLElement;
     if (target.closest('a')) return;
     e.stopPropagation();
     setFlipped(f => !f);
   }
-
-  // Each texture is both mask (shape) and grain (overlay), like the original
-  const maskStyle = useDefault ? undefined : {
-    WebkitMaskImage: `url('${textureUrl}')`,
-    maskImage: `url('${textureUrl}')`,
-  } as React.CSSProperties;
-
-  const textureStyle = useDefault ? undefined : {
-    backgroundImage: `url('${textureUrl}')`,
-  } as React.CSSProperties;
-
-  const cardClass = `memory-card${animate ? ' card-animate' : ''}`;
 
   const cardContent = (
     <>
@@ -84,9 +55,9 @@ export default function CardRenderer({
           </svg>
         </div>
       )}
-      <div className="memory-card__bg" style={maskStyle}>
+      <div className="memory-card__bg">
         <div className="memory-card__color" style={{ backgroundColor: hex }} />
-        <div className="memory-card__texture" style={textureStyle} />
+        <div className="memory-card__texture" />
       </div>
       <div className="memory-card__content">
         <div className="memory-card__header">
@@ -114,9 +85,9 @@ export default function CardRenderer({
 
   const backContent = hasWishReply ? (
     <>
-      <div className="memory-card__bg" style={maskStyle}>
+      <div className="memory-card__bg">
         <div className="memory-card__color" style={{ backgroundColor: hex }} />
-        <div className="memory-card__texture" style={textureStyle} />
+        <div className="memory-card__texture" />
       </div>
       <div className="memory-card__content">
         <div className="memory-card__header">
@@ -135,7 +106,7 @@ export default function CardRenderer({
 
   if (!hasWishReply) {
     return (
-      <div className={cardClass}>
+      <div className={`memory-card${animate ? ' card-animate' : ''}`}>
         {cardContent}
       </div>
     );
@@ -147,12 +118,12 @@ export default function CardRenderer({
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setFlipped(f => !f); } }}>
       <div className={`flip-card-inner${flipped ? ' flip-card-inner--flipped' : ''}`}>
         <div className="flip-card-front">
-          <div className={cardClass}>
+          <div className={`memory-card${animate ? ' card-animate' : ''}`}>
             {cardContent}
           </div>
         </div>
         <div className="flip-card-back">
-          <div className={cardClass}>
+          <div className={`memory-card${animate ? ' card-animate' : ''}`}>
             {backContent}
           </div>
         </div>
