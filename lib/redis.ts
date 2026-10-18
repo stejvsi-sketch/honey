@@ -20,7 +20,7 @@ export function getRatelimit(): Ratelimit {
   if (!ratelimit) {
     ratelimit = new Ratelimit({
       redis: getRedis(),
-      limiter: Ratelimit.slidingWindow(6, '1 d'), // 6 submits per day
+      limiter: Ratelimit.slidingWindow(999, '1 d'), // TEMP: 999 for testing (was 6)
       analytics: true,
       prefix: 'hio:ratelimit',
     });
