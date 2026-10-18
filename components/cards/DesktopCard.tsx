@@ -30,13 +30,13 @@ export default function DesktopCard({ memory }: { memory: Memory }) {
   const useDefault = isDefaultTexture(memory.texture_id);
 
 
+  const textureStyle = useDefault ? undefined : {
+    backgroundImage: `url('${textureUrl}')`,
+  } as React.CSSProperties;
+
   const maskStyle = useDefault ? undefined : {
     WebkitMaskImage: `url('${textureUrl}')`,
     maskImage: `url('${textureUrl}')`,
-  } as React.CSSProperties;
-
-  const textureStyle = useDefault ? undefined : {
-    backgroundImage: `url('${textureUrl}')`,
   } as React.CSSProperties;
 
   return (

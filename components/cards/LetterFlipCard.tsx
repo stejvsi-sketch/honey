@@ -43,13 +43,13 @@ export default function LetterFlipCard({ hex, slug, displayName, message, fromNa
   const useDefault = isDefaultTexture(textureId);
 
 
+  const textureStyle = useDefault ? undefined : {
+    backgroundImage: `url('${textureUrl}')`,
+  } as React.CSSProperties;
+
   const maskStyle = useDefault ? undefined : {
     WebkitMaskImage: `url('${textureUrl}')`,
     maskImage: `url('${textureUrl}')`,
-  } as React.CSSProperties;
-
-  const textureStyle = useDefault ? undefined : {
-    backgroundImage: `url('${textureUrl}')`,
   } as React.CSSProperties;
 
   const cardClass = `memory-card card-animate`;

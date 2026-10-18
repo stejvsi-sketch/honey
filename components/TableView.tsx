@@ -95,14 +95,14 @@ function TableCard({
   const useDefault = !memory.texture_id || memory.texture_id === DEFAULT_TEXTURE_ID;
 
 
-  // Only override texture grain, never the mask (mask = card shape from CSS)
+  // Each texture is both mask (shape) and grain (overlay)
+  const textureStyle = useDefault ? undefined : {
+    backgroundImage: `url('${textureUrl}')`,
+  } as React.CSSProperties;
+
   const maskStyle = useDefault ? undefined : {
     WebkitMaskImage: `url('${textureUrl}')`,
     maskImage: `url('${textureUrl}')`,
-  } as React.CSSProperties;
-
-  const textureStyle = useDefault ? undefined : {
-    backgroundImage: `url('${textureUrl}')`,
   } as React.CSSProperties;
 
   return (

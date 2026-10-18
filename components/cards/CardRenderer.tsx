@@ -60,8 +60,7 @@ export default function CardRenderer({
     setFlipped(f => !f);
   }
 
-  // Every texture has the exact same alpha silhouette as rough-paper,
-  // so use it for both mask (shape) and grain overlay — matching the original
+  // Each texture is both mask (shape) and grain (overlay), like the original
   const maskStyle = useDefault ? undefined : {
     WebkitMaskImage: `url('${textureUrl}')`,
     maskImage: `url('${textureUrl}')`,
