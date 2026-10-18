@@ -2199,3 +2199,21 @@ a:hover { color: var(--accent-hover); }
   .ad-container--infeed .ad-container__divider { max-width: 240px; }
 }
 
+/* Monetag & vignette ad suppression on write and admin pages */
+body:has(.write-mode-toggle) [class*="pushContainer"],
+body:has(.write-mode-toggle) [class*="container-"],
+body:has(.write-mode-toggle) [class*="backdrop"],
+body:has(.write-mode-toggle) iframe[src*="n6wxm"],
+body:has(.write-mode-toggle) iframe[src*="vignette"],
+body:has(.admin-dashboard) [class*="pushContainer"],
+body:has(.admin-dashboard) [class*="container-"],
+body:has(.admin-dashboard) [class*="backdrop"],
+body:has(.admin-dashboard) iframe[src*="n6wxm"],
+body:has(.admin-dashboard) iframe[src*="vignette"] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+}
+
+
