@@ -32,7 +32,6 @@ export type CardColorId = typeof CARD_COLORS[number]['id'];
 
 export const CARD_TEXTURES = [
   { id: 'rough-paper', name: 'Original', file: 'rough-paper.webp' },
-  { id: 'aged-torn-stack', name: 'Aged Torn', file: 'aged-torn-stack.webp' },
   { id: 'distressed-lined', name: 'Distressed Lined', file: 'distressed-lined.webp' },
   { id: 'vintage-torn-pieces', name: 'Vintage Torn', file: 'vintage-torn-pieces.webp' },
   { id: 'rough-rice-paper', name: 'Rice Paper', file: 'rough-rice-paper.webp' },

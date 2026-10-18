@@ -193,6 +193,7 @@ a:hover { color: var(--accent-hover); }
 /* ===== MEMORY CARD ===== */
 .memory-card {
   position: relative; width: 100%; max-width: 420px;
+  margin: 0 auto;
   aspect-ratio: 420 / 520; cursor: pointer;
   transition: transform var(--transition);
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.18));
@@ -200,6 +201,7 @@ a:hover { color: var(--accent-hover); }
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
   isolation: isolate;
+  overflow: hidden;
 }
 .memory-card:hover {
   transform: translateY(-2px) rotate(-0.3deg);
@@ -2082,6 +2084,7 @@ a:hover { color: var(--accent-hover); }
   cursor: pointer;
   width: 100%;
   max-width: 420px;
+  margin: 0 auto;
 }
 
 @media (max-width: 1023px) {
@@ -2119,7 +2122,7 @@ a:hover { color: var(--accent-hover); }
 
 /* Flip hint — minimal italic text outside card */
 .flip-hint {
-  position: absolute; bottom: 8px; right: 4px;
+  position: absolute; bottom: 16px; right: 12px;
   z-index: 5;
   display: flex; align-items: center; gap: 4px;
   font-family: var(--font-serif);
@@ -2163,8 +2166,8 @@ a:hover { color: var(--accent-hover); }
 /* Give the flip hint breathing room on mobile where the paper mask clips tighter */
 @media (max-width: 767px) {
   .flip-hint {
-    bottom: 1px;
-    right: -2px;
+    bottom: 10px;
+    right: 6px;
   }
 }
 
