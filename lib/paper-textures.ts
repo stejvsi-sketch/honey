@@ -53,7 +53,7 @@ const PAPER_CARD_LAYOUT: Partial<Record<PaperId, {
     brandTop: '12%', contentTop: 'clamp(6rem, 27vw, 7rem)',
     copyWidth: '86%', tableCopyWidth: '80%', brandShiftX: '18px', brandShiftY: '8px',
   },
-  'vintage-torn-pieces': { brandTop: '10%', contentTop: '6.25rem' },
+  'vintage-torn-pieces': { brandTop: '10%', contentTop: '6.25rem', brandShiftY: '2px' },
   'worn-aged-paring': { brandTop: '8%', contentTop: '5.5rem' },
 };
 
