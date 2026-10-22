@@ -4,6 +4,7 @@ import { useState, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { CARD_COLORS, SITE_NAME } from '@/lib/constants';
 import { formatSubmittedName } from '@/lib/names';
+import { getPaperTextureStyle } from '@/lib/paper-textures';
 import type { Memory } from '@/lib/types';
 
 // Deterministic pseudo-random based on string hash (so SSR matches client)
@@ -88,6 +89,7 @@ function TableCard({
     <div
       className={`table-card ${isLifted ? 'table-card--lifted' : ''}`}
       style={{
+        ...getPaperTextureStyle(memory.id),
         left: `${x}%`,
         top: `${y}px`,
         '--card-rotation': `${rotation}deg`,

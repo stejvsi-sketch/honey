@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { CARD_COLORS, SITE_NAME } from '@/lib/constants';
 import { formatSubmittedName } from '@/lib/names';
+import { getPaperTextureStyle } from '@/lib/paper-textures';
 import type { Memory } from '@/lib/types';
 
 function isPinned(memory: Memory): boolean {
@@ -33,6 +34,7 @@ export default function CardRenderer({
   const pinned = isPinned(memory);
   const displayName = formatSubmittedName(memory.name);
   const hasWishReply = !!memory.wish_reply;
+  const paperTextureStyle = getPaperTextureStyle(memory.id);
 
   function handleFlip(e: React.MouseEvent) {
     if (!hasWishReply) return;
@@ -106,7 +108,7 @@ export default function CardRenderer({
 
   if (!hasWishReply) {
     return (
-      <div className={`memory-card${animate ? ' card-animate' : ''}`}>
+      <div className={`memory-card${animate ? ' card-animate' : ''}`} style={paperTextureStyle}>
         {cardContent}
       </div>
     );
@@ -118,12 +120,12 @@ export default function CardRenderer({
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setFlipped(f => !f); } }}>
       <div className={`flip-card-inner${flipped ? ' flip-card-inner--flipped' : ''}`}>
         <div className="flip-card-front">
-          <div className={`memory-card${animate ? ' card-animate' : ''}`}>
+          <div className={`memory-card${animate ? ' card-animate' : ''}`} style={paperTextureStyle}>
             {cardContent}
           </div>
         </div>
         <div className="flip-card-back">
-          <div className={`memory-card${animate ? ' card-animate' : ''}`}>
+          <div className={`memory-card${animate ? ' card-animate' : ''}`} style={paperTextureStyle}>
             {backContent}
           </div>
         </div>

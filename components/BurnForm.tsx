@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { MAX_WORDS } from '@/lib/constants';
+import { getPaperTextureStyle } from '@/lib/paper-textures';
 
 type BurnStage = 'writing' | 'card' | 'burning' | 'done';
 
@@ -334,7 +335,11 @@ export default function BurnForm() {
     return (
       <div className="burn-stage">
         <div className="burn-card-wrapper">
-          <div className="memory-card" ref={cardRef} style={{ margin: '0 auto', pointerEvents: 'none' }}>
+          <div
+            className="memory-card"
+            ref={cardRef}
+            style={{ margin: '0 auto', pointerEvents: 'none', ...getPaperTextureStyle(`${name}\n${message}`) }}
+          >
             <div className="memory-card__bg">
               <div className="memory-card__color" style={{ backgroundColor: '#f5e6d0' }} />
               <div className="memory-card__texture" />

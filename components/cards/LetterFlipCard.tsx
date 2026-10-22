@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { SITE_NAME } from '@/lib/constants';
+import { getPaperTextureStyle } from '@/lib/paper-textures';
 
 function FlipIcon() {
   return (
@@ -18,13 +19,15 @@ interface LetterFlipCardProps {
   slug: string;
   displayName: string;
   message: string;
+  textureSeed: string;
   fromName?: string | null;
   wishReply?: string | null;
 }
 
-export default function LetterFlipCard({ hex, slug, displayName, message, fromName, wishReply }: LetterFlipCardProps) {
+export default function LetterFlipCard({ hex, slug, displayName, message, textureSeed, fromName, wishReply }: LetterFlipCardProps) {
   const [flipped, setFlipped] = useState(false);
   const hasWishReply = !!wishReply;
+  const paperTextureStyle = getPaperTextureStyle(textureSeed);
 
   function handleFlip(e: React.MouseEvent) {
     if (!hasWishReply) return;
@@ -34,7 +37,7 @@ export default function LetterFlipCard({ hex, slug, displayName, message, fromNa
   }
 
   const front = (
-    <div className="memory-card card-animate" style={{ margin: '0 auto' }}>
+    <div className="memory-card card-animate" style={{ margin: '0 auto', ...paperTextureStyle }}>
       <div className="memory-card__bg">
         <div className="memory-card__color" style={{ backgroundColor: hex }} />
         <div className="memory-card__texture" />
@@ -64,7 +67,7 @@ export default function LetterFlipCard({ hex, slug, displayName, message, fromNa
   }
 
   const back = (
-    <div className="memory-card card-animate" style={{ margin: '0 auto' }}>
+    <div className="memory-card card-animate" style={{ margin: '0 auto', ...paperTextureStyle }}>
       <div className="memory-card__bg">
         <div className="memory-card__color" style={{ backgroundColor: hex }} />
         <div className="memory-card__texture" />

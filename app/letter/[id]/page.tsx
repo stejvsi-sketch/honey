@@ -110,6 +110,7 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
           slug={memory.slug}
           displayName={displayName}
           message={memory.message}
+          textureSeed={memory.id}
           fromName={memory.from_name}
           wishReply={memory.wish_reply}
         />
