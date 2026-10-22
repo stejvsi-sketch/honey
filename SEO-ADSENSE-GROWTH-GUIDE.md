@@ -34,6 +34,7 @@ The long entry with self-harm material and unattributed text, and the record who
 - Added headings and clearer structure to the non-protected journal articles; reduced generic repeated FAQ copy and removed weak or misleading claims about universal psychological effects.
 - Replaced Wikipedia and unsupported institutional references in the reviewed article references with direct research, publisher, or institutional sources where a source was warranted. Claims that the available evidence does not support were narrowed or removed.
 - Made internal navigation and submission/privacy copy more accurate, including the optional public sender name and the different history of the older archive.
+- Added a concise homepage explanation of unsent letters, the public nature and limits of the archive, and links to the practical writing guide and trust pages. This responds to Search Console data showing the home page earns substantial impressions for the broad “unsent letters” query while its average position weakened in the latest comparable period.
 - Clarified the homepage and recipient-page headings and introductions so they describe the actual public archive and avoid repetitive keyword-stuffed copy.
 - Removed misleading sitemap `lastModified` values where the source data did not contain a verified edit date.
 - Added page-specific old-domain redirects in application code. The old domain’s DNS/domain attachment and any Vercel-level redirects still need to be checked in the hosting account.
@@ -43,11 +44,19 @@ No AdSense or Monetag implementation, ad placement, `ads.txt`, legacy submission
 
 ## Sustainable SEO plan
 
-### 1. Establish a baseline before making more indexing changes
+### 1. Use the connected Search Console baseline and inspect page types
 
-In Search Console, use the Web performance report and compare the last 3 months with the previous 3 months, then review a 16-month view for seasonality. Export queries, pages, countries, impressions, clicks, click-through rate, and average position. Compare the United States, United Kingdom, Canada, Australia, Ireland, and New Zealand separately; these are measurement segments, not separate geo-targeted pages to create. Search Console supports filtering by query, page, date, and country.
+The connected `sc-domain:honeyifonly.com` Search Console property returned data through October 19, 2026. For October 1–19 it recorded 4,235 Google Search clicks and 37,486 impressions. These are search clicks, not total site sessions or unique visitors. For a like-for-like 19-day comparison, September 1–19 had 5,134 clicks and 34,025 impressions; the October window had fewer clicks despite more impressions. This is a monitoring signal, not proof that a specific site edit caused a change.
 
-Use URL Inspection on a representative sample from each page type. Keep a list of canonical URL, Google-selected canonical, index status, last crawl, and any page experience or enhancement issue. Do not bulk-index recipient pages or remove `noindex` based only on a sitemap count. Confirm whether each page offers distinct value and whether it is appropriate to expose its user-submitted material.
+The largest query opportunity is still the broad “unsent letters” search. It recorded 251 clicks from 4,100 impressions at an average position of 5.83 in October 1–19, compared with 336 clicks, 4,834 impressions, and position 4.92 in September 1–19. The home page is the principal landing page for this query. “Anonymous letter website” recorded 37 clicks and 803 impressions at position 5.85 in October 1–19; the home page is also its primary landing page. These results support making the existing home page more useful and clearer, rather than publishing a near-duplicate landing page.
+
+The comparison searches remain strong. For October 1–19, “the unsent project alternative” averaged position 2.07, “unsent project alternative” averaged 2.17, and “websites like the unsent project” averaged 2.39. In the September 1–19 comparison, those terms averaged 2.20, 2.09, and 1.97, respectively. Across the three query variants, clicks fell from 539 to 437 and impressions from 1,771 to 1,690; combined CTR fell from about 30.4% to 25.9%, while average positions stayed around 2.1–2.4. Watch this trend, but do not use a short comparison window as a reason to alter the two protected comparison pages or their FAQs. The separate privacy-first supporting guide had no recorded impressions in October 1–19; that does not by itself establish whether Google has indexed it.
+
+The United States, United Kingdom, Canada, Australia, New Zealand, and Ireland produced 2,874 clicks and 23,439 impressions in October 1–19—about 68% of reported clicks and 63% of impressions. Keep monitoring those markets as segments; do not create country pages without a distinct reader need.
+
+Search Console reported successful sitemap downloads with zero errors and warnings for the `www` and bare-host sitemap records, each showing 1,161 submitted URLs. The Search Console `indexed` sitemap metric is deprecated and must not be interpreted as a current index count. Inspect representative URLs with URL Inspection to verify the canonical, live rendered page, crawl/index status, and last crawl. Sitemaps and performance data do not replace URL Inspection. Do not bulk-index recipient pages or remove `noindex` based only on sitemap counts; confirm that each page offers distinct value and that exposing its user-submitted material is appropriate.
+
+Keep a monthly export of queries, pages, countries, impressions, clicks, CTR, and average position. Compare equal date windows and annotate major releases; Search Console data usually trails today, and average positions can vary by query, device, country, and result layout.
 
 ### 2. Grow around useful topic clusters, not article volume
 
@@ -57,7 +66,7 @@ Avoid mass-producing near-identical pages for recipient names, countries, colors
 
 ### 3. Improve pages using actual query evidence
 
-For each page with meaningful impressions, compare the query to the title, opening answer, headings, source quality, and internal links. Improve pages that have high impressions but low clicks with a clearer title and accurate description; improve pages with clicks but weak engagement by answering the query earlier and making next steps useful. Add citations for specific research or policy claims, explain study limits, and do not use psychological language as a diagnosis. Do not add fake “last reviewed” dates or claim clinical review that did not happen.
+For each page with meaningful impressions, compare the query to the title, opening answer, headings, source quality, and internal links. The next practical measurement is whether the homepage explainer improves impressions, position, and clicks for “unsent letters” and related terms; compare equal periods after it has had time to be crawled. Improve pages that have high impressions but low clicks only when the current title/snippet fails to meet the actual query. Improve pages with clicks but weak engagement by answering the query earlier and making next steps useful. Add citations for specific research or policy claims, explain study limits, and do not use psychological language as a diagnosis. Do not add fake “last reviewed” dates or claim clinical review that did not happen.
 
 Keep one clear H1 per article, use descriptive H2/H3 headings, write unique metadata, and link with natural descriptive text. Structured data should describe what a reader can actually see. The site’s FAQ markup is not a shortcut to rankings; keep answers useful and consistent with the visible page.
 
@@ -73,7 +82,7 @@ Google says AI Overviews and AI Mode use the same basic Search eligibility and p
 
 ## A realistic traffic goal
 
-There is no traffic baseline or Search Console export here, so a responsible forecast for daily visits is not possible. A 100× increase is an ambitious target, not a promise. As arithmetic only, doubling every six months reaches 128× after seven doublings (42 months); sustaining that pace is uncommon and depends on audience demand, useful pages, links, competition, and technical performance. Track monthly organic clicks, qualified sessions, top landing pages, country share, and return visits. Prioritize improvements that lift several relevant pages over adding content for its own sake.
+The October 1–19 baseline averages about 223 Google Search clicks per day; clicks are not the same as unique visitors. A 100× increase would mean roughly 22,300 daily Search clicks, an exceptionally ambitious target with no guarantee. As arithmetic only, doubling every six months reaches 128× after seven doublings (42 months); sustaining that pace is uncommon and depends on audience demand, genuinely useful pages, independent references, competition, and technical performance. Track monthly organic clicks, qualified sessions, top landing pages, country share, and return visits. Reassess the new homepage copy and the recently added topic guide after Google has had time to crawl them. Prioritize changes that lift relevant pages over adding content for its own sake.
 
 ## Sources
 
