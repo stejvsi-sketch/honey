@@ -59,7 +59,6 @@ export default async function LettersPage() {
       ...initialMemories.map((memory) => {
         const displayName = formatSubmittedName(memory.name);
         const letterUrl = `${SITE_URL}/letter/${memory.id}`;
-        const recipientUrl = `${SITE_URL}/to/${memory.slug}`;
         const itemName = `Unsent Letters and Messages to ${displayName}`;
 
         return {
@@ -70,11 +69,6 @@ export default async function LettersPage() {
           headline: itemName,
           datePublished: memory.created_at,
           text: memory.message,
-          about: {
-            '@type': 'Person',
-            name: displayName,
-            url: recipientUrl,
-          },
           isPartOf: {
             '@id': `${canonicalUrl}#webpage`,
           },

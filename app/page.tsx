@@ -9,11 +9,11 @@ import TrendingNames from '@/components/TrendingNames';
 export const revalidate = 18000;
 
 export const metadata: Metadata = {
-  title: { absolute: `${SITE_NAME} - Unsent Letters` },
+  title: { absolute: `${SITE_NAME} - Unsent Letters and Messages` },
   description: SITE_DESCRIPTION,
   alternates: { canonical: SITE_URL },
   openGraph: {
-    title: SITE_NAME,
+    title: `${SITE_NAME} - Unsent Letters and Messages`,
     description: SITE_DESCRIPTION,
     url: SITE_URL,
   },
@@ -26,7 +26,7 @@ export default async function HomePage() {
     <>
       <section className="page">
         <div className="page__header">
-          <h1 className="page__title" style={{ fontSize: '1.5rem' }}>Recent Unsent Letters</h1>
+          <h1 className="page__title" style={{ fontSize: '1.5rem' }}>Recent Unsent Letters and Messages</h1>
         </div>
         <HomeCardGrid memories={memories} />
         <div style={{ textAlign: 'center', marginTop: 40 }}>
@@ -40,7 +40,7 @@ export default async function HomePage() {
       <section className="hero">
         <h2 className="hero__title">The words you couldn&apos;t say.</h2>
         <p className="hero__subtitle">
-          Read short letters from a public archive, or write one of your own.
+          Read short unsent letters, messages, and texts from a public archive, or write one of your own.
         </p>
         <div className="hero__cta">
           <Link href="/write" className="btn">Write an Unsent Letter</Link>
@@ -101,7 +101,7 @@ export default async function HomePage() {
                 '@id': `${SITE_URL}/#website`,
                 name: SITE_NAME,
                 url: SITE_URL,
-                description: 'A place for unsent letters and unspoken words.',
+                description: 'A public archive of unsent letters, messages, and unspoken words.',
                 publisher: { '@id': `${SITE_URL}/#organization` },
                 potentialAction: {
                   '@type': 'SearchAction',

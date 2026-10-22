@@ -27,7 +27,7 @@ const caveat = Caveat({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: `${SITE_NAME} - Unsent Letters`, template: `%s | ${SITE_NAME}` },
+  title: { default: `${SITE_NAME} - Unsent Letters and Messages`, template: `%s | ${SITE_NAME}` },
   description: SITE_DESCRIPTION,
   keywords: ['unsent letters', 'unsent messages', 'unsent texts', 'love letters', 'love letters never sent', 'things unsaid', 'things I never said', 'anonymous letters', 'anonymous messages', 'unspoken words', 'letter never sent', 'message never sent', 'messages never sent', 'unsent letter to', 'unsent message to', 'unsent messages to', 'words left unsaid'],
   icons: {
@@ -45,12 +45,6 @@ export const metadata: Metadata = {
   },
   twitter: { card: 'summary_large_image', title: SITE_NAME, description: SITE_DESCRIPTION },
   robots: { index: true, follow: true },
-  alternates: {
-    languages: {
-      'en': SITE_URL,
-      'x-default': SITE_URL,
-    },
-  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -62,9 +56,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <head>
-        {/* Hreflang — tell Google this site is English, rank globally */}
-        <link rel="alternate" hrefLang="en" href="https://www.honeyifonly.com" />
-        <link rel="alternate" hrefLang="x-default" href="https://www.honeyifonly.com" />
         {/* Preload LCP-critical texture image (crossorigin matches the CSS mask fetch) */}
         <link rel="preload" href="/textures/rough-paper.webp" as="image" type="image/webp" fetchPriority="high" crossOrigin="anonymous" />
         {/* Google Funding Choices CMP for GDPR consent (EEA/UK/Switzerland) */}

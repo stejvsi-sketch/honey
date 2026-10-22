@@ -62,7 +62,6 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
   const hex = color?.hex || '#f5e6d0';
   const displayName = formatSubmittedName(memory.name);
   const letterUrl = `${SITE_URL}/letter/${memory.id}`;
-  const recipientUrl = `${SITE_URL}/to/${memory.slug}`;
   const date = new Date(memory.created_at);
   const formattedDate = date.toLocaleDateString('en-US', {
     weekday: 'long',
@@ -84,11 +83,6 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
     inLanguage: 'en',
     datePublished: memory.created_at,
     text: memory.message,
-    about: {
-      '@type': 'Person',
-      name: displayName,
-      url: recipientUrl,
-    },
     isPartOf: {
       '@type': 'WebSite',
       name: SITE_NAME,

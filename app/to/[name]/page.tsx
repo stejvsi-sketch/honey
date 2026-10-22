@@ -19,7 +19,7 @@ export async function generateMetadata(props: { params: Promise<{ name: string }
   const canonicalUrl = `${SITE_URL}/to/${name}`;
 
   return {
-    title: `Unsent Letters and Messages to ${displayName}`,
+    title: `Unsent Letters, Messages, and Texts to ${displayName}`,
     description: `Browse ${total} public unsent letters, messages, and texts addressed to ${displayName}. Optional sender names may appear with approved submissions.`,
     keywords: [
       `unsent letters to ${displayName}`,
@@ -35,7 +35,7 @@ export async function generateMetadata(props: { params: Promise<{ name: string }
     ],
     alternates: { canonical: canonicalUrl },
     openGraph: {
-      title: `Unsent Letters and Messages to ${displayName}`,
+      title: `Unsent Letters, Messages, and Texts to ${displayName}`,
       description: `Browse public unsent letters, messages, and texts addressed to ${displayName}.`,
       url: canonicalUrl,
     },
@@ -59,11 +59,6 @@ export default async function NamePage(props: {
         "name": `Unsent Letters, Messages, and Texts to ${displayName}`,
         "url": canonicalUrl,
         "description": `A public archive of ${total} unsent letters, messages, and texts addressed to ${displayName}.`,
-        "about": {
-          "@type": "Person",
-          "name": displayName,
-          "url": canonicalUrl
-        }
       },
       {
         "@type": "ItemList",
@@ -79,7 +74,6 @@ export default async function NamePage(props: {
             "genre": "unsent letter",
             "inLanguage": "en",
             "datePublished": memory.created_at,
-            "about": { "@type": "Person", "name": displayName, "url": canonicalUrl }
           }
         }))
       }
