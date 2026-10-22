@@ -49,7 +49,7 @@ export default function LetterFlipCard({ hex, slug, displayName, message, paperI
         <Link href={`/to/${slug}`} className="memory-card__name">
           To {displayName}
         </Link>
-        <div className="memory-card__message"><span>{message}</span></div>
+        <div className={`memory-card__message${message.length > 120 ? ' memory-card__message--long' : ''}`}><span>{message}</span></div>
         {fromName && (
           <span className="memory-card__from">— {fromName}</span>
         )}
@@ -77,7 +77,7 @@ export default function LetterFlipCard({ hex, slug, displayName, message, paperI
           <span className="memory-card__brand">{SITE_NAME.toLowerCase()}</span>
         </div>
         <span className="memory-card__wish-label">if only you&apos;d say...</span>
-        <div className="memory-card__message"><span>{wishReply}</span></div>
+        <div className={`memory-card__message${(wishReply?.length ?? 0) > 120 ? ' memory-card__message--long' : ''}`}><span>{wishReply}</span></div>
       </div>
       <div className="flip-hint" aria-label="Tap to flip back">
         <FlipIcon /> turn over

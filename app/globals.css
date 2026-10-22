@@ -234,7 +234,7 @@ a:hover { color: var(--accent-hover); }
   position: relative;
   display: flex; flex-direction: column;
   justify-content: center; align-items: center;
-  height: 100%; padding: 16px 30px 76px;
+  height: 100%; padding: var(--paper-content-top, 16px) 30px 76px;
   text-align: center;
   mix-blend-mode: multiply;
 }
@@ -245,19 +245,25 @@ a:hover { color: var(--accent-hover); }
   font-size: 1.4rem; font-weight: 600; font-style: italic;
   color: rgba(20, 16, 12, 0.95);
   text-decoration: none;
-  margin-bottom: 16px;
+  width: 100%; max-width: 100%; margin-bottom: 16px;
   letter-spacing: 0.02em;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
 }
 .memory-card__name:hover { text-decoration: underline; }
+.memory-card__content > .memory-card__name,
+.memory-card__content > .memory-card__wish-label { width: var(--paper-copy-width, 100%); }
 
 .memory-card__message {
   font-family: var(--font-serif);
-  font-size: 1.35rem; line-height: 1.75;
+  font-size: var(--paper-message-font-size, 1.35rem);
+  line-height: var(--paper-message-line-height, 1.75);
   font-weight: 500;
   color: rgba(20, 16, 12, 0.92);
   letter-spacing: 0.01em;
-  word-break: break-word;
-  overflow-wrap: break-word;
+  width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box;
+  word-break: normal;
+  overflow-wrap: anywhere;
   overflow: hidden;
   text-align: center;
   padding: 0 4px;
@@ -272,6 +278,8 @@ a:hover { color: var(--accent-hover); }
   inset: 0;
   z-index: 1;
 }
+.memory-card__content > .memory-card__message,
+.memory-card__content > .memory-card__from { width: var(--paper-copy-width, 100%); }
 
 .memory-card__from {
   font-family: var(--font-serif);
@@ -279,38 +287,40 @@ a:hover { color: var(--accent-hover); }
   font-style: italic;
   font-weight: 400;
   color: rgba(20, 16, 12, 0.68);
-  margin-top: 14px;
+  width: 100%; max-width: 100%; margin-top: 14px;
   letter-spacing: 0.02em;
   text-align: center;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
   display: block;
 }
 
 .memory-card__header {
-  position: absolute; top: 24px; left: 0; right: 0;
+  position: absolute; top: var(--paper-brand-top, 20px); left: 0; right: 0;
   text-align: center;
 }
 .memory-card__brand {
   font-family: var(--font-serif);
-  font-size: 1rem; color: rgba(20, 16, 12, 0.68);
-  letter-spacing: 0.12em; text-transform: lowercase;
+  font-size: var(--paper-brand-font-size, 1rem); color: rgba(20, 16, 12, 0.68);
+  letter-spacing: var(--paper-brand-letter-spacing, 0.12em); text-transform: lowercase;
   font-weight: 400;
   font-style: italic;
   display: inline-block;
-  padding-bottom: 10px;
+  padding-bottom: var(--paper-brand-padding-bottom, 0);
 }
 .memory-card__brand::after {
   content: '';
   display: block;
   width: 36px; height: 1px;
   background: rgba(20, 16, 12, 0.32);
-  margin: 10px auto 0;
+  margin: var(--paper-brand-rule-margin, 4px auto 0);
 }
 
 /* Responsive card sizing via CSS media queries (no JS = no CLS) */
 @media (max-width: 1023px) {
   .memory-card { max-width: 320px; }
   .memory-card .memory-card__name { font-size: 1.3rem; }
-  .memory-card .memory-card__message { font-size: 1.25rem; }
+  .memory-card .memory-card__message { font-size: var(--paper-message-font-size, 1.25rem); }
 }
 /* Hide brand on tablet — too cramped, keep on desktop & mobile */
 @media (min-width: 641px) and (max-width: 1023px) {
@@ -318,10 +328,44 @@ a:hover { color: var(--accent-hover); }
 }
 @media (max-width: 767px) {
   .memory-card { max-width: 340px; }
-  .memory-card .memory-card__content { padding: 12px 26px 68px; }
+  .memory-card .memory-card__content {
+    padding: var(--paper-content-top, 12px) 26px var(--paper-content-bottom, 68px);
+  }
   .memory-card .memory-card__name { font-size: 1.2rem; margin-top: 6px; }
-  .memory-card .memory-card__message { font-size: 1.18rem; line-height: 1.7; }
-  .memory-card .memory-card__brand::after { margin: 6px auto 0; }
+  .memory-card .memory-card__message {
+    font-size: var(--paper-message-font-size, 1.18rem);
+    line-height: var(--paper-message-line-height, 1.7);
+  }
+  .memory-card .memory-card__brand::after { margin: var(--paper-brand-rule-margin, 6px auto 0); }
+}
+
+/* Long notes scale down to keep maximum-length submissions readable on the card. */
+.memory-card .memory-card__message--long {
+  font-size: var(--paper-long-message-font-size, 1rem);
+  line-height: var(--paper-long-message-line-height, 1.45);
+  max-height: 72%;
+  -webkit-line-clamp: 10;
+}
+@media (max-width: 767px) {
+  .memory-card .memory-card__message--long {
+    font-size: var(--paper-long-message-font-size, 0.88rem);
+    line-height: var(--paper-long-message-line-height, 1.32);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .memory-card .memory-card__name { font-size: 1rem; }
+  .memory-card .memory-card__from { font-size: 0.82rem; line-height: 1.25; margin-top: 8px; }
+  .memory-card .memory-card__message--long {
+    font-size: var(--paper-long-message-font-size, 0.88rem);
+    line-height: min(var(--paper-long-message-line-height, 1.32), 1.2);
+  }
+  .letter-single__card .memory-card__name { font-size: 1rem; }
+  .letter-single__card .memory-card__from { font-size: 0.82rem; line-height: 1.25; margin-top: 8px; }
+  .letter-single__card .memory-card__message--long {
+    font-size: var(--paper-long-message-font-size, 0.88rem);
+    line-height: min(var(--paper-long-message-line-height, 1.32), 1.2);
+  }
 }
 
 /* Keep burn-preview lettering inside the paper's narrower, irregular edges. */
@@ -349,13 +393,19 @@ a:hover { color: var(--accent-hover); }
   font-size: 1rem;
   line-height: 1.45;
   letter-spacing: 0;
-  max-height: 64%;
-  -webkit-line-clamp: 9;
+  max-height: none;
+  -webkit-line-clamp: 14;
 }
 @media (max-width: 767px) {
   .burn-card__letter { width: 72%; }
   .burn-card__letter .memory-card__name { font-size: 1.08rem; }
   .burn-card__letter .memory-card__message { font-size: 0.98rem; line-height: 1.4; }
+}
+.burn-card__letter .memory-card__message--long {
+  font-size: 0.72rem;
+  line-height: 1.2;
+  max-height: none;
+  -webkit-line-clamp: 14;
 }
 
 /* ===== FORM ===== */
@@ -571,10 +621,19 @@ a:hover { color: var(--accent-hover); }
 .letter-single__card { max-width: 480px; width: 100%; }
 .letter-single__card .memory-card { max-width: 480px; }
 .letter-single__card .memory-card__name { font-size: 1.45rem; }
-.letter-single__card .memory-card__message { font-size: 1.4rem; line-height: 1.75; }
-.letter-single__card .memory-card__brand { font-size: 1rem; }
-.letter-single__card .memory-card__content { padding: 16px 34px 76px; }
-.letter-single__card .memory-card__header { top: 20px; }
+.letter-single__card .memory-card__message {
+  font-size: var(--paper-message-font-size, 1.4rem);
+  line-height: var(--paper-message-line-height, 1.75);
+}
+.letter-single__card .memory-card__message--long {
+  font-size: var(--paper-long-message-font-size, 1rem);
+  line-height: var(--paper-long-message-line-height, 1.45);
+}
+.letter-single__card .memory-card__brand { font-size: var(--paper-brand-font-size, 1rem); }
+.letter-single__card .memory-card__content {
+  padding: var(--paper-content-top, 16px) 34px var(--paper-content-bottom, 76px);
+}
+.letter-single__card .memory-card__header { top: var(--paper-brand-top, 20px); }
 
 @media (max-width: 767px) {
   .letter-single__card { max-width: 340px; }
@@ -585,17 +644,25 @@ a:hover { color: var(--accent-hover); }
   }
   .letter-single__card .memory-card__name { font-size: 1.15rem; margin-top: 6px; }
   .letter-single__card .memory-card__message {
-    font-size: 1.15rem; line-height: 1.65;
-    max-height: 55%;
-    -webkit-line-clamp: 6;
+    font-size: var(--paper-message-font-size, 1rem);
+    line-height: var(--paper-message-line-height, 1.45);
+    max-height: 72%;
+    -webkit-line-clamp: 10;
     -webkit-box-orient: vertical;
     display: -webkit-box;
     overflow: hidden;
   }
-  .letter-single__card .memory-card__brand { font-size: 0.85rem; }
-  .letter-single__card .memory-card__brand::after { margin: 6px auto 0; }
-  .letter-single__card .memory-card__content { padding: 10px 22px 60px; }
-  .letter-single__card .memory-card__header { top: 16px; }
+  .letter-single__card .memory-card__brand { font-size: var(--paper-brand-font-size, 0.85rem); }
+  .letter-single__card .memory-card__brand::after { margin: var(--paper-brand-rule-margin, 6px auto 0); }
+  .letter-single__card .memory-card__content {
+    padding: var(--paper-content-top, 10px) 22px var(--paper-content-bottom, 60px);
+  }
+  .letter-single__card .memory-card__header { top: var(--paper-brand-top, 16px); }
+  .letter-single__card .memory-card__message--long {
+    font-size: var(--paper-long-message-font-size, 0.88rem);
+    line-height: var(--paper-long-message-line-height, 1.32);
+    max-height: 72%; -webkit-line-clamp: 10;
+  }
 }
 .letter-single__meta {
   text-align: center; margin-top: 24px;
@@ -1404,7 +1471,7 @@ a:hover { color: var(--accent-hover); }
 
 .table-card__header {
   position: absolute;
-  top: 20px;
+  top: var(--paper-brand-top, 20px);
   left: 0;
   right: 0;
   text-align: center;
@@ -1426,6 +1493,7 @@ a:hover { color: var(--accent-hover); }
   font-weight: 600;
   font-style: italic;
   color: rgba(20, 16, 12, 0.85);
+  width: var(--paper-table-copy-width, var(--paper-copy-width, 100%));
   margin-bottom: 8px;
   letter-spacing: 0.02em;
 }
@@ -1436,11 +1504,13 @@ a:hover { color: var(--accent-hover); }
   line-height: 1.65;
   font-weight: 450;
   color: rgba(20, 16, 12, 0.75);
+  width: var(--paper-table-copy-width, var(--paper-copy-width, 100%));
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
-  word-break: break-word;
+  word-break: normal;
+  overflow-wrap: anywhere;
   padding: 0 4px;
 }
 
@@ -1470,6 +1540,7 @@ a:hover { color: var(--accent-hover); }
 
 @media (max-width: 1024px) {
   .table-card { width: 220px; height: calc(220px * 520 / 420); }
+  .table-card__header { display: none; }
 }
 
 @media (max-width: 768px) {
@@ -2279,9 +2350,9 @@ a:hover { color: var(--accent-hover); }
   transform: rotateY(180deg);
 }
 
-/* Flip hint — minimal italic text outside card */
+/* Keep the flip hint on the lower paper area, away from the irregular edge. */
 .flip-hint {
-  position: absolute; bottom: 8px; right: 4px;
+  position: absolute; bottom: 10%; left: 50%; right: auto;
   z-index: 5;
   display: flex; align-items: center; gap: 4px;
   font-family: var(--font-serif);
@@ -2291,6 +2362,8 @@ a:hover { color: var(--accent-hover); }
   transition: all 0.3s ease;
   cursor: pointer;
   padding: 6px 8px;
+  white-space: nowrap;
+  transform: translateX(-50%);
 }
 
 .flip-card-container:hover .flip-hint,
@@ -2322,13 +2395,6 @@ a:hover { color: var(--accent-hover); }
   text-align: center;
 }
 
-/* Give the flip hint breathing room on mobile where the paper mask clips tighter */
-@media (max-width: 767px) {
-  .flip-hint {
-    bottom: 1px;
-    right: -2px;
-  }
-}
 
 /* ===== CROSS PROMO ===== */
 .cross-promo {

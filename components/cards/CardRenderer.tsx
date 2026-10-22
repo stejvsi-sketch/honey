@@ -69,7 +69,7 @@ export default function CardRenderer({
           onClick={(e) => e.stopPropagation()}>
           To {displayName}
         </Link>
-        <Link href={`/letter/${memory.id}`} className="memory-card__message"
+        <Link href={`/letter/${memory.id}`} className={`memory-card__message${memory.message.length > 120 ? ' memory-card__message--long' : ''}`}
           style={{ textDecoration: 'none', color: 'inherit' }}>
           <span>{memory.message}</span>
         </Link>
@@ -96,7 +96,7 @@ export default function CardRenderer({
           <span className="memory-card__brand">{SITE_NAME.toLowerCase()}</span>
         </div>
         <span className="memory-card__wish-label">if only you&apos;d say...</span>
-        <div className="memory-card__message" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <div className={`memory-card__message${(memory.wish_reply?.length ?? 0) > 120 ? ' memory-card__message--long' : ''}`} style={{ textDecoration: 'none', color: 'inherit' }}>
           <span>{memory.wish_reply}</span>
         </div>
       </div>

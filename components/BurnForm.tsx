@@ -352,7 +352,7 @@ export default function BurnForm() {
                 <span className="memory-card__name" style={{ cursor: 'default' }}>
                   To {name}
                 </span>
-                <div className="memory-card__message"><span>{message}</span></div>
+                <div className={`memory-card__message${message.length > 300 ? ' memory-card__message--long' : ''}`}><span>{message}</span></div>
               </div>
             </div>
           </div>
