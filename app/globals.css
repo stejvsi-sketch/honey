@@ -324,6 +324,40 @@ a:hover { color: var(--accent-hover); }
   .memory-card .memory-card__brand::after { margin: 6px auto 0; }
 }
 
+/* Keep burn-preview lettering inside the paper's narrower, irregular edges. */
+.burn-card .memory-card__content { padding-left: 0; padding-right: 0; }
+.burn-card__letter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 72%;
+  max-width: 19rem;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.burn-card__letter .memory-card__name,
+.burn-card__letter .memory-card__message {
+  width: 100%;
+  min-width: 0;
+}
+.burn-card__letter .memory-card__name {
+  margin: 0 0 12px;
+  font-size: 1.15rem;
+}
+.burn-card__letter .memory-card__message {
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1.45;
+  letter-spacing: 0;
+  max-height: 64%;
+  -webkit-line-clamp: 9;
+}
+@media (max-width: 767px) {
+  .burn-card__letter { width: 72%; }
+  .burn-card__letter .memory-card__name { font-size: 1.08rem; }
+  .burn-card__letter .memory-card__message { font-size: 0.98rem; line-height: 1.4; }
+}
+
 /* ===== FORM ===== */
 .form { max-width: 520px; margin: 0 auto; }
 .form__group { margin-bottom: 24px; }

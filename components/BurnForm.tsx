@@ -336,7 +336,7 @@ export default function BurnForm() {
       <div className="burn-stage">
         <div className="burn-card-wrapper">
           <div
-            className="memory-card"
+            className="memory-card burn-card"
             ref={cardRef}
             style={{ margin: '0 auto', pointerEvents: 'none', ...getPaperTextureStyle() }}
           >
@@ -348,10 +348,12 @@ export default function BurnForm() {
               <div className="memory-card__header">
                 <span className="memory-card__brand">honey, if only</span>
               </div>
-              <span className="memory-card__name" style={{ cursor: 'default' }}>
-                To {name}
-              </span>
-              <div className="memory-card__message"><span>{message}</span></div>
+              <div className="burn-card__letter">
+                <span className="memory-card__name" style={{ cursor: 'default' }}>
+                  To {name}
+                </span>
+                <div className="memory-card__message"><span>{message}</span></div>
+              </div>
             </div>
           </div>
           {/* Fire particles canvas — behind card */}
