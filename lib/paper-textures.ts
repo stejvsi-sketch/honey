@@ -24,6 +24,8 @@ type PaperTextureStyle = CSSProperties & {
   '--paper-content-top'?: string;
   '--paper-copy-width'?: string;
   '--paper-table-copy-width'?: string;
+  '--paper-art-inset-x'?: string;
+  '--paper-art-inset-y'?: string;
 };
 
 const PAPER_CARD_LAYOUT: Partial<Record<PaperId, {
@@ -60,6 +62,13 @@ export function getPaperTextureStyle(paperId?: string | null): PaperTextureStyle
           '--paper-content-top': cardLayout.contentTop,
           ...(cardLayout.copyWidth ? { '--paper-copy-width': cardLayout.copyWidth } : {}),
           ...(cardLayout.tableCopyWidth ? { '--paper-table-copy-width': cardLayout.tableCopyWidth } : {}),
+        }
+      : {}),
+    ...(paperId != null && design.id !== 'rough-paper'
+      ? {
+          // Match every new paper's visible footprint to the original asset.
+          '--paper-art-inset-x': '4.75%',
+          '--paper-art-inset-y': '2.5%',
         }
       : {}),
     // New submissions store a paper_id. Legacy letters and the burn card do

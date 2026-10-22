@@ -208,7 +208,8 @@ a:hover { color: var(--accent-hover); }
 
 /* Clip the card background to its selected paper shape */
 .memory-card__bg {
-  position: absolute; inset: 0;
+  position: absolute;
+  inset: var(--paper-art-inset-y, 0) var(--paper-art-inset-x, 0);
   -webkit-mask-image: var(--paper-mask, url('/textures/rough-paper.webp'));
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: center;
@@ -2341,9 +2342,9 @@ a:hover { color: var(--accent-hover); }
   transform: rotateY(180deg);
 }
 
-/* Flip hint stays in the original lower-right position beyond the paper edge. */
+/* Keep the hint clear of the paper silhouette while preserving its lower-right position. */
 .flip-hint {
-  position: absolute; bottom: -8px; right: 4px;
+  position: absolute; bottom: -20px; right: 4px;
   z-index: 5;
   display: flex; align-items: center; gap: 4px;
   font-family: var(--font-serif);
@@ -2352,7 +2353,7 @@ a:hover { color: var(--accent-hover); }
   letter-spacing: 0.05em;
   transition: all 0.3s ease;
   cursor: pointer;
-  padding: 6px 8px;
+  padding: 0 8px;
 }
 
 .flip-card-container:hover .flip-hint,
