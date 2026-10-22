@@ -48,33 +48,29 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="page page--narrow" aria-labelledby="unsent-letter-context-title">
-        <div className="page__header">
-          <h2 id="unsent-letter-context-title" className="page__title" style={{ fontSize: '1.5rem' }}>
+      <section className="page page--narrow home-context" aria-labelledby="unsent-letter-context-title">
+        <div className="home-context__heading">
+          <h2 id="unsent-letter-context-title" className="page__title">
             What is an unsent letter?
           </h2>
+          <p className="home-context__intro">
+            A note you write without needing to send. It can put an apology, gratitude, grief, or a boundary into words,
+            but it cannot guarantee closure.
+          </p>
         </div>
-        <p style={{ color: 'var(--text-muted)', lineHeight: 1.7 }}>
-          An unsent letter is a note you write without needing to deliver it. It can hold an apology, gratitude, grief,
-          or a boundary; writing one does not guarantee closure. This site is a public archive, not a private notebook.
+
+        <p className="home-context__note">
+          <strong>Before you share:</strong> This is a public archive, not a private notebook. New submissions are reviewed
+          before publication and may remain public; optional sender names may appear. A recipient name is a search label,
+          not proof of who a message refers to. Older entries may have a different publication history.
         </p>
-        <p style={{ color: 'var(--text-muted)', lineHeight: 1.7 }}>
-          New submissions through the current form are reviewed before publication. Approved letters may remain public,
-          and an optional sender name may be shown. A recipient name is a search label, not proof that a message refers
-          to a particular person. Older archive entries may have a different publication history.
-        </p>
-        <p style={{ color: 'var(--text-muted)', lineHeight: 1.7 }}>
-          Need help getting started? Read our{' '}
-          <Link href="/journal/what-to-write-for-closure" style={{ color: 'var(--text)', textDecoration: 'underline', textUnderlineOffset: '3px' }}>
-            practical guide to writing an unsent letter
-          </Link>
-          , follow our{' '}
-          <Link href="/journal/navigating-the-unsent-messages-archive" style={{ color: 'var(--text)', textDecoration: 'underline', textUnderlineOffset: '3px' }}>
-            guide to searching and browsing the message archive
-          </Link>
-          , learn <Link href="/about" style={{ color: 'var(--text)', textDecoration: 'underline', textUnderlineOffset: '3px' }}>how the archive works</Link>,
-          or review the <Link href="/privacy" style={{ color: 'var(--text)', textDecoration: 'underline', textUnderlineOffset: '3px' }}>Privacy Policy</Link> before sharing.
-        </p>
+
+        <nav className="home-context__links" aria-label="Learn more about the archive">
+          <Link href="/journal/what-to-write-for-closure">Writing an unsent letter <span>→</span></Link>
+          <Link href="/journal/navigating-the-unsent-messages-archive">Search the archive <span>→</span></Link>
+          <Link href="/about">How the archive works <span>→</span></Link>
+          <Link href="/privacy">Privacy before sharing <span>→</span></Link>
+        </nav>
       </section>
 
       {/* JSON-LD Structured Data */}
