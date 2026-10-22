@@ -27,6 +27,11 @@ interface LetterFlipCardProps {
 export default function LetterFlipCard({ hex, slug, displayName, message, paperId, fromName, wishReply }: LetterFlipCardProps) {
   const [flipped, setFlipped] = useState(false);
   const hasWishReply = !!wishReply;
+  const needsFrontHeaderSpace = message.length > 120
+    || displayName.length > 24
+    || (fromName?.length ?? 0) > 24;
+  const needsCompactFrontPreview = displayName.length > 24
+    || (fromName?.length ?? 0) > 24;
   const paperTextureStyle = getPaperTextureStyle(paperId);
 
   function handleFlip(e: React.MouseEvent) {
@@ -42,14 +47,14 @@ export default function LetterFlipCard({ hex, slug, displayName, message, paperI
         <div className="memory-card__color" style={{ backgroundColor: hex }} />
         <div className="memory-card__texture" />
       </div>
-      <div className="memory-card__content">
+      <div className={`memory-card__content${needsFrontHeaderSpace ? ' memory-card__content--long' : ''}${needsCompactFrontPreview ? ' memory-card__content--compact' : ''}`}>
         <div className="memory-card__header">
           <span className="memory-card__brand">{SITE_NAME.toLowerCase()}</span>
         </div>
         <Link href={`/to/${slug}`} className="memory-card__name">
           To {displayName}
         </Link>
-        <div className={`memory-card__message${message.length > 120 ? ' memory-card__message--long' : ''}`}><span>{message}</span></div>
+        <div className="memory-card__message"><span>{message}</span></div>
         {fromName && (
           <span className="memory-card__from">— {fromName}</span>
         )}
@@ -72,12 +77,12 @@ export default function LetterFlipCard({ hex, slug, displayName, message, paperI
         <div className="memory-card__color" style={{ backgroundColor: hex }} />
         <div className="memory-card__texture" />
       </div>
-      <div className="memory-card__content">
+      <div className={`memory-card__content${wishReply && wishReply.length > 120 ? ' memory-card__content--long' : ''}`}>
         <div className="memory-card__header">
           <span className="memory-card__brand">{SITE_NAME.toLowerCase()}</span>
         </div>
         <span className="memory-card__wish-label">if only you&apos;d say...</span>
-        <div className={`memory-card__message${(wishReply?.length ?? 0) > 120 ? ' memory-card__message--long' : ''}`}><span>{wishReply}</span></div>
+        <div className="memory-card__message"><span>{wishReply}</span></div>
       </div>
       <div className="flip-hint" aria-label="Tap to flip back">
         <FlipIcon /> turn over
