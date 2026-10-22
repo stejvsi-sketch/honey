@@ -16,6 +16,11 @@ CREATE TABLE memories (
   name TEXT NOT NULL,
   message TEXT NOT NULL,
   color_id TEXT NOT NULL,
+  paper_id TEXT CHECK (paper_id IS NULL OR paper_id IN (
+    'rough-paper', 'aged-torn-stack', 'distressed-lined', 'vintage-torn-pieces',
+    'rough-rice-paper', 'rough-vintage-frame', 'torn-green-rough',
+    'vintage-scrapbook', 'worn-aged-paring'
+  )),
   slug TEXT NOT NULL,
   pinned_until TIMESTAMPTZ DEFAULT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW()
@@ -41,6 +46,11 @@ CREATE TABLE submissions (
   name TEXT NOT NULL,
   message TEXT NOT NULL,
   color_id TEXT NOT NULL,
+  paper_id TEXT CHECK (paper_id IS NULL OR paper_id IN (
+    'rough-paper', 'aged-torn-stack', 'distressed-lined', 'vintage-torn-pieces',
+    'rough-rice-paper', 'rough-vintage-frame', 'torn-green-rough',
+    'vintage-scrapbook', 'worn-aged-paring'
+  )),
   slug TEXT NOT NULL,
   status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved')),
   ip_hash TEXT NOT NULL,

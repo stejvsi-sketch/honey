@@ -3,6 +3,7 @@ export interface Memory {
   name: string;
   message: string;
   color_id: string;
+  paper_id?: string | null;
   created_at: string;
   slug: string;
   pinned_until?: string | null;
@@ -15,6 +16,7 @@ export interface Submission {
   name: string;
   message: string;
   color_id: string;
+  paper_id?: string | null;
   status: 'pending' | 'approved';
   ip_hash: string;
   country: string;

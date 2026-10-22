@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { CARD_COLORS, SITE_NAME } from '@/lib/constants';
 import { formatSubmittedName } from '@/lib/names';
+import { getPaperTextureStyle } from '@/lib/paper-textures';
 import type { Memory } from '@/lib/types';
 
 function isPinned(memory: Memory): boolean {
@@ -15,7 +16,7 @@ export default function TabletCard({ memory }: { memory: Memory }) {
   const displayName = formatSubmittedName(memory.name);
 
   return (
-    <div className="memory-card memory-card--tablet card-animate" style={{ maxWidth: 320 }}>
+    <div className="memory-card memory-card--tablet card-animate" style={{ maxWidth: 320, ...getPaperTextureStyle(memory.paper_id) }}>
       {pinned && (
         <div className="memory-card__pin" aria-label="Pinned letter">
           <svg width="18" height="26" viewBox="0 0 22 32" fill="none" xmlns="http://www.w3.org/2000/svg">

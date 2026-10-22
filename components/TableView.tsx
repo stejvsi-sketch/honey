@@ -89,7 +89,7 @@ function TableCard({
     <div
       className={`table-card ${isLifted ? 'table-card--lifted' : ''}`}
       style={{
-        ...getPaperTextureStyle(memory.id),
+        ...getPaperTextureStyle(memory.paper_id),
         left: `${x}%`,
         top: `${y}px`,
         '--card-rotation': `${rotation}deg`,

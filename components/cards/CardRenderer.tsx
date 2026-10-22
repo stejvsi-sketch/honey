@@ -34,7 +34,7 @@ export default function CardRenderer({
   const pinned = isPinned(memory);
   const displayName = formatSubmittedName(memory.name);
   const hasWishReply = !!memory.wish_reply;
-  const paperTextureStyle = getPaperTextureStyle(memory.id);
+  const paperTextureStyle = getPaperTextureStyle(memory.paper_id);
 
   function handleFlip(e: React.MouseEvent) {
     if (!hasWishReply) return;

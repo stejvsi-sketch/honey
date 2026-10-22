@@ -338,7 +338,7 @@ export default function BurnForm() {
           <div
             className="memory-card"
             ref={cardRef}
-            style={{ margin: '0 auto', pointerEvents: 'none', ...getPaperTextureStyle(`${name}\n${message}`) }}
+            style={{ margin: '0 auto', pointerEvents: 'none', ...getPaperTextureStyle() }}
           >
             <div className="memory-card__bg">
               <div className="memory-card__color" style={{ backgroundColor: '#f5e6d0' }} />

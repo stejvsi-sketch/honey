@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback, useEffect, type CSSProperties } from 'react';
 import { CARD_COLORS, MAX_WORDS } from '@/lib/constants';
 import { getBrowserFingerprint } from '@/lib/fingerprint';
+import { DEFAULT_PAPER_ID, PAPER_DESIGNS, type PaperId } from '@/lib/paper-textures';
 
 export default function SubmitForm() {
   const [name, setName] = useState('');
@@ -10,6 +11,7 @@ export default function SubmitForm() {
   const [message, setMessage] = useState('');
   const [wishReply, setWishReply] = useState('');
   const [colorId, setColorId] = useState<string>(CARD_COLORS[0].id);
+  const [paperId, setPaperId] = useState<PaperId>(DEFAULT_PAPER_ID);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -54,6 +56,7 @@ export default function SubmitForm() {
       name: name.trim(),
       message: message.trim(),
       color_id: colorId,
+      paper_id: paperId,
       from_name: fromName.trim() || undefined,
       wish_reply: wishReply.trim() || undefined,
       idempotency_key: generateIdempotencyKey(),
@@ -68,6 +71,7 @@ export default function SubmitForm() {
     setMessage('');
     setWishReply('');
     setColorId(CARD_COLORS[0].id);
+    setPaperId(DEFAULT_PAPER_ID);
 
     // Fire the actual API call in the background
     try {
@@ -88,6 +92,7 @@ export default function SubmitForm() {
         setMessage(submissionData.message);
         setWishReply(submissionData.wish_reply || '');
         setColorId(submissionData.color_id);
+        setPaperId(submissionData.paper_id);
       }
       // If res.ok, user already sees success — nothing to do
     } catch {
@@ -99,6 +104,7 @@ export default function SubmitForm() {
       setMessage(submissionData.message);
       setWishReply(submissionData.wish_reply || '');
       setColorId(submissionData.color_id);
+      setPaperId(submissionData.paper_id);
     } finally {
       // Release the lock
       submitLockRef.current = false;
@@ -191,6 +197,33 @@ export default function SubmitForm() {
             />
           ))}
         </div>
+      </div>
+
+      <div className="form__group">
+        <span className="form__label" id="paper-picker-label">Choose a paper</span>
+        <div className="paper-picker" role="group" aria-labelledby="paper-picker-label">
+          {PAPER_DESIGNS.map(paper => (
+            <button
+              key={paper.id}
+              type="button"
+              aria-label={`Choose ${paper.name}`}
+              aria-pressed={paperId === paper.id}
+              className={`paper-choice ${paperId === paper.id ? 'paper-choice--selected' : ''}`}
+              onClick={() => setPaperId(paper.id)}
+            >
+              <span
+                className="paper-choice__sample"
+                style={{
+                  '--paper-texture': `url('/textures/${paper.preview}')`,
+                  '--paper-color': CARD_COLORS.find(color => color.id === colorId)?.hex || CARD_COLORS[0].hex,
+                } as CSSProperties}
+                aria-hidden="true"
+              />
+              <span className="paper-choice__name">{paper.name}</span>
+            </button>
+          ))}
+        </div>
+        <p className="form__hint">Your color and paper choice will be used if your letter is approved. Letters already in the archive keep their current design.</p>
       </div>
 
       {errorMsg && <p className="form__error">{errorMsg}</p>}

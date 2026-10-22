@@ -19,15 +19,15 @@ interface LetterFlipCardProps {
   slug: string;
   displayName: string;
   message: string;
-  textureSeed: string;
+  paperId?: string | null;
   fromName?: string | null;
   wishReply?: string | null;
 }
 
-export default function LetterFlipCard({ hex, slug, displayName, message, textureSeed, fromName, wishReply }: LetterFlipCardProps) {
+export default function LetterFlipCard({ hex, slug, displayName, message, paperId, fromName, wishReply }: LetterFlipCardProps) {
   const [flipped, setFlipped] = useState(false);
   const hasWishReply = !!wishReply;
-  const paperTextureStyle = getPaperTextureStyle(textureSeed);
+  const paperTextureStyle = getPaperTextureStyle(paperId);
 
   function handleFlip(e: React.MouseEvent) {
     if (!hasWishReply) return;

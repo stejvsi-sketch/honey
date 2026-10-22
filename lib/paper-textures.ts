@@ -1,42 +1,34 @@
 import type { CSSProperties } from 'react';
 
-const PAPER_TEXTURE_FILES = [
-  'rough-paper.webp',
-  'aged-torn-stack.webp',
-  'distressed-lined.webp',
-  'vintage-torn-pieces.webp',
-  'rough-rice-paper.webp',
-  'rough-vintage-frame.webp',
-  'torn-green-rough.webp',
-  'vintage-scrapbook.webp',
-  'worn-aged-paring.webp',
+export const PAPER_DESIGNS = [
+  { id: 'rough-paper', name: 'Classic paper', image: 'rough-paper.webp', preview: 'rough-paper.webp' },
+  { id: 'aged-torn-stack', name: 'Torn parchment', image: 'aged-torn-stack.webp', preview: 'aged-torn-stack-thumb.webp' },
+  { id: 'distressed-lined', name: 'Lined notebook', image: 'distressed-lined.webp', preview: 'distressed-lined-thumb.webp' },
+  { id: 'vintage-torn-pieces', name: 'Folded letter', image: 'vintage-torn-pieces.webp', preview: 'vintage-torn-pieces-thumb.webp' },
+  { id: 'rough-rice-paper', name: 'Rice paper', image: 'rough-rice-paper.webp', preview: 'rough-rice-paper-thumb.webp' },
+  { id: 'rough-vintage-frame', name: 'Weathered paper', image: 'rough-vintage-frame.webp', preview: 'rough-vintage-frame-thumb.webp' },
+  { id: 'torn-green-rough', name: 'Rough torn paper', image: 'torn-green-rough.webp', preview: 'torn-green-rough-thumb.webp' },
+  { id: 'vintage-scrapbook', name: 'Scrapbook paper', image: 'vintage-scrapbook.webp', preview: 'vintage-scrapbook-thumb.webp' },
+  { id: 'worn-aged-paring', name: 'Aged note', image: 'worn-aged-paring.webp', preview: 'worn-aged-paring-thumb.webp' },
 ] as const;
+
+export type PaperId = typeof PAPER_DESIGNS[number]['id'];
+export const DEFAULT_PAPER_ID: PaperId = 'rough-paper';
 
 type PaperTextureStyle = CSSProperties & {
   '--paper-texture': string;
-  '--paper-texture-opacity': number;
+  '--paper-texture-inset'?: string;
 };
 
-function hashSeed(seed: string): number {
-  let hash = 2166136261;
-
-  for (let index = 0; index < seed.length; index += 1) {
-    hash ^= seed.charCodeAt(index);
-    hash = Math.imul(hash, 16777619);
-  }
-
-  return hash >>> 0;
-}
-
-/** Assign a stable paper texture to a letter without adding a database field. */
-export function getPaperTextureStyle(seed?: string | null): PaperTextureStyle {
-  const file = seed
-    ? PAPER_TEXTURE_FILES[hashSeed(seed) % PAPER_TEXTURE_FILES.length]
-    : PAPER_TEXTURE_FILES[0];
+/** Existing letters have no paper_id, so they keep the original paper design. */
+export function getPaperTextureStyle(paperId?: string | null): PaperTextureStyle {
+  const design = PAPER_DESIGNS.find(paper => paper.id === paperId)
+    ?? PAPER_DESIGNS[0];
 
   return {
-    '--paper-texture': `url('/textures/${file}')`,
-    // Keep the existing paper as-is; soften the added designs behind letter text.
-    '--paper-texture-opacity': file === 'rough-paper.webp' ? 1 : 0.35,
+    '--paper-texture': `url('/textures/${design.image}')`,
+    // New designs are exported at the card's 420:520 ratio, so their texture
+    // aligns exactly to the card instead of being stretched beyond its edges.
+    ...(design.id === DEFAULT_PAPER_ID ? {} : { '--paper-texture-inset': '0px' }),
   } as PaperTextureStyle;
 }
