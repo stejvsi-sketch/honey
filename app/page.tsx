@@ -40,11 +40,11 @@ export default async function HomePage() {
       <section className="hero">
         <h2 className="hero__title">A letter doesn’t have to be sent.</h2>
         <p className="hero__subtitle">
-          Read letters and messages people chose not to send—or write one of your own.
+          Read letters and messages people chose not to send, or write one of your own.
         </p>
         <div className="hero__cta">
-          <Link href="/write" className="btn">Write an Unsent Letter</Link>
-          <Link href="/letters" className="btn btn--outline">Read Letters</Link>
+          <Link href="/write" className="btn">Write a letter</Link>
+          <Link href="/letters" className="btn btn--outline">Read letters</Link>
         </div>
       </section>
 
