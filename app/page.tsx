@@ -38,9 +38,9 @@ export default async function HomePage() {
       </section>
 
       <section className="hero">
-        <h2 className="hero__title">A letter doesn’t have to be sent.</h2>
+        <h2 className="hero__title">Some words are easier to write.</h2>
         <p className="hero__subtitle">
-          Read letters and messages people chose not to send, or write one of your own.
+          Read unsent letters and messages people have shared, or write one of your own.
         </p>
         <div className="hero__cta">
           <Link href="/write" className="btn">Write a letter</Link>
