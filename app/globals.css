@@ -338,10 +338,10 @@ a:hover { color: var(--accent-hover); }
   .memory-card .memory-card__brand::after { margin: 6px auto 0; }
 }
 
-/* Longer previews reserve space for the brand while keeping the original type size. */
+/* Longer notes sit higher beneath the brand while keeping the original type size. */
 .memory-card__content--long {
   padding-top: max(var(--paper-content-top, 16px), 76px);
-  padding-bottom: 32px;
+  padding-bottom: 76px;
 }
 .memory-card__content--long .memory-card__message {
   max-height: none;
@@ -351,7 +351,7 @@ a:hover { color: var(--accent-hover); }
 @media (max-width: 767px) {
   .memory-card .memory-card__content--long {
     padding-top: max(var(--paper-content-top, 12px), 72px);
-    padding-bottom: 28px;
+    padding-bottom: 68px;
   }
   .memory-card .memory-card__content--long .memory-card__message {
     -webkit-line-clamp: 4;
@@ -2342,9 +2342,9 @@ a:hover { color: var(--accent-hover); }
   transform: rotateY(180deg);
 }
 
-/* Keep the hint clear of the paper silhouette while preserving its lower-right position. */
+/* Flip hint stays in the original lower-right position beyond the paper edge. */
 .flip-hint {
-  position: absolute; bottom: -20px; right: 4px;
+  position: absolute; bottom: -8px; right: 4px;
   z-index: 5;
   display: flex; align-items: center; gap: 4px;
   font-family: var(--font-serif);
@@ -2353,7 +2353,7 @@ a:hover { color: var(--accent-hover); }
   letter-spacing: 0.05em;
   transition: all 0.3s ease;
   cursor: pointer;
-  padding: 0 8px;
+  padding: 6px 8px;
 }
 
 .flip-card-container:hover .flip-hint,
