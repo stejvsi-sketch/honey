@@ -17,7 +17,7 @@ export type PaperId = typeof PAPER_DESIGNS[number]['id'];
 export const DEFAULT_PAPER_ID: PaperId = 'rough-paper';
 export const SCRAPBOOK_MAX_WORDS = 15;
 
-export function getPaperWordLimit(paperId: PaperId): number {
+export function getPaperWordLimit(paperId: string): number {
   return paperId === 'vintage-scrapbook' ? SCRAPBOOK_MAX_WORDS : MAX_WORDS;
 }
 
