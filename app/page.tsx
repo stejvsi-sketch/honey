@@ -43,7 +43,7 @@ export default async function HomePage() {
           Read short letters from a public archive, or write one of your own.
         </p>
         <div className="hero__cta">
-          <Link href="/write" className="btn">Write a Letter</Link>
+          <Link href="/write" className="btn">Write an Unsent Letter</Link>
           <Link href="/letters" className="btn btn--outline">Read Letters</Link>
         </div>
       </section>

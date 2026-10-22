@@ -1,6 +1,6 @@
 export const SITE_NAME = 'Honey, If Only';
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.honeyifonly.com';
-export const SITE_DESCRIPTION = 'A public archive of unsent letters, messages, and words left unsaid. New submissions may be published with an optional sender name.';
+export const SITE_DESCRIPTION = 'Read public unsent letters or submit your own without an account. Leave the sender name blank; approved posts are public, and details can still identify you.';
 
 export const EDITOR_NAME = 'Tejasvi Sharma';
 export const EDITOR_BYLINE = 'Honey, If Only Editorial';
