@@ -61,8 +61,8 @@ export default async function HomePage() {
 
         <p className="home-context__note">
           <strong>Before you share:</strong> This is a public archive, not a private notebook. New submissions are reviewed
-          before publication and may remain public; optional sender names may appear. A recipient name is a search label,
-          not proof of who a message refers to. Older entries may have a different publication history.
+          before publication and may remain public. Writers choose the recipient name, and some also sign their message.
+          Older entries may have a different publication history.
         </p>
 
         <nav className="home-context__links" aria-label="Learn more about the archive">
