@@ -206,21 +206,21 @@ a:hover { color: var(--accent-hover); }
   filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.22));
 }
 
-/* Clip the entire card background to the paper shape */
+/* Clip the card background to its selected paper shape */
 .memory-card__bg {
   position: absolute; inset: 0;
-  -webkit-mask-image: url('/textures/rough-paper.webp');
+  -webkit-mask-image: var(--paper-mask, url('/textures/rough-paper.webp'));
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: center;
   -webkit-mask-repeat: no-repeat;
-  mask-image: url('/textures/rough-paper.webp');
+  mask-image: var(--paper-mask, url('/textures/rough-paper.webp'));
   mask-size: 100% 100%;
   mask-position: center;
   mask-repeat: no-repeat;
   isolation: isolate;
 }
 .memory-card__color {
-  position: absolute; inset: 4px;
+  position: absolute; inset: var(--paper-color-inset, 4px);
 }
 .memory-card__texture {
   position: absolute; inset: var(--paper-texture-inset, -20px);
@@ -415,11 +415,11 @@ a:hover { color: var(--accent-hover); }
   aspect-ratio: 420 / 520;
   overflow: hidden;
   background-color: var(--paper-color, #f5e6d0);
-  -webkit-mask-image: url('/textures/rough-paper.webp');
+  -webkit-mask-image: var(--paper-mask, url('/textures/rough-paper.webp'));
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: center;
   -webkit-mask-repeat: no-repeat;
-  mask-image: url('/textures/rough-paper.webp');
+  mask-image: var(--paper-mask, url('/textures/rough-paper.webp'));
   mask-size: 100% 100%;
   mask-position: center;
   mask-repeat: no-repeat;
@@ -1330,11 +1330,11 @@ a:hover { color: var(--accent-hover); }
 .table-card__bg {
   position: absolute;
   inset: 0;
-  -webkit-mask-image: url('/textures/rough-paper.webp');
+  -webkit-mask-image: var(--paper-mask, url('/textures/rough-paper.webp'));
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: center;
   -webkit-mask-repeat: no-repeat;
-  mask-image: url('/textures/rough-paper.webp');
+  mask-image: var(--paper-mask, url('/textures/rough-paper.webp'));
   mask-size: 100% 100%;
   mask-position: center;
   mask-repeat: no-repeat;
@@ -1343,7 +1343,7 @@ a:hover { color: var(--accent-hover); }
 
 .table-card__color {
   position: absolute;
-  inset: 4px;
+  inset: var(--paper-color-inset, 4px);
 }
 
 .table-card__texture {
