@@ -3,7 +3,7 @@
 import { useState, useRef, useCallback, useEffect, type CSSProperties } from 'react';
 import { CARD_COLORS, MAX_WORDS } from '@/lib/constants';
 import { getBrowserFingerprint } from '@/lib/fingerprint';
-import { DEFAULT_PAPER_ID, PAPER_DESIGNS, type PaperId } from '@/lib/paper-textures';
+import { DEFAULT_PAPER_ID, PAPER_DESIGNS, getPaperTextureStyle, type PaperId } from '@/lib/paper-textures';
 
 export default function SubmitForm() {
   const [name, setName] = useState('');
@@ -214,6 +214,7 @@ export default function SubmitForm() {
               <span
                 className="paper-choice__sample"
                 style={{
+                  ...getPaperTextureStyle(paper.id),
                   '--paper-texture': `url('/textures/${paper.preview}')`,
                   '--paper-color': CARD_COLORS.find(color => color.id === colorId)?.hex || CARD_COLORS[0].hex,
                 } as CSSProperties}

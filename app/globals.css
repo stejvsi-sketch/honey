@@ -228,6 +228,7 @@ a:hover { color: var(--accent-hover); }
   background-size: 100% 100%; background-position: center;
   background-repeat: no-repeat;
   mix-blend-mode: multiply;
+  opacity: var(--paper-texture-opacity, 1);
 }
 
 .memory-card__content {
@@ -434,6 +435,7 @@ a:hover { color: var(--accent-hover); }
   background-position: center;
   background-repeat: no-repeat;
   mix-blend-mode: multiply;
+  opacity: var(--paper-texture-opacity, 1);
 }
 .paper-choice__name {
   display: block;
@@ -1354,6 +1356,7 @@ a:hover { color: var(--accent-hover); }
   background-position: center;
   background-repeat: no-repeat;
   mix-blend-mode: multiply;
+  opacity: var(--paper-texture-opacity, 1);
 }
 
 .table-card__content {

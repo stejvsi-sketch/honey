@@ -18,6 +18,7 @@ export const DEFAULT_PAPER_ID: PaperId = 'rough-paper';
 type PaperTextureStyle = CSSProperties & {
   '--paper-texture': string;
   '--paper-texture-inset'?: string;
+  '--paper-texture-opacity'?: string;
 };
 
 /** Existing letters have no paper_id, so they keep the original paper design. */
@@ -27,8 +28,11 @@ export function getPaperTextureStyle(paperId?: string | null): PaperTextureStyle
 
   return {
     '--paper-texture': `url('/textures/${design.image}')`,
-    // New designs are exported at the card's 420:520 ratio, so their texture
-    // aligns exactly to the card instead of being stretched beyond its edges.
-    ...(design.id === DEFAULT_PAPER_ID ? {} : { '--paper-texture-inset': '0px' }),
+    // New submissions store a paper_id. Legacy letters and the burn card do
+    // not, so they keep the original inset and appearance.
+    ...(paperId == null ? {} : { '--paper-texture-inset': '0px' }),
+    // Softer blending keeps each selected card color visible through the
+    // darker textures, both in the picker and on the published card.
+    ...(design.id === DEFAULT_PAPER_ID ? {} : { '--paper-texture-opacity': '0.42' }),
   } as PaperTextureStyle;
 }

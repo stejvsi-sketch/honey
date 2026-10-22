@@ -18,6 +18,9 @@ async function generateContentHash(ipHash: string, name: string, message: string
 const BAN_COOKIE = '__hio_pref';
 // 1 year in seconds
 const BAN_COOKIE_MAX_AGE = 365 * 24 * 60 * 60;
+// Temporarily disabled while the owner tests the new paper designs.
+// Set to true to restore the configured daily submission limit.
+const DAILY_SUBMISSION_LIMIT_ENABLED = false;
 
 export async function POST(request: NextRequest) {
   try {
@@ -104,7 +107,7 @@ export async function POST(request: NextRequest) {
     const ipHash = await hashIP(ip);
 
     // Rate limiting (if Redis configured)
-    if (process.env.UPSTASH_REDIS_REST_URL) {
+    if (DAILY_SUBMISSION_LIMIT_ENABLED && process.env.UPSTASH_REDIS_REST_URL) {
       try {
         const rl = getRatelimit();
         const { success } = await rl.limit(ipHash);
