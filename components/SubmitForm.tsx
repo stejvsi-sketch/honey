@@ -172,7 +172,7 @@ export default function SubmitForm() {
           onChange={e => setFromName(e.target.value)} placeholder="Your name"
           maxLength={30} autoComplete="off"
         />
-        <p className="form__hint">Optional. This name may appear publicly if your letter is approved; only enter a name you are comfortable sharing.</p>
+        <p className="form__hint">Optional. If approved, this name appears publicly.</p>
       </div>
 
       <div className="form__group">
@@ -236,7 +236,7 @@ export default function SubmitForm() {
             {PAPER_DESIGNS.map(renderPaperChoice)}
           </div>
         </details>
-        <p className="form__hint">Your color and paper choice will be used if your letter is approved. Letters already in the archive keep their current design.</p>
+        <p className="form__hint">Your choices apply to approved letters. Existing archive cards stay as they are.</p>
       </div>
 
       {errorMsg && <p className="form__error">{errorMsg}</p>}
@@ -245,7 +245,7 @@ export default function SubmitForm() {
         {status === 'submitting' ? 'Sending...' : 'Send This Letter'}
       </button>
       <p className="form__hint" style={{ textAlign: 'center', marginTop: 12 }}>
-        New letters are reviewed before publication. Avoid full names or identifying details; approved letters are public and an optional sender name may appear.
+        Leave your name blank if you prefer, and avoid identifying details.
       </p>
       <p style={{ textAlign: 'center', marginTop: 24, fontSize: '0.78rem', color: 'var(--text-light)', lineHeight: 1.6 }}>
         If you or someone you know is in crisis, please reach out:{' '}

@@ -16,12 +16,12 @@ export default function WritePageClient() {
         <h1 className="page__title">{mode === 'send' ? 'Write an Unsent Letter Online' : 'Write & Burn'}</h1>
         <p className="page__subtitle">
           {mode === 'send'
-            ? 'Write what you never sent without an account. New submissions are reviewed before publication; approved letters are public. Leave the sender name blank if you do not want it displayed, and avoid details that could identify you or someone else.'
+            ? 'Write an unsent letter without an account. New letters are reviewed before publication; approved letters are public.'
             : 'Write what weighs on you. The burn tool does not submit your text to the public archive.'}
         </p>
         {mode === 'send' && (
           <p className="page__subtitle">
-            Before sharing, read our <Link href="/moderation">moderation information</Link> and <Link href="/privacy">Privacy Policy</Link>.
+            Read our <Link href="/moderation">moderation information</Link> and <Link href="/privacy">Privacy Policy</Link> before sharing.
           </p>
         )}
       </div>

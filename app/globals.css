@@ -2384,7 +2384,7 @@ a:hover { color: var(--accent-hover); }
 /* ===== CROSS PROMO ===== */
 .cross-promo {
   text-align: center;
-  margin-top: 64px;
+  margin-top: 40px;
 }
 .cross-promo__text {
   color: var(--text-light);
@@ -2396,7 +2396,7 @@ a:hover { color: var(--accent-hover); }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-top: 16px;
+  margin-top: 8px;
   padding: 10px 24px;
   border-radius: 100px;
   border: 1px solid rgba(0, 0, 0, 0.2);
