@@ -20,7 +20,7 @@ export async function generateMetadata(props: { params: Promise<{ name: string }
 
   return {
     title: `Unsent Letters, Messages, and Texts to ${displayName}`,
-    description: `Browse ${total} public unsent letters, messages, and texts to ${displayName}. Read love letters never sent, things never said, and words left unsaid.`,
+    description: `Read ${total} public unsent letters, messages, and texts to ${displayName}—love notes, goodbyes, and words left unsent.`,
     keywords: [
       `unsent letters to ${displayName}`,
       `unsent message to ${displayName}`,
@@ -103,7 +103,7 @@ export default async function NamePage(props: {
       <div className="page__header" style={{ marginBottom: '48px' }}>
         <h1 className="page__title">Unsent Letters, Messages, and Texts to {displayName}</h1>
         <p className="page__subtitle" style={{ maxWidth: '700px', margin: '0 auto', lineHeight: 1.6, fontSize: '0.95rem' }}>
-          Browse {total} public, user-submitted unsent letters, messages, and texts to {displayName}. Read love letters never sent, things never said, and other words left unsaid. Some writers sign their message with a name.
+          Browse {total} public, user-submitted unsent letters, messages, and texts to {displayName}—from love notes and goodbyes to the words someone wasn’t quite ready to send. Some writers sign their notes with a name.
         </p>
       </div>
       <NameArchive key={name} nameSlug={name} displayName={displayName} initialTotal={total} initialMemories={initialMemories} />

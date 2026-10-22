@@ -61,7 +61,7 @@ export default async function HomePage() {
 
         <p className="home-context__note">
           <strong>Before you share:</strong> This is a public archive, not a private notebook. New submissions are reviewed
-          before publication and may remain public. Writers choose the recipient name, and some also sign their message.
+          before publication and may remain public. Writers choose the name they’re writing to, and some sign their note.
           Older entries may have a different publication history.
         </p>
 
