@@ -242,6 +242,12 @@ export default function LettersArchive({
         )}
       </form>
 
+      <nav className="archive-hub-links" aria-label="Explore the letter archive">
+        <Link href="/collections">Find letters by theme <span aria-hidden="true">↗</span></Link>
+        <Link href="/archive">Browse names <span aria-hidden="true">↗</span></Link>
+        <Link href="/write">Write your own <span aria-hidden="true">↗</span></Link>
+      </nav>
+
       {/* 
         NOTE FOR FUTURE AD INTEGRATION (e.g. Monumetric): 
         If you need to inject in-feed ads between rows of cards on this page, DO NOT use 

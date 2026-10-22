@@ -1,8 +1,9 @@
 import { MetadataRoute } from 'next';
-import { SITE_URL, NAME_INDEX_THRESHOLD } from '@/lib/constants';
+import { SITE_URL } from '@/lib/constants';
 import { JOURNAL_POSTS } from '@/lib/journal-data';
 import { STORIES } from '@/lib/stories';
 import { COLLECTIONS } from '@/lib/collections-data';
+import { isIndexableName } from '@/lib/names';
 
 // Keep the prior metadata for the two comparison pages intact.
 const protectedComparisonSlugs = new Set([
@@ -19,10 +20,10 @@ const SITE_LAUNCH = new Date('2026-05-15');
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Only include pages that are indexed by Google.
-  // Pages with noindex,follow (letters, archive, unsent, colors)
-  // are intentionally excluded — they are kept for visitors but not for search.
+  // Noindex utility views and individual user-submitted letters are excluded.
   const staticPages = [
     { path: '', changeFrequency: 'daily' as const, priority: 1 },
+    { path: '/letters', changeFrequency: 'daily' as const, priority: 0.9 },
     { path: '/write', changeFrequency: 'monthly' as const, priority: 0.8 },
     { path: '/about', changeFrequency: 'monthly' as const, priority: 0.6 },
     { path: '/journal', changeFrequency: 'weekly' as const, priority: 0.7 },
@@ -35,6 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/contact', changeFrequency: 'monthly' as const, priority: 0.4 },
     { path: '/faq', changeFrequency: 'monthly' as const, priority: 0.5 },
     { path: '/methodology', changeFrequency: 'monthly' as const, priority: 0.6 },
+    { path: '/moderation', changeFrequency: 'monthly' as const, priority: 0.5 },
     { path: '/burn', changeFrequency: 'monthly' as const, priority: 0.7 },
     { path: '/author', changeFrequency: 'monthly' as const, priority: 0.5 },
     { path: '/collections', changeFrequency: 'weekly' as const, priority: 0.7 },
@@ -56,7 +58,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       // Indexable name pages -> /to/[name] pages. Keep this aligned with app/to/[name]/page.tsx.
       const nameStats = await getNameStats();
       const indexableNameSlugs = nameStats
-        .filter(stat => stat.slug.replace(/-/g, '').length >= 3 && stat.count >= NAME_INDEX_THRESHOLD)
+        .filter(stat => isIndexableName(stat.name, stat.count))
         .map(stat => stat.slug);
 
       dynamicEntries.push(

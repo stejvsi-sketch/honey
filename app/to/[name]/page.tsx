@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { getMemoriesByName } from '@/lib/data';
 import NameArchive from '@/components/NameArchive';
 import RelatedNames from '@/components/RelatedNames';
-import { SITE_URL, NAME_PAGE_SIZE, NAME_INDEX_THRESHOLD } from '@/lib/constants';
-import { formatSubmittedName } from '@/lib/names';
+import { SITE_URL, NAME_PAGE_SIZE } from '@/lib/constants';
+import { formatSubmittedName, isIndexableName } from '@/lib/names';
 import { COLLECTIONS } from '@/lib/collections-data';
 
 
@@ -14,8 +14,7 @@ export async function generateMetadata(props: { params: Promise<{ name: string }
   const { name } = await props.params;
   const { total, displayName: rawDisplayName } = await getMemoriesByName(name, 1, 1);
   const displayName = formatSubmittedName(rawDisplayName);
-  const isRealName = displayName.replace(/\s/g, '').length >= 3;
-  const shouldIndex = isRealName && total >= NAME_INDEX_THRESHOLD;
+  const shouldIndex = isIndexableName(displayName, total);
   const canonicalUrl = `${SITE_URL}/to/${name}`;
 
   return {
@@ -100,6 +99,11 @@ export default async function NamePage(props: {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
+      <p style={{ margin: '0 auto 24px', maxWidth: '860px' }}>
+        <Link href="/archive" style={{ color: 'var(--text-light)', fontSize: '0.85rem', textUnderlineOffset: '3px' }}>
+          ← Browse all recipient names
+        </Link>
+      </p>
       <div className="page__header" style={{ marginBottom: '48px' }}>
         <h1 className="page__title">Unsent Letters, Messages, and Texts to {displayName}</h1>
         <p className="page__subtitle" style={{ maxWidth: '700px', margin: '0 auto', lineHeight: 1.6, fontSize: '0.95rem' }}>

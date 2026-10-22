@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { getMemoryById, getNameCountForSlug } from '@/lib/data';
-import { CARD_COLORS, SITE_NAME, SITE_URL, NAME_INDEX_THRESHOLD } from '@/lib/constants';
+import { getMemoryById } from '@/lib/data';
+import { CARD_COLORS, SITE_NAME, SITE_URL } from '@/lib/constants';
 import { formatSubmittedName } from '@/lib/names';
 import ReportButton from '@/components/ReportButton';
 import LetterFlipCard from '@/components/cards/LetterFlipCard';
@@ -20,15 +20,6 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
   const snippet = memory.message.slice(0, 140);
   const description = `"${snippet}" - a public unsent letter addressed to ${displayName} in the ${SITE_NAME} archive. Sender names may appear when supplied.`;
 
-  // Canonical consolidation: if this name has a live aggregation page (≥5 letters
-  // and real name), point canonical to /to/{slug} to consolidate SEO signals.
-  const nameCount = await getNameCountForSlug(memory.slug);
-  const isRealName = memory.slug.replace(/-/g, '').length >= 3;
-  const hasAggregationPage = isRealName && nameCount >= NAME_INDEX_THRESHOLD;
-  const canonicalUrl = hasAggregationPage
-    ? `${SITE_URL}/to/${memory.slug}`
-    : letterUrl;
-
   return {
     title: `Unsent Letters and Messages to ${displayName}`,
     description,
@@ -43,7 +34,6 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
       `letter to ${displayName} never sent`,
       `things I never said to ${displayName}`,
     ],
-    alternates: { canonical: canonicalUrl },
     robots: { index: false, follow: true },
     openGraph: {
       title: `Unsent Letters and Messages to ${displayName}`,

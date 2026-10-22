@@ -37,7 +37,7 @@ You might reduce contact, mute reminders, talk with a trusted person, or write a
     title: "Why We Draft and Delete Emotional Texts: A Pause Before Sending",
     excerpt: "An unsent draft can help you notice what you want to say, but writing does not guarantee relief or a better conversation. Use this practical check to decide whether to send, revise, or keep a message private.",
     date: 'May 2026',
-        related: ['the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on', 'shadow-work-heartbreak-integrating-hidden-insecurities'],
+    related: ['the-psychology-of-closure-why-we-dont-need-an-apology-to-move-on', 'the-illusion-of-the-perfect-response-why-sending-the-draft-rarely-helps'],
     faq: [
       {
             "question": "Why do I keep drafting a text and deleting it?",

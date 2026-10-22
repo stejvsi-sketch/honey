@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import { SITE_URL } from '@/lib/constants';
 import { COLOR_MEANINGS } from '@/lib/color-meanings';
 import type { CardColorId } from '@/lib/constants';
@@ -60,6 +61,11 @@ export default async function ColorPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
+      <p style={{ margin: '0 auto 24px', maxWidth: '860px' }}>
+        <Link href="/colors" style={{ color: 'var(--text-light)', fontSize: '0.85rem', textUnderlineOffset: '3px' }}>
+          ← All colors
+        </Link>
+      </p>
       <div className="page__header" style={{ marginBottom: '24px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '16px' }}>
           <div style={{ width: '24px', height: '24px', borderRadius: '50%', backgroundColor: meaning.hex, boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }} />

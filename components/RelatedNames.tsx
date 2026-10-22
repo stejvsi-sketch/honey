@@ -1,17 +1,19 @@
 import Link from 'next/link';
 import { getNameStats } from '@/lib/data';
+import { isIndexableName } from '@/lib/names';
 
 export default async function RelatedNames({ currentName, currentSlug, limit = 8 }: { currentName: string; currentSlug: string; limit?: number }) {
   const stats = await getNameStats();
+  const indexableNames = stats.filter(stat => isIndexableName(stat.name, stat.count));
   
   // Find names starting with the same letter, excluding the current name
   const firstLetter = currentName.charAt(0).toLowerCase();
   
-  let related = stats.filter(stat => stat.slug !== currentSlug && stat.slug.startsWith(firstLetter));
+  let related = indexableNames.filter(stat => stat.slug !== currentSlug && stat.slug.startsWith(firstLetter));
   
-  // If not enough related names, backfill with random popular names
+  // If there are not enough names with the same first letter, fill with other popular names.
   if (related.length < limit) {
-    const others = stats.filter(stat => stat.slug !== currentSlug && !stat.slug.startsWith(firstLetter));
+    const others = indexableNames.filter(stat => stat.slug !== currentSlug && !stat.slug.startsWith(firstLetter));
     related = [...related, ...others].slice(0, limit);
   } else {
     related = related.slice(0, limit);

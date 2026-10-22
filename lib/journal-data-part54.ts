@@ -6,7 +6,7 @@ export const POSTS_PART54: JournalPost[] = [
     title: "Are Unsent Letters Online Real? What Moderation Can Verify",
     excerpt: "A website can review a submission against its rules, but moderation cannot prove the author’s identity or confirm that every event described is true. Read user-submitted posts with appropriate uncertainty.",
     date: 'July 2026',
-    related: ['why-we-write-letters-we-never-send', 'the-psychology-of-unsent-messages', 'does-writing-an-unsent-letter-actually-help-you-heal', 'why-unsent-letter-submissions-disappear'],
+    related: ['the-trust-contract-between-writers-and-archives', 'navigating-the-unsent-messages-archive', 'does-writing-an-unsent-letter-actually-help-you-heal', 'why-unsent-letter-submissions-disappear'],
     faq: [
       {
             "question": "Can a platform prove an anonymous letter is real?",

@@ -42,9 +42,21 @@ export default async function HomePage() {
         <p className="hero__subtitle">
           Read unsent letters and messages people have shared, or write one of your own.
         </p>
-        <div className="hero__cta">
-          <Link href="/write" className="btn">Write a letter</Link>
-          <Link href="/letters" className="btn btn--outline">Read letters</Link>
+        <div className="hero__cta hero__cta--home">
+          <Link href="/write" className="home-action home-action--write">
+            <span className="home-action__words">
+              <span className="home-action__title">Put it in writing</span>
+              <span className="home-action__note">A letter you don&apos;t have to send</span>
+            </span>
+            <span className="home-action__arrow" aria-hidden="true">↗</span>
+          </Link>
+          <Link href="/letters" className="home-action home-action--read">
+            <span className="home-action__words">
+              <span className="home-action__title">Read what stayed unsent</span>
+              <span className="home-action__note">Letters from the public archive</span>
+            </span>
+            <span className="home-action__arrow" aria-hidden="true">↗</span>
+          </Link>
         </div>
       </section>
 

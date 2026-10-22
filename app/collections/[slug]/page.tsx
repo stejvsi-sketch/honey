@@ -3,7 +3,8 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { SITE_URL, SITE_NAME } from '@/lib/constants';
 import { COLLECTIONS } from '@/lib/collections-data';
-import { getMemoriesByCollection } from '@/lib/data';
+import { getMemoriesByCollection, getNameStats } from '@/lib/data';
+import { isIndexableName } from '@/lib/names';
 import CollectionArchive from '@/components/CollectionArchive';
 
 type Props = {
@@ -50,6 +51,10 @@ export default async function CollectionPage({ params }: Props) {
 
   // Pre-fetch the first page for SSR content
   const { memories: initialMemories, total } = await getMemoriesByCollection(slug, 1, 10);
+  const collectionNameSlugs = new Set(initialMemories.map(memory => memory.slug));
+  const featuredNames = (await getNameStats())
+    .filter(stat => collectionNameSlugs.has(stat.slug) && isIndexableName(stat.name, stat.count))
+    .slice(0, 10);
 
   const canonicalUrl = `${SITE_URL}/collections/${slug}`;
 
@@ -104,6 +109,11 @@ export default async function CollectionPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
+      <p style={{ margin: '0 auto 24px', maxWidth: '860px' }}>
+        <Link href="/collections" style={{ color: 'var(--text-light)', fontSize: '0.85rem', textUnderlineOffset: '3px' }}>
+          ← All collections
+        </Link>
+      </p>
       <div className="page__header" style={{ marginBottom: '24px' }}>
         <h1 className="page__title" style={{ margin: 0 }}>{collection.title}</h1>
       </div>
@@ -123,16 +133,16 @@ export default async function CollectionPage({ params }: Props) {
       <CollectionArchive themeSlug={slug} themeName={collection.title} initialTotal={total} initialMemories={initialMemories} />
 
       {/* Internal links to name pages — SEO cross-linking */}
-      <div style={{ marginTop: '48px', textAlign: 'center' }}>
+      {featuredNames.length > 0 && <div style={{ marginTop: '48px', textAlign: 'center' }}>
         <h2 style={{ fontSize: '1.1rem', marginBottom: '16px', color: 'var(--text-secondary)' }}>Browse by Name</h2>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '16px' }}>
           Explore unsent letters addressed to specific names.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center' }}>
-          {['alex', 'sarah', 'david', 'emily', 'michael', 'jessica', 'james', 'ashley', 'daniel', 'samantha'].map(name => (
+          {featuredNames.map(({ name, slug: nameSlug }) => (
             <Link
-              key={name}
-              href={`/to/${name}`}
+              key={nameSlug}
+              href={`/to/${nameSlug}`}
               style={{
                 padding: '6px 14px',
                 borderRadius: '20px',
@@ -147,7 +157,7 @@ export default async function CollectionPage({ params }: Props) {
             </Link>
           ))}
         </div>
-      </div>
+      </div>}
 
       {/* Cross-links to other collections */}
       <div style={{ marginTop: '32px', textAlign: 'center' }}>
