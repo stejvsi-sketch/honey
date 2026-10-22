@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useRef, useCallback, useEffect, type CSSProperties } from 'react';
-import { CARD_COLORS, MAX_WORDS } from '@/lib/constants';
+import { CARD_COLORS } from '@/lib/constants';
 import { getBrowserFingerprint } from '@/lib/fingerprint';
-import { DEFAULT_PAPER_ID, PAPER_DESIGNS, getPaperTextureStyle, type PaperId } from '@/lib/paper-textures';
+import { DEFAULT_PAPER_ID, PAPER_DESIGNS, getPaperTextureStyle, getPaperWordLimit, type PaperId } from '@/lib/paper-textures';
 
 export default function SubmitForm() {
   const [name, setName] = useState('');
@@ -14,6 +14,31 @@ export default function SubmitForm() {
   const [paperId, setPaperId] = useState<PaperId>(DEFAULT_PAPER_ID);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
+  const selectedPaper = PAPER_DESIGNS.find(paper => paper.id === paperId) ?? PAPER_DESIGNS[0];
+
+  function renderPaperChoice(paper: (typeof PAPER_DESIGNS)[number]) {
+    return (
+      <button
+        key={paper.id}
+        type="button"
+        aria-label={`Choose ${paper.name}`}
+        aria-pressed={paperId === paper.id}
+        className={`paper-choice ${paperId === paper.id ? 'paper-choice--selected' : ''}`}
+        onClick={() => setPaperId(paper.id)}
+      >
+        <span
+          className="paper-choice__sample"
+          style={{
+            ...getPaperTextureStyle(paper.id),
+            '--paper-texture': `url('/textures/${paper.preview}')`,
+            '--paper-color': CARD_COLORS.find(color => color.id === colorId)?.hex || CARD_COLORS[0].hex,
+          } as CSSProperties}
+          aria-hidden="true"
+        />
+        <span className="paper-choice__name">{paper.name}</span>
+      </button>
+    );
+  }
 
   // Ref-based lock to absolutely prevent double submissions across all edge cases
   // (rapid clicks, slow network, re-renders, etc.)
@@ -31,10 +56,11 @@ export default function SubmitForm() {
 
   const words = message.trim().split(/\s+/).filter(w => w.length > 0);
   const wordCount = words.length;
-  const isOverLimit = wordCount > MAX_WORDS;
+  const maxWords = getPaperWordLimit(paperId);
+  const isOverLimit = wordCount > maxWords;
   const hasLongWord = words.some(w => w.length > 20);
   const wishReplyWords = wishReply.trim().split(/\s+/).filter(w => w.length > 0);
-  const wishReplyOverLimit = wishReply.trim().length > 0 && wishReplyWords.length > MAX_WORDS;
+  const wishReplyOverLimit = wishReply.trim().length > 0 && wishReplyWords.length > maxWords;
 
   // Generate a unique idempotency key per submission attempt
   const generateIdempotencyKey = useCallback(() => {
@@ -46,7 +72,7 @@ export default function SubmitForm() {
 
     // Hard lock: if already submitting, bail immediately
     if (submitLockRef.current) return;
-    if (isOverLimit || hasLongWord || !name.trim() || !message.trim()) return;
+    if (isOverLimit || hasLongWord || wishReplyOverLimit || !name.trim() || !message.trim()) return;
 
     // Acquire the lock
     submitLockRef.current = true;
@@ -158,7 +184,7 @@ export default function SubmitForm() {
           maxLength={250} required autoComplete="off"
         />
         <p className={`form__word-count ${isOverLimit ? 'form__word-count--over' : ''}`}>
-          {wordCount} / {MAX_WORDS} words
+          {wordCount} / {maxWords} words
         </p>
         {hasLongWord && (
           <p className="form__error">Each word must be 20 characters or less.</p>
@@ -175,8 +201,8 @@ export default function SubmitForm() {
           style={{ minHeight: '80px' }}
         />
         {wishReply.trim().length > 0 && (
-          <p className={`form__word-count ${wishReplyWords.length > MAX_WORDS ? 'form__word-count--over' : ''}`}>
-            {wishReplyWords.length} / {MAX_WORDS} words
+          <p className={`form__word-count ${wishReplyOverLimit ? 'form__word-count--over' : ''}`}>
+            {wishReplyWords.length} / {maxWords} words
           </p>
         )}
         <p className="form__hint">Tap the card to see the other side. This is what you wish they&apos;d say.</p>
@@ -201,29 +227,15 @@ export default function SubmitForm() {
 
       <div className="form__group">
         <span className="form__label" id="paper-picker-label">Choose a paper</span>
-        <div className="paper-picker" role="group" aria-labelledby="paper-picker-label">
-          {PAPER_DESIGNS.map(paper => (
-            <button
-              key={paper.id}
-              type="button"
-              aria-label={`Choose ${paper.name}`}
-              aria-pressed={paperId === paper.id}
-              className={`paper-choice ${paperId === paper.id ? 'paper-choice--selected' : ''}`}
-              onClick={() => setPaperId(paper.id)}
-            >
-              <span
-                className="paper-choice__sample"
-                style={{
-                  ...getPaperTextureStyle(paper.id),
-                  '--paper-texture': `url('/textures/${paper.preview}')`,
-                  '--paper-color': CARD_COLORS.find(color => color.id === colorId)?.hex || CARD_COLORS[0].hex,
-                } as CSSProperties}
-                aria-hidden="true"
-              />
-              <span className="paper-choice__name">{paper.name}</span>
-            </button>
-          ))}
-        </div>
+        <p className="form__hint">{selectedPaper.name} is selected. You can keep it or choose another design.</p>
+        <details className="paper-picker-disclosure">
+          <summary className="paper-picker-disclosure__summary">
+            Choose a paper design (optional)
+          </summary>
+          <div className="paper-picker" role="group" aria-label="Optional paper designs">
+            {PAPER_DESIGNS.map(renderPaperChoice)}
+          </div>
+        </details>
         <p className="form__hint">Your color and paper choice will be used if your letter is approved. Letters already in the archive keep their current design.</p>
       </div>
 

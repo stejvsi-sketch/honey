@@ -264,13 +264,9 @@ a:hover { color: var(--accent-hover); }
   width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box;
   word-break: normal;
   overflow-wrap: anywhere;
-  overflow: hidden;
   text-align: center;
   padding: 0 4px;
-  max-height: 60%;
-  display: -webkit-box;
-  -webkit-line-clamp: 7;
-  -webkit-box-orient: vertical;
+  display: block;
 }
 .memory-card__message::after {
   content: '';
@@ -298,6 +294,7 @@ a:hover { color: var(--accent-hover); }
 .memory-card__header {
   position: absolute; top: var(--paper-brand-top, 24px); left: 0; right: 0;
   text-align: center;
+  transform: translateX(var(--paper-brand-shift-x, 0));
 }
 .memory-card__brand {
   font-family: var(--font-serif);
@@ -343,23 +340,11 @@ a:hover { color: var(--accent-hover); }
   padding-top: max(var(--paper-content-top, 16px), 76px);
   padding-bottom: 76px;
 }
-.memory-card__content--long .memory-card__message {
-  max-height: none;
-  -webkit-line-clamp: 5;
-}
-.memory-card__content--compact .memory-card__message { -webkit-line-clamp: 3; }
 @media (max-width: 767px) {
   .memory-card .memory-card__content--long {
     padding-top: max(var(--paper-content-top, 12px), 72px);
     padding-bottom: 68px;
   }
-  .memory-card .memory-card__content--long .memory-card__message {
-    -webkit-line-clamp: 4;
-  }
-}
-@media (max-width: 359px) {
-  .memory-card .memory-card__content--long .memory-card__message { -webkit-line-clamp: 3; }
-  .memory-card .memory-card__content--compact .memory-card__message { -webkit-line-clamp: 2; }
 }
 
 /* Keep burn-preview lettering inside the paper's narrower, irregular edges. */
@@ -458,6 +443,15 @@ a:hover { color: var(--accent-hover); }
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
 }
+.paper-picker-disclosure { margin-top: 10px; }
+.paper-picker-disclosure__summary {
+  width: fit-content;
+  color: var(--text-muted);
+  font-family: var(--font-serif);
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+.paper-picker-disclosure[open] > .paper-picker-disclosure__summary { margin-bottom: 10px; }
 .paper-choice {
   min-width: 0;
   display: flex;
@@ -629,11 +623,6 @@ a:hover { color: var(--accent-hover); }
   .letter-single__card .memory-card__name { font-size: 1.15rem; margin-top: 6px; }
   .letter-single__card .memory-card__message {
     font-size: 1.15rem; line-height: 1.65;
-    max-height: 55%;
-    -webkit-line-clamp: 6;
-    -webkit-box-orient: vertical;
-    display: -webkit-box;
-    overflow: hidden;
   }
   .letter-single__card .memory-card__brand { font-size: 0.85rem; }
   .letter-single__card .memory-card__brand::after { margin: 6px auto 0; }
@@ -1467,6 +1456,7 @@ a:hover { color: var(--accent-hover); }
   left: 0;
   right: 0;
   text-align: center;
+  transform: translateX(var(--paper-brand-shift-x, 0));
 }
 
 .table-card__brand {

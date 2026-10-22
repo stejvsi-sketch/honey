@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { CARD_COLORS, MAX_WORDS, MAX_NAME_LENGTH, MAX_MESSAGE_LENGTH } from './constants';
-import { DEFAULT_PAPER_ID, PAPER_DESIGNS } from './paper-textures';
+import { CARD_COLORS, MAX_NAME_LENGTH, MAX_MESSAGE_LENGTH } from './constants';
+import { DEFAULT_PAPER_ID, getPaperWordLimit, PAPER_DESIGNS } from './paper-textures';
 
 const validColorIds = CARD_COLORS.map(c => c.id) as [string, ...string[]];
 const validPaperIds = PAPER_DESIGNS.map(paper => paper.id) as [string, ...string[]];
@@ -17,10 +17,6 @@ export const submitMemorySchema = z.object({
     .trim()
     .min(1, 'Message is required')
     .max(MAX_MESSAGE_LENGTH, `Message must be ${MAX_MESSAGE_LENGTH} characters or less`)
-    .refine((val) => {
-      const wordCount = val.split(/\s+/).filter(w => w.length > 0).length;
-      return wordCount <= MAX_WORDS;
-    }, `Message must be ${MAX_WORDS} words or less`)
     .refine((val) => {
       const words = val.split(/\s+/).filter(w => w.length > 0);
       return words.every(w => w.length <= 20);
@@ -40,16 +36,30 @@ export const submitMemorySchema = z.object({
     .max(MAX_MESSAGE_LENGTH, `Wish reply must be ${MAX_MESSAGE_LENGTH} characters or less`)
     .refine((val) => {
       if (!val || val.length === 0) return true;
-      const wordCount = val.split(/\s+/).filter(w => w.length > 0).length;
-      return wordCount <= MAX_WORDS;
-    }, `Wish reply must be ${MAX_WORDS} words or less`)
-    .refine((val) => {
-      if (!val || val.length === 0) return true;
       const words = val.split(/\s+/).filter(w => w.length > 0);
       return words.every(w => w.length <= 20);
     }, 'Each word must be 20 characters or less')
     .optional()
     .transform(val => (val && val.length > 0 ? val : undefined)),
+}).superRefine((data, ctx) => {
+  const maxWords = getPaperWordLimit(data.paper_id);
+  const messageWordCount = data.message.split(/\s+/).filter(word => word.length > 0).length;
+  if (messageWordCount > maxWords) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ['message'],
+      message: `Message must be ${maxWords} words or less`,
+    });
+  }
+
+  const wishReplyWordCount = data.wish_reply?.split(/\s+/).filter(word => word.length > 0).length ?? 0;
+  if (wishReplyWordCount > maxWords) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ['wish_reply'],
+      message: `Wish reply must be ${maxWords} words or less`,
+    });
+  }
 });
 
 export type SubmitMemoryInput = z.infer<typeof submitMemorySchema>;

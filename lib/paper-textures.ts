@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react';
+import { MAX_WORDS } from './constants';
 
 export const PAPER_DESIGNS = [
   { id: 'rough-paper', name: 'Classic paper', image: 'rough-paper.webp', preview: 'rough-paper.webp', mask: 'rough-paper.webp' },
@@ -14,6 +15,11 @@ export const PAPER_DESIGNS = [
 
 export type PaperId = typeof PAPER_DESIGNS[number]['id'];
 export const DEFAULT_PAPER_ID: PaperId = 'rough-paper';
+export const SCRAPBOOK_MAX_WORDS = 15;
+
+export function getPaperWordLimit(paperId: PaperId): number {
+  return paperId === 'vintage-scrapbook' ? SCRAPBOOK_MAX_WORDS : MAX_WORDS;
+}
 
 type PaperTextureStyle = CSSProperties & {
   '--paper-texture': string;
@@ -21,6 +27,7 @@ type PaperTextureStyle = CSSProperties & {
   '--paper-texture-inset'?: string;
   '--paper-color-inset'?: string;
   '--paper-brand-top'?: string;
+  '--paper-brand-shift-x'?: string;
   '--paper-content-top'?: string;
   '--paper-copy-width'?: string;
   '--paper-table-copy-width'?: string;
@@ -33,6 +40,7 @@ const PAPER_CARD_LAYOUT: Partial<Record<PaperId, {
   contentTop: string;
   copyWidth?: string;
   tableCopyWidth?: string;
+  brandShiftX?: string;
 }>> = {
   'aged-torn-stack': { brandTop: '10%', contentTop: '6.25rem' },
   'rough-rice-paper': { brandTop: '9%', contentTop: '6rem' },
@@ -41,7 +49,7 @@ const PAPER_CARD_LAYOUT: Partial<Record<PaperId, {
   },
   'vintage-scrapbook': {
     brandTop: '12%', contentTop: 'clamp(6rem, 27vw, 7rem)',
-    copyWidth: '86%', tableCopyWidth: '80%',
+    copyWidth: '86%', tableCopyWidth: '80%', brandShiftX: '3px',
   },
   'vintage-torn-pieces': { brandTop: '10%', contentTop: '6.25rem' },
   'worn-aged-paring': { brandTop: '8%', contentTop: '5.5rem' },
@@ -60,6 +68,7 @@ export function getPaperTextureStyle(paperId?: string | null): PaperTextureStyle
       ? {
           '--paper-brand-top': cardLayout.brandTop,
           '--paper-content-top': cardLayout.contentTop,
+          ...(cardLayout.brandShiftX ? { '--paper-brand-shift-x': cardLayout.brandShiftX } : {}),
           ...(cardLayout.copyWidth ? { '--paper-copy-width': cardLayout.copyWidth } : {}),
           ...(cardLayout.tableCopyWidth ? { '--paper-table-copy-width': cardLayout.tableCopyWidth } : {}),
         }

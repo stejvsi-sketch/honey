@@ -37,8 +37,6 @@ export default function CardRenderer({
   const needsFrontHeaderSpace = memory.message.length > 120
     || displayName.length > 24
     || (memory.from_name?.length ?? 0) > 24;
-  const needsCompactFrontPreview = displayName.length > 24
-    || (memory.from_name?.length ?? 0) > 24;
   const needsBackHeaderSpace = (memory.wish_reply?.length ?? 0) > 120;
   const paperTextureStyle = getPaperTextureStyle(memory.paper_id);
 
@@ -67,7 +65,7 @@ export default function CardRenderer({
         <div className="memory-card__color" style={{ backgroundColor: hex }} />
         <div className="memory-card__texture" />
       </div>
-      <div className={`memory-card__content${needsFrontHeaderSpace ? ' memory-card__content--long' : ''}${needsCompactFrontPreview ? ' memory-card__content--compact' : ''}`}>
+      <div className={`memory-card__content${needsFrontHeaderSpace ? ' memory-card__content--long' : ''}`}>
         <div className="memory-card__header">
           <span className="memory-card__brand">{SITE_NAME.toLowerCase()}</span>
         </div>
