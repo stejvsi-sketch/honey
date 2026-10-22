@@ -68,6 +68,10 @@ export default async function HomePage() {
           <Link href="/journal/what-to-write-for-closure" style={{ color: 'var(--text)', textDecoration: 'underline', textUnderlineOffset: '3px' }}>
             practical guide to writing an unsent letter
           </Link>
+          , follow our{' '}
+          <Link href="/journal/navigating-the-unsent-messages-archive" style={{ color: 'var(--text)', textDecoration: 'underline', textUnderlineOffset: '3px' }}>
+            guide to searching and browsing the message archive
+          </Link>
           , learn <Link href="/about" style={{ color: 'var(--text)', textDecoration: 'underline', textUnderlineOffset: '3px' }}>how the archive works</Link>,
           or review the <Link href="/privacy" style={{ color: 'var(--text)', textDecoration: 'underline', textUnderlineOffset: '3px' }}>Privacy Policy</Link> before sharing.
         </p>

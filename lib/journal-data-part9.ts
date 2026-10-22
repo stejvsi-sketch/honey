@@ -18,16 +18,24 @@ export const POSTS_PART9: JournalPost[] = [
       }
 ],
     references: [],
-    content: `Honey, If Only has several ways to browse and submit. The [Letters page](/letters) shows recent messages and offers archive search. The [Archive page](/archive) provides name-based browsing. The [Colors page](/colors) explains the palette used by this site.
+    content: `Honey, If Only is a public archive of short messages people chose not to send. You can read recent entries, search the current collection, browse recipient-name listings, or submit a letter of your own. The archive is public; it is not a private journal, inbox, or verified record about the people named in a submission.
 
-## Search with the limits in mind
+## Search the current letters
 
-Enter a recipient name or a likely spelling. Results show posts that match the search in this archive; a shared first name does not prove that a message is about you or someone you know. A missing result only means the current archive did not return a match for that query.
+Open the [Letters page](/letters) and use its search field to look for a recipient name. This search checks the recipient-name field, not the text of a letter. If you do not find a match, try a spelling variation or browse the [A-to-Z Name Archive](/archive). A blank result only means that the current letters archive did not return a matching name; it does not show that no one wrote a letter or reveal anything about a particular person's feelings.
 
-## Submit a new letter
+## Browse the name directory and color labels
 
-Use the [Write page](/write) to enter the recipient name, message, and color. New submissions through the current form are reviewed before publication. The optional sender-name field may appear with an approved letter, and older archive material may have a different publication history. Review the [Privacy Policy](/privacy) and [Moderation Policy](/moderation) before sharing anything identifying.
+The [Name Archive](/archive) is an A-to-Z way to browse recipient-name listings. A name is a search label, not proof that a submission refers to one identifiable person. Many people share names, and the site cannot verify the writer's identity or the truth of a message.
 
-An archive is a public collection, not a private inbox or a verified account of events. Do not use name search as a way to contact someone, infer their feelings, or bypass a block. If you see content that appears to violate current site rules, use the [Contact page](/contact) to request review.`
+The [Colors page](/colors) explains this site's color labels. They are a way to browse the archive, not a universal code for what a writer or recipient feels.
+
+## Write and submit a message
+
+Use the [Write a Letter page](/write) to submit a short message. New submissions made through the current form are reviewed before publication. Approved letters are public, and an optional sender name may appear if you provide one. Before submitting, read the [Privacy Policy](/privacy) and [Moderation Policy](/moderation); avoid information that could identify or endanger you or someone else.
+
+## Read results with care
+
+An entry is user-submitted writing, not a verified account of an event or a message from a person you recognize. Do not use archive search to identify someone, contact them, infer their private thoughts, or get around a boundary such as a block or a request for no contact. If an entry raises a privacy, rights, or safety concern, send its URL and details through the [Contact page](/contact) so it can be reviewed.`
   }
 ];
