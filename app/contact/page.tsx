@@ -18,7 +18,7 @@ export default function ContactPage() {
       subtitle="Use this page for removal requests, moderation concerns, privacy questions, business inquiries, and anything that helps keep the site trustworthy."
       highlights={[
         { label: 'Email', value: CONTACT_EMAIL, detail: 'The same inbox handles support, privacy, and safety reports.' },
-        { label: 'Safety review', value: '48 hours', detail: 'Removal and abuse reports are treated as priority requests.' },
+        { label: 'Safety review', value: 'By request', detail: 'Include the letter URL and a brief description so the editor can review it.' },
         { label: 'Best detail', value: 'Send the URL', detail: 'Include the exact letter or page link so we can act quickly.' },
       ]}
       sections={[
@@ -79,10 +79,8 @@ export default function ContactPage() {
           eyebrow: 'Accountability',
           children: (
             <p>
-              {SITE_NAME} is run by <strong>Tejasvi Sharma</strong>, who personally handles all support, removal,
-              and moderation requests. He is the same person who reviews every letter before it appears in the archive,
-              writes the journal articles, and oversees all editorial decisions. When you email the address above,
-              you are writing directly to the person responsible for the site.
+              {SITE_NAME} is operated by one editor who handles support, removal, moderation, and editorial decisions.
+              When you email the address above, your message goes directly to the person responsible for the site.
             </p>
           ),
         },

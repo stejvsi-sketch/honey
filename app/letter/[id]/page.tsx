@@ -18,7 +18,7 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
   const displayName = formatSubmittedName(memory.name);
   const letterUrl = `${SITE_URL}/letter/${memory.id}`;
   const snippet = memory.message.slice(0, 140);
-  const description = `"${snippet}" - an anonymous unsent letter, message, and unspoken words to ${displayName} on ${SITE_NAME}. Things never said, love letters and messages never sent.`;
+  const description = `"${snippet}" - a public unsent letter addressed to ${displayName} in the ${SITE_NAME} archive. Sender names may appear when supplied.`;
 
   // Canonical consolidation: if this name has a live aggregation page (≥5 letters
   // and real name), point canonical to /to/{slug} to consolidate SEO signals.
@@ -84,10 +84,6 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
     inLanguage: 'en',
     datePublished: memory.created_at,
     text: memory.message,
-    author: {
-      '@type': 'Person',
-      name: 'Anonymous',
-    },
     about: {
       '@type': 'Person',
       name: displayName,
@@ -122,7 +118,7 @@ export default async function LetterPage(props: { params: Promise<{ id: string }
       />
       <div className="page__header" style={{ marginBottom: '32px' }}>
         <h1 className="page__title">Unsent Letters and Messages to {displayName}</h1>
-        <p className="page__subtitle">An anonymous unsent letter, message, and unspoken words to {displayName}.</p>
+        <p className="page__subtitle">A public unsent letter addressed to {displayName}. A sender name may appear if supplied.</p>
       </div>
       <div className="letter-single__card">
         <LetterFlipCard

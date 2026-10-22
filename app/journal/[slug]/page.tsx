@@ -2,10 +2,14 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { JOURNAL_POSTS } from '@/lib/journal-data';
-import { SITE_NAME, SITE_URL, EDITOR_NAME } from '@/lib/constants';
+import { SITE_NAME, SITE_URL, EDITOR_NAME, EDITOR_BYLINE } from '@/lib/constants';
 import JournalContent from '@/components/JournalContent';
 import RelatedPosts from '@/components/RelatedPosts';
 
+const protectedComparisonSlugs = new Set([
+  'unsent-project-alternative',
+  'websites-similar-to-the-unsent-project',
+]);
 
 const MONTHS: Record<string, string> = {
   January: '01', February: '02', March: '03', April: '04',
@@ -13,7 +17,6 @@ const MONTHS: Record<string, string> = {
   September: '09', October: '10', November: '11', December: '12',
 };
 
-/** Convert a human date like "May 2026" to ISO "2026-05-01". */
 function journalDateToISO(date: string): string {
   const [month, year] = date.split(' ');
   const mm = MONTHS[month];
@@ -26,9 +29,9 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   const post = JOURNAL_POSTS.find(p => p.slug === slug);
   if (!post) return { title: 'Post Not Found' };
   const canonicalUrl = `${SITE_URL}/journal/${post.slug}`;
+  const preserveComparisonMetadata = protectedComparisonSlugs.has(post.slug);
+  const authorName = post.author || (preserveComparisonMetadata ? EDITOR_NAME : EDITOR_BYLINE);
   const isoDate = journalDateToISO(post.date);
-
-  const authorName = post.author || EDITOR_NAME;
 
   return {
     title: post.title,
@@ -39,8 +42,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
       title: post.title,
       description: post.excerpt,
       url: canonicalUrl,
-      publishedTime: isoDate,
-      modifiedTime: isoDate,
+      ...(preserveComparisonMetadata ? { publishedTime: isoDate, modifiedTime: isoDate } : {}),
       authors: [authorName],
     },
   };
@@ -55,10 +57,12 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
   const post = JOURNAL_POSTS.find(p => p.slug === slug);
   if (!post) notFound();
 
-  const isoDate = journalDateToISO(post.date);
   const canonicalUrl = `${SITE_URL}/journal/${post.slug}`;
 
-  const authorName = post.author || EDITOR_NAME;
+  const preserveComparisonMetadata = protectedComparisonSlugs.has(post.slug);
+  const authorName = post.author || (preserveComparisonMetadata ? EDITOR_NAME : EDITOR_BYLINE);
+  const isSiteByline = authorName === SITE_NAME || authorName === EDITOR_BYLINE;
+  const isoDate = journalDateToISO(post.date);
 
   const graph: Record<string, unknown>[] = [
     {
@@ -66,17 +70,16 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
       headline: post.title,
       description: post.excerpt,
       author: {
-        '@type': 'Person',
-        name: authorName,
-        url: `${SITE_URL}/author`,
+        '@type': isSiteByline ? 'Organization' : 'Person',
+        name: isSiteByline ? SITE_NAME : authorName,
+        url: isSiteByline ? SITE_URL : `${SITE_URL}/author`,
       },
       publisher: {
         '@type': 'Organization',
         name: SITE_NAME,
         logo: { '@type': 'ImageObject', url: `${SITE_URL}/android-chrome-512x512.png` },
       },
-      datePublished: isoDate,
-      dateModified: isoDate,
+      ...(preserveComparisonMetadata ? { datePublished: isoDate, dateModified: isoDate } : {}),
       image: { '@type': 'ImageObject', url: `${SITE_URL}/android-chrome-512x512.png` },
       mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
     },
@@ -125,7 +128,7 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
               {post.title}
             </h1>
             <div style={{ marginTop: '16px', fontSize: '0.88rem', color: 'var(--text-muted)' }}>
-              By <Link href="/author" style={{ color: 'var(--text)', textDecoration: 'underline', textUnderlineOffset: '2px', textDecorationColor: 'var(--border-light)' }}>{authorName}</Link>
+              By <Link href={isSiteByline ? '/methodology' : '/author'} style={{ color: 'var(--text)', textDecoration: 'underline', textUnderlineOffset: '2px', textDecorationColor: 'var(--border-light)' }}>{authorName}</Link>
               {post.reviewer && <> · Reviewed by {post.reviewer}</>}
               {!post.hideEditorial && <> · Research informed essay</>}
             </div>
@@ -142,7 +145,9 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
             borderRadius: 'var(--radius)', borderLeft: '3px solid var(--border-light)',
             fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.6, fontStyle: 'italic',
           }}>
-            This article is written by the site&apos;s founder based on publicly available research and commonly discussed psychological concepts.{post.reviewer ? ` It was reviewed by ${post.reviewer}.` : ' It has not been reviewed by a licensed mental health professional.'} It is not clinical advice. If you need support, please contact a qualified professional.
+            {preserveComparisonMetadata
+              ? <>This article is written by the site&apos;s founder based on publicly available research and commonly discussed psychological concepts.{post.reviewer ? ` It was reviewed by ${post.reviewer}.` : ' It has not been reviewed by a licensed mental health professional.'} It is not clinical advice. If you need support, please contact a qualified professional.</>
+              : <>This article is published under the Honey, If Only Editorial byline and draws on publicly available research and commonly discussed psychological concepts.{post.reviewer ? ` It was reviewed by ${post.reviewer}.` : ' It has not been reviewed by a licensed mental health professional.'} It is not clinical advice. If you need support, please contact a qualified professional.</>}
           </div>
           )}
 
@@ -209,7 +214,7 @@ export default async function JournalPostPage(props: { params: Promise<{ slug: s
         <div style={{ marginTop: '80px', padding: '40px', background: 'rgba(255,255,255,0.4)', borderRadius: 'var(--radius)', textAlign: 'center' }}>
           <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.4rem', marginBottom: '16px' }}>What was left unsaid?</h3>
           <p style={{ color: 'var(--text-muted)', marginBottom: '24px', fontSize: '0.95rem' }}>
-            Distill your truth into 25 words. Submit it anonymously to the archive and let it go.
+            Write a short letter. Approved submissions are public, and an optional sender name may appear.
           </p>
           <Link href="/write" className="btn" style={{ display: 'inline-block', width: 'auto', padding: '12px 32px' }}>
             Write a Letter

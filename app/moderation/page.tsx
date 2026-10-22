@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import TrustPage from '@/components/TrustPage';
-import { SITE_NAME, SITE_URL, EDITOR_NAME } from '@/lib/constants';
+import { SITE_NAME, SITE_URL } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title: 'Moderation Policy',
-  description: `How ${SITE_NAME} reviews, moderates, and publishes anonymous unsent letters. Standards, blocked content, response times, and ad placement rules.`,
+  description: `How ${SITE_NAME} reviews new submissions, moderation standards, removal requests, and the limits of its archive review process.`,
   alternates: { canonical: `${SITE_URL}/moderation` },
 };
 
@@ -13,13 +13,13 @@ export default function ModerationPage() {
   return (
     <TrustPage
       eyebrow="Moderation Policy"
-      title="How we review every letter before it goes live."
-      subtitle={`${SITE_NAME} is a moderated archive. Every submission is reviewed by a human before it appears publicly. This page explains our review standards, blocked content categories, response times, and how advertising relates to content review.`}
+      title="How new submissions are reviewed before publication."
+      subtitle={`${SITE_NAME} reviews new submissions made through the current form before they appear publicly. This page explains current review standards, blocked content categories, response times, and how advertising relates to content review.`}
       updated="July 2026"
       highlights={[
-        { label: 'Review', value: 'Human moderation', detail: 'Every letter is read and approved by a person before publication.' },
-        { label: 'Response time', value: 'Within 48 hours', detail: 'Removal and abuse reports are acted on within 48 hours.' },
-        { label: 'Ads on unreviewed content', value: 'Never', detail: 'Ads are not served on any page until content has been reviewed.' },
+        { label: 'Review', value: 'Human moderation', detail: 'New letters submitted through the current form are read before publication.' },
+        { label: 'Requests', value: 'Reviewed', detail: 'Send the letter URL and a brief description of the concern.' },
+        { label: 'Older archive', value: 'Different history', detail: 'Current moderation does not verify every entry preserved from the earlier archive.' },
       ]}
       sections={[
         {
@@ -28,7 +28,7 @@ export default function ModerationPage() {
           children: (
             <>
               <p>
-                Every letter submitted through the <Link href="/write">Write a Letter</Link> page is read before
+                New letters submitted through the <Link href="/write">Write a Letter</Link> page are read before
                 it appears in the public archive. We check for:
               </p>
               <ul>
@@ -40,8 +40,8 @@ export default function ModerationPage() {
                 <li>Content that could endanger the person named in the letter</li>
               </ul>
               <p>
-                Letters that pass review are published to the archive. Letters that violate these standards
-                are rejected and never appear publicly.
+                New submissions that pass review may be published to the archive. Submissions that violate the
+                current standards are rejected; older archive entries may have a different publication history.
               </p>
             </>
           ),
@@ -59,10 +59,10 @@ export default function ModerationPage() {
         },
         {
           title: 'Blocked content',
-          eyebrow: 'What is never published',
+          eyebrow: 'Current submission rules',
           children: (
             <>
-              <p>The following categories are always rejected:</p>
+              <p>The following categories are not accepted through the current submission process. Older archive entries may have a different publication history.</p>
               <ul>
                 <li>Threats of violence, self-harm encouragement, or suicide goading</li>
                 <li>Sexually explicit or pornographic language</li>
@@ -94,7 +94,7 @@ export default function ModerationPage() {
             <p>
               If a letter references you, contains your personal information, or violates our
               standards, submit the letter URL through our <Link href="/contact">contact page</Link>.
-              We aim to respond to all removal and abuse requests within 48 hours.
+              Requests are reviewed under the current moderation and privacy rules. Response time can vary, and contacting us does not guarantee removal.
             </p>
           ),
         },
@@ -103,10 +103,7 @@ export default function ModerationPage() {
           eyebrow: 'Ad placement policy',
           children: (
             <p>
-              Advertisements are never displayed on pages containing unreviewed or pending content.
-              Ads appear only on pages where all visible content has been reviewed and approved by
-              {' '}{EDITOR_NAME}. We follow Google AdSense program policies
-              and do not serve ads on legal pages, the submission form, or any content flagged for review.
+              Advertising eligibility and placement can depend on vendor settings and automated systems. The current submission review process does not establish the publication history of older archive material or guarantee where an ad may appear.
             </p>
           ),
         },
@@ -115,9 +112,7 @@ export default function ModerationPage() {
           eyebrow: 'Who moderates',
           children: (
             <p>
-              All moderation and editorial decisions are made by <strong>{EDITOR_NAME}</strong>,
-              founder and editor of {SITE_NAME}. Journal articles, stories, and all user-submitted
-              content are reviewed under the same editorial standards described on this page.
+              The site editor handles new submissions through the current moderation queue and prepares journal articles. Older archive material may have a different publication history; moderation of current submissions does not verify every existing archive entry.
             </p>
           ),
         },
@@ -129,8 +124,8 @@ export default function ModerationPage() {
               <p>
                 If you find a factual error in any journal article, email{' '}
                 <a href="mailto:ifonlyisentthis@gmail.com">ifonlyisentthis@gmail.com</a> with the article URL
-                and the specific error. Corrections are made within 48 hours. A correction note is added to the
-                bottom of the article explaining what was changed and when.
+                and the specific error. The editor reviews correction requests and may add a note to the article
+                when a factual correction is made. Response time can vary.
               </p>
               <p>
                 For more detail on how articles are written and reviewed, see the{' '}

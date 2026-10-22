@@ -14,11 +14,11 @@ export default function DisclaimerPage() {
     <TrustPage
       eyebrow="Disclaimer"
       title="Important context before you read the archive."
-      subtitle="Honey, If Only is built around anonymous, user-submitted writing. The words can be moving, imperfect, fictional, painful, or incomplete."
-      updated="May 2026"
+      subtitle="Honey, If Only is built around user-submitted writing. The words can be moving, imperfect, fictional, painful, or incomplete."
+      updated="October 2026"
       highlights={[
-        { label: 'Source', value: 'Anonymous users', detail: 'Letters do not represent the views of the site.' },
-        { label: 'Review', value: 'Moderated', detail: 'Moderation reduces risk but cannot verify every claim.' },
+        { label: 'Source', value: 'User submissions', detail: 'Letters do not represent the views of the site; authors are not independently verified.' },
+        { label: 'Review', value: 'Current submissions', detail: 'New letters are reviewed before publication; moderation cannot verify claims or the history of older archive entries.' },
         { label: 'Support', value: 'Not advice', detail: 'The site is not a substitute for professional help.' },
       ]}
       sections={[
@@ -26,7 +26,8 @@ export default function DisclaimerPage() {
           title: 'User-generated content',
           children: (
             <p>
-              Letters on {SITE_NAME} are submitted by anonymous users. Their views, memories, opinions, and emotions do
+              Letters on {SITE_NAME} are user-submitted. New submissions may include an optional sender name, and
+              older archive entries may contain names or handles. Their views, memories, opinions, and emotions do
               not represent the views of the site, its operators, advertisers, or partners.
             </p>
           ),

@@ -74,12 +74,11 @@ export default async function CollectionPage({ params }: Props) {
         item: {
           '@type': 'CreativeWork',
           url: `${SITE_URL}/letter/${memory.id}`,
-          name: `Anonymous Unsent Letter`,
+          name: 'Unsent Letter',
           text: memory.message,
           genre: 'unsent letter',
           inLanguage: 'en',
           datePublished: memory.created_at,
-          author: { '@type': 'Person', name: 'Anonymous' },
         },
       })),
     },
@@ -108,6 +107,9 @@ export default async function CollectionPage({ params }: Props) {
       <div className="page__header" style={{ marginBottom: '24px' }}>
         <h1 className="page__title" style={{ margin: 0 }}>{collection.title}</h1>
       </div>
+      <p className="page__subtitle" style={{ maxWidth: '760px', margin: '0 auto 32px', textAlign: 'center' }}>
+        Approved submissions are public, and optional sender names may appear. Older archive entries may include names or handles and may have a different publication history.
+      </p>
 
       <div className="prose" style={{ marginBottom: '48px', textAlign: 'center', maxWidth: '700px', margin: '0 auto 48px' }}>
         <p style={{ fontSize: '1.1rem', lineHeight: 1.6 }}>

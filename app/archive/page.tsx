@@ -8,12 +8,12 @@ export const revalidate = 18000;
 
 export const metadata: Metadata = {
   title: 'Name Archive',
-  description: 'Browse the complete A-Z directory of all anonymous unsent letters by name. Find the letters addressed to someone you know.',
+  description: 'Browse the A–Z directory of recipient names in the public unsent-letter archive. A matching name does not identify a particular person.',
   alternates: { canonical: `${SITE_URL}/archive` },
   robots: { index: false, follow: true },
   openGraph: {
     title: 'Name Archive',
-    description: 'Browse the complete A-Z directory of anonymous unsent letters by name.',
+    description: 'Browse recipient names in the public unsent-letter archive.',
     url: `${SITE_URL}/archive`,
   },
 };

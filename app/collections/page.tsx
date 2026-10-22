@@ -5,7 +5,7 @@ import { COLLECTIONS } from '@/lib/collections-data';
 
 export const metadata: Metadata = {
   title: 'Unsent Message Collections',
-  description: 'Explore curated collections of anonymous unsent messages, including heartbreak letters, crush confessions, and apologies.',
+  description: 'Explore public collections of unsent messages, including heartbreak letters, crush confessions, and apologies. Optional sender names may appear.',
   alternates: {
     canonical: `${SITE_URL}/collections`,
   },
@@ -24,9 +24,11 @@ export default function CollectionsIndexPage() {
 
       <div className="prose" style={{ marginBottom: '40px', textAlign: 'center', maxWidth: '800px', margin: '0 auto 40px' }}>
         <p>
-          Whether you are looking for apologies never sent, secret crush confessions, or the final words 
-          someone wished they had said to an ex, these collections gather the most profound 
-          emotions from our archive into dedicated spaces.
+          Whether you are looking for apologies never sent, secret crush confessions, or the final words
+          someone wished they had said to an ex, these collections group public user-submitted letters by topic.
+        </p>
+        <p>
+          Approved submissions are public, and optional sender names may appear. Older archive entries may include names or handles and may have a different publication history.
         </p>
       </div>
 

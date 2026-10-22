@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${meaning.name} Color Meaning in Unsent Messages`,
-    description: `Explore what ${meaning.name} represents in unsent messages and read anonymous letters expressing ${meaning.emotion.toLowerCase()}.`,
+    description: `Explore the ${meaning.name} color label and read public unsent letters tagged ${meaning.emotion.toLowerCase()}. Color meanings are personal, not universal.`,
     keywords: meaning.seoKeywords.join(', '),
     alternates: {
       canonical: `${SITE_URL}/colors/${color}`,

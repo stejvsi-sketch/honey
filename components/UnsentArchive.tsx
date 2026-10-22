@@ -227,8 +227,10 @@ export default function UnsentArchive({ memories, currentPage, totalPages }: Uns
         <div className="unsent-archive__badge">From the vault</div>
         <h1 className="unsent-archive__title">The Unsent Archive <span className="unsent-archive__formerly">Formerly If Only I Sent This</span></h1>
         <p className="unsent-archive__subtitle">
-          1,439 unsent messages from a merged archive — moderated, and preserved.
-          These are the longer confessions that didn&apos;t fit into 25 words.
+          1,439 entries preserved from an earlier archive. Some may include sender names or handles and may have a different review and consent history from submissions made through the current form.
+        </p>
+        <p className="unsent-archive__subtitle">
+          If you have a privacy, rights, or safety concern about an entry, please <Link href="/contact">contact us</Link> with its URL.
         </p>
       </div>
 
@@ -323,7 +325,7 @@ export default function UnsentArchive({ memories, currentPage, totalPages }: Uns
           </Link>
           <Link href="/write" className="unsent-archive__link-card">
             <span>Write a Letter</span>
-            <p>Have something unsaid? Write your own anonymous letter in 25 words or fewer.</p>
+            <p>Have something unsaid? Write a short letter; approved submissions are public and an optional sender name may appear.</p>
           </Link>
           <Link href="/journal" className="unsent-archive__link-card">
             <span>Journal</span>

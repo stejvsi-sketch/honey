@@ -140,7 +140,7 @@ export default function SubmitForm() {
           onChange={e => setFromName(e.target.value)} placeholder="Your name"
           maxLength={30} autoComplete="off"
         />
-        <p className="form__hint">Sign your letter, if you&apos;d like.</p>
+        <p className="form__hint">Optional. This name may appear publicly if your letter is approved; only enter a name you are comfortable sharing.</p>
       </div>
 
       <div className="form__group">
@@ -199,7 +199,7 @@ export default function SubmitForm() {
         {status === 'submitting' ? 'Sending...' : 'Send This Letter'}
       </button>
       <p className="form__hint" style={{ textAlign: 'center', marginTop: 12 }}>
-        All letters are reviewed before appearing. Only first names allowed.
+        New letters are reviewed before publication. Avoid full names or identifying details; approved letters are public and an optional sender name may appear.
       </p>
       <p style={{ textAlign: 'center', marginTop: 24, fontSize: '0.78rem', color: 'var(--text-light)', lineHeight: 1.6 }}>
         If you or someone you know is in crisis, please reach out:{' '}

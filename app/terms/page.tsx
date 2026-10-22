@@ -18,7 +18,7 @@ export default function TermsPage() {
       updated="May 2026"
       highlights={[
         { label: 'Content', value: 'User submitted', detail: 'Letters belong to their authors, and we host approved submissions.' },
-        { label: 'Moderation', value: 'Required', detail: 'Every submission may be accepted, rejected, edited for safety, or removed.' },
+        { label: 'Moderation', value: 'Current form', detail: 'New submissions may be accepted, rejected, or removed under the current rules.' },
         { label: 'Age', value: '13+', detail: 'Do not use the site if local law prevents you from agreeing to these terms.' },
       ]}
       sections={[
@@ -70,12 +70,13 @@ export default function TermsPage() {
           ),
         },
         {
-          title: 'Anonymity and privacy',
+          title: 'Public display and privacy',
           children: (
             <p>
-              We do not publicly display author identities. You are responsible for avoiding private information in your
-              letter. If a published letter creates a privacy or safety issue, contact us through the
-              <Link href="/contact"> contact page</Link>.
+              No account or email is required, but approved submissions are public. The current form has an optional
+              sender-name field, and a supplied name may appear with a letter. Older archive entries may include names
+              or handles from a different publication process. Avoid information you do not want shown publicly. If a
+              published letter creates a privacy or safety issue, contact us through the <Link href="/contact">contact page</Link>.
             </p>
           ),
         },

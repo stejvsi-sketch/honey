@@ -12,7 +12,7 @@ export interface JournalPost {
   faq?: { question: string; answer: string }[];
   /** When true, hide the "Editorial" byline suffix and the editorial disclaimer box. */
   hideEditorial?: boolean;
-  /** Author byline. Defaults to EDITOR_NAME when not set. */
+  /** Author byline. Unset posts use the public editorial byline, except explicitly preserved legacy metadata. */
   author?: string;
   /** Reviewer name. Only set if genuinely reviewed by someone other than the author. */
   reviewer?: string;
@@ -72,6 +72,7 @@ import { POSTS_PART63 } from './journal-data-part63';
 import { POSTS_PART64 } from './journal-data-part64';
 import { POSTS_PART66 } from './journal-data-part66';
 import { POSTS_PART69 } from './journal-data-part69';
+import { POSTS_ALTERNATIVE_GUIDE } from './journal-data-alternative-guide';
 
 export const JOURNAL_POSTS: JournalPost[] = [
   ...POSTS_PART1,
@@ -124,4 +125,5 @@ export const JOURNAL_POSTS: JournalPost[] = [
   ...POSTS_PART64,
   ...POSTS_PART66,
   ...POSTS_PART69,
+  ...POSTS_ALTERNATIVE_GUIDE,
 ];

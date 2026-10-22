@@ -1,9 +1,10 @@
 export const SITE_NAME = 'Honey, If Only';
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.honeyifonly.com';
-export const SITE_DESCRIPTION = "We all have words we couldn't say. Honey, If Only is a place for unsent letters, unsent messages, and love letters never sent. A digital archive for your grief, heartbreak, and unspoken words. Distill your truth into 25 words. Let it go.";
+export const SITE_DESCRIPTION = 'A public archive of unsent letters, messages, and words left unsaid. New submissions may be published with an optional sender name.';
 
 export const EDITOR_NAME = 'Tejasvi Sharma';
-export const EDITOR_BIO = 'Tejasvi Sharma is a computer science engineer, songwriter, and writer. He built Honey, If Only as a creative project at the intersection of technology and emotional expression. He personally reviews every letter submitted to the archive, writes the journal essays, and maintains the platform as an independent creator.';
+export const EDITOR_BYLINE = 'Honey, If Only Editorial';
+export const EDITOR_BIO = 'Honey, If Only is an independent project operated by one editor. The editor oversees submissions, moderation, journal essays, and site maintenance. The site does not provide clinical advice.';
 
 export const CACHE_TTL = 18000; // 5 hours in seconds
 export const CACHE_REVALIDATE = 18000;

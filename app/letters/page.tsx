@@ -5,7 +5,7 @@ import { getArchiveMemories } from '@/lib/data';
 import { formatSubmittedName } from '@/lib/names';
 
 const LETTERS_TITLE = 'Letters - All Unsent Words';
-const LETTERS_DESCRIPTION = "Browse all unsent letters, messages, and texts. Anonymous love letters never sent, things never said, unspoken words, and heartfelt messages from people who couldn't say what they felt.";
+const LETTERS_DESCRIPTION = 'Browse the public archive of unsent letters, messages, and words left unsaid. Optional sender names may appear with approved submissions.';
 
 export const revalidate = 18000;
 
@@ -70,10 +70,6 @@ export default async function LettersPage() {
           headline: itemName,
           datePublished: memory.created_at,
           text: memory.message,
-          author: {
-            '@type': 'Person',
-            name: 'Anonymous',
-          },
           about: {
             '@type': 'Person',
             name: displayName,

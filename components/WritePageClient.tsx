@@ -15,8 +15,8 @@ export default function WritePageClient() {
         <h1 className="page__title">{mode === 'send' ? 'Write a Letter' : 'Write & Burn'}</h1>
         <p className="page__subtitle">
           {mode === 'send'
-            ? 'Say what you never could. Your letter will be written on paper and shared anonymously.'
-            : 'Write what weighs on you. It won\u2019t be saved \u2014 not anywhere, not ever.'}
+            ? 'Write what you never sent. Approved letters are public, and the optional sender name may be displayed.'
+            : 'Write what weighs on you. The burn tool does not submit your text to the public archive.'}
         </p>
       </div>
 

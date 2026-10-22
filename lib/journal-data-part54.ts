@@ -3,50 +3,29 @@ import type { JournalPost } from './journal-data';
 export const POSTS_PART54: JournalPost[] = [
   {
     slug: 'are-unsent-letters-online-real-or-fake',
-    title: 'Are Unsent Letters Online Real or Fake? How Moderation Determines Authenticity',
-    excerpt: 'Are the messages in unsent letter archives real or fabricated? An honest look at authenticity in anonymous submissions and why human moderation is the only real answer.',
+    title: "Are Unsent Letters Online Real? What Moderation Can Verify",
+    excerpt: "A website can review a submission against its rules, but moderation cannot prove the author’s identity or confirm that every event described is true. Read user-submitted posts with appropriate uncertainty.",
     date: 'July 2026',
-    lastReviewed: 'August 2026',
     related: ['why-we-write-letters-we-never-send', 'the-psychology-of-unsent-messages', 'does-writing-an-unsent-letter-actually-help-you-heal', 'why-unsent-letter-submissions-disappear'],
     faq: [
       {
-        question: 'Are the messages on unsent letter platforms real or fake?',
-        answer: 'Large unmoderated archives contain a mix of genuine confessions, jokes, and spam. On Honey, If Only every message is reviewed by a human before publishing, so the archive stays authentic and free of bot or joke entries.',
+            "question": "Can a platform prove an anonymous letter is real?",
+            "answer": "Usually not from the text alone. Moderation can screen for rule violations, spam, or identifying information, but it cannot independently verify a writer’s identity or personal account."
       },
       {
-        question: 'How can you tell a real unsent letter from a fake one?',
-        answer: 'Genuine letters carry specific, lived detail that fiction rarely invents. Active human moderation is what protects authenticity at scale, which is why curated archives feel more real than open ones.',
-      },
-      {
-        question: 'Can AI write convincing unsent letters?',
-        answer: 'Large language models can produce text that mimics emotional writing at the surface level, but real grief is specific and messy. Human moderators develop sensitivity to the patterns that distinguish genuine emotional writing from synthetic writing.',
-      },
-    ],
-    references: [
-      { label: 'Brown, B. — Vulnerability and Emotional Exposure. University of Houston.', url: 'https://en.wikipedia.org/wiki/Vulnerability' },
-      { label: 'Eternal September. Wikipedia.', url: 'https://en.wikipedia.org/wiki/Eternal_September' },
-      { label: 'Horton, D. & Wohl, R. (1956). Mass Communication and Para-Social Interaction.', url: 'https://en.wikipedia.org/wiki/Parasocial_interaction' },
-      { label: 'Grief — Psychological Models of Bereavement. American Psychological Association.', url: 'https://en.wikipedia.org/wiki/Grief' },
-      { label: 'https://www.technologyreview.com/2023/02/07/1067928/ai-text-detection-chatgpt-is-extremely-hard/', url: 'https://www.technologyreview.com/2023/02/07/1067928/ai-text-detection-chatgpt-is-extremely-hard/' },
-    ],
-    content: `The first time you scroll through an unsent letter archive, a question forms almost immediately: are these real? Did a real person actually write this, or is this fabricated, generated, or submitted as a joke? The question haunts the experience because the answer determines everything. If the messages are real, you are witnessing something extraordinary — a vast, anonymous outpouring of genuine human [vulnerability](https://en.wikipedia.org/wiki/Vulnerability). If they are fake, you are reading fiction dressed up as confession, and the emotional impact collapses entirely.
+            "question": "Does a matching name mean a letter is about me?",
+            "answer": "No. Many people share a name, and a public anonymous message lacks the context needed to identify its intended recipient."
+      }
+],
+    references: [] ,
+    content: `Readers may wonder whether an anonymous message describes a real event. A platform can review text for spam, threats, personal information, or other rule violations, but that does not prove who wrote it or whether every detail is accurate.
 
-The honest answer is that on most unsent letter platforms, especially those that grew quickly without strong moderation, the archive contains a mixture of both. Some messages are devastatingly real. You can feel the weight of them through the screen. They are specific in ways that fiction rarely is. They reference the color of a shirt someone was wearing on a particular Tuesday, or the exact words spoken in a fight that happened three years ago. That level of specificity is the fingerprint of genuine memory. No one fabricates those details.
+## What moderation can and cannot do
 
-But mixed in with those genuine confessions are messages that are clearly not real. Test submissions from curious visitors. Inside jokes between friends. Spam from bots. Song lyrics submitted verbatim. Messages generated by artificial intelligence tools that can mimic the cadence of emotional writing without containing any actual emotion. And perhaps most perniciously, messages that are technically original but are written performatively — crafted to sound poignant rather than to express genuine feeling.
+Moderation can apply a site’s publication rules and reduce some harmful material. It cannot establish that every message is sincere, verify a relationship story, or determine whether a letter is about a particular reader. A first name may refer to many people, and the writer’s context is usually unavailable.
 
-The ratio of real to fake varies wildly depending on the platform, and it changes over time. In the early days of any unsent letter platform, when the user base is small and passionate, the submissions tend to be overwhelmingly genuine. But as the platform grows and attracts a broader, more casual audience, the proportion of genuine submissions inevitably declines. This phenomenon is well documented in online community research. The concept of [Eternal September](https://en.wikipedia.org/wiki/Eternal_September) describes exactly this pattern: a community that starts with high signal-to-noise ratio gradually degrades as the user base expands beyond the original committed core.
+New Honey, If Only submissions go through the current moderation process before publication. Older archive entries may have a different publication history. A current review queue is not evidence that every historical entry went through the same steps.
 
-This is not a trivial problem. It undermines the therapeutic value of the platform for everyone involved. For readers, encountering fake or joke submissions in the middle of genuine confessions breaks the emotional trust that the platform depends on. Research on [parasocial relationships](https://en.wikipedia.org/wiki/Parasocial_interaction) and emotional media engagement shows that the perception of authenticity is central to whether emotional content produces genuine emotional responses in the audience. For writers, submitting to a platform full of fake messages devalues their own submission. You wrote something that cost you emotionally, and your message now sits alongside jokes and spam.
-
-The solution to the real-or-fake problem is moderation, and specifically human moderation. Automated filters can catch spam and profanity, but they cannot evaluate sincerity. They cannot distinguish between a genuine expression of [grief](https://en.wikipedia.org/wiki/Grief) and a performative imitation of one. That judgment requires a human being who reads thousands of submissions and develops an intuition for what is real.
-
-At Honey, If Only, every single submission is reviewed by a human moderator before it appears in the archive. This is not scalable in the way that venture capitalists like. It does not allow for exponential growth. But it is the only way to guarantee authenticity, and authenticity is the only thing that makes an unsent letter archive worth visiting.
-
-The twenty five word limit also serves as a natural authenticity filter. Bots and spammers tend to submit either very short, meaningless fragments or very long, keyword-stuffed blocks of text. Neither pattern fits naturally within a twenty five word constraint. The word limit attracts writers who are willing to invest the effort of crafting something concise and meaningful, and that willingness is itself an indicator of sincerity.
-
-There is another dimension that deserves attention: the rise of AI-generated content. Large language models can now produce text that is virtually indistinguishable from human writing at the surface level. This technology poses a genuine threat to the integrity of every platform that accepts user-generated emotional content. The [MIT Technology Review](https://www.technologyreview.com/2023/02/07/1067928/ai-text-detection-chatgpt-is-extremely-hard/) has documented how difficult it is to reliably detect AI-generated text, even with dedicated detection tools. The best defense is human moderation by people who read enough submissions to develop a sensitivity to the patterns that distinguish genuine emotional writing from synthetic writing. Real grief is specific and messy. It contradicts itself. AI-generated grief is smooth and generic.
-
-So are the letters in unsent letter archives real or fake? On most platforms, they are both. The messages that move you are probably real. The ones that feel generic might not be. And you have no reliable way to tell the difference unless the platform itself takes responsibility for ensuring authenticity through rigorous human moderation. That responsibility is what separates an archive you can trust from one where you are always wondering.`
+Treat posts as anonymous user-submitted writing rather than verified testimony. Do not contact or accuse someone based on a message that resembles your situation. If you see content that exposes private information or appears to violate current site rules, use the [Contact page](/contact) to request review.`
   }
 ];

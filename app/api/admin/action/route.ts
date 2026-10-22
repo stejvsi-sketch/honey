@@ -122,7 +122,7 @@ export async function POST(request: NextRequest) {
         banData.user_uuid = submission.user_uuid;
       }
 
-      await supabase.from('banned_users').upsert(banData as any, { onConflict: 'ip_hash' });
+      await supabase.from('banned_users').upsert(banData, { onConflict: 'ip_hash' });
 
       // ── Bulk-reject: delete ALL pending submissions from the same person ──
       // Strategy: use fingerprint as primary identifier (per-browser, safe for

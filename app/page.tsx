@@ -26,7 +26,7 @@ export default async function HomePage() {
     <>
       <section className="page">
         <div className="page__header">
-          <h1 className="page__title" style={{ fontSize: '1.5rem' }}>Recent Letters</h1>
+          <h1 className="page__title" style={{ fontSize: '1.5rem' }}>Recent Unsent Letters</h1>
         </div>
         <HomeCardGrid memories={memories} />
         <div style={{ textAlign: 'center', marginTop: 40 }}>
@@ -40,7 +40,7 @@ export default async function HomePage() {
       <section className="hero">
         <h2 className="hero__title">The words you couldn&apos;t say.</h2>
         <p className="hero__subtitle">
-          An archive for all the things left unspoken.
+          Read short letters from a public archive, or write one of your own.
         </p>
         <div className="hero__cta">
           <Link href="/write" className="btn">Write a Letter</Link>

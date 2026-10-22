@@ -14,10 +14,10 @@ export default function PrivacyPage() {
     <TrustPage
       eyebrow="Privacy Policy"
       title="Privacy that matches how the archive actually works."
-      subtitle="We collect the minimum information needed to publish anonymous letters, prevent abuse, understand site performance, and comply with advertising and analytics requirements."
-      updated="May 2026"
+      subtitle="We collect information needed to publish letters, prevent abuse, understand site performance, and operate advertising and analytics services. Approved letters are public; optional sender names may be displayed."
+      updated="October 2026"
       highlights={[
-        { label: 'Authors', value: 'Anonymous', detail: 'We do not ask letter authors for an account, profile, or public identity.' },
+        { label: 'Authors', value: 'No account required', detail: 'An optional sender name may appear publicly with an approved letter.' },
         { label: 'Submissions', value: 'Reviewed first', detail: 'Letters are stored for moderation before they can appear publicly.' },
         { label: 'Ads and analytics', value: 'Disclosed here', detail: 'Google services may use cookies and similar identifiers.' },
       ]}
@@ -28,7 +28,7 @@ export default function PrivacyPage() {
             <>
               <p>When you use {SITE_NAME}, we may collect:</p>
               <ul>
-                <li>Letter content, recipient name, selected paper color, and submission time.</li>
+                <li>Letter content, recipient name, optional sender name, selected paper color, and submission time.</li>
                 <li>A generated URL slug for recipient-name pages.</li>
                 <li>A hashed network identifier used for rate limiting, abuse prevention, and moderation.</li>
                 <li>Hashed browser-abuse signals (such as canvas rendering, device and screen attributes, and GPU identifiers) used to detect ban evasion and automated abuse. These signals are processed as a one-way hash and are never used to identify individual users publicly.</li>
@@ -45,7 +45,8 @@ export default function PrivacyPage() {
             <ul>
               <li>We do not require accounts.</li>
               <li>We do not ask submitters for an email address to publish a letter.</li>
-              <li>We do not publish author names, profiles, or contact details.</li>
+              <li>The current submission form has an optional sender-name field. If supplied, that name may appear with an approved letter. Do not enter a name or other identifying detail you do not want shown publicly.</li>
+              <li>Older archive entries may contain names or handles and may have a different publication history from current submissions.</li>
               <li>We do not sell letter submissions or author identities.</li>
             </ul>
           ),

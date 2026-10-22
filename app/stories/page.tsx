@@ -111,7 +111,7 @@ export default function StoriesPage() {
         <div style={{ flex: '1 1 280px', padding: '32px', background: 'rgba(255,255,255,0.4)', borderRadius: 'var(--radius)' }}>
           <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.2rem', marginBottom: '12px' }}>Write a Letter</h3>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '16px', lineHeight: 1.6 }}>
-            Distill your truth into 25 words. Submit it anonymously and let it go.
+            Write a short letter. Approved submissions are public, and an optional sender name may appear.
           </p>
           <Link href="/write" style={{ fontSize: '0.85rem', letterSpacing: '0.05em', textTransform: 'uppercase', color: 'var(--text)', borderBottom: '1px solid var(--text)' }}>
             Write

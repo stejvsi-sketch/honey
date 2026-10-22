@@ -8,6 +8,11 @@ function escapeRegExp(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+const PROTECTED_COMPARISON_SLUGS = new Set([
+  'unsent-project-alternative',
+  'websites-similar-to-the-unsent-project',
+]);
+
 /**
  * Build the ordered set of auto-link rules. Each href is linked at most once per
  * article (first occurrence), so the order here is the priority order.
@@ -149,10 +154,11 @@ function renderInline(text: string, ctx: Ctx): ReactNode[] {
 }
 
 /**
- * Renders journal article body text as real paragraphs with inline markdown
- * (*italics*, **bold**) and a small number of contextual internal links.
+ * Renders article body text as paragraphs and Markdown headings, with inline
+ * markdown (*italics*, **bold**) and contextual internal links.
  */
 export default function JournalContent({ content, slug }: { content: string; slug: string }) {
+  const preserveComparisonRendering = PROTECTED_COMPARISON_SLUGS.has(slug);
   const ctx: Ctx = {
     used: new Set<string>(),
     rules: buildRules(slug),
@@ -164,9 +170,45 @@ export default function JournalContent({ content, slug }: { content: string; slu
 
   return (
     <div style={{ fontSize: '1.05rem', lineHeight: 1.8, color: 'var(--text-muted)' }}>
-      {paragraphs.map((p, i) => (
-        <p key={i} style={{ margin: '0 0 1.5em' }}>{renderInline(p, ctx)}</p>
-      ))}
+      {paragraphs.map((p, i) => {
+        // Keep the two protected comparison pages' existing presentation intact.
+        if (preserveComparisonRendering) {
+          return <p key={i} style={{ margin: '0 0 1.5em' }}>{renderInline(p, ctx)}</p>;
+        }
+        const listItems = p.split('\n');
+        if (listItems.length > 1 && listItems.every(item => item.startsWith('- '))) {
+          return (
+            <ul key={i} style={{ margin: '0 0 1.5em', paddingLeft: '1.5em' }}>
+              {listItems.map((item, itemIndex) => (
+                <li key={itemIndex} style={{ marginBottom: '0.4em' }}>
+                  {renderInline(item.slice(2), ctx)}
+                </li>
+              ))}
+            </ul>
+          );
+        }
+        if (p.startsWith('## ')) {
+          return (
+            <h2 key={i} style={{
+              fontFamily: 'var(--font-serif)', fontSize: '1.55rem', lineHeight: 1.3,
+              color: 'var(--text)', margin: '2.2em 0 0.8em',
+            }}>
+              {p.slice(3).trim()}
+            </h2>
+          );
+        }
+        if (p.startsWith('### ')) {
+          return (
+            <h3 key={i} style={{
+              fontFamily: 'var(--font-serif)', fontSize: '1.2rem', lineHeight: 1.35,
+              color: 'var(--text)', margin: '1.8em 0 0.65em',
+            }}>
+              {p.slice(4).trim()}
+            </h3>
+          );
+        }
+        return <p key={i} style={{ margin: '0 0 1.5em' }}>{renderInline(p, ctx)}</p>;
+      })}
     </div>
   );
 }

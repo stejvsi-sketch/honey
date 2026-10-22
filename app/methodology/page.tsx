@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import TrustPage from '@/components/TrustPage';
-import { SITE_NAME, SITE_URL, EDITOR_NAME } from '@/lib/constants';
+import { SITE_NAME, SITE_URL, EDITOR_BYLINE } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title: 'Methodology',
@@ -15,11 +15,11 @@ export default function MethodologyPage() {
       eyebrow="Methodology"
       title="How everything on this site gets made, reviewed, and published."
       subtitle={`${SITE_NAME} is a one person operation. This page explains exactly how letters are screened, how journal articles are written, who makes the decisions, and how to request corrections or removals.`}
-      updated="July 2026"
+      updated="October 2026"
       highlights={[
-        { label: 'Moderation', value: 'One person, every letter', detail: `${EDITOR_NAME} personally reviews every submission before publication.` },
+        { label: 'Moderation', value: 'Current submissions', detail: 'The site editor reviews submissions made through the current form before publication.' },
         { label: 'Clinical review', value: 'None', detail: 'Journal articles are research informed, not clinically reviewed. This is stated on every article.' },
-        { label: 'Corrections', value: 'Within 48 hours', detail: 'Email a correction and it will be fixed within 48 hours with a public note.' },
+        { label: 'Corrections', value: 'Reviewed by editor', detail: 'Send the article URL and the specific factual concern; response time can vary.' },
       ]}
       sections={[
         {
@@ -28,8 +28,9 @@ export default function MethodologyPage() {
           children: (
             <>
               <p>
-                Every letter submitted through the <Link href="/write">Write a Letter</Link> page goes through
-                two layers of review before it appears publicly.
+                New letters submitted through the <Link href="/write">Write a Letter</Link> page go through
+                automated checks and editor review before publication. Older archive entries may have a different
+                publication history.
               </p>
               <p>
                 <strong>Automated filtering</strong> runs first. The system checks for profanity, enforces the
@@ -38,15 +39,16 @@ export default function MethodologyPage() {
                 automated checks are rejected immediately with an error message.
               </p>
               <p>
-                <strong>Human review</strong> happens next. {EDITOR_NAME} reads every submission that passes
-                automated filtering. He checks for targeted harassment, threats, sexually explicit content,
+                <strong>Human review</strong> happens next. The site editor reads submissions that pass
+                automated filtering. The editor checks for targeted harassment, threats, sexually explicit content,
                 personal information (full names, addresses, phone numbers, social handles), impersonation, and
-                anything that could endanger the person named in the letter. Letters that pass are approved and
-                appear in the archive. Letters that don&apos;t are rejected and never published.
+                anything that could endanger the person named in the letter. Current submissions that pass are
+                approved for publication; those that fail are rejected. This describes the current workflow and
+                does not establish the publication history of older archive material.
               </p>
               <p>
-                There is no algorithm that decides what gets published. There is no editorial team that votes.
-                One person reads every letter and makes the call.
+                Automated checks help screen current submissions, but the editor makes the publication decision.
+                There is no editorial team that votes.
               </p>
             </>
           ),
@@ -56,7 +58,7 @@ export default function MethodologyPage() {
           eyebrow: 'Rejection criteria',
           children: (
             <>
-              <p>A letter is rejected if it contains any of the following:</p>
+              <p>A current submission may be rejected if it contains any of the following:</p>
               <ul>
                 <li>Threats of violence, self harm encouragement, or suicide goading</li>
                 <li>Sexually explicit or pornographic language</li>
@@ -80,13 +82,14 @@ export default function MethodologyPage() {
           children: (
             <>
               <p>
-                {EDITOR_NAME} writes all journal articles. The process is straightforward: he picks a topic
+                The editor publishing under {EDITOR_BYLINE} writes the journal essays. The process is straightforward: the editor picks a topic
                 (usually related to heartbreak, grief, closure, or the psychology of communication), reads
                 published research and established psychology literature on that topic, and writes a long form
                 essay exploring it through the lens of unsent letters and unspoken words.
               </p>
               <p>
-                The articles are <strong>research informed personal essays</strong>. They reference publicly
+                These essays are <strong>research informed personal essays</strong>. Separate practical guides
+                may be published under the Honey, If Only site byline. The essays reference publicly
                 available studies and widely discussed psychological concepts, but they are not peer reviewed,
                 clinically supervised, or written by a licensed mental health professional. Every article that
                 touches on psychological topics carries a disclaimer stating this explicitly.
@@ -104,7 +107,7 @@ export default function MethodologyPage() {
           eyebrow: 'Decision authority',
           children: (
             <p>
-              All decisions on {SITE_NAME} are made by <strong>{EDITOR_NAME}</strong>, the site&apos;s founder and
+              All decisions on {SITE_NAME} are made by <strong>the site editor</strong>, the project&apos;s founder and
               sole editor. This includes which letters get published, what journal topics are covered, how the
               site is designed, and how removal requests are handled. There is no editorial board, advisory
               panel, or review committee. This is an independent project run by one person.
@@ -119,8 +122,8 @@ export default function MethodologyPage() {
               <p>
                 If you find a factual error in any journal article, email{' '}
                 <a href="mailto:ifonlyisentthis@gmail.com">ifonlyisentthis@gmail.com</a> with the article URL
-                and the specific error. Corrections are made within 48 hours. A correction note is added to the
-                bottom of the article explaining what was changed and when.
+                and the specific error. The editor reviews correction requests and may add a note to the article
+                when a factual correction is made. Response time can vary.
               </p>
               <p>
                 Opinions, framing choices, and editorial perspectives are not treated as factual errors. If you
@@ -138,13 +141,12 @@ export default function MethodologyPage() {
               <p>
                 If a letter references you, contains your personal information, or makes you feel unsafe,
                 email <a href="mailto:ifonlyisentthis@gmail.com">ifonlyisentthis@gmail.com</a> with the
-                letter URL. {EDITOR_NAME} reviews every removal request personally.
+                letter URL. The site editor reviews every removal request personally.
               </p>
               <p>
-                Removal requests are handled within 48 hours. If the letter violates moderation standards, it
-                is removed immediately. If it does not technically violate any rules but you still feel
-                uncomfortable, the request is still taken seriously and evaluated on a case by case basis.
-                Safety and privacy take priority over keeping content published.
+                Requests are reviewed under the current moderation and privacy rules. Response time can vary, and
+                contacting the site does not guarantee removal. If you are concerned about private information or
+                safety, include those details so the editor can assess the request.
               </p>
             </>
           ),
@@ -155,9 +157,7 @@ export default function MethodologyPage() {
           children: (
             <>
               <p>
-                Advertisements are never displayed alongside unreviewed or pending content. Ads only appear on
-                pages where all visible content has been reviewed and approved. Ads do not appear on legal pages,
-                the submission form, or any content flagged for re-review.
+                Advertising eligibility and placement can depend on vendor settings and automated systems. The current submission review process does not establish the publication history of older archive material or guarantee where an ad may appear.
               </p>
               <p>
                 Ad revenue supports the cost of hosting, domain registration, and the time spent moderating
@@ -169,7 +169,7 @@ export default function MethodologyPage() {
         },
       ]}
       relatedLinks={[
-        { href: '/author', label: 'About the Editor', description: `Who ${EDITOR_NAME} is and why he built this site.` },
+        { href: '/author', label: 'About the Editor', description: `How ${SITE_NAME} is run and how editorial decisions are made.` },
         { href: '/moderation', label: 'Moderation Policy', description: 'The full moderation standards and blocked content categories.' },
         { href: '/contact', label: 'Contact', description: 'Report errors, request removals, or ask questions.' },
       ]}

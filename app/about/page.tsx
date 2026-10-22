@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import TrustPage from '@/components/TrustPage';
-import { SITE_NAME, SITE_URL, EDITOR_NAME, EDITOR_BIO } from '@/lib/constants';
+import { SITE_NAME, SITE_URL, EDITOR_BYLINE, EDITOR_BIO } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title: 'How It Works',
-  description: `Learn how ${SITE_NAME} publishes anonymous unsent letters with moderation, privacy, and clear community safeguards.`,
+  description: `Learn how ${SITE_NAME} reviews new unsent letters, what may appear publicly, and how its archive works.`,
   alternates: { canonical: `${SITE_URL}/about` },
 };
 
@@ -14,11 +14,11 @@ export default function AboutPage() {
     <TrustPage
       eyebrow="How it works"
       title="A careful home for the words people never sent."
-      subtitle={`${SITE_NAME} is an anonymous archive of short unsent letters. Every submission is reviewed before publication so the site stays human, original, and safe to browse.`}
+      subtitle={`${SITE_NAME} is a public archive of short unsent letters. New letters submitted through the current form are reviewed before publication; no account is required, and an optional sender name may appear.`}
       highlights={[
         { label: 'Format', value: '25 words', detail: 'Short letters keep the archive intimate and easy to read.' },
-        { label: 'Review', value: 'Human moderation', detail: 'Submissions are checked before they appear publicly.' },
-        { label: 'Identity', value: 'Anonymous by design', detail: 'We do not publish author names, emails, or profiles.' },
+        { label: 'Review', value: 'Current form submissions', detail: 'New submissions are reviewed before publication; older archive material may have a different history.' },
+        { label: 'Identity', value: 'No account required', detail: 'An optional sender name may appear publicly if supplied. Avoid details you do not want published.' },
       ]}
       sections={[
         {
@@ -38,7 +38,7 @@ export default function AboutPage() {
           ),
         },
         {
-          title: 'We review every submission',
+          title: 'Current submission review',
           eyebrow: 'Safety',
           children: (
             <>
@@ -96,9 +96,8 @@ export default function AboutPage() {
           children: (
             <>
               <p>
-                <strong><Link href="/author">{EDITOR_NAME}</Link></strong> is the founder and sole editor of {SITE_NAME}. He reviews every
-                letter submitted to the archive, writes all journal content, and maintains
-                the site as an independent creator. For more on the editorial process, see the{' '}
+                <strong><Link href="/author">{EDITOR_BYLINE}</Link></strong> is the site&apos;s editorial byline. One editor reviews
+                submissions and maintains {SITE_NAME} as an independent project. For more on the editorial process, see the{' '}
                 <Link href="/methodology">Methodology</Link> page.
               </p>
               <p>{EDITOR_BIO}</p>

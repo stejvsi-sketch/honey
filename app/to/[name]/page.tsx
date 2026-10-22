@@ -20,7 +20,7 @@ export async function generateMetadata(props: { params: Promise<{ name: string }
 
   return {
     title: `Unsent Letters and Messages to ${displayName}`,
-    description: `Read ${total} anonymous unsent letters, messages, and texts to ${displayName}. Unspoken words, love letters and messages never sent, things I never said to ${displayName}, and 25-word secrets.`,
+    description: `Browse ${total} public unsent letters, messages, and texts addressed to ${displayName}. Optional sender names may appear with approved submissions.`,
     keywords: [
       `unsent letters to ${displayName}`,
       `unsent message to ${displayName}`,
@@ -36,7 +36,7 @@ export async function generateMetadata(props: { params: Promise<{ name: string }
     alternates: { canonical: canonicalUrl },
     openGraph: {
       title: `Unsent Letters and Messages to ${displayName}`,
-      description: `Read anonymous unsent letters, messages, and texts addressed to ${displayName}. Words that were never said.`,
+      description: `Browse public unsent letters, messages, and texts addressed to ${displayName}.`,
       url: canonicalUrl,
     },
     ...(shouldIndex ? { robots: { index: true, follow: true } } : { robots: { index: false, follow: true } }),
@@ -58,7 +58,7 @@ export default async function NamePage(props: {
         "@type": "CollectionPage",
         "name": `Unsent Letters, Messages, and Texts to ${displayName}`,
         "url": canonicalUrl,
-        "description": `An archive of ${total} anonymous unsent letters, messages, and texts addressed to ${displayName}. Love letters and messages never sent, things never said, and unspoken words.`,
+        "description": `A public archive of ${total} unsent letters, messages, and texts addressed to ${displayName}.`,
         "about": {
           "@type": "Person",
           "name": displayName,
@@ -79,7 +79,6 @@ export default async function NamePage(props: {
             "genre": "unsent letter",
             "inLanguage": "en",
             "datePublished": memory.created_at,
-            "author": { "@type": "Person", "name": "Anonymous" },
             "about": { "@type": "Person", "name": displayName, "url": canonicalUrl }
           }
         }))
@@ -110,9 +109,7 @@ export default async function NamePage(props: {
       <div className="page__header" style={{ marginBottom: '48px' }}>
         <h1 className="page__title">Unsent Letters, Messages, and Texts to {displayName}</h1>
         <p className="page__subtitle" style={{ maxWidth: '700px', margin: '0 auto', lineHeight: 1.6, fontSize: '0.95rem' }}>
-          Explore the archive of {total} anonymous, unsent {total === 1 ? 'letter' : 'letters'}, messages, and texts addressed to {displayName}.
-          Love letters never sent, things never said, unspoken words, and 25-word secrets about
-          unresolved heartbreak, unspoken gratitude, and late-night longing. What was left unsaid?
+          Browse {total} public, user-submitted {total === 1 ? 'letter' : 'letters'} addressed to {displayName}. This name is a search label, not proof that a message refers to a particular person. An optional sender name may appear if supplied.
         </p>
       </div>
       <NameArchive key={name} nameSlug={name} displayName={displayName} initialTotal={total} initialMemories={initialMemories} />

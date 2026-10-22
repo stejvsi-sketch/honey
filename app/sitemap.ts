@@ -4,14 +4,17 @@ import { JOURNAL_POSTS } from '@/lib/journal-data';
 import { STORIES } from '@/lib/stories';
 import { COLLECTIONS } from '@/lib/collections-data';
 
-// Helper: parse a "Month YYYY" date string into a Date (1st of the month)
+// Keep the prior metadata for the two comparison pages intact.
+const protectedComparisonSlugs = new Set([
+  'unsent-project-alternative',
+  'websites-similar-to-the-unsent-project',
+]);
+
 function parseMonthDate(dateStr: string): Date | undefined {
   const parsed = Date.parse(dateStr + ' 1');
   return isNaN(parsed) ? undefined : new Date(parsed);
 }
 
-// Site launch date — used as the "last modified" for static pages
-// that haven't changed since deployment
 const SITE_LAUNCH = new Date('2026-05-15');
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -23,6 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/write', changeFrequency: 'monthly' as const, priority: 0.8 },
     { path: '/about', changeFrequency: 'monthly' as const, priority: 0.6 },
     { path: '/journal', changeFrequency: 'weekly' as const, priority: 0.7 },
+    { path: '/journal/topics', changeFrequency: 'weekly' as const, priority: 0.6 },
     { path: '/stories', changeFrequency: 'weekly' as const, priority: 0.7 },
     { path: '/terms', changeFrequency: 'monthly' as const, priority: 0.3 },
     { path: '/privacy', changeFrequency: 'monthly' as const, priority: 0.3 },
@@ -38,7 +42,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticEntries: MetadataRoute.Sitemap = staticPages.map(({ path, changeFrequency, priority }) => ({
     url: `${SITE_URL}${path}`,
-    lastModified: SITE_LAUNCH,
     changeFrequency,
     priority,
   }));
@@ -70,29 +73,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  // Journal article pages — use post date
-  const journalEntries: MetadataRoute.Sitemap = JOURNAL_POSTS
-    .map(post => ({
-      url: `${SITE_URL}/journal/${post.slug}`,
-      lastModified: parseMonthDate(post.date) || SITE_LAUNCH,
-      changeFrequency: 'yearly' as const,
-      priority: 0.7,
-    }));
+  // The source data only stores month-level publication dates and no verified
+  // modification dates. Omit lastModified rather than publishing false dates.
+  const journalEntries: MetadataRoute.Sitemap = JOURNAL_POSTS.map(post => ({
+    url: `${SITE_URL}/journal/${post.slug}`,
+    ...(protectedComparisonSlugs.has(post.slug)
+      ? { lastModified: parseMonthDate(post.date) || SITE_LAUNCH }
+      : {}),
+    changeFrequency: 'yearly' as const,
+    priority: 0.7,
+  }));
 
-  // Story pages — use story date
+  // Story data also stores month-level dates only.
   const storyEntries: MetadataRoute.Sitemap = [];
   for (const story of STORIES) {
-    const storyDate = parseMonthDate(story.date) || SITE_LAUNCH;
     storyEntries.push({
       url: `${SITE_URL}/stories/${story.slug}`,
-      lastModified: storyDate,
       changeFrequency: 'yearly',
       priority: 0.8,
     });
     for (const chapter of story.chapters) {
       storyEntries.push({
         url: `${SITE_URL}/stories/${story.slug}/${chapter.number}`,
-        lastModified: storyDate,
         changeFrequency: 'yearly',
         priority: 0.7,
       });
@@ -102,7 +104,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Collection pages — keyword-based curated archives
   const collectionEntries: MetadataRoute.Sitemap = COLLECTIONS.map(collection => ({
     url: `${SITE_URL}/collections/${collection.slug}`,
-    lastModified: new Date(),
     changeFrequency: 'weekly' as const,
     priority: 0.8,
   }));

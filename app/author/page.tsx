@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import TrustPage from '@/components/TrustPage';
-import { SITE_NAME, SITE_URL, EDITOR_NAME } from '@/lib/constants';
+import { SITE_NAME, SITE_URL } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: `${EDITOR_NAME} — Founder & Editor`,
-  description: `About ${EDITOR_NAME}, computer science engineer, songwriter, and the founder and sole editor of ${SITE_NAME}.`,
+  title: `About the Editor — ${SITE_NAME}`,
+  description: `Learn how ${SITE_NAME} is run, how submissions are moderated, and how editorial content is prepared.`,
   alternates: { canonical: `${SITE_URL}/author` },
 };
 
@@ -12,11 +13,11 @@ export default function AuthorPage() {
   return (
     <TrustPage
       eyebrow="Founder & Editor"
-      title={EDITOR_NAME}
-      subtitle={`Independent creator, computer science engineer, and the sole editor behind ${SITE_NAME}.`}
+      title="The editor behind the archive"
+      subtitle={`An independent project operated by one editor, with clear moderation and editorial responsibilities.`}
       highlights={[
-        { label: 'Role', value: 'Founder & sole editor', detail: 'Built the archive from scratch and reviews every submission personally.' },
-        { label: 'Background', value: 'CS engineer & songwriter', detail: 'B.Tech in Computer Science. Released music on Spotify, Apple Music, and other platforms.' },
+        { label: 'Role', value: 'Founder & sole editor', detail: 'Runs current submission moderation, journal content, and site maintenance.' },
+        { label: 'Editorial scope', value: 'Moderation & publishing', detail: 'Responsible for submissions, moderation, journal content, and site maintenance.' },
         { label: 'Contact', value: 'ifonlyisentthis@gmail.com', detail: 'For corrections, removals, questions, or collaboration.' },
       ]}
       sections={[
@@ -26,16 +27,15 @@ export default function AuthorPage() {
           children: (
             <>
               <p>
-                I&apos;m <strong>Tejasvi Sharma</strong>, a computer science engineer (B.Tech, CS) who writes
-                songs and builds things on the internet. My released tracks include <em>Blurred Lines of Longing</em>,{' '}
-                <em>Diwali Night</em>, and <em>I Wish I Could Hate You</em>, available on Spotify and Apple Music.
-                I also built <em>Afterword</em>, a digital vault app for encrypted messages and legacy delivery.
+                {SITE_NAME} is an independent project operated by one editor. This page describes the editor&apos;s
+                responsibilities without publishing personal identifiers or unrelated personal projects.
               </p>
               <p>
-                {SITE_NAME} started as a personal project. I wanted to build a space where people could write the
-                words they never sent and have them exist somewhere real, not as a draft in their notes app, but
-                as part of something bigger. The 25 word constraint forces honesty. The anonymity removes fear.
-                The human review keeps it safe.
+                {SITE_NAME} started as a personal project for people who want to put unsent words into a short
+                written form. The 25-word limit is a format choice, not a measure of how honest or meaningful a
+                message is. No account is required, but approved submissions are public; the optional sender name
+                may be displayed. New submissions are reviewed under the current rules, but review is not identity
+                verification, and older archive entries may have a different publication history.
               </p>
             </>
           ),
@@ -47,14 +47,15 @@ export default function AuthorPage() {
             <>
               <p>
                 I am the only person who runs {SITE_NAME}. There is no editorial board, no review committee, and
-                no team. Every letter submitted to the archive passes through my moderation queue before it
-                appears publicly. I read each one.
+                no team. New letters submitted through the current form pass through the moderation queue before
+                publication. This describes the current process; older archive material may have a different publication history.
               </p>
               <p>
-                I write all of the journal essays. These are personal, research informed pieces about grief,
+                The editor writes the journal essays. These are personal, research informed pieces about grief,
                 heartbreak, closure, and the psychology of unspoken words. They draw on publicly available
-                research and widely discussed psychological frameworks, not clinical expertise. I am not a
-                licensed therapist or psychologist, and the journal does not offer clinical advice.
+                research and widely discussed psychological frameworks, not clinical expertise. Practical
+                guides about the site and writing formats may also appear under the Honey, If Only byline.
+                I am not a licensed therapist or psychologist, and the journal does not offer clinical advice.
               </p>
             </>
           ),
@@ -65,16 +66,15 @@ export default function AuthorPage() {
           children: (
             <>
               <p>
-                Journal articles go through a straightforward process. I research the topic using published
-                studies, established psychology literature, and credible reporting. I write the essay, review
-                it for accuracy, and publish it. No article on this site has been reviewed by a licensed
+                Journal essays may draw on published studies, established psychology literature, and
+                credible reporting, with sources identified where relevant. Site guides may be published
+                under the Honey, If Only byline. No article on this site has been reviewed by a licensed
                 mental health professional unless explicitly stated on the article itself.
               </p>
               <p>
-                If an article contains a factual error, I want to know about it. Email me at{' '}
-                <a href="mailto:ifonlyisentthis@gmail.com">ifonlyisentthis@gmail.com</a> with the article
-                URL and the correction. I will fix it within 48 hours and add a correction note at the
-                bottom of the article.
+                If an article contains a factual error, report it through the{' '}
+                <Link href="/contact">contact page</Link> with the article URL and the correction. The editor
+                reviews correction requests and adds a note when a published article needs correction.
               </p>
             </>
           ),
@@ -84,11 +84,8 @@ export default function AuthorPage() {
           eyebrow: 'Philosophy',
           children: (
             <p>
-              Most of the apps I build sit at the intersection of technology and emotion. Afterword stores
-              the things you want delivered after you&apos;re gone. My songs explore longing and memory.{' '}
-              {SITE_NAME} holds the words people couldn&apos;t say while they were still in the room with
-              the person who needed to hear them. The common thread is the same: some feelings are too
-              heavy for a conversation but too important to disappear.
+              {SITE_NAME} gives people a place to write words they do not plan to send. Its focus is a simple
+              one: some feelings are too heavy for a conversation but too important to disappear.
             </p>
           ),
         },
@@ -96,7 +93,7 @@ export default function AuthorPage() {
       relatedLinks={[
         { href: '/methodology', label: 'Methodology', description: 'How letters are screened and articles are written.' },
         { href: '/journal', label: 'Journal', description: 'Essays on heartbreak, grief, and the words left unsaid.' },
-        { href: '/contact', label: 'Contact', description: 'Reach me for corrections, removals, or questions.' },
+        { href: '/contact', label: 'Contact', description: 'Reach the site editor for corrections, removals, or questions.' },
       ]}
     />
   );
