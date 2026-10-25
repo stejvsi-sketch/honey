@@ -14,6 +14,9 @@ export default function DesktopCard({ memory }: { memory: Memory }) {
   const hex = color?.hex || '#f5e6d0';
   const pinned = isPinned(memory);
   const displayName = formatSubmittedName(memory.name);
+  const needsFrontHeaderSpace = memory.message.length > 120
+    || displayName.length > 24
+    || (memory.from_name?.length ?? 0) > 24;
 
   return (
     <div className="memory-card card-animate" style={{ maxWidth: 480, ...getPaperTextureStyle(memory.paper_id) }}>
@@ -31,7 +34,7 @@ export default function DesktopCard({ memory }: { memory: Memory }) {
         <div className="memory-card__color" style={{ backgroundColor: hex }} />
         <div className="memory-card__texture" />
       </div>
-      <div className="memory-card__content">
+      <div className={`memory-card__content${needsFrontHeaderSpace ? ' memory-card__content--long' : ''}`}>
         <div className="memory-card__header">
           <span className="memory-card__brand">{SITE_NAME.toLowerCase()}</span>
         </div>

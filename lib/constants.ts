@@ -49,6 +49,14 @@ export const HARD_BANNED_WORDS = [
   'bitch', 'bitches', 'bitchy',
   'fatty', 'fatass', 'skank', 'tramp', 'thot', 'hoe',
   'dyke', 'troon',
+  // Explicit profanity and common inflections (whole-word matching avoids
+  // rejecting longer, unrelated words that merely contain the same letters).
+  'cunts', 'cunty', 'twats', 'wankers', 'motherfucker', 'motherfuckers',
+  'fuckwit', 'fuckwits', 'fuckhead', 'fuckheads', 'shithead', 'shitheads',
+  'shitbag', 'shitbags', 'assholes', 'arsehole', 'arseholes', 'douchebag',
+  'douchebags', 'asshole',
+  'fuck', 'fucking', 'fucked', 'fucker', 'fuckers', 'fucks',
+  'shit', 'shitty', 'shitting', 'bullshit',
   // Self-harm goading and suicide
   'kill yourself', 'kys', 'incel', 'tranny',
   'kill myself', 'kill me', 'want to die', 'wanna die',
@@ -64,9 +72,7 @@ export const HARD_BANNED_WORDS = [
 
 // Soft-profanity words (allowed up to 30% of total words)
 export const SOFT_PROFANITY_WORDS = [
-  'fuck', 'fucking', 'fucked', 'fucker', 'fucks',
-  'shit', 'shitty', 'shitting', 'bullshit',
-  'ass', 'asshole', 'asses',
+  'ass', 'asses',
   'damn', 'damned', 'dammit',
   'hell',
   'bastard', 'bastards', 'crap', 'crappy',

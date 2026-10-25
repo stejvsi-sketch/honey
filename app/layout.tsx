@@ -23,6 +23,7 @@ const caveat = Caveat({
   variable: '--font-handwriting',
   display: 'swap',
   weight: ['400', '500', '600'],
+  preload: false,
 });
 
 export const metadata: Metadata = {

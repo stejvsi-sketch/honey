@@ -25,7 +25,6 @@ type PaperTextureStyle = CSSProperties & {
   '--paper-brand-top'?: string;
   '--paper-brand-shift-x'?: string;
   '--paper-brand-shift-y'?: string;
-  '--paper-content-top'?: string;
   '--paper-copy-width'?: string;
   '--paper-table-copy-width'?: string;
   '--paper-art-inset-x'?: string;
@@ -34,19 +33,18 @@ type PaperTextureStyle = CSSProperties & {
 
 const PAPER_CARD_LAYOUT: Partial<Record<PaperId, {
   brandTop: string;
-  contentTop: string;
   copyWidth?: string;
   tableCopyWidth?: string;
   brandShiftX?: string;
   brandShiftY?: string;
 }>> = {
-  'aged-torn-stack': { brandTop: '10%', contentTop: '6.25rem' },
-  'rough-rice-paper': { brandTop: '9%', contentTop: '6rem' },
+  'aged-torn-stack': { brandTop: '10%' },
+  'rough-rice-paper': { brandTop: '9%' },
   'torn-green-rough': {
-    brandTop: '8%', contentTop: '5.75rem', copyWidth: '90%',
+    brandTop: '8%', copyWidth: '90%',
   },
-  'vintage-torn-pieces': { brandTop: '10%', contentTop: '6.25rem', brandShiftY: '2px' },
-  'worn-aged-paring': { brandTop: '8%', contentTop: '5.5rem' },
+  'vintage-torn-pieces': { brandTop: '10%', brandShiftY: '2px' },
+  'worn-aged-paring': { brandTop: '8%' },
 };
 
 /** Unknown or retired paper IDs render as the original default design. */
@@ -64,7 +62,6 @@ export function getPaperTextureStyle(paperId?: string | null): PaperTextureStyle
     ...(effectivePaperId != null && cardLayout
       ? {
           '--paper-brand-top': cardLayout.brandTop,
-          '--paper-content-top': cardLayout.contentTop,
           ...(cardLayout.brandShiftX ? { '--paper-brand-shift-x': cardLayout.brandShiftX } : {}),
           ...(cardLayout.brandShiftY ? { '--paper-brand-shift-y': cardLayout.brandShiftY } : {}),
           ...(cardLayout.copyWidth ? { '--paper-copy-width': cardLayout.copyWidth } : {}),

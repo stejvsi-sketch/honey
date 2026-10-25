@@ -20,7 +20,8 @@ export function checkProfanity(text: string): ProfanityCheckResult {
     }
   }
 
-  // Check soft profanity ratio (max 30%)
+  // Hard-banned profanity and slurs are rejected above. Keep the ratio check
+  // for milder expressions so a little frustration is not treated like abuse.
   if (words.length > 0) {
     let profanityCount = 0;
     for (const word of words) {

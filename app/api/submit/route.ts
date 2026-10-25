@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { submitMemorySchema, sanitizeText, hashIP, generateNameSlug, generateUUID } from '@/lib/validation';
 import { checkProfanity } from '@/lib/profanity';
+import { checkEnglishText } from '@/lib/english-check';
 import { getRatelimit } from '@/lib/redis';
 
 
@@ -69,6 +70,11 @@ export async function POST(request: NextRequest) {
     const cleanName = sanitizeText(name);
     const cleanMessage = sanitizeText(message);
 
+    const englishCheck = checkEnglishText(cleanMessage);
+    if (!englishCheck.passed) {
+      return NextResponse.json({ error: englishCheck.reason }, { status: 400 });
+    }
+
     // Profanity check
     const nameCheck = checkProfanity(cleanName);
     if (!nameCheck.passed) {
@@ -91,6 +97,10 @@ export async function POST(request: NextRequest) {
     // Sanitize and check wish_reply (only if provided)
     const cleanWishReply = wish_reply ? sanitizeText(wish_reply) : null;
     if (cleanWishReply) {
+      const replyEnglishCheck = checkEnglishText(cleanWishReply);
+      if (!replyEnglishCheck.passed) {
+        return NextResponse.json({ error: replyEnglishCheck.reason }, { status: 400 });
+      }
       const wishReplyCheck = checkProfanity(cleanWishReply);
       if (!wishReplyCheck.passed) {
         return NextResponse.json({ error: wishReplyCheck.reason }, { status: 400 });

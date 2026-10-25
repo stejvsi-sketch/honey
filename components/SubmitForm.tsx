@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback, useEffect, type CSSProperties } from 'react';
 import { CARD_COLORS, MAX_WORDS } from '@/lib/constants';
 import { getBrowserFingerprint } from '@/lib/fingerprint';
+import { checkEnglishText } from '@/lib/english-check';
 import { DEFAULT_PAPER, DEFAULT_PAPER_ID, PAPER_DESIGNS, getPaperTextureStyle, type PaperId } from '@/lib/paper-textures';
 
 export default function SubmitForm() {
@@ -61,6 +62,9 @@ export default function SubmitForm() {
   const hasLongWord = words.some(w => w.length > 20);
   const wishReplyWords = wishReply.trim().split(/\s+/).filter(w => w.length > 0);
   const wishReplyOverLimit = wishReply.trim().length > 0 && wishReplyWords.length > maxWords;
+  const messageLanguageCheck = checkEnglishText(message);
+  const replyLanguageCheck = checkEnglishText(wishReply);
+  const hasNonEnglishText = !messageLanguageCheck.passed || !replyLanguageCheck.passed;
 
   // Generate a unique idempotency key per submission attempt
   const generateIdempotencyKey = useCallback(() => {
@@ -72,7 +76,7 @@ export default function SubmitForm() {
 
     // Hard lock: if already submitting, bail immediately
     if (submitLockRef.current) return;
-    if (isOverLimit || hasLongWord || wishReplyOverLimit || !name.trim() || !message.trim()) return;
+    if (isOverLimit || hasLongWord || wishReplyOverLimit || hasNonEnglishText || !name.trim() || !message.trim()) return;
 
     // Acquire the lock
     submitLockRef.current = true;
@@ -186,6 +190,8 @@ export default function SubmitForm() {
         <p className={`form__word-count ${isOverLimit ? 'form__word-count--over' : ''}`}>
           {wordCount} / {maxWords} words
         </p>
+        <p className="form__hint">Please write in English.</p>
+        {!messageLanguageCheck.passed && <p className="form__error">{messageLanguageCheck.reason}</p>}
         {hasLongWord && (
           <p className="form__error">Each word must be 20 characters or less.</p>
         )}
@@ -205,6 +211,7 @@ export default function SubmitForm() {
             {wishReplyWords.length} / {maxWords} words
           </p>
         )}
+        {!replyLanguageCheck.passed && <p className="form__error">{replyLanguageCheck.reason}</p>}
         <p className="form__hint">Tap the card to see the other side. This is what you wish they&apos;d say.</p>
       </div>
 
@@ -241,7 +248,7 @@ export default function SubmitForm() {
 
       {errorMsg && <p className="form__error">{errorMsg}</p>}
 
-      <button className="btn" type="submit" disabled={status === 'submitting' || isOverLimit || hasLongWord || wishReplyOverLimit || !name.trim() || !message.trim()}>
+      <button className="btn" type="submit" disabled={status === 'submitting' || isOverLimit || hasLongWord || wishReplyOverLimit || hasNonEnglishText || !name.trim() || !message.trim()}>
         {status === 'submitting' ? 'Sending...' : 'Send This Letter'}
       </button>
       <p className="form__hint" style={{ textAlign: 'center', marginTop: 12 }}>

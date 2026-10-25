@@ -573,7 +573,7 @@ a:hover { color: var(--accent-hover); }
 .footer__link:hover { color: var(--text-muted); }
 .footer__copy {
   font-size: 0.7rem; 
-  color: rgba(92, 85, 77, 0.7);
+  color: var(--text-light);
   line-height: 1.6;
 }
 .footer__author {

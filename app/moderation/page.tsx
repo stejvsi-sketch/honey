@@ -64,8 +64,9 @@ export default function ModerationPage() {
             <>
               <p>The following categories are not accepted through the current submission process. Older archive entries may have a different publication history.</p>
               <ul>
+                <li>Submissions not written in English</li>
                 <li>Threats of violence, self-harm encouragement, or suicide goading</li>
-                <li>Sexually explicit or pornographic language</li>
+                <li>Explicit profanity, sexually explicit or pornographic language</li>
                 <li>Racial slurs, homophobic slurs, or derogatory language</li>
                 <li>Full names, addresses, phone numbers, or other identifying information</li>
                 <li>Spam, advertising, or promotional links</li>

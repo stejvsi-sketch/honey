@@ -60,8 +60,9 @@ export default function MethodologyPage() {
             <>
               <p>A current submission may be rejected if it contains any of the following:</p>
               <ul>
+                <li>Submissions not written in English</li>
                 <li>Threats of violence, self harm encouragement, or suicide goading</li>
-                <li>Sexually explicit or pornographic language</li>
+                <li>Explicit profanity, sexually explicit or pornographic language</li>
                 <li>Racial slurs, homophobic slurs, or derogatory language targeting identity</li>
                 <li>Full names, addresses, phone numbers, or social media handles</li>
                 <li>Spam, advertising, promotional content, or links</li>
