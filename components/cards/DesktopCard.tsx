@@ -38,8 +38,7 @@ export default function DesktopCard({ memory }: { memory: Memory }) {
         <div className="memory-card__header">
           <span className="memory-card__brand">{SITE_NAME.toLowerCase()}</span>
         </div>
-        <Link href={`/to/${memory.slug}`} className="memory-card__name"
-          onClick={(e) => e.stopPropagation()}>
+        <Link href={`/to/${memory.slug}`} className="memory-card__name">
           To {displayName}
         </Link>
         <Link href={`/letter/${memory.id}`} className="memory-card__message"
