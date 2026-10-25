@@ -1,9 +1,9 @@
 import { z } from 'zod';
-import { CARD_COLORS, MAX_NAME_LENGTH, MAX_MESSAGE_LENGTH } from './constants';
-import { DEFAULT_PAPER_ID, getPaperWordLimit, PAPER_DESIGNS } from './paper-textures';
+import { CARD_COLORS, MAX_NAME_LENGTH, MAX_MESSAGE_LENGTH, MAX_WORDS } from './constants';
+import { DEFAULT_PAPER_ID, PAPER_DESIGNS } from './paper-textures';
 
 const validColorIds = CARD_COLORS.map(c => c.id) as [string, ...string[]];
-const validPaperIds = PAPER_DESIGNS.map(paper => paper.id) as [string, ...string[]];
+const validPaperIds = [DEFAULT_PAPER_ID, ...PAPER_DESIGNS.map(paper => paper.id)] as [string, ...string[]];
 
 export const submitMemorySchema = z.object({
   name: z
@@ -42,7 +42,7 @@ export const submitMemorySchema = z.object({
     .optional()
     .transform(val => (val && val.length > 0 ? val : undefined)),
 }).superRefine((data, ctx) => {
-  const maxWords = getPaperWordLimit(data.paper_id);
+  const maxWords = MAX_WORDS;
   const messageWordCount = data.message.split(/\s+/).filter(word => word.length > 0).length;
   if (messageWordCount > maxWords) {
     ctx.addIssue({

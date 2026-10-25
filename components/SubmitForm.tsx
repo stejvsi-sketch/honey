@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useRef, useCallback, useEffect, type CSSProperties } from 'react';
-import { CARD_COLORS } from '@/lib/constants';
+import { CARD_COLORS, MAX_WORDS } from '@/lib/constants';
 import { getBrowserFingerprint } from '@/lib/fingerprint';
-import { DEFAULT_PAPER_ID, PAPER_DESIGNS, getPaperTextureStyle, getPaperWordLimit, type PaperId } from '@/lib/paper-textures';
+import { DEFAULT_PAPER, DEFAULT_PAPER_ID, PAPER_DESIGNS, getPaperTextureStyle, type PaperId } from '@/lib/paper-textures';
 
 export default function SubmitForm() {
   const [name, setName] = useState('');
@@ -14,7 +14,7 @@ export default function SubmitForm() {
   const [paperId, setPaperId] = useState<PaperId>(DEFAULT_PAPER_ID);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
-  const selectedPaper = PAPER_DESIGNS.find(paper => paper.id === paperId) ?? PAPER_DESIGNS[0];
+  const selectedPaper = PAPER_DESIGNS.find(paper => paper.id === paperId) ?? DEFAULT_PAPER;
 
   function renderPaperChoice(paper: (typeof PAPER_DESIGNS)[number]) {
     return (
@@ -56,7 +56,7 @@ export default function SubmitForm() {
 
   const words = message.trim().split(/\s+/).filter(w => w.length > 0);
   const wordCount = words.length;
-  const maxWords = getPaperWordLimit(paperId);
+  const maxWords = MAX_WORDS;
   const isOverLimit = wordCount > maxWords;
   const hasLongWord = words.some(w => w.length > 20);
   const wishReplyWords = wishReply.trim().split(/\s+/).filter(w => w.length > 0);

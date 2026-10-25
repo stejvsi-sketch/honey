@@ -1,25 +1,21 @@
 import type { CSSProperties } from 'react';
-import { MAX_WORDS } from './constants';
+
+export const DEFAULT_PAPER = {
+  id: 'rough-paper', name: 'Classic paper',
+  image: 'rough-paper.webp', preview: 'rough-paper.webp', mask: 'rough-paper.webp',
+} as const;
 
 export const PAPER_DESIGNS = [
-  { id: 'rough-paper', name: 'Classic paper', image: 'rough-paper.webp', preview: 'rough-paper.webp', mask: 'rough-paper.webp' },
   { id: 'aged-torn-stack', name: 'Torn parchment', image: 'aged-torn-stack.webp', preview: 'aged-torn-stack-thumb.webp', mask: 'aged-torn-stack-mask.webp' },
   { id: 'distressed-lined', name: 'Lined notebook', image: 'distressed-lined.webp', preview: 'distressed-lined-thumb.webp', mask: 'distressed-lined-mask.webp' },
   { id: 'vintage-torn-pieces', name: 'Folded letter', image: 'vintage-torn-pieces.webp', preview: 'vintage-torn-pieces-thumb.webp', mask: 'vintage-torn-pieces-mask.webp' },
   { id: 'rough-rice-paper', name: 'Rice paper', image: 'rough-rice-paper.webp', preview: 'rough-rice-paper-thumb.webp', mask: 'rough-rice-paper-mask.webp' },
-  { id: 'rough-vintage-frame', name: 'Weathered paper', image: 'rough-vintage-frame.webp', preview: 'rough-vintage-frame-thumb.webp', mask: 'rough-vintage-frame-mask.webp' },
   { id: 'torn-green-rough', name: 'Rough torn paper', image: 'torn-green-rough.webp', preview: 'torn-green-rough-thumb.webp', mask: 'torn-green-rough-mask.webp' },
-  { id: 'vintage-scrapbook', name: 'Scrapbook paper', image: 'vintage-scrapbook.webp', preview: 'vintage-scrapbook-thumb.webp', mask: 'vintage-scrapbook-mask.webp' },
   { id: 'worn-aged-paring', name: 'Aged note', image: 'worn-aged-paring.webp', preview: 'worn-aged-paring-thumb.webp', mask: 'worn-aged-paring-mask.webp' },
 ] as const;
 
-export type PaperId = typeof PAPER_DESIGNS[number]['id'];
-export const DEFAULT_PAPER_ID: PaperId = 'rough-paper';
-export const SCRAPBOOK_MAX_WORDS = 15;
-
-export function getPaperWordLimit(paperId: string): number {
-  return paperId === 'vintage-scrapbook' ? SCRAPBOOK_MAX_WORDS : MAX_WORDS;
-}
+export const DEFAULT_PAPER_ID = DEFAULT_PAPER.id;
+export type PaperId = typeof DEFAULT_PAPER_ID | typeof PAPER_DESIGNS[number]['id'];
 
 type PaperTextureStyle = CSSProperties & {
   '--paper-texture': string;
@@ -49,24 +45,23 @@ const PAPER_CARD_LAYOUT: Partial<Record<PaperId, {
   'torn-green-rough': {
     brandTop: '8%', contentTop: '5.75rem', copyWidth: '90%',
   },
-  'vintage-scrapbook': {
-    brandTop: '12%', contentTop: 'clamp(6rem, 27vw, 7rem)',
-    copyWidth: '86%', tableCopyWidth: '80%', brandShiftX: '18px', brandShiftY: '8px',
-  },
   'vintage-torn-pieces': { brandTop: '10%', contentTop: '6.25rem', brandShiftY: '2px' },
   'worn-aged-paring': { brandTop: '8%', contentTop: '5.5rem' },
 };
 
-/** Existing letters have no paper_id, so they keep the original paper design. */
+/** Unknown or retired paper IDs render as the original default design. */
 export function getPaperTextureStyle(paperId?: string | null): PaperTextureStyle {
-  const design = PAPER_DESIGNS.find(paper => paper.id === paperId)
-    ?? PAPER_DESIGNS[0];
-  const cardLayout = PAPER_CARD_LAYOUT[design.id];
+  const optionalDesign = PAPER_DESIGNS.find(paper => paper.id === paperId);
+  const isDefaultPaper = paperId === DEFAULT_PAPER_ID;
+  const isRetiredPaper = paperId != null && !isDefaultPaper && optionalDesign == null;
+  const effectivePaperId = isRetiredPaper ? null : paperId;
+  const design = isDefaultPaper ? DEFAULT_PAPER : optionalDesign ?? DEFAULT_PAPER;
+  const cardLayout = effectivePaperId == null ? undefined : PAPER_CARD_LAYOUT[design.id];
 
   return {
     '--paper-texture': `url('/textures/${design.image}')`,
     '--paper-mask': `url('/textures/${design.mask}')`,
-    ...(paperId != null && cardLayout
+    ...(effectivePaperId != null && cardLayout
       ? {
           '--paper-brand-top': cardLayout.brandTop,
           '--paper-content-top': cardLayout.contentTop,
@@ -76,20 +71,19 @@ export function getPaperTextureStyle(paperId?: string | null): PaperTextureStyle
           ...(cardLayout.tableCopyWidth ? { '--paper-table-copy-width': cardLayout.tableCopyWidth } : {}),
         }
       : {}),
-    ...(paperId != null && design.id !== 'rough-paper'
+    ...(effectivePaperId != null && design.id !== DEFAULT_PAPER_ID
       ? {
           // Match every new paper's visible footprint to the original asset.
           '--paper-art-inset-x': '4.75%',
           '--paper-art-inset-y': '2.5%',
         }
       : {}),
-    // New submissions store a paper_id. Legacy letters and the burn card do
-    // not, so they keep the original inset and appearance.
-    ...(paperId == null
+    // Missing and retired IDs retain the original default insets.
+    ...(effectivePaperId == null
       ? {}
       : {
           '--paper-texture-inset': '0px',
-          ...(design.id === 'rough-paper' ? {} : { '--paper-color-inset': '0px' }),
+          ...(design.id === DEFAULT_PAPER_ID ? {} : { '--paper-color-inset': '0px' }),
         }),
   } as PaperTextureStyle;
 }
